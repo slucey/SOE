@@ -464,7 +464,7 @@ knitr::include_graphics(file.path(image.dir, 'fishprodlegend.pdf'))
 
 ```
 
-```{r, fig.cap="Index of small fish/large fish from NEFSC surveys \\label{fishprodsurvey}", fig.height=0.05}
+```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for X species in the MAB. Annual anomalies shown are the average of spring and fall anomalies. \\label{fishprodsurvey}", fig.height=0.05}
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
