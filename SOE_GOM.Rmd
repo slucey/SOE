@@ -1,5 +1,5 @@
 ---
-title: "State of the Ecosystem -Gulf of Maine"
+title: "State of the Ecosystem - Gulf of Maine"
 author: "Ecosystem Dynamics and Assessment Branch, Northeast Fisheries Science Center"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
@@ -461,8 +461,8 @@ knitr::include_graphics(file.path(image.dir, 'Fish_Condition.jpg'))
 ##Groundfish productivity
 <!--The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are indications of a decrease in this indicator when aggregated across all species in the Mid-Atlantic.-->  
 ```{r, echo = F, fig.align='default', out.width='.75\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
-knitr::include_graphics(file.path(image.dir, 'FishProdMAB.pdf'))
-knitr::include_graphics(file.path(image.dir, 'fishprodlegend.pdf'))
+knitr::include_graphics(file.path(image.dir, 'GOMprod.pdf'))
+knitr::include_graphics(file.path(image.dir, 'ProdLegend.pdf'))
 
 ```
 
