@@ -18,8 +18,10 @@ output:
 #image.dir <- '/home/slucey/EcoAP/SOE2017/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
 library(data.table); library(Kendall)
 load(file.path(data.dir, 'SOE_data.RData'))
 knitr::opts_chunk$set(echo = FALSE, fig.align='center')
@@ -154,11 +156,11 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 ```
 
 #Overall View of the Ecosystem 
-The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses. An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highighting relationships between focal species groups (organized by MAFMC FMP), managed human activities, environmental drivers, habitats, and key ecological links. The activities link to high level strategic management objectives (described next). The model below is meant primarily to demonstrate the extent and complexity of ecosystem relationships. Specific key paths through the ecosystem that are relevant to managers will be supplied in later discussions. Many components of the conceptual model are represented by indicators in this report.
+The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses. An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highighting relationships between focal species groups (organized by MAFMC FMP), managed human activities, environmental drivers, habitats, and key ecological links. The activities link to high level strategic management objectives (described next). Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
 
 ##Conceptual model of ecosystem relationships
-```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", echo = F, out.width = "500pt", fig.align='center'}
-knitr::include_graphics(file.path(image.dir, 'MAB_2.png'))
+```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'MAB_5.png'))
 
 ```
 
@@ -184,10 +186,11 @@ tabl <- "
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
+\btwocol
 
 **The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level** for fishing mortality (F) rates and biomass (B) levels relative to established reference points, with the exception of F rates for summer flounder. This has been a focus of management. 
 
-```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", echo = F, out.width='300pt', message = FALSE, warning = FALSE}
+```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", echo = F, message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
 
 ```
@@ -208,15 +211,21 @@ Additional indicators in this report suggest a note of **caution for the aggrega
 
 This report currently lacks indicators for general objectives related to employment (information exists and can be updated) and habitat quality, quantity, and diversity. Risks to habitat including frequency and intensity of harmful algal blooms (HABs) in the region are being investigated, although information is in multiple locations with a range of accessibility. Data for cultural practices and attachments (e.g., number of generations of individual families involved in fishing, length of residence in individual fishing communities, use of kin as crew) require more investigation. 
 
+
 <!---##Living marine resources status
 Are the signs for higher or lower productivity? Earlier or later seasons? Changes in species mixes or interactions? 
 How many species are sustainably fished (or not)
 How many protected species are ok (or not)
 Anything to watch this year--interactions with the species in poor shape---> 
+\etwocol
 
 #Human Dimensions 
+\btwocol
+
 ##Community engagement and dependence on fisheries 
 Coastal communities have varying degress of engagement in and reliance on fishing. Engagement generally measures amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. In particular, communities in the Mid-Atlantic region have a more balanced reliance on recreational and commercial fishing than do other regions of the Northeast US shelf. 
+\etwocol
+
 
 ```{r Community engagement, echo = F, out.width='.40\\linewidth', fig.align='default', fig.show='hold'}
 knitr::include_graphics(file.path(image.dir, 'CommercialEngagement.pdf'))
@@ -238,18 +247,23 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
 
+\btwocol
+
 <!--##Aggregate measures of fishing performance--> 
 ## Climate Risk to Coastal Communities
 Mid-Atlantic communities clustered around the Chesapeake Bay area and the New Jersey shore have especially high vulnerability to sea level rise. These vulnerabilities include infrastructure (docks, marinas, bait shops, gear storage) and access to shore-based facilities due realignment of coastal communities.
 
 Mid-Atlantic fishing communities with total landings value of $100,000 or more were mapped for their dependence on species vulnerable to climate change and catch composition diversity (Simpson Reciprocal Index). A number of communities in southern New Jersey, Maryland and Virginia are highly dependent on species such as clams that are highly vulnerable to climate change while displaying low catch composition diversity. 
+\etwocol
 
 ```{r, fig.cap="Risks from sea level rise, reliance on climate-vulnerable species, and catch diversity \\label{commrisk}", echo = F}
 knitr::include_graphics(file.path(image.dir, 'MidClimateRisk.png'))
 ```
 
 ## Seafood Production
+\btwocol
 Seafood production is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. This indicator links the human activity commercial fishing to the seafood objective. Functional groups of species are listed with the codes below.
+\etwocol
 
 ##Species groupings  
 ```{r pars, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -266,6 +280,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+\btwocol
 Commercial landings include all landings in the region, including species not managed by MAFMC, with the notable exception of Atlantic menhaden. For example, category E, Benthivores, includes blue crabs, which are a substantial portion of the landings. In 2015, Benthos was 68% MAFMC managed, Macro-planktivores 100% (this would be much reduced with menhaden landings included), Mesoplanktivores 84%, Macrizooplanktivores 0%, Benthivores 17%, Piscivores 59%. 
 
 We also note that time series at the Mid-Atlantic regional scale may not include all states landings prior to 1994. This indicator is being refined to eventually distinguish landings sold for human consumption versus other uses. Further compilation of different agencies databases is required to include landings of menhaden. 
@@ -358,23 +373,28 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 ##Mariculture  
 Aquaculture indicators addresses both seafood production and possibly habitat objectives in that planted bivalves such as oysters may provide both habitat structure and contribute to improved water quality at sufficient numbers (we cannot evaluate that function here yet). Individual states collect and publish aquaculture production differently; at this time only information reported by VIMS is available for the Mid Atlantic region. 
 
-```{r Mariculture, fig.cap="Aquaculture stats from VA. A - hard clams, B - oysters \\label{mariculture}", echo = F, out.width='.45\\linewidth', fig.show='hold'}
 
+```{r Mariculture, fig.cap="Aquaculture stats from VA. A - hard clams, B - oysters \\label{mariculture}", echo = F, out.width='.9\\linewidth'}
+
+#, out.width='.45\\linewidth', fig.show='hold'
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'aquaculture VA hard clams sold', stacked = 'A')
 soe.plot(SOE.data, 'Time', 'aquaculture VA oysters sold', stacked = 'B')
 soe.stacked.axis('Year', expression('Amount sold, n x 10'^6))
 
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'aquaculture VA hard clams planted', stacked = 'A')
-soe.plot(SOE.data, 'Time', 'aquaculture VA oysters planted', stacked = 'B')
-soe.stacked.axis('Year', expression('Amount planted, n x 10'^6))
+#opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+#soe.plot(SOE.data, 'Time', 'aquaculture VA hard clams planted', stacked = 'A')
+#soe.plot(SOE.data, 'Time', 'aquaculture VA oysters planted', stacked = 'B')
+#soe.stacked.axis('Year', expression('Amount planted, n x 10'^6))
 
 ```
 
+\etwocol
 
 #Resource Species  
+\btwocol 
 Patterns for groups of species that feed on similar prey can indicate how overall ecosystem conditions are changing, and provide context for individual species stock assessments. This information is from NEFSC bottom trawl surveys in spring and fall.  
+
 
 ##Trends in biomass
 Biomass across trophic levels shows different trends between the fall and spring NEFSC trawl surveys, with few significant fall trends and many significant spring trends. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in both seasons. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled. 
@@ -434,6 +454,7 @@ soe.stacked.axis('Year', 'Expected n species / 100 fish', rel.y.text = 1)
 
 ##Species distribution
 Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. However, longfin squid distributions in the Mid Atlantic Bight have remained relatively stable. A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
+\etwocol
 
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
@@ -447,6 +468,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
 
+\btwocol
 ##Species condition
 Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while yellowtail flounder remain thin for their length on average.  
 ```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, fig.height=4}
@@ -458,6 +480,7 @@ knitr::include_graphics(file.path(image.dir, 'Fish_Condition.jpg'))
 
 ##Groundfish productivity
 The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are indications of a decrease in this indicator when aggregated across all species in the Mid-Atlantic. 
+\etwocol
 ```{r, echo = F, fig.align='default', out.width='.75\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'FishProdMAB.pdf'))
 knitr::include_graphics(file.path(image.dir, 'fishprodlegend.pdf'))
@@ -472,6 +495,8 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 
 #Species of concern
+\btwocol
+
 ##Marine mammals
 North Atlantic right whales are among the most endangered large whale populations in the world. Although the population increased steadily from 1990 to 2011, it has decreased recently. This is fully discussed in an upcoming assessment, but may be linked to both ecosystem conditions and human activities. Changes in right whale trends can have implications for fisheries management where fisheries interact with these whales. 
 ```{r, fig.cap="North Atlantic right whale estimated population \\label{rightwhale}", echo = F,  fig.height=2.5}
@@ -485,12 +510,14 @@ soe.plot(SOE.data, 'Time', 'Right whale population', x.label = 'Year',
 ##Endangered Fish
 Despite diverse population structures and management regimes, concurrent abundance declines in disparate North American and European Atlantic salmon populations suggest that conditions experienced at common marine areas may be causal.  Diet analysis of Atlantic salmon sampled off the coast of West Greenland demonstrated that they are consuming slightly less capelin by weight, but more lower quality prey (amphipods and squid) in contemporary times compared to the late 1960’s/early 1970’s. Further, the energy density of capelin, their primary prey item at Greenland (~40-90% annually), decreased by almost 34% after the regime shift. This coincides with an approximate 66% reduction in Atlantic salmon marine productivity and suggests that Atlantic salmon at Greenland may not be able to satisfy energy demands due to changes in regional trophic dynamics. The influence of declining resource quality is not unique to Atlantic salmon, as some populations of Atlantic cod, Bluefin tuna, seabirds, and marine mammals are either of lower body condition and/or not as productive as they once were in the region pre-1990. This may partially be a response to reduced prey quality caused by changes in bottom-up processes. Determining and understanding the mechanisms that influence marine food-webs is necessary to fully evaluate survival and productivity trends, and to establish realistic management targets for commercial, recreational, and protected species.
 
-```{r, fig.cap="Energy content of capelin\\label{energy}", echo = F,  fig.height=2.5}
+```{r, fig.cap="Energy content of capelin\\label{energy}", echo = F}
 knitr::include_graphics(file.path(image.dir, 'energycontent.png'))
 ```
-
+\etwocol
 
 #Lower Trophic Levels  
+\btwocol
+
 ##Phytoplankton production  
 Primary production has fluctuated recently with current conditions near average. This suggests that ecosystem production overall is relatively stable, although the trends in higher trophic levels reported above suggest that the uptake of primary production through benthic channels may be increasing over the long term, leading to the steady increase in benthos biomass over time. 
 ```{r, fig.cap="Primary production \\label{pp}", echo = F,  fig.height=2.5}
@@ -516,9 +543,11 @@ soe.plot(SOE.data, 'Time', 'MAB Yearly small copeopods anomaly', stacked = 'C', 
 
 soe.stacked.axis('Year', 'Anomaly', rel.y.text = 1)
 ```
-
+\etwocol
 
 #Physical Environment  
+\btwocol
+
 ##Annual sea surface temperature cycle  
 The Middle Atlantic Bight experienced above average sea surface temperatures (SSTs) during 2016. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions moderated in the Mid-Atlantic Bight to below average temperature conditions in June and July. The ecoregions warmed dramatically from late summer into fall and remained above average temperatures through the end of the year.
 
@@ -528,12 +557,14 @@ knitr::include_graphics(file.path(image.dir, 'ann_sst_ Middle Atlantic Bight .jp
 
 ##Long-term shelfwide sea surface temperature    
 Long-term sea surface temperature measurements have been collected off the Northeast Continental Shelf since the mid-1800s. The highest annual temperature in this time series was recorded in 2012, as the ecosystem warmed above the levels last seen in the late 1940s. The 2016 datum is the third highest temperature in the time series. The trend over the period 1856-2016, the full time series, was significant and positive, as is the trend over the most recent decade of the time series. 
+\etwocol
 ```{r, fig.cap="Long term sea surface temperature, Northeast US continental shelf \\label{ERSST}", echo=F, fig.height=2.75}
 opar <- par(mar = c(4, 4, 0, 0))
 soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
          rel.y.num = 1.1, rel.y.text=1, y.label = expression('Sea Surface Temp., '*degree*'C'), y.line = 2.5, tol=0.01)
 
 ```
+\btwocol
 
 ##Regional surface and bottom temperature  
 Temperatures measured on surveys in the Mid Atlantic Bight also show clear long term warming trends at both the surface and the bottom. 
@@ -569,9 +600,11 @@ soe.plot(SOE.data, 'Time', 'Bottom salinity MAB',  stacked = 'B', tol = 0.01, re
 
 soe.stacked.axis('Year', 'Salinity, PSU', y.line = 3.7, rel.y.text = 1)
 ```
-
+\etwocol
 
 #Climate Indices 
+\btwocol
+
 ##Gulf Stream North Wall
 Interannual and decadal shifts in the position of the Gulf Stream’s Northern Wall are associated with both deep ocean circulation and atmospheric fluctuations over the North Atlantic. An index of the position of the North Wall of the Gulf Stream (15 o C isotherm at 200 m depth), measured in degrees latitude, reveals a shift in the early 1980s from a low (more southerly) to a high (more northerly) index values, reaching a peak in the early-1990s. The Gulf Stream Index has been related to the spatial distribution and recruitment of certain U.S. NES commercial fish, phytoplankton blooms along the Shelf Break, and sea surface temperature in the Gulf of Maine such that a more northern Gulf Stream (positive index) is associated to warmer ocean temperature.  
 
@@ -587,6 +620,7 @@ soe.plot(SOE.data, 'Time', 'Gulf Stream Index', x.label = 'Year',
 ##Sea surface temperature phenology
 ##Ocean acidification
 ##Community level climate indicators-->
+
 # Research recommendations
 We are in the process of applying a suite of indicator evaluation criteria to the set of indicators presented here (as well as others not presented here) to provide more information on indicator performance.
 
@@ -599,4 +633,4 @@ http://www.nefsc.noaa.gov/ecosys/
 
 # Acknowldegements  
 The structure and framework of this report is based on best practices for Integrated Ecosystem Assessment (IEA) developed through the ICES Working Group for the Northwest Atlantic Regional Sea (WGNARS), a joint working group of the US and Canada. Funding and intellectual support from the NOAA NMFS Integrated Ecosystem Assessment Program was essential to the production of this report. Finally, we are grateful for the contributions of many workers throughout the Northeast US region that are represented by the indicators.
-
+\etwocol
