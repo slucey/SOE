@@ -524,10 +524,11 @@ soe.stacked.axis('Year', 'Anomaly', rel.y.text = 1)
 
 #Physical Environment  
 ##Annual sea surface temperature cycle  
-The Middle Atlantic Bight experienced above average sea surface temperatures (SSTs) during 2016. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions moderated in the Mid-Atlantic Bight to below average temperature conditions in June and July. The ecoregions warmed dramatically from late summer into fall and remained above average temperatures through the end of the year.
+The Gulf of Maine and Georges Bank ecoregions experienced above average sea surface temperatures (SSTs) during 2016. In each graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions were moderate on Georges Bank at temperature levels often matching the mean. Both ecoregions warmed dramatically from late summer into fall. The Gulf of Maine ecoregion remained at above average temperature through the end of the year, whereas Gorges Bank saw temperatures moderate at the end of December.
 
-```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, out.width='300pt'}
+```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, fig.show='hold', out.width='.45\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'ann_sst_ Gulf of Maine .jpeg'))
+knitr::include_graphics(file.path(image.dir, 'ann_sst_ Georges Bank .jpeg'))
 ```
 
 ##Long-term shelfwide sea surface temperature    
@@ -539,8 +540,26 @@ soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
 
 ```
 
-##Regional surface and bottom temperature  
-Temperatures measured on surveys in the Mid Atlantic Bight also show clear long term warming trends at both the surface and the bottom. 
+
+##Regional bottom temperature  
+The thermal conditions at the bottom of the water column are extremely important in defining the habitats for the majority of resource species. Unlike sea surface temperatures that can be measured synoptically with satellite telemetry, bottom temperatures must be measured directly from ship surveys and other means. Thus, we often have incomplete spatial and temporal sample coverage to describe bottom temperature conditions. Recently, scientists at the NEFSC developed an interpolation approach that provides a more accurate depiction of spring and fall bottom temperatures. The time series of April bottom temperature in the Gulf of Maine and Georges Bank suggest no trend over time, whereas the October  temperatures steadily increased over the past half century in both regions. This seasonal difference may be linked to the seasonally different trends observed in resource species biomass and species diversity above. 
+```{r, fig.cap="Interpolated survey bottom temperature, A: April, B: October \\label{survtemp}",echo = F, out.width='.5\\linewidth', fig.show='hold'}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'GOM spring bottom temperature', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'GOM fall bottom temperature', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
+
+soe.stacked.axis('Year', expression('GOM Bottom Temperature, '*degree*'C'), rel.y.text = 1)
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'GBK spring bottom temperature', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'GBK fall bottom temperature', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
+
+soe.stacked.axis('Year', expression('GB Bottom Temperature, '*degree*'C'), rel.y.text = 1)
+
+```
+
+<!--##Regional surface and bottom temperature  
+Temperatures measured on surveys in the Gulf of Maine also show clear long term warming trends at both the surface and the bottom. 
 ```{r, fig.cap="Survey measured temperature, A: Surface, B: Bottom \\label{survtemp}",echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Surface temp GOM', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
@@ -548,30 +567,41 @@ soe.plot(SOE.data, 'Time', 'Bottom temp GOM', stacked = 'B', tol = 0.01, rel.y.n
 
 soe.stacked.axis('Year', expression('Temperature, '*degree*'C'), rel.y.text = 1)
 ```
+-->
 
 <!--##Thermal habitat -->
 ##Species thermal habitat trends coastwide
 Temperature affects the behavior and physiology of marine organisms, thus it is a key determinant of habitat within the ecosystem. Cool water habitats (5-15°C), which are the core resident habitats of the ecosystem, show a negative trend over time declining on the order of 460 km 2 yr -1 , which is matched by a corresponding increase in warm water habitats (16-27°C) at a rate of 560 km2 yr-1. The trend on warm water habitats over the past decade is also significant, reflecting the occurrence of the four largest warm thermal habitat values during the last five years.
 
 ##Sea surface temperature forecast  
-Seasonal sea surface temperature forecasts are made from an ensemble of seven models over the period starting in February 2017 and ending in August 2017. There was relatively good model agreement in the forecasts for the Middle Atlantic Bight suggesting that sea surface temperature will rebound in the coming months to an ensemble mean of approximately 0.9°C above average. Skill of these forecasts for our specific region requires further evaluation. 
+Seasonal sea surface temperature forecasts are made from an ensemble of seven models over the period starting in February 2017 and ending in August 2017. There was greater model agreement in the forecasts for the Gulf of Maine versus the Gorges Bank forecast, both suggesting that sea surface temperature will remain approximately 1.2°C above average conditions. Skill of these forecasts for our specific region requires further evaluation. 
 
 <!--##Precipitation  -->
 ##Stratification and Salinity  
-<!--Stratification shows no clear trend in the Mid Atlantic. Similarly, surface salinity has no clear trend. However, salinity at the bottom has significantly increased over the most recent 10 years.--> 
+Stratification shows no clear trend in the Gulf of Maine, but a long term increasing trend on Georges Bank. Increased stratification can potentially alter system productivity by reducing nutrient supply to the primary producers in the surface layer. 
+
 ```{r, fig.cap="Stratification \\label{Stratification}", echo = F, fig.height=2.5 }
-opar <- par(mar = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GOM core', x.label = 'Year', rel.y.num = 1.2, rel.y.text = 1,
-         y.label = 'Stratification', y.line = 4.7)
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GOM core', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GB core', stacked = 'B', tol = 0.01, rel.y.num = 1.1)
+         
+soe.stacked.axis('Year', 'Stratification', y.line = 3.7, rel.y.text = 1)
 ```
 
-<!--Salinity structures habitat for living resources, however the effects of increased salinity on marine organisms are currently less clear than the effects of increased temperature. This significant increasing trend in bottom salinity warrants further investigation. --> 
-```{r , fig.cap="Survey measured salinity; A: Surface, B: Bottom \\label{Salinity}", echo = F, fig.height=3.5}
+Salinity structures habitat for living resources, however the effects of increased salinity on marine organisms are currently less clear than the effects of increased temperature. Salinity shows no significant trends over time in the Gulf of Maine, but surface salinity has increased significantly during the past 10 years on Georges Bank. This increasing trend in surface salinity warrants further investigation.  
+```{r , fig.cap="Survey measured salinity; A: Surface, B: Bottom \\label{Salinity}", echo = F, out.width='.5\\linewidth', fig.show='hold'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Surface salinity GOM', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
 soe.plot(SOE.data, 'Time', 'Bottom salinity GOM',  stacked = 'B', tol = 0.01, rel.y.num = 1.1)
 
-soe.stacked.axis('Year', 'Salinity, PSU', y.line = 3.7, rel.y.text = 1)
+soe.stacked.axis('Year', 'Gulf of Maine Salinity, PSU', y.line = 3.7, rel.y.text = 1)
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'Surface Salinity GB', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Bottom salinity GB',  stacked = 'B', tol = 0.01, rel.y.num = 1.1)
+
+soe.stacked.axis('Year', 'Georges Bank Salinity, PSU', y.line = 3.7, rel.y.text = 1)
+
 ```
 
 
@@ -587,6 +617,17 @@ soe.plot(SOE.data, 'Time', 'Gulf Stream Index', x.label = 'Year',
 ```
 
 <!--##Local scale indicators--> 
+##Daily temperature variability
+Climate change involves not only the change in level of climate parameters, it also involves change in system variability that can be seen in more dramatic shifts in weather in terrestrial systems and in ocean parameters on the Northeast Shelf. In an examination of daily sea surface temperatures in the Gulf of Maine and Georges Bank, system variability has increased as evidenced by the increase in the annual standard deviation of sea surface temperature, going from approximately 4.0 to 5.0 over the time period, indicating organisms have experienced greater day to day temperature excursions. 
+
+```{r, fig.cap="Standard deviation of annual sea surface temperature; A: Gulf of Maine, B: Georges Bank  \\label{sstSD}", echo = F, fig.height=3.5 }
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'GOM sst standard deviation', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'GBK sst standard deviation',  stacked = 'B', tol = 0.01, rel.y.num = 1.1)
+
+soe.stacked.axis('Year', expression('Sea surface temperature SD, '*degree*'C'), y.line = 3.7, rel.y.text = 1)
+```
+
 ##Inundation
 Sea level change occurring in the Northeast Shelf Ecosystem and on global scales reflects increased thermal expansion of the world’s ocean and an increase in ocean water volume resulting from the accelerated melting of glaciers and ice on land and at sea. Sea level has risen by nearly 0.35m in the southern states bordering the Northeast Shelf Ecosystem and on the order of 0.25m in the northern states; the data from these gauging stations is set relative to the most recent mean sea level established by NOAA’s Center for Operational Oceanographic Products and Services (CO-OPS). The rate of sea level change is expected to increase in the coming decades. With expectations of rising sea level, coastal communities face the likelihood of more frequent flooding of coastal structures and land habitats. 
 

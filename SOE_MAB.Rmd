@@ -221,6 +221,7 @@ How many protected species are ok (or not)
 Anything to watch this year--interactions with the species in poor shape---> 
 \etwocol
 
+______________________________________________________________________________________________________________ 
 #Human Dimensions 
 \btwocol
 
@@ -391,6 +392,7 @@ soe.stacked.axis('Year', expression('Amount planted, n x 10'^6))
 ```
 \etwocol
 
+______________________________________________________________________________________________________________ 
 #Resource Species  
 \btwocol 
 Patterns for groups of species that feed on similar prey can indicate how overall ecosystem conditions are changing, and provide context for individual species stock assessments. This information is from NEFSC bottom trawl surveys in spring and fall.  
@@ -505,6 +507,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
 
+______________________________________________________________________________________________________________ 
 #Species of concern
 \btwocol
 
@@ -535,6 +538,7 @@ knitr::include_graphics(file.path(image.dir, 'eel.png'))
 ```
 \etwocol
 
+______________________________________________________________________________________________________________  
 #Lower Trophic Levels  
 \btwocol
 
@@ -565,6 +569,7 @@ soe.stacked.axis('Year', 'Anomaly', rel.y.text = 1)
 ```
 \etwocol
 
+______________________________________________________________________________________________________________ 
 #Physical Environment  
 \btwocol
 
@@ -586,7 +591,17 @@ soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
 ```
 \btwocol
 
-##Regional surface and bottom temperature  
+##Regional bottom temperature  
+The thermal conditions at the bottom of the water column are extremely important in defining the habitats for the majority of resource species. Unlike sea surface temperatures that can be measured synoptically with satellite telemetry, bottom temperatures must be measured directly from ship surveys and other means. Thus, we often have incomplete spatial and temporal sample coverage to describe bottom temperature conditions. Recently, scientists at the NEFSC developed an interpolation approach that provides a more accurate depiction of spring and fall bottom temperatures. The time series of April bottom temperature in the Middle Atlantic Bight suggest no trend over time, whereas the October  temperatures steadily increased over the past half century. This seasonal difference may be linked to the seasonally different trends observed in resource species biomass and species diversity above. 
+```{r, fig.cap="Interpolated survey bottom temperature, A: April, B: October \\label{survtemp}",echo = F, fig.height=3.5}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'MAB spring bottom temperature', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'MAB fall bottom temperature', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
+
+soe.stacked.axis('Year', expression('Bottom Temperature, '*degree*'C'), rel.y.text = 1)
+```
+
+<!--
 Temperatures measured on surveys in the Mid Atlantic Bight also show clear long term warming trends at both the surface and the bottom. 
 ```{r, fig.cap="Survey measured temperature, A: Surface, B: Bottom \\label{survtemp}",echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -595,6 +610,7 @@ soe.plot(SOE.data, 'Time', 'Bottom temp MAB', stacked = 'B', tol = 0.01, rel.y.n
 
 soe.stacked.axis('Year', expression('Temperature, '*degree*'C'), rel.y.text = 1)
 ```
+-->
 
 <!--##Thermal habitat -->
 ##Species thermal habitat trends coastwide
@@ -622,6 +638,7 @@ soe.stacked.axis('Year', 'Salinity, PSU', y.line = 3.7, rel.y.text = 1)
 ```
 \etwocol
 
+______________________________________________________________________________________________________________ 
 #Climate Indices 
 \btwocol
 
@@ -636,6 +653,16 @@ soe.plot(SOE.data, 'Time', 'Gulf Stream Index', x.label = 'Year',
 ```
 
 <!--##Local scale indicators--> 
+##Daily temperature variability
+Climate change involves not only the change in level of climate parameters, it also involves change in system variability that can be seen in more dramatic shifts in weather in terrestrial systems and in ocean parameters on the Northeast Shelf. In an examination of daily sea surface temperatures in the Middle Atlantic Bight, system variability has increased as evidenced by the increase in the annual standard deviation of sea surface temperature, going from approximately 5.8 to 6.4 over the time period, indicating organisms have experienced greater day to day temperature excursions. 
+
+```{r, fig.cap="Standard deviation of annual sea surface temperature  \\label{sstSD}", echo = F, fig.height=2.5 }
+opar <- par(mar = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'MAB sst standard deviation', x.label = 'Year',
+         rel.y.num = 1.1, y.label = expression('Sea surface temperature SD, '*degree*'C'),
+         tol = 0.001, rel.y.text = 0.8)
+```
+
 ##Inundation
 Sea level change occurring in the Northeast Shelf Ecosystem and on global scales reflects increased thermal expansion of the world’s ocean and an increase in ocean water volume resulting from the accelerated melting of glaciers and ice on land and at sea. Sea level has risen by nearly 0.35m in the southern states bordering the Northeast Shelf Ecosystem and on the order of 0.25m in the northern states; the data from these gauging stations is set relative to the most recent mean sea level established by NOAA’s Center for Operational Oceanographic Products and Services (CO-OPS). The rate of sea level change is expected to increase in the coming decades. With expectations of rising sea level, coastal communities face the likelihood of more frequent flooding of coastal structures and land habitats. 
 
