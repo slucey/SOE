@@ -8,9 +8,12 @@ output:
       in_header: preamble-latex.tex
     keep_tex: yes
     pandoc_args: --latex-engine=xelatex
-    toc: yes
+    toc: no
   html_document:
     toc: yes
+fontsize: 11pt
+geometry: margin=0.8in
+
 ---
 
 ```{r Directory and Data Set-up, echo = F, message = F}
@@ -47,10 +50,10 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   x <- x[X >= x.start, ]
  
   #Set up plot parameters
-  y.max <- max(x[, Value]) + tol * max(x[, Value])
-  y.min <- min(x[, Value]) - tol * abs(min(x[, Value]))
-  y.mean <- mean(x[, Value])
-  y.sd <- sd(x[, Value])
+  y.max <- max(x[, Value], na.rm = T) + tol * max(x[, Value], na.rm = T)
+  y.min <- min(x[, Value], na.rm = T) - tol * abs(min(x[, Value], na.rm = T))
+  y.mean <- mean(x[, Value], na.rm = T)
+  y.sd <- sd(x[, Value], na.rm = T)
  
   #Plot blank plot
   plot(x[X >= x.start, list(X, Var)], xlim = c(x.start, x.end),
@@ -632,7 +635,11 @@ soe.stacked.axis('Year', expression('Sea surface temperature SD, '*degree*'C'), 
 Sea level change occurring in the Northeast Shelf Ecosystem and on global scales reflects increased thermal expansion of the world’s ocean and an increase in ocean water volume resulting from the accelerated melting of glaciers and ice on land and at sea. Sea level has risen by nearly 0.35m in the southern states bordering the Northeast Shelf Ecosystem and on the order of 0.25m in the northern states; the data from these gauging stations is set relative to the most recent mean sea level established by NOAA’s Center for Operational Oceanographic Products and Services (CO-OPS). The rate of sea level change is expected to increase in the coming decades. With expectations of rising sea level, coastal communities face the likelihood of more frequent flooding of coastal structures and land habitats. 
 
 ```{r, fig.cap="Sea level change, all Northeast States \\label{sealevel}" , echo=F, fig.height=2.5}
-knitr::include_graphics(file.path(image.dir, 'msl_all states .jpeg'))
+#knitr::include_graphics(file.path(image.dir, 'msl_all states .jpeg'))
+opar <- par(mar = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'Relative sea level change all states', x.label = 'Year',
+         rel.y.num = 1.1, y.label = "Relative sea level change, m",
+         tol = 0.001, rel.y.text = 0.8)
 ```
 
 ##Deep Ocean Circulation
