@@ -11,9 +11,8 @@ output:
     toc: no
   html_document:
     toc: yes
-fontsize: 11pt
 geometry: margin=0.8in
-
+fontsize: 11pt
 ---
 
 ```{r Directory and Data Set-up, echo = F, message = F}
@@ -21,10 +20,10 @@ geometry: margin=0.8in
 #image.dir <- '/home/slucey/EcoAP/SOE2017/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
-data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
-image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
 library(data.table); library(Kendall)
 load(file.path(data.dir, 'SOE_data.RData'))
 knitr::opts_chunk$set(echo = FALSE, fig.align='center')
@@ -50,10 +49,10 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   x <- x[X >= x.start, ]
  
   #Set up plot parameters
-  y.max <- max(x[, Value]) + tol * max(x[, Value])
-  y.min <- min(x[, Value]) - tol * abs(min(x[, Value]))
-  y.mean <- mean(x[, Value])
-  y.sd <- sd(x[, Value])
+  y.max <- max(x[, Value], na.rm = T) + tol * max(x[, Value], na.rm = T)
+  y.min <- min(x[, Value], na.rm = T) - tol * abs(min(x[, Value], na.rm = T))
+  y.mean <- mean(x[, Value], na.rm = T)
+  y.sd <- sd(x[, Value], na.rm = T)
  
   #Plot blank plot
   plot(x[X >= x.start, list(X, Var)], xlim = c(x.start, x.end),
@@ -286,11 +285,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 \btwocol
 Commercial landings include all landings in the region, including species not managed by MAFMC, with the notable exception of Atlantic menhaden. For example, category E, Benthivores, includes blue crabs, which are a substantial portion of the landings. In 2015, Benthos was 68% MAFMC managed, Macro-planktivores 100% (this would be much reduced with menhaden landings included), Mesoplanktivores 84%, Macrizooplanktivores 0%, Benthivores 17%, Piscivores 59%. 
 
-We also note that time series at the Mid-Atlantic regional scale may not include all states landings prior to 1994. This indicator is being refined to eventually distinguish landings sold for human consumption versus other uses. Further compilation of different agencies databases is required to include landings of menhaden. 
-
 In these and subsequent time series plots, trends are assessed for both the full time series and the most recent 10 years (shaded dark grey background). Significant increasing trends have orange lines, while significant decreasing trends have purple lines. Dotted white horizontal lines indicate +- 1 standard deviation from the long term time series mean.
 
-```{r Commerical Landings, fig.cap="Commercial landings of A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commland}", echo = F, fig.height=6}
+```{r Commerical Landings, fig.cap="Commercial landings of A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commland}", echo = F, fig.height=7}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'MAB Benthos Landings',            
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'A')
@@ -308,13 +305,14 @@ soe.plot(SOE.data, 'Time', 'MAB Piscivore Landings',
 soe.stacked.axis('Year', expression('Commercial Landings, 10'^3*'mt'))
 
 ```
+We note that time series at the Mid-Atlantic regional scale may not include all state landings prior to 1994. This indicator is being refined to distinguish landings sold for human consumption versus other uses, and to include landings of menhaden. 
 
 ## Commercial Fishery Revenue
 This indicator links the human activity commercial fishing to the profits objective. We note that time series at the Mid-Atlantic regional scale may not include all states landings prior to 1994, which affect revenue calculations. Similarly, 2006 and 2010 were missing some revenue data for some species.
 
 Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the region over the last 5 years. By species group, in 2015, Benthos revenue was from 11% MAFMC managed species, Macro-planktivores 100% (would be reduced if including menhaden), Mesoplanktivores 97%, Macrizooplanktivores 0%, Benthivores 14%, Piscivores 67%. 
 
-```{r, fig.cap="Commercial revenue from A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commrev}", echo = F, fig.height=6}
+```{r, fig.cap="Commercial revenue from A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commrev}", echo = F, fig.height=7}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'MAB Benthos Revenue',            
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'A')
@@ -400,8 +398,7 @@ Patterns for groups of species that feed on similar prey can indicate how overal
 ##Trends in biomass
 Biomass across trophic levels shows different trends between the fall and spring NEFSC trawl surveys, with few significant fall trends and many significant spring trends. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in both seasons. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled. 
 
-Seasonally divergent aggregate biomass trends require further investigation. They could indicate the trends of different fish communities with seasonal differences that are the result of regular seasonal migrations, or they could indicate movement of new species into/out of the region on a seasonal basis, or both. These trends across trophic levels point to the potentially complex and dynamic trophic structure of the Mid-Atlantic ecosystem. 
-```{r, fig.cap="Fall survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{fallsurvB}", echo = F, fig.height = 6}
+```{r, fig.cap="Fall survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{fallsurvB}", echo = F, fig.height = 7}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'MAB Benthos Fall',            
          rel.y.num = 1.2,  stacked = 'A')
@@ -419,8 +416,9 @@ soe.plot(SOE.data, 'Time', 'MAB Piscivore Fall',
 soe.stacked.axis('Year', expression('Survey biomass, kg tow'^-1))
 ```
 
+Seasonally divergent aggregate biomass trends require further investigation. They could indicate the trends of different fish communities with seasonal differences that are the result of regular seasonal migrations, or they could indicate movement of new species into/out of the region on a seasonal basis, or both. These trends across trophic levels point to the potentially complex and dynamic trophic structure of the Mid-Atlantic ecosystem. 
 
-```{r ,fig.cap="Spring survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{springsurvB}", echo = F, fig.height = 6}
+```{r ,fig.cap="Spring survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{springsurvB}", echo = F, fig.height = 7}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'MAB Benthos Spring',            
          rel.y.num = 1.2, stacked = 'A')
@@ -454,15 +452,28 @@ soe.stacked.axis('Year', 'Expected n species / 100 fish', rel.y.text = 1)
 ```
 
 ##Species distribution
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for all species by year is shown below, with the 2016 value marked with a dashed red line.
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below.
 
-```{r, fig.cap="Shifts in species distribution over time \\label{shifts}", out.width='\\linewidth', echo = F, message = FALSE, warning = FALSE}
-knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
+```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, echo = F, message = FALSE, warning = FALSE}
+#knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
+#out.width='\\linewidth'
+
+#SOE.data[Var %like% "ASDIST"]
+opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+soe.plot(SOE.data, 'Time', 'BLACK SEA BASS ASDIST', stacked = "A")
+soe.plot(SOE.data, "Time", "SUMMER FLOUNDER ASDIST", stacked = "B")
+soe.plot(SOE.data, "Time", "SCUP ASDIST", stacked = "C")
+soe.plot(SOE.data, "Time", "BUTTERFISH ASDIST", stacked = "D")
+soe.plot(SOE.data, "Time", "ATLANTIC MACKEREL ASDIST", stacked = "E")
+soe.plot(SOE.data, "Time", "LONGFIN SQUID ASDIST", stacked = "F")
+soe.plot(SOE.data, "Time", "NORTHERN SHORTFIN SQUID ASDIST", stacked = "G")
+soe.stacked.axis('Year', 'Along shelf distance, km', rel.y.text = 1)
 
 ```
 
-Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. However, longfin squid distributions in the Mid Atlantic Bight have remained relatively stable. A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
-\etwocol
+Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid Atlantic Bight have remained relatively stable. 
+<!--\etwocol-->
 
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
@@ -475,7 +486,8 @@ opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
-\btwocol
+<!--\btwocol-->
+A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 <!--
 ```{r, fig.cap="Shifts in species distribution, 1970s (blue), recent (red) and overlap (purple) \\label{dists}", echo = F, message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
@@ -494,10 +506,10 @@ knitr::include_graphics(file.path(image.dir, 'Fish_Condition.jpg'))
 
 ##Groundfish productivity
 The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are indications of a decrease in this indicator when aggregated across all species in the Mid-Atlantic. 
-\etwocol
-```{r, echo = F, fig.align='default', out.width='.75\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
+<!--\etwocol-->
+```{r, echo = F, fig.align='default', out.width='\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'FishProdMAB.pdf'))
-knitr::include_graphics(file.path(image.dir, 'fishprodlegend.pdf'))
+#knitr::include_graphics(file.path(image.dir, 'fishprodlegend.pdf'))
 
 ```
 
@@ -506,9 +518,10 @@ opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
+\etwocol  
 
-______________________________________________________________________________________________________________ 
-#Species of concern
+______________________________________________________________________________________________________________  
+#Species of concern 
 \btwocol
 
 ##Marine mammals
@@ -522,13 +535,13 @@ soe.plot(SOE.data, 'Time', 'Right whale population', x.label = 'Year',
 <!--##Turtles
 ##Seabirds--> 
 ##Endangered Fish
-Despite diverse population structures and management regimes, concurrent abundance declines in disparate North American and European Atlantic salmon populations suggest that conditions experienced at common marine areas may be causal.  Diet analysis of Atlantic salmon sampled off the coast of West Greenland demonstrated that they are consuming slightly less capelin by weight, but more lower quality prey (amphipods and squid) in contemporary times compared to the late 1960’s/early 1970’s. Further, the energy density of capelin, their primary prey item at Greenland (~40-90% annually), decreased by almost 34% after the regime shift. This coincides with an approximate 66% reduction in Atlantic salmon marine productivity and suggests that Atlantic salmon at Greenland may not be able to satisfy energy demands due to changes in regional trophic dynamics. The influence of declining resource quality is not unique to Atlantic salmon, as some populations of Atlantic cod, bluefin tuna, seabirds, and marine mammals are either of lower body condition and/or not as productive as they once were in the region pre-1990. This may partially be a response to reduced prey quality caused by changes in bottom-up processes. Determining and understanding the mechanisms that influence marine food-webs is necessary to fully evaluate survival and productivity trends, and to establish realistic management targets for commercial, recreational, and protected species.
+Despite diverse population structures and management regimes, concurrent abundance declines in disparate North American and European Atlantic salmon populations suggest that marine feeding conditions may be poor.  Diet analysis of Atlantic salmon sampled off the coast of West Greenland demonstrated that they are consuming slightly less capelin by weight, but more lower quality prey (amphipods and squid) recently compared to 1960-1970. Further, the energy density of capelin, their primary prey item at Greenland (~40-90% annually), decreased by almost 34% recently. This coincides with an approximate 66% reduction in Atlantic salmon marine productivity. The influence of declining resource quality is not unique to Atlantic salmon, as some populations of Atlantic cod, bluefin tuna, seabirds, and marine mammals are either of lower body condition and/or not as productive as they once were in the region pre-1990. This may partially be a response to reduced prey quality caused by changes in bottom-up processes. Determining and understanding the mechanisms that influence marine food-webs is necessary to fully evaluate survival and productivity trends, and to establish realistic management targets for commercial, recreational, and protected species.
 
 ```{r, fig.cap="Energy content of capelin\\label{energy}", echo = F, out.width='\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'energycontent.png'))
 ```
 
-The American eel, like the European eel, has declined in abundance over the past half century to the point that they are both listed by International Union for Conservation of Nature as endangered. The American eel underwent a status review in the United States, most recently in 2015, and is not considered endangered, however, it is still a species of concern. Eel are difficult to assess in the United States since we lack the types of life stage surveys in place in Europe. However, recent analyses of our existing databases suggest eel may have experienced some level of recovery since the late 1990s. The index is based on catch and trip effort from NOAA recreational fisheries database, selected since it has direct reporting of discard data.
+<!--The American eel, like the European eel, has declined in abundance over the past half century to the point that they are both listed by International Union for Conservation of Nature as endangered. The American eel underwent a status review in the United States, most recently in 2015, and is not considered endangered, however, it is still a species of concern. Eel are difficult to assess in the United States since we lack the types of life stage surveys in place in Europe. However, recent analyses of our existing databases suggest eel may have experienced some level of recovery since the late 1990s. The index is based on catch and trip effort from NOAA recreational fisheries database, selected since it has direct reporting of discard data.
 
 ```{r, fig.cap="American eel abundance index\\label{eel}", echo = F, out.width='\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'eel.png'))
@@ -536,6 +549,7 @@ knitr::include_graphics(file.path(image.dir, 'eel.png'))
 #soe.plot(eel.data, 'Time', 'American eel index', x.label = 'Year', 
 #        y.label = 'n caught per trip')
 ```
+-->
 \etwocol
 
 ______________________________________________________________________________________________________________  
@@ -552,13 +566,31 @@ soe.plot(SOE.data, 'Time', 'MAB PPD', x.label = 'Year',
 
 ```
 
+The observed stability in system productivity is in contrast to an apparent shift in the timing of the bloom cycle in the Middle Atlantic Bight. Comparing remote sensing information from the 1970-80s to recent information suggest that winter productivity was higher in the Bight and that the spring bloom we see today was not as prominent. This change in phytoplankton seasonal biomass may be related to the changes seen in the zooplankton community (see below) suggesting a grazing effect; but, whatever the mechanism associated with these changes, shifts in timing of low trophic level production can affect resource fish species and their early life history stages that feed on zooplankton.
+
+```{r, fig.cap="Comparison of 1970-80s annual primary productivity cycle (black) with 1997-present (orange) \\label{PPcycle}", out.width='.9\\linewidth'}
+knitr::include_graphics(file.path(image.dir, 'PPbloomtiming.png'))
+```
+
+
 ##Harmful algal blooms   
 Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic region is sparse.  In the lower Chesapeake Bay, annual blooms of the dinoflagellate *Cochlodinium polykrikoides* have been observed for several decades and more recently, blooms of *Alexandrium monilatum*, a toxin-producing dinoflagellate common to the Gulf of Mexico, has invaded the region.  Both dinoflagellate species have been associated with fish kills either directly or indirectly, due to hypoxic events following a bloom.  Blooms of *C. polykrikoides* have also occurred on a nearly annual basis in the Long Island Sound region. Other major HAB events have been observed along the Eastern Shore of Maryland and Virginia, and in and around Narragansett Bay, but typically not on an annual basis.
 
 ##Zooplankton  
 Zooplankton provide a critical link between phytoplankton at the base of the food web, and higher trophic organisms such as fish, mammals, and birds. Changes in the species compostion and biomass of the zooplankton community have a great potential to affect recruitment success and fisheries productivity, and climate change may be the most important pathway for these changes to manifest. Therefore these indices are relevant to both productivity and trophic structure objectives.  
 
-One simple indicator of overall zooplankton biomass is the volume of material collected in plankton nets, which has been relatively consistent, suggesting large scale coherence in zooplankton throughout much of NES. While the anomalies show no significant long or short term trends, the composition of the zooplankton community shows shifts over time. Specifically, small copepods increased in abundance in the 1990s, but shifted to larger bodied copepod species around 2000. There is evidence of a more recent shift, with both smaller zooplankton and *Calanus finmarchicus* becoming more abundant again over the last several years. The small copeods are most important during the autumn while *Calanus finmarchicus* dominates early in the year following the spring phytoplankton bloom. Adult *Calanus* are the principal prey of North Atlantic right whales; any reduction in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
+Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume suggest that overall zooplankton production has not changed over time. However, the dominant species of zooplankton in the Bight, *Centropages typicus* shows a seasonal shift in abundance, suggesting a change in timing of zooplankton reproductive cycles, which may be impacting fish species such as mackerel.
+
+```{r , fig.cap="A: Centropages typicus spring, B: Centropages typicus fall \\label{Ctyp}", echo = F, fig.height=3.5}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'Centropages typicus spring', stacked = 'A', tol = 0.03, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Centropages typicus fall', stacked = 'B', tol = 0.03, rel.y.num = 1.1)
+
+soe.stacked.axis('Year', expression('num per 100 m' ^ '3'), rel.y.text = 1.1)
+```
+
+
+<!--One simple indicator of overall zooplankton biomass is the volume of material collected in plankton nets, which has been relatively consistent, suggesting large scale coherence in zooplankton throughout much of NES. While the anomalies show no significant long or short term trends, the composition of the zooplankton community shows shifts over time. Specifically, small copepods increased in abundance in the 1990s, but shifted to larger bodied copepod species around 2000. There is evidence of a more recent shift, with both smaller zooplankton and *Calanus finmarchicus* becoming more abundant again over the last several years. The small copeods are most important during the autumn while *Calanus finmarchicus* dominates early in the year following the spring phytoplankton bloom. Adult *Calanus* are the principal prey of North Atlantic right whales; any reduction in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
 ```{r zooplankton anomoly, fig.cap="A: Calanus, B: zooplankton biomass, C: small copepods", echo = F, fig.height=4}
 opar <- par(mfrow = c(3, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'MAB Yearly Calanus Anomaly', stacked = 'A', tol = 0.01)
@@ -567,6 +599,7 @@ soe.plot(SOE.data, 'Time', 'MAB Yearly small copeopods anomaly', stacked = 'C', 
 
 soe.stacked.axis('Year', 'Anomaly', rel.y.text = 1)
 ```
+--> 
 \etwocol
 
 ______________________________________________________________________________________________________________ 
@@ -576,20 +609,20 @@ ________________________________________________________________________________
 ##Annual sea surface temperature cycle  
 The Middle Atlantic Bight experienced above average sea surface temperatures (SSTs) during 2016. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions moderated in the Mid-Atlantic Bight to below average temperature conditions in June and July. The ecoregions warmed dramatically from late summer into fall and remained above average temperatures through the end of the year.
 
-```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, out.width='\\linewidth'}
+```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, out.width='.9\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'ann_sst_ Middle Atlantic Bight .jpeg'))
 ```
 
 ##Long-term shelfwide sea surface temperature    
 Long-term sea surface temperature measurements have been collected off the Northeast Continental Shelf since the mid-1800s. The highest annual temperature in this time series was recorded in 2012, as the ecosystem warmed above the levels last seen in the late 1940s. The 2016 datum is the third highest temperature in the time series. The trend over the period 1856-2016, the full time series, was significant and positive, as is the trend over the most recent decade of the time series. 
-\etwocol
+<!--\etwocol-->
 ```{r, fig.cap="Long term sea surface temperature, Northeast US continental shelf \\label{ERSST}", echo=F, fig.height=2.5}
 opar <- par(mar = c(4, 4, 0, 0))
 soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
          rel.y.num = 1.1, rel.y.text=1, y.label = expression('Sea Surface Temp., '*degree*'C'), y.line = 2.5, tol=0.01)
 
 ```
-\btwocol
+<!--\btwocol-->
 
 ##Regional bottom temperature  
 The thermal conditions at the bottom of the water column are extremely important in defining the habitats for the majority of resource species. Unlike sea surface temperatures that can be measured synoptically with satellite telemetry, bottom temperatures must be measured directly from ship surveys and other means. Thus, we often have incomplete spatial and temporal sample coverage to describe bottom temperature conditions. Recently, scientists at the NEFSC developed an interpolation approach that provides a more accurate depiction of spring and fall bottom temperatures. The time series of April bottom temperature in the Middle Atlantic Bight suggest no trend over time, whereas the October  temperatures steadily increased over the past half century. This seasonal difference may be linked to the seasonally different trends observed in resource species biomass and species diversity above. 
@@ -666,8 +699,12 @@ soe.plot(SOE.data, 'Time', 'MAB sst standard deviation', x.label = 'Year',
 ##Inundation
 Sea level change occurring in the Northeast Shelf Ecosystem and on global scales reflects increased thermal expansion of the world’s ocean and an increase in ocean water volume resulting from the accelerated melting of glaciers and ice on land and at sea. Sea level has risen by nearly 0.35m in the southern states bordering the Northeast Shelf Ecosystem and on the order of 0.25m in the northern states; the data from these gauging stations is set relative to the most recent mean sea level established by NOAA’s Center for Operational Oceanographic Products and Services (CO-OPS). The rate of sea level change is expected to increase in the coming decades. With expectations of rising sea level, coastal communities face the likelihood of more frequent flooding of coastal structures and land habitats. 
 
-```{r, fig.cap="Sea level change, all Northeast States \\label{sealevel}" , echo=F, out.width='\\linewidth'}
-knitr::include_graphics(file.path(image.dir, 'msl_all states .jpeg'))
+```{r, fig.cap="Sea level change, all Northeast States \\label{sealevel}" , echo=F, fig.height=2.5}
+#knitr::include_graphics(file.path(image.dir, 'msl_all states .jpeg'))
+opar <- par(mar = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'Relative sea level change all states', x.label = 'Year',
+         rel.y.num = 1.1, y.label = "Relative sea level change, m",
+         tol = 0.001, rel.y.text = 0.8)
 ```
 
 ##Deep Ocean Circulation
