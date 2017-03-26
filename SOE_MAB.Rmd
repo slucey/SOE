@@ -500,7 +500,7 @@ knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
 Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while yellowtail flounder remain thin for their length on average.  
 ```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, fig.height=4}
 #I will get the actual code here eventually but just don't have time right now
-knitr::include_graphics(file.path(image.dir, 'Fish_Condition.jpg'))
+knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition.jpg'))
 
 ```
 
@@ -708,7 +708,7 @@ soe.plot(SOE.data, 'Time', 'Relative sea level change all states', x.label = 'Ye
 ```
 
 ##Deep Ocean Circulation
-The upper ocean flow of warm, salty water to the high latitude North Atlantic where it cools and sinks to form North Atlantic Deep Water, which flows to the south is a primary driver of the global ocean conveyor belt (thermohaline circulation).  Measurements of this flow in the Atlantic began in 2004.  Since measurements began over 10 years ago, the ciruclation appears to have weakened.  When this circulation is weaker than average, the Gulf Stream Northern Wall is typically further north and sea level along the U.S. east coast is higher than average.  Climate change projections from global models suggest that this deep ocean circulation will weaken under continued increases of greenhouse gas concentrations in the atmosphere.  This weakening may also lead to a northern shift of the Gulf Stream and a higher proportion of warmer Slope water entering the U.S. NES leading to an enhanced warming of the Shelf’s waters under climate change. Regional ndicators reported here show that warming and sea level rise is already happening. 
+The upper ocean flow of warm, salty water to the high latitude North Atlantic where it cools and sinks to form North Atlantic Deep Water, which flows to the south is a primary driver of the global ocean conveyor belt (thermohaline circulation).  Measurements of this flow in the Atlantic began in 2004.  Since measurements began over 10 years ago, the ciruclation appears to have weakened.  When this circulation is weaker than average, the Gulf Stream Northern Wall is typically further north and sea level along the U.S. east coast is higher than average.  Climate change projections from global models suggest that this deep ocean circulation will weaken under continued increases of greenhouse gas concentrations in the atmosphere.  This weakening may also lead to a northern shift of the Gulf Stream and a higher proportion of warmer Slope water entering the U.S. NES leading to an enhanced warming of the Shelf’s waters under climate change. Regional indicators reported here show that warming and sea level rise is already happening. 
 
 <!--##Sea surface temperature phenology
 ##Ocean acidification
