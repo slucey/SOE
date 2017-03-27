@@ -84,10 +84,12 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
     if(stacked!= 'A') axis(3, cex.axis = 1.5, tck = 0.1, labels = F)
   }
   #Stacked axes with 0 overlap so need to remove
-  labels <- axTicks(2) / scale.axis
-  if(labels[1] == 0) labels[1] <- ''
-  axis(2, at = axTicks(2), labels = labels, cex.axis = rel.y.num,
-       las = T)
+  if(scale.axis != 1){
+        labels <- axTicks(2) / scale.axis
+        if(labels[1] == 0) labels[1] <- ''
+        axis(2, at = axTicks(2), labels = as.numeric(labels), cex.axis = rel.y.num,
+             las = T)
+    } else {axis(2, cex.axis = rel.y.num, las = T)}
  
   #Identify significant trends
   #Whole time series
