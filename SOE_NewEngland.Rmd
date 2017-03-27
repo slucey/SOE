@@ -18,14 +18,18 @@ fontsize: 11pt
 ```{r Directory and Data Set-up, echo = F, message = F}
 #data.dir  <- '/home/slucey/EcoAP/SOE2017/data'
 #image.dir <- '/home/slucey/EcoAP/SOE2017/images'
+#gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
 data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
 image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
 #image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
-library(data.table); library(Kendall)
+library(data.table); library(Kendall); library(rgdal)
 load(file.path(data.dir, 'SOE_data.RData'))
+load(file.path(data.dir, 'Comm_Climate_Vul.RData'))
+load(file.path(data.dir, 'Fisheries_Eng_Rel.RData'))
 knitr::opts_chunk$set(echo = FALSE, fig.align='center')
 ```
 
@@ -35,7 +39,8 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
                      x.start = NA, x.end = NA, end.start = 2006, bg.col = background,
                      end.col = recent, trend.neg = main.neg, trend.pos = main.pos,
                      end.trend.neg = end.neg, end.trend.pos = end.pos,
-                     stacked = NA, x.line = 2.5, y.line = 3.5, scale.axis = 1,
+
+                     stacked = NA, x.line = 2.6, y.line = 3.5, scale.axis = 1,
                      rel.y.num = 1.5, rel.y.text = 1.5){
  
   #Select Data
@@ -81,11 +86,13 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
     if(stacked!= 'A') axis(3, cex.axis = 1.5, tck = 0.1, labels = F)
   }
   #Stacked axes with 0 overlap so need to remove
-  labels <- axTicks(2) / scale.axis
-  if(labels[1] == 0) labels[1] <- ''
-  axis(2, at = axTicks(2), labels = labels, cex.axis = rel.y.num,
-       las = T)
- 
+  if(scale.axis != 1){
+        labels <- axTicks(2) / scale.axis
+        if(labels[1] == 0) labels[1] <- ''
+        axis(2, at = axTicks(2), labels = as.numeric(labels), cex.axis = rel.y.num,
+             las = T)
+    } else {axis(2, cex.axis = rel.y.num, las = T)}
+
   #Identify significant trends
   #Whole time series
   mksts <- MannKendall(x[, Value])
@@ -135,7 +142,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
 }
 
 #Add axis labels for stacked plots
-soe.stacked.axis <- function(x.label, y.label, x.line = 2.5,
+soe.stacked.axis <- function(x.label, y.label, x.line = 2.6,
                              y.line = 3.5, rel.y.text = 1.5){
   axis(1, cex.axis = 1.5)
   mtext(1, text = x.label, line = x.line, cex = 1.5, outer = T)
@@ -189,28 +196,116 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-**Eight New England Council (NEFMC) stocks are not meeting objectives at the managed species level** for fishing mortality (F) rates and biomass (B) levels relative to established reference points. 
+**Eight New England Council (NEFMC) stocks are not meeting objectives at the managed species level** for fishing mortality (F) rates and biomass (B) levels relative to established reference points. The remaining stocks are currently within target ranges for F and above the limit for B.
 
-```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", echo = F, out.width='.6\\linewidth', message = FALSE, warning = FALSE}
-knitr::include_graphics(file.path(image.dir, 'NEFMC_joint_stocks.png'))
+```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", echo = F,fig.height=8, fig.width=5, message = FALSE, warning = FALSE}
+#knitr::include_graphics(file.path(image.dir, 'NEFMC_joint_stocks.png'))
+
+dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
+
+stocks <- unique(dat$Entity.Name)
+n.stocks <- length(stocks)
+
+decoder <- read.csv(file.path(data.dir,"2017decoder.csv"))
+# set up the headers for most.recent structure - will contain oldest Assessment.Year
+most.recent <- dat[1,]
+most.recent <- most.recent[-1,]
+
+for (i in 1:n.stocks){
+  temp <- dat[dat$Entity.Name == decoder$Entity.Name[i],]
+  most.recent <- rbind(most.recent,temp[temp$Assessment.Year == max(temp$Assessment.Year),])
+}
+#cbind(n.stocks,length(most.recent[,1]))
+
+# get the max of F.Flimit and F.Fmsy and the max of B.Blimit and B.Bmsy
+Frat <- most.recent$F.Fmsy
+Brat <- most.recent$B.Bmsy
+Frat[6] <- most.recent$F.Flimit[6]  # Ocean Quahog use Flimit because no Fmsy
+#Frat[18] <- 0.88  # hardwire average of the two GOM models for GOM cod
+#Brat[18] <- 0.155 # hardwire average of the two GOM models for GOM cod
+#model averages have been calculated and included in F/Fmsy column in 2017assess.csv
+#cbind(most.recent$Entity.Name,most.recent$F.Flimit,most.recent$F.Fmsy)
+
+# figure out appropriate range for axes
+#max(Frat,na.rm=T)
+#max(Brat,na.rm=T)
+x.r <- c(0,3.6)
+y.r <- c(0,10)
+
+# set some colors
+my.col <- rep(NA,n.stocks)
+MA.col <- "blue"
+NE.col <- "blue"
+BO.col <- "purple"
+for (i in 1:n.stocks){
+  if(decoder$Council[i] == "MAFMC") my.col[i] <- MA.col
+  if(decoder$Council[i] == "NEFMC") my.col[i] <- NE.col
+  if(decoder$Council[i] == "Both")  my.col[i] <- BO.col
+}
+
+# create new matrix for plotting
+xx <- as.data.frame(cbind(decoder[,2:8],Frat,Brat,my.col))
+MA.unknown <- decoder$Code[c(1,3,4)] #mackerel, Loligo, Illex unknown
+#MA.unknown <- decoder$Code[c(1,3,4,8)] #BSB known
+#NE.unknown <- c(decoder$Code[c(14,23,33)],"7 Skates")
+NE.unknown <- decoder$Code[c(14,19,23,33,35,37)] #Red deepsea crab, halibut, Offshore hake, GOM winter flounder, Witch flounder, GB YT unknown
+
+
+# break out the Councils
+MA <- xx[xx$Council == "MAFMC",]
+NE <- xx[xx$Council == "NEFMC",]
+BO <- xx[xx$Council == "Both",]
+MABO<-rbind(MA, BO)
+NEBO<-rbind(NE, BO)
+
+#if(saveplots) pdf(file = "MAFMC_joint_stocks.pdf",  width = 6, height = 6)
+#if(saveplots) png(file = "MAFMC_joint_stocks_2016.png",  units="in", width = 6, height = 6, res=1200) #BSB unknown
+#if(saveplots) png(file = "MAFMC_joint_stocks_2017.png",  units="in", width = 6, height = 6, res=1200)
+#plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,col=my.col)
+#  abline(v=0.5,lty=2)
+#  abline(v=1,lty=3)
+#  abline(h=1,lty=2)
+#  title(expression("MAFMC " * phantom("and Joint Stocks")), col.main="blue")
+#  title(expression(phantom("MAFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
+#  title(expression(phantom("MAFMC and ") * "Joint" * phantom(" Stocks")), col.main="red")
+#  title(expression(phantom("MAFMC and Joint") * " Stocks"), col.main="black")  
+#  legend('topright',legend=MA.unknown,pch=NA,title="Unknown Status")
+ # text(MABO$Brat,MABO$Frat,labels=MABO$Code,pos=MABO$my.pos3,col=my.col,cex=0.8)
+#if(saveplots) savePlot("MAFMC_Joint_stocks.png", type='png')
+#if(saveplots) dev.off()
+
+#if(saveplots) pdf(file = "NEFMC_joint_stocks.pdf",  width = 6, height = 6)
+#if(saveplots) png(file = "NEFMC_joint_stocks.png",  units="in", width = 6, height = 9, res=1200)
+plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,col=my.col[12:49])
+   abline(v=0.5,lty=2)
+   abline(v=1,lty=3)
+   abline(h=1,lty=2)
+   title(expression("NEFMC " * phantom("and Joint Stocks")), col.main="blue")
+   title(expression(phantom("NEFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
+   title(expression(phantom("NEFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
+   title(expression(phantom("NEFMC and Joint") * " Stocks"), col.main="black")  
+   legend('topright',legend=NE.unknown,pch=NA,title="Unknown Status")
+   text(NEBO$Brat,NEBO$Frat,labels=NEBO$Code,pos=NEBO$my.pos3,col=my.col[12:49],cex=0.8)
+#if(saveplots) savePlot("NEFMC_Joint_stocks.png", type='png')
+#if(saveplots) dev.off()
 
 ```
 
-At the ecosystem scale, trends in commercial **seafood production** indicate generally **long term increases with recent stability across trophic levels**, with the exception of forage fish (mackerel are at a historic low; menhaden are not included here). The single state (Virginia) with aquaculture production information similarly shows steady production of oysters and increasing production of hard clams. Similarly, **commercial revenues** in the region mainly **show long-term increases**. **However, these increases are only partially driven by MAFMC managed species, underlining the need to work across jurisdictions to address ecosystem-level objectives.**
+At the ecosystem scale, commercial **Gulf of Maine seafood production relies on benthos and benthivores (scallops, lobster)**, with other groups stable or decreasing in landings (forage fish, piscivores). **Georges Bank seafood production has decreased over the long term.** Aquaculture production information has been steady for Maine salmon and increasing in Rhode Island. **Commercial revenues show long term increases for most groups other than piscivores.** **However, these increases are only partially driven by NEFMC managed species, underlining the need to work across jurisdictions to address ecosystem-level objectives.**
 
 **Recreational opportunities** from fishing have also **increased over the long term**, according to numbers of angler trips and anglers. However, there has been a **significant decline over the past 10 years** which may have started with the 2008 economic collapse, though recovery of recreational indices has not matched recovery in the wider economy. 
 
 Community vulnerability assessments suggest that although species managed by the MAFMC have lower vulnerability to climate impacts than species managed by NEFMC, many of the **fishing communities in the region are vulnerable to sea level rise**, for which exposure is expected to increase. **Mid Atlantic coastal communities have a high reliance on both commercial and recreational fisheries.** 
 
-Stability is addressed with indices of **commercial fleet and species revenue diversity**. These **show long term declines** in the Mid-Atlantic, which may raise a caution flag for stability within the industry, but requires further investigation into mechanisms. 
+Stability is addressed with indices of **commercial fleet and species revenue diversity**. These **show long term declines** in New England, which may raise a caution flag for stability within the industry, but requires further investigation into mechanisms. 
 
-Survey **biomass trends for aggregated trophic groups differ** in the fall and spring, with few significant fall trends and many significant spring trends. Species diversity also has a significant recent increase only during the spring survey (athough patterns are similar between seasons). At the lowest trophic level, **benthos, including commercial shellfish, show long term increases in both seasons**. In contrast, **piscivores at higher trophic levels have conflicting long term trends depending on the season** sampled. Seasonally divergent aggregate trends require further investigation. 
+Survey **biomass trends for aggregated trophic groups are similar across seasons and regions**. At the lowest trophic level, **both forage fish and benthos, including commercial shellfish, show long term increases in both seasons**. Both **benthivores and piscivores at higher trophic levels have stable or increasing trends depending on the season** sampled, in particular during the most recent decade. **Species diversity has increased in the Gulf of Maine, but remained stable or decreased on Georges Bank** depending on the season sampled.
 
-Additional indicators in this report suggest a note of **caution for the aggregate productivity of fish species in the region** (fish condition declined and recovered for some species while survey-based aggregate “recruitment” has declined overall). In addition, while there are few time series for protected species, **the most endangered species in the system (North Atlantic right whale) may be declining** over the most recent few years after a slow but steady increase. Further, signals from the wider northwest Atlantic suggest a **decrease in forage fish energy content**. While there are no clear long-term trends at the bottom of the food web in the Mid Atlantic, **Calanus copepods (a high energy, cool water species and the main prey of right whales) declined to a recent low while primary production has been average**.
+Additional indicators in this report suggest a note of **caution for the aggregate productivity of fish species in the region** (fish condition declined and recovered for some species). In addition, while there are few time series for protected species, **the most endangered species in the system (North Atlantic right whale) may be declining** over the most recent few years after a slow but steady increase. Further, signals from the wider northwest Atlantic suggest a **decrease in forage fish energy content**. While there are no clear long-term trends at the bottom of the food web in New England, **smaller less energy dense zooplankton have been increasing while primary production has been average**.
 
 **Temperature is increasing** in long term sea surface records as well as surface and bottom measurements from surveys. The seasonal temperature signal also shows sustained warming. **Warming waters have impacts** on the ecosystem that can be complex due to differential impacts at the species level, **including observed shifts in species distribution and changes in productivity** as thermal habitats shift. Regional climate indices show a northward movement of the Gulf Stream north wall which can be a local mechanism for increased temperature and species redistribution, in addition the to broader influences of a warming climate. 
 
-This report currently lacks indicators for general objectives related to employment (information exists and can be updated) and habitat quality, quantity, and diversity. Risks to habitat including frequency and intensity of harmful algal blooms (HABs) in the region are being investigated, although information is in multiple locations with a range of accessibility. Data for cultural practices and attachments (e.g., number of generations of individual families involved in fishing, length of residence in individual fishing communities, use of kin as crew) require more investigation. --> 
+This report currently lacks indicators for general objectives related to employment (information exists and can be updated) and habitat quality, quantity, and diversity. Risks to habitat including frequency and intensity of harmful algal blooms (HABs) in the region are being investigated, although information is in multiple locations with a range of accessibility. Data for cultural practices and attachments (e.g., number of generations of individual families involved in fishing, length of residence in individual fishing communities, use of kin as crew) require more investigation.  
 
 <!---##Living marine resources status
 Are the signs for higher or lower productivity? Earlier or later seasons? Changes in species mixes or interactions? 
@@ -537,6 +632,126 @@ knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition.jpg'))
 
 ```
 
+<!--
+```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, fig.height=4}
+# from Fish_condition.R
+#Required packages
+library(graphics); library(grDevices); library(TeachingDemos)
+
+#-------------------------------------------------------------------------------
+#User created functions
+ztrans <- function(x){
+    meanx <- mean(x, na.rm = T)
+    sdx   <- sd(  x, na.rm = T)
+    z     <- (x - meanx) / sdx
+    return(z)
+}
+  
+image.x <- function(x){
+    output <- seq(0, 1, by = 1 / x)
+    return(output)
+}
+  
+my.points <- function (x, y, pt.col, ...){
+    points(x, y, pch = 16, col = pt.col, cex = 1.5, ...)
+}
+my.lines  <- function(x, y, ...){
+    lines(x, y, col = 'grey', lwd = 4, ...)
+}
+my.axis   <- function(x, ...){
+    axis(x, cex.axis=1.5, lwd=2, ...)
+}
+my.box    <- function(lwd = 2, ...){
+    box(lwd = lwd, ...)
+}
+my.legend <- function(leg.txt, ...){
+    legend('topleft', legend = leg.txt, bty='n', cex=1.8, ...)
+}
+my.mtext  <- function(x, txt, line, ...){
+    mtext(x, text = txt, line = line, cex = 2, outer = T, ...)
+}
+
+#-------------------------------------------------------------------------------
+#CF <- as.data.table(read.csv(file.path(data.dir, "MAFMC_RelativeWeight_Geo_2016.csv")))
+CF <- as.data.table(read.csv(file.path(data.dir, "NEFMC_RelativeWeight_Geo_2016.csv")))
+
+#Convert to long format
+CF.fixed <- CF[, c(1:4), with = F]
+CF.fixed[, YEAR := 1992]
+setnames(CF.fixed, "X1992", "CF")
+
+for(i in 5:ncol(CF)){
+  CF.year <- CF[, c(1:3, i), with = F]
+  CF.year[, YEAR := 1992 + (i - 4)]
+  setnames(CF.year, paste("X", 1992 + (i-4), sep = ''), "CF")
+  CF.fixed <- rbind(CF.fixed, CF.year)
+  }
+
+setkey(CF.fixed,
+      species,
+      stock,
+      sex)
+
+CF.fixed[, z := ztrans(CF), by = key(CF.fixed)]
+
+#Rearrangements for the plot
+CF.data <- matrix(CF.fixed[, z], nrow(unique(CF.fixed)), length(unique(CF.fixed[, YEAR])), byrow = T) 
+
+setkey(CF.fixed,
+       species,
+       stock,
+       sex)
+
+#labels for the plot
+CF.fixed[sex == 'male', sex.label := ', M']
+CF.fixed[sex == 'female', sex.label := ', F']
+CF.fixed[sex == 'combined', sex.label := '']
+CF.fixed[stock == 'unit', stock := '']
+
+setkey(CF.fixed,
+       species,
+       stock,
+       sex)
+
+graph.colors<-colorRampPalette(c('#C6E2FF','#00008B'))
+
+opar <- par()
+#jpeg(file = file.path(out.dir, 'MAFMC_Fish_Condition.jpg'), res = 200, height = 1700, width = 2000)
+#jpeg(file = file.path(out.dir, 'NEFMC_Fish_Condition.jpg'), res = 200, height = 1700, 
+#     width = 2000)
+#Main figure
+par(mar = c(2, 2, 3, 18), fig = c(0, 1, 0.1, 1))
+
+#image rotates matrix 90 degrees so use transverse matrix and order variables in reverse order in .csv file
+image(y = image.x(nrow(unique(CF.fixed))), 
+      x = image.x(length(unique(CF.fixed[, YEAR]))), z = t(CF.data),
+      breaks = c(-10, -1, 0, 1, 10), col = graph.colors(4), 
+      xlim = c(0,1), ylim = c(0,1), axes = F, xlab = '', ylab = '', useRaster = T)
+
+my.axis(3, at = image.x(length(unique(CF.fixed[, YEAR])))[seq(5, 25, 5)] - 
+            0.5 * (image.x(length(unique(CF.fixed[, YEAR])))[2]), 
+     labels = seq(1995, 2015, 5))
+
+axis(4, at = image.x(nrow(unique(CF.fixed)))[-1] - 
+         0.5 * (image.x(nrow(unique(CF.fixed)))[2]), 
+     label = paste(unique(CF.fixed)[, species], ' ', unique(CF.fixed)[, stock], 
+                   unique(CF.fixed)[, sex.label], sep = ''), las = T, lwd = 0)
+
+my.box()
+
+#Key
+par(mar = c(0.7, 0.5, 0.2, 0.5), fig = c(0.2, 0.5, 0, 0.1), new = T)
+image(x = image.x(4), z = t(matrix(1:4,1,4)), col = graph.colors(4), axes = F, 
+      xlim = c(0,1), ylim = c(0,1))
+axis(3, at = image.x(4), labels = c(-3, -1, 0, 1, 3), cex = 2)
+my.box()
+
+#dev.off()
+
+par(opar)
+
+```
+--> 
 
 ##Groundfish productivity
 <!--The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are indications of a decrease in this indicator when aggregated across all species in the Mid-Atlantic.-->  
@@ -565,7 +780,7 @@ soe.plot(SOE.data, 'Time', 'Right whale population', x.label = 'Year',
 <!--##Turtles
 ##Seabirds--> 
 ##Endangered Fish
-Despite diverse population structures and management regimes, concurrent abundance declines in disparate North American and European Atlantic salmon populations suggest that conditions experienced at common marine areas may be causal.  Diet analysis of Atlantic salmon sampled off the coast of West Greenland demonstrated that they are consuming slightly less capelin by weight, but more lower quality prey (amphipods and squid) in contemporary times compared to the late 1960’s/early 1970’s. Further, the energy density of capelin, their primary prey item at Greenland (~40-90% annually), decreased by almost 34% after the regime shift. This coincides with an approximate 66% reduction in Atlantic salmon marine productivity and suggests that Atlantic salmon at Greenland may not be able to satisfy energy demands due to changes in regional trophic dynamics. The influence of declining resource quality is not unique to Atlantic salmon, as some populations of Atlantic cod, Bluefin tuna, seabirds, and marine mammals are either of lower body condition and/or not as productive as they once were in the region pre-1990. This may partially be a response to reduced prey quality caused by changes in bottom-up processes. Determining and understanding the mechanisms that influence marine food-webs is necessary to fully evaluate survival and productivity trends, and to establish realistic management targets for commercial, recreational, and protected species.
+Despite diverse population structures and management regimes, concurrent abundance declines in disparate North American and European Atlantic salmon populations suggest that marine feeding conditions may be poor.  Diet analysis of Atlantic salmon sampled off the coast of West Greenland demonstrated that they are consuming slightly less capelin by weight, but more lower quality prey (amphipods and squid) recently compared to 1960-1970. Further, the energy density of capelin, their primary prey item at Greenland (~40-90% annually), decreased by almost 34% recently. This coincides with an approximate 66% reduction in Atlantic salmon marine productivity. The influence of declining resource quality is not unique to Atlantic salmon, as some populations of Atlantic cod, bluefin tuna, seabirds, and marine mammals are either of lower body condition and/or not as productive as they once were in the region pre-1990. This may partially be a response to reduced prey quality caused by changes in bottom-up processes. Determining and understanding the mechanisms that influence marine food-webs is necessary to fully evaluate survival and productivity trends, and to establish realistic management targets for commercial, recreational, and protected species.
 
 ```{r, fig.cap="Energy content of capelin\\label{energy}", echo = F,  fig.height=2.5}
 knitr::include_graphics(file.path(image.dir, 'energycontent.png'))
