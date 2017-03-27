@@ -707,14 +707,21 @@ Species distribution on the NE Shelf can be characterized by the position in the
 #SOE.data[Var %like% "ASDIST"]
 opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-soe.plot(SOE.data, 'Time', 'BLACK SEA BASS ASDIST', stacked = "A")
-soe.plot(SOE.data, "Time", "SUMMER FLOUNDER ASDIST", stacked = "B")
-soe.plot(SOE.data, "Time", "SCUP ASDIST", stacked = "C")
-soe.plot(SOE.data, "Time", "BUTTERFISH ASDIST", stacked = "D")
-soe.plot(SOE.data, "Time", "ATLANTIC MACKEREL ASDIST", stacked = "E")
-soe.plot(SOE.data, "Time", "LONGFIN SQUID ASDIST", stacked = "F")
-soe.plot(SOE.data, "Time", "NORTHERN SHORTFIN SQUID ASDIST", stacked = "G")
-soe.stacked.axis('Year', 'Along shelf distance, km', rel.y.text = 1)
+soe.plot(SOE.data, 'Time', 'BLACK SEA BASS ASDIST',    stacked = 'A', scale.axis = 100, 
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER ASDIST',   stacked = 'B', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'SCUP ASDIST',              stacked = 'C', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'BUTTERFISH ASDIST',        stacked = 'D', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL ASDIST', stacked = 'E', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'LONGFIN SQUID ASDIST',     stacked = 'F', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID ASDIST', stacked = 'G', 
+         scale.axis = 100, rel.y.num = 0.9)
+soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.text = 1.5)
 
 ```
 
@@ -829,10 +836,13 @@ Zooplankton surveys have been conducted since the 1970s and have been most consi
 
 ```{r , fig.cap="A: Centropages typicus spring, B: Centropages typicus fall \\label{Ctyp}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Centropages typicus spring', stacked = 'A', tol = 0.03, rel.y.num = 1.1)
-soe.plot(SOE.data, 'Time', 'Centropages typicus fall', stacked = 'B', tol = 0.03, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Centropages typicus spring', stacked = 'A', tol = 0.03,
+         rel.y.num = 1.1, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'Centropages typicus fall', stacked = 'B', tol = 0.03, 
+         rel.y.num = 1.1, scale.axis = 10^3)
 
-soe.stacked.axis('Year', expression('num per 100 m' ^ '3'), rel.y.text = 1.1)
+soe.stacked.axis('Year', expression('thousands per 100 m' ^ 3), rel.y.text = 1.1,
+                 y.line = 3)
 ```
 
 
@@ -865,7 +875,7 @@ Long-term sea surface temperature measurements have been collected off the North
 ```{r, fig.cap="Long term sea surface temperature, Northeast US continental shelf \\label{ERSST}", echo=F, fig.height=2.5}
 opar <- par(mar = c(4, 4, 0, 0))
 soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
-         rel.y.num = 1.1, rel.y.text=1, y.label = expression('Sea Surface Temp., '*degree*'C'), y.line = 2.5, tol=0.01)
+         rel.y.num = 1.1, rel.y.text=1, y.label = expression('Sea Surface Temp., '*degree*'C'), y.line = 3, tol=0.01)
 
 ```
 <!--\btwocol-->
@@ -877,7 +887,8 @@ opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'MAB spring bottom temperature', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
 soe.plot(SOE.data, 'Time', 'MAB fall bottom temperature', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
 
-soe.stacked.axis('Year', expression('Bottom Temperature, '*degree*'C'), rel.y.text = 1)
+soe.stacked.axis('Year', expression('Bottom Temperature, '*degree*'C'), rel.y.text = 1,
+                 y.line = 2.5)
 ```
 
 <!--
@@ -904,7 +915,7 @@ Stratification shows no clear trend in the Mid Atlantic. Similarly, surface sali
 ```{r, fig.cap="Stratification \\label{Stratification}", echo = F, fig.height=2.5 }
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Stratification (0-50m) MAB core', x.label = 'Year', rel.y.num = 1.2, rel.y.text = 1,
-         y.label = 'Stratification', y.line = 4.7)
+         y.label = 'Stratification', y.line = 3.7)
 ```
 
 Salinity structures habitat for living resources, however the effects of increased salinity on marine organisms are currently less clear than the effects of increased temperature. This significant increasing trend in bottom salinity warrants further investigation. 
