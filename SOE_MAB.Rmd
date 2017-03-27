@@ -16,15 +16,17 @@ fontsize: 11pt
 ---
 
 ```{r Directory and Data Set-up, echo = F, message = F}
-data.dir  <- '/home/slucey/EcoAP/SOE2017/data'
-image.dir <- '/home/slucey/EcoAP/SOE2017/images'
-gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
+#data.dir  <- '/home/slucey/EcoAP/SOE2017/data'
+#image.dir <- '/home/slucey/EcoAP/SOE2017/images'
+#gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
 #image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
 library(data.table); library(Kendall); library(rgdal)
 load(file.path(data.dir, 'SOE_data.RData'))
 load(file.path(data.dir, 'Comm_Climate_Vul.RData'))
@@ -38,6 +40,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
                      x.start = NA, x.end = NA, end.start = 2006, bg.col = background,
                      end.col = recent, trend.neg = main.neg, trend.pos = main.pos,
                      end.trend.neg = end.neg, end.trend.pos = end.pos,
+
                      stacked = NA, x.line = 2.6, y.line = 3.5, scale.axis = 1,
                      rel.y.num = 1.5, rel.y.text = 1.5){
  
@@ -90,7 +93,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
         axis(2, at = axTicks(2), labels = as.numeric(labels), cex.axis = rel.y.num,
              las = T)
     } else {axis(2, cex.axis = rel.y.num, las = T)}
- 
+
   #Identify significant trends
   #Whole time series
   mksts <- MannKendall(x[, Value])
@@ -148,6 +151,7 @@ soe.stacked.axis <- function(x.label, y.label, x.line = 2.6,
 }
 
 ```
+
 
 ```{r Plot options, echo = F}
 #Background colors
@@ -379,7 +383,8 @@ opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
--->
+--> 
+
 \btwocol
 
 <!--##Aggregate measures of fishing performance--> 
@@ -506,6 +511,7 @@ a <- legend('bottomright',
             legend = c('Low', 'Moderate', 'High'), bty = 'n',
             pch = 21, pt.bg = c('red', 'yellow', 'green'), 
             pt.cex = point.cex[4:2], cex = 1.5, y.intersp = 1)
+
 ```
 
 ## Seafood Production
@@ -753,9 +759,131 @@ knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
 Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while yellowtail flounder remain thin for their length on average.  
 ```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, fig.height=4}
 #I will get the actual code here eventually but just don't have time right now
-#knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition.jpg'))
-knitr::include_graphics(file.path(image.dir, 'Fish_Condition.jpg'))
+knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition.jpg'))
+
 ```
+
+<!-- 
+```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, fig.height=4}
+
+# from Fish_condition.R
+#Required packages
+library(graphics); library(grDevices); library(TeachingDemos)
+
+#-------------------------------------------------------------------------------
+#User created functions
+ztrans <- function(x){
+    meanx <- mean(x, na.rm = T)
+    sdx   <- sd(  x, na.rm = T)
+    z     <- (x - meanx) / sdx
+    return(z)
+}
+  
+image.x <- function(x){
+    output <- seq(0, 1, by = 1 / x)
+    return(output)
+}
+  
+my.points <- function (x, y, pt.col, ...){
+    points(x, y, pch = 16, col = pt.col, cex = 1.5, ...)
+}
+my.lines  <- function(x, y, ...){
+    lines(x, y, col = 'grey', lwd = 4, ...)
+}
+my.axis   <- function(x, ...){
+    axis(x, cex.axis=1.5, lwd=2, ...)
+}
+my.box    <- function(lwd = 2, ...){
+    box(lwd = lwd, ...)
+}
+my.legend <- function(leg.txt, ...){
+    legend('topleft', legend = leg.txt, bty='n', cex=1.8, ...)
+}
+my.mtext  <- function(x, txt, line, ...){
+    mtext(x, text = txt, line = line, cex = 2, outer = T, ...)
+}
+
+#-------------------------------------------------------------------------------
+CF <- as.data.table(read.csv(file.path(data.dir, "MAFMC_RelativeWeight_Geo_2016.csv")))
+#CF <- as.data.table(read.csv(file.path(data.dir, "NEFMC_RelativeWeight_Geo_2016.csv")))
+
+#Convert to long format
+CF.fixed <- CF[, c(1:4), with = F]
+CF.fixed[, YEAR := 1992]
+setnames(CF.fixed, "X1992", "CF")
+
+for(i in 5:ncol(CF)){
+  CF.year <- CF[, c(1:3, i), with = F]
+  CF.year[, YEAR := 1992 + (i - 4)]
+  setnames(CF.year, paste("X", 1992 + (i-4), sep = ''), "CF")
+  CF.fixed <- rbind(CF.fixed, CF.year)
+  }
+
+setkey(CF.fixed,
+      species,
+      stock,
+      sex)
+
+CF.fixed[, z := ztrans(CF), by = key(CF.fixed)]
+
+#Rearrangements for the plot
+CF.data <- matrix(CF.fixed[, z], nrow(unique(CF.fixed)), length(unique(CF.fixed[, YEAR])), byrow = T) 
+
+setkey(CF.fixed,
+       species,
+       stock,
+       sex)
+
+#labels for the plot
+CF.fixed[sex == 'male', sex.label := ', M']
+CF.fixed[sex == 'female', sex.label := ', F']
+CF.fixed[sex == 'combined', sex.label := '']
+CF.fixed[stock == 'unit', stock := '']
+
+setkey(CF.fixed,
+       species,
+       stock,
+       sex)
+
+graph.colors<-colorRampPalette(c('#C6E2FF','#00008B'))
+
+opar <- par()
+#jpeg(file = file.path(out.dir, 'MAFMC_Fish_Condition.jpg'), res = 200, height = 1700, width = 2000)
+#jpeg(file = file.path(out.dir, 'NEFMC_Fish_Condition.jpg'), res = 200, height = 1700, 
+#     width = 2000)
+#Main figure
+par(mar = c(2, 2, 3, 18), fig = c(0, 1, 0.1, 1))
+
+#image rotates matrix 90 degrees so use transverse matrix and order variables in reverse order in .csv file
+image(y = image.x(nrow(unique(CF.fixed))), 
+      x = image.x(length(unique(CF.fixed[, YEAR]))), z = t(CF.data),
+      breaks = c(-10, -1, 0, 1, 10), col = graph.colors(4), 
+      xlim = c(0,1), ylim = c(0,1), axes = F, xlab = '', ylab = '', useRaster = T)
+
+my.axis(3, at = image.x(length(unique(CF.fixed[, YEAR])))[seq(5, 25, 5)] - 
+            0.5 * (image.x(length(unique(CF.fixed[, YEAR])))[2]), 
+     labels = seq(1995, 2015, 5))
+
+axis(4, at = image.x(nrow(unique(CF.fixed)))[-1] - 
+         0.5 * (image.x(nrow(unique(CF.fixed)))[2]), 
+     label = paste(unique(CF.fixed)[, species], ' ', unique(CF.fixed)[, stock], 
+                   unique(CF.fixed)[, sex.label], sep = ''), las = T, lwd = 0)
+
+my.box()
+
+#Key
+par(mar = c(0.7, 0.5, 0.2, 0.5), fig = c(0.2, 0.5, 0, 0.1), new = T)
+image(x = image.x(4), z = t(matrix(1:4,1,4)), col = graph.colors(4), axes = F, 
+      xlim = c(0,1), ylim = c(0,1))
+axis(3, at = image.x(4), labels = c(-3, -1, 0, 1, 3), cex = 2)
+my.box()
+
+#dev.off()
+
+par(opar)
+
+```
+--> 
 
 ##Groundfish productivity
 The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are indications of a decrease in this indicator when aggregated across all species in the Mid-Atlantic. 
@@ -766,7 +894,7 @@ knitr::include_graphics(file.path(image.dir, 'FishProdMAB.pdf'))
 
 ```
 
-```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for X species in the MAB. Annual anomalies shown are the average of spring and fall anomalies. \\label{fishprodsurvey}", fig.height=0.05}
+```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for species in the MAB. Annual anomalies shown are the average of spring and fall anomalies. \\label{fishprodsurvey}", fig.height=0.05}
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
@@ -822,7 +950,8 @@ soe.plot(SOE.data, 'Time', 'MAB PPD', x.label = 'Year',
 The observed stability in system productivity is in contrast to an apparent shift in the timing of the bloom cycle in the Middle Atlantic Bight. Comparing remote sensing information from the 1970-80s to recent information suggest that winter productivity was higher in the Bight and that the spring bloom we see today was not as prominent. This change in phytoplankton seasonal biomass may be related to the changes seen in the zooplankton community (see below) suggesting a grazing effect; but, whatever the mechanism associated with these changes, shifts in timing of low trophic level production can affect resource fish species and their early life history stages that feed on zooplankton.
 
 ```{r, fig.cap="Comparison of 1970-80s annual primary productivity cycle (black) with 1997-present (orange) \\label{PPcycle}", out.width='.9\\linewidth'}
-#knitr::include_graphics(file.path(image.dir, 'PPbloomtiming.png'))
+knitr::include_graphics(file.path(image.dir, 'PPbloomtiming.png'))
+
 ```
 
 
@@ -843,6 +972,7 @@ soe.plot(SOE.data, 'Time', 'Centropages typicus fall', stacked = 'B', tol = 0.03
 
 soe.stacked.axis('Year', expression('thousands per 100 m' ^ 3), rel.y.text = 1.1,
                  y.line = 3)
+
 ```
 
 
@@ -866,7 +996,8 @@ ________________________________________________________________________________
 The Middle Atlantic Bight experienced above average sea surface temperatures (SSTs) during 2016. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions moderated in the Mid-Atlantic Bight to below average temperature conditions in June and July. The ecoregions warmed dramatically from late summer into fall and remained above average temperatures through the end of the year.
 
 ```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, out.width='.9\\linewidth'}
-#knitr::include_graphics(file.path(image.dir, 'ann_sst_ Middle Atlantic Bight .jpeg'))
+knitr::include_graphics(file.path(image.dir, 'ann_sst_ Middle Atlantic Bight .jpeg'))
+
 ```
 
 ##Long-term shelfwide sea surface temperature    
@@ -916,6 +1047,7 @@ Stratification shows no clear trend in the Mid Atlantic. Similarly, surface sali
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Stratification (0-50m) MAB core', x.label = 'Year', rel.y.num = 1.2, rel.y.text = 1,
          y.label = 'Stratification', y.line = 3.7)
+
 ```
 
 Salinity structures habitat for living resources, however the effects of increased salinity on marine organisms are currently less clear than the effects of increased temperature. This significant increasing trend in bottom salinity warrants further investigation. 
