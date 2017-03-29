@@ -591,7 +591,7 @@ soe.stacked.axis('Year', expression('GB Survey biomass, kg tow'^-1))
 Removing this section?-->
 
 ##Species composition 
-Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity (here estimated as the mean number of species found in a random sample of 100 fish at a station for the Mid-Atlantic portion of NEFSC surveys) can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. 
+Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity (here estimated as the mean number of species found in a random sample of 100 fish at a station for the Gulf of Maine and Georges Bank portions of NEFSC surveys) can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. 
 
 <!--Diversity shows a signficant increase for one season in the Mid-Atlantic, suggesting that survey timing may be interacting with changes in the seasonal movement of fish (see above) as well as a potential change in species availability due to distribution shifts (see below). --> 
 ```{r, fig.cap="A-Fall, B-Spring \\label{sppdiv}", echo = F, fig.height=3.5, fig.show='hold', out.width='.49\\linewidth'}
@@ -610,6 +610,51 @@ soe.stacked.axis('Year', 'GB Expected n species / 100 fish', rel.y.text = 1)
 ```
 
 ##Species distribution
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and the depth of occurrence. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. Depth ranges from 0 to -260, which relates to depth of occurrence in meters. The mean along shelf distance for several NEFMC species by year is shown below; most show a norteastward change along the shelf, aside from herring. However, herring has a long term deeper distribution trend. Cod and yellowtail flounder while have a long term deeper distribution but a more recent return to shallower distributions. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
+
+
+```{r, fig.cap="Shifts in species distribution over time; A: Yellowtail flounder, B: Winter flounder, C: Cod, D: Haddock, E: Atlantic herring, F: Acadian redfish \\label{shifts}", fig.height=8, fig.show='hold', out.width='.49\\linewidth', echo = F, message = FALSE, warning = FALSE}
+#knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
+#out.width='\\linewidth'
+
+#SOE.data[Var %like% "ASDIST"]
+opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+soe.plot(SOE.data, 'Time', 'YELLOWTAIL FLOUNDER ASDIST',    stacked = 'A', scale.axis = 100, 
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'WINTER FLOUNDER ASDIST',   stacked = 'B', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC COD ASDIST',              stacked = 'C', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'HADDOCK ASDIST',        stacked = 'D', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC HERRING ASDIST', stacked = 'E', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ACADIAN REDFISH ASDIST',     stacked = 'F', scale.axis = 100,
+         rel.y.num = 0.9)
+
+soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.text = 1.5)
+
+opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+soe.plot(SOE.data, 'Time', 'YELLOWTAIL FLOUNDER DTEOC',    stacked = 'A', scale.axis = 100, 
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'WINTER FLOUNDER DTEOC',   stacked = 'B', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC COD DTEOC',              stacked = 'C', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'HADDOCK DTEOC',        stacked = 'D', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC HERRING DTEOC', stacked = 'E', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ACADIAN REDFISH DTEOC',     stacked = 'F', scale.axis = 100,
+         rel.y.num = 0.9)
+
+soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
+
+```
+
+
 Spatial distribution has changed over time for some species more than for others. Lobster distributions measured by NEFSC surveys have shifted northward relative to historical distributions. However, Acadian redfish distributions in the Gulf of Maine have remained relatively stable. A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
@@ -754,7 +799,7 @@ par(opar)
 --> 
 
 ##Groundfish productivity
-<!--The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are indications of a decrease in this indicator when aggregated across all species in the Mid-Atlantic.-->  
+The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are no clear long term trends in this indicator when aggregated across all species in the Gulf of Maine and Georges Bank.  
 ```{r, echo = F, fig.align='default', out.width='.75\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'GOMGBprod.pdf'))
 knitr::include_graphics(file.path(image.dir, 'ProdLegend.eps'))
@@ -841,7 +886,7 @@ soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
 
 
 ##Regional bottom temperature  
-The thermal conditions at the bottom of the water column are extremely important in defining the habitats for the majority of resource species. Unlike sea surface temperatures that can be measured synoptically with satellite telemetry, bottom temperatures must be measured directly from ship surveys and other means. Thus, we often have incomplete spatial and temporal sample coverage to describe bottom temperature conditions. Recently, scientists at the NEFSC developed an interpolation approach that provides a more accurate depiction of spring and fall bottom temperatures. The time series of April bottom temperature in the Gulf of Maine and Georges Bank suggest no trend over time, whereas the October  temperatures steadily increased over the past half century in both regions. This seasonal difference may be linked to the seasonally different trends observed in resource species biomass and species diversity above. 
+The thermal conditions at the bottom of the water column are extremely important in defining the habitats for the majority of resource species. Unlike sea surface temperatures that can be measured synoptically with satellite telemetry, bottom temperatures must be measured directly from ship surveys and other means. Thus, we often have incomplete spatial and temporal sample coverage to describe bottom temperature conditions. Recently, scientists at the NEFSC developed an interpolation approach that provides a more accurate depiction of spring and fall bottom temperatures. The time series of April bottom temperature in the Gulf of Maine and Georges Bank suggest no trend over time, whereas the October  temperatures steadily increased over the past half century in both regions.  
 ```{r, fig.cap="Interpolated survey bottom temperature, A: April, B: October \\label{survtemp}", echo = F, fig.show='hold', fig.height = 3.5, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM spring bottom temperature', stacked = 'A', tol = 0.01, rel.y.num = 1.1)

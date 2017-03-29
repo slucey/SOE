@@ -166,7 +166,7 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 ```
 
 <!--#Overall View of the Ecosystem--> 
-The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses. An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highighting relationships between focal species groups (organized by MAFMC FMP), managed human activities, environmental drivers, habitats, and key ecological links. The activities link to high level strategic management objectives (described next). Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
+The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses. An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highighting relationships between focal species groups organized by Mid Atlantic Fishery Management Council (MAFMC) Fishery Management Plan (FMP), managed human activities, environmental drivers, habitats, and key ecological links. The activities link to high level strategic management objectives (described next). Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
 
 <!--##Conceptual model of ecosystem relationships-->  
 ```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", echo = F, out.width = "450pt", fig.align='center'}
@@ -214,7 +214,7 @@ Stability is addressed with indices of **commercial fleet and species revenue di
 
 Survey **biomass trends for aggregated trophic groups differ** in the fall and spring, with few significant fall trends and many significant spring trends. Species diversity also has a significant recent increase only during the spring survey (athough patterns are similar between seasons). At the lowest trophic level, **benthos, including commercial shellfish, show long term increases in both seasons**. In contrast, **piscivores at higher trophic levels have conflicting long term trends depending on the season** sampled. Seasonally divergent aggregate trends require further investigation. 
 
-Additional indicators in this report suggest a note of **caution for the aggregate productivity of fish species in the region** (fish condition declined and recovered for some species while survey-based aggregate “recruitment” has declined overall). In addition, while there are few time series for protected species, **the most endangered species in the system (North Atlantic right whale) may be declining** over the most recent few years after a slow but steady increase. Further, signals from the wider northwest Atlantic suggest a **decrease in forage fish energy content**. While there are no clear long-term trends at the bottom of the food web in the Mid Atlantic, **abundance of the major zooplankton species may have shifted seasonally, and the timing of primary production may have changed**.
+Additional indicators in this report suggest a note of **caution for the aggregate productivity of fish species in the region** (fish condition declined and recovered for some species while survey-based aggregate “recruitment” has declined overall). In addition, while there are few time series for protected species, **the most endangered species in the system (North Atlantic right whale) may be declining** over the most recent few years after a slow but steady increase. Further, signals from the wider northwest Atlantic suggest a **decrease in forage fish energy content**. While there are no clear long-term trends at the bottom of the food web in the Mid Atlantic, **abundance of the major zooplankton species may have shifted seasonally, and the seasonal timing of primary production may have changed**.
 
 **Temperature is increasing** in long term sea surface records as well as surface and bottom measurements from surveys. The seasonal temperature signal also shows sustained warming. **Warming waters have impacts** on the ecosystem that can be complex due to differential impacts at the species level, **including observed shifts in species distribution and changes in productivity** as thermal habitats shift. Regional climate indices show a northward movement of the Gulf Stream north wall which can be a local mechanism for increased temperature and species redistribution, in addition the to broader influences of a warming climate. 
 
@@ -624,7 +624,7 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 ```
 
 ##Mariculture  
-Aquaculture indicators addresses both seafood production and possibly habitat objectives in that planted bivalves such as oysters may provide both habitat structure and contribute to improved water quality at sufficient numbers (we cannot evaluate that function here yet). Individual states collect and publish aquaculture production differently; at this time only information reported by VIMS is available for the Mid Atlantic region. 
+Aquaculture indicators addresses both seafood production and possibly habitat objectives in that planted bivalves such as oysters may provide both habitat structure and contribute to improved water quality at sufficient numbers (we cannot evaluate that function here yet). Individual states collect and publish aquaculture production differently; at this time only information reported by VIMS is available for the Mid-Atlantic region. 
 
 ```{r Mariculture, fig.cap="Aquaculture stats from VA. A - hard clams, B - oysters \\label{mariculture}", echo = F, , out.width='.45\\linewidth', fig.show='hold', out.width='.45\\linewidth'}
 
@@ -704,7 +704,7 @@ soe.stacked.axis('Year', 'Expected n species / 100 fish', rel.y.text = 1)
 ```
 
 ##Species distribution
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below.
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most show a northeastward change in distribution aside from shortfin squid. Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 ```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
@@ -729,9 +729,27 @@ soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID ASDIST', stacked = 'G',
          scale.axis = 100, rel.y.num = 0.9)
 soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.text = 1.5)
 
+#opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+#soe.plot(SOE.data, 'Time', 'BLACK SEA BASS DTEOC',    stacked = 'A', scale.axis = 100, 
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER DTEOC',   stacked = 'B', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'SCUP DTEOC',              stacked = 'C', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'BUTTERFISH DTEOC',        stacked = 'D', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL DTEOC', stacked = 'E', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'LONGFIN SQUID DTEOC',     stacked = 'F', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID DTEOC', stacked = 'G', 
+#         scale.axis = 100, rel.y.num = 0.9)
+#soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
+
 ```
 
-Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid Atlantic Bight have remained relatively stable. 
+Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. 
 <!--\etwocol-->
 
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
@@ -756,7 +774,7 @@ knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
 --> 
 
 ##Species condition
-Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while yellowtail flounder remain thin for their length on average.  
+Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while black sea bass remain thinner for their length on average.  
 ```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, fig.height=4}
 #I will get the actual code here eventually but just don't have time right now
 knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition.jpg'))
@@ -947,7 +965,7 @@ soe.plot(SOE.data, 'Time', 'MAB PPD', x.label = 'Year',
 
 ```
 
-The observed stability in system productivity is in contrast to an apparent shift in the timing of the bloom cycle in the Middle Atlantic Bight. Comparing remote sensing information from the 1970-80s to recent information suggest that winter productivity was higher in the Bight and that the spring bloom we see today was not as prominent. This change in phytoplankton seasonal biomass may be related to the changes seen in the zooplankton community (see below) suggesting a grazing effect; but, whatever the mechanism associated with these changes, shifts in timing of low trophic level production can affect resource fish species and their early life history stages that feed on zooplankton.
+The observed stability in system productivity is in contrast to an apparent shift in the timing of the bloom cycle in the Mid-Atlantic. Comparing remote sensing information from the 1970-80s to recent information suggest that winter productivity was higher in the MAB and that the spring bloom we see today was not as prominent. This change in phytoplankton seasonal biomass may be related to the changes seen in the zooplankton community (see below) suggesting a grazing effect; but, whatever the mechanism associated with these changes, shifts in timing of low trophic level production can affect resource fish species and their early life history stages that feed on zooplankton.
 
 ```{r, fig.cap="Comparison of 1970-80s annual primary productivity cycle (black) with 1997-present (orange) \\label{PPcycle}", out.width='.9\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'PPbloomtiming.png'))
@@ -961,7 +979,7 @@ Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic regi
 ##Zooplankton  
 Zooplankton provide a critical link between phytoplankton at the base of the food web, and higher trophic organisms such as fish, mammals, and birds. Changes in the species compostion and biomass of the zooplankton community have a great potential to affect recruitment success and fisheries productivity, and climate change may be the most important pathway for these changes to manifest. Therefore these indices are relevant to both productivity and trophic structure objectives.  
 
-Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume suggest that overall zooplankton production has not changed over time. However, the dominant species of zooplankton in the Bight, *Centropages typicus* shows a seasonal shift in abundance, suggesting a change in timing of zooplankton reproductive cycles, which may be impacting fish species such as mackerel.
+Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume suggest that overall zooplankton production has not changed over time. However, the dominant species of zooplankton in the MAB, *Centropages typicus* shows a seasonal shift in abundance, suggesting a change in timing of zooplankton reproductive cycles, which may be impacting fish species such as mackerel.
 
 ```{r , fig.cap="A: Centropages typicus spring, B: Centropages typicus fall \\label{Ctyp}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -993,7 +1011,7 @@ ________________________________________________________________________________
 \btwocol
 
 ##Annual sea surface temperature cycle  
-The Middle Atlantic Bight experienced above average sea surface temperatures (SSTs) during 2016. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions moderated in the Mid-Atlantic Bight to below average temperature conditions in June and July. The ecoregions warmed dramatically from late summer into fall and remained above average temperatures through the end of the year.
+The Mid-Atlantic experienced above average sea surface temperatures (SSTs) during 2016. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions moderated in the Mid-Atlantic to below average temperature conditions in June and July. The ecoregions warmed dramatically from late summer into fall and remained above average temperatures through the end of the year.
 
 ```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, out.width='.9\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'ann_sst_ Middle Atlantic Bight .jpeg'))
@@ -1012,7 +1030,7 @@ soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
 <!--\btwocol-->
 
 ##Regional bottom temperature  
-The thermal conditions at the bottom of the water column are extremely important in defining the habitats for the majority of resource species. Unlike sea surface temperatures that can be measured synoptically with satellite telemetry, bottom temperatures must be measured directly from ship surveys and other means. Thus, we often have incomplete spatial and temporal sample coverage to describe bottom temperature conditions. Recently, scientists at the NEFSC developed an interpolation approach that provides a more accurate depiction of spring and fall bottom temperatures. The time series of April bottom temperature in the Middle Atlantic Bight suggest no trend over time, whereas the October  temperatures steadily increased over the past half century. This seasonal difference may be linked to the seasonally different trends observed in resource species biomass and species diversity above. 
+The thermal conditions at the bottom of the water column are extremely important in defining the habitats for the majority of resource species. Unlike sea surface temperatures that can be measured synoptically with satellite telemetry, bottom temperatures must be measured directly from ship surveys and other means. Thus, we often have incomplete spatial and temporal sample coverage to describe bottom temperature conditions. Recently, scientists at the NEFSC developed an interpolation approach that provides a more accurate depiction of spring and fall bottom temperatures. The time series of April bottom temperature in the Mid-Atlantic suggest no trend over time, whereas the October  temperatures steadily increased over the past half century. This seasonal difference may be linked to the seasonally different trends observed in resource species biomass and species diversity above. 
 ```{r, fig.cap="Interpolated survey bottom temperature, A: April, B: October \\label{survtemp}",echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'MAB spring bottom temperature', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
@@ -1038,11 +1056,11 @@ soe.stacked.axis('Year', expression('Temperature, '*degree*'C'), rel.y.text = 1)
 Temperature affects the behavior and physiology of marine organisms, thus it is a key determinant of habitat within the ecosystem. Cool water habitats (5-15°C), which are the core resident habitats of the ecosystem, show a negative trend over time declining on the order of 460 km 2 yr -1 , which is matched by a corresponding increase in warm water habitats (16-27°C) at a rate of 560 km2 yr-1. The trend on warm water habitats over the past decade is also significant, reflecting the occurrence of the four largest warm thermal habitat values during the last five years.
 
 ##Sea surface temperature forecast  
-Seasonal sea surface temperature forecasts are made from an ensemble of seven models over the period starting in February 2017 and ending in August 2017. There was relatively good model agreement in the forecasts for the Middle Atlantic Bight suggesting that sea surface temperature will rebound in the coming months to an ensemble mean of approximately 0.9°C above average. Skill of these forecasts for our specific region requires further evaluation. 
+Seasonal sea surface temperature forecasts are made from an ensemble of seven models over the period starting in February 2017 and ending in August 2017. There was relatively good model agreement in the forecasts for the Mid-Atlantic suggesting that sea surface temperature will rebound in the coming months to an ensemble mean of approximately 0.9°C above average. Skill of these forecasts for our specific region requires further evaluation. 
 
 <!--##Precipitation  -->
 ##Stratification and Salinity  
-Stratification shows no clear trend in the Mid Atlantic. Similarly, surface salinity has no clear trend. However, salinity at the bottom has significantly increased over the most recent 10 years. 
+Stratification shows no clear trend in the Mid-Atlantic. Similarly, surface salinity has no clear trend. However, salinity at the bottom has significantly increased over the most recent 10 years. 
 ```{r, fig.cap="Stratification \\label{Stratification}", echo = F, fig.height=2.5 }
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Stratification (0-50m) MAB core', x.label = 'Year', rel.y.num = 1.2, rel.y.text = 1,
@@ -1076,7 +1094,7 @@ soe.plot(SOE.data, 'Time', 'Gulf Stream Index', x.label = 'Year',
 
 <!--##Local scale indicators--> 
 ##Daily temperature variability
-Climate change involves not only the change in level of climate parameters, it also involves change in system variability that can be seen in more dramatic shifts in weather in terrestrial systems and in ocean parameters on the Northeast Shelf. In an examination of daily sea surface temperatures in the Middle Atlantic Bight, system variability has increased as evidenced by the increase in the annual standard deviation of sea surface temperature, going from approximately 5.8 to 6.4 over the time period, indicating organisms have experienced greater day to day temperature excursions. 
+Climate change involves not only the change in level of climate parameters, it also involves change in system variability that can be seen in more dramatic shifts in weather in terrestrial systems and in ocean parameters on the Northeast Shelf. In an examination of daily sea surface temperatures in the Mid-Atlantic, system variability has increased as evidenced by the increase in the annual standard deviation of sea surface temperature, going from approximately 5.8 to 6.4 over the time period, indicating organisms have experienced greater day to day temperature excursions. 
 
 ```{r, fig.cap="Standard deviation of annual sea surface temperature  \\label{sstSD}", echo = F, fig.height=2.5 }
 opar <- par(mar = c(4, 6, 2, 6))
