@@ -704,6 +704,23 @@ soe.stacked.axis('Year', 'Expected n species / 100 fish', rel.y.text = 1)
 ```
 
 ##Species distribution
+Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. 
+<!--\etwocol-->
+
+```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
+knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
+knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
+
+```
+
+```{r, fig.cap="Shifts in species distribution, 1970s (blue), recent (red) and overlap (purple) \\label{dists}", fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
+
+```
+<!--\btwocol-->
+A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
+
 Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most show a northeastward change in distribution aside from shortfin squid. Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 ```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, echo = F, message = FALSE, warning = FALSE}
@@ -749,29 +766,6 @@ soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.t
 
 ```
 
-Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. 
-<!--\etwocol-->
-
-```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
-knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
-knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
-
-```
-
-```{r, fig.cap="Shifts in species distribution, 1970s (blue), recent (red) and overlap (purple) \\label{dists}", fig.height=0.05}
-opar<-par(mar=c(0,0,0,0))
-plot(0,0,typ='n',axes=F,xlab='',ylab='')
-
-```
-<!--\btwocol-->
-A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
-<!--
-```{r, fig.cap="Shifts in species distribution, 1970s (blue), recent (red) and overlap (purple) \\label{dists}", echo = F, message = FALSE, warning = FALSE}
-knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
-knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
-
-```
---> 
 
 ##Species condition
 Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while black sea bass remain thinner for their length on average.  
@@ -936,7 +930,7 @@ soe.plot(SOE.data, 'Time', 'Right whale population', x.label = 'Year',
 ##Endangered Fish
 Despite diverse population structures and management regimes, concurrent abundance declines in disparate North American and European Atlantic salmon populations suggest that marine feeding conditions may be poor.  Diet analysis of Atlantic salmon sampled off the coast of West Greenland demonstrated that they are consuming slightly less capelin by weight, but more lower quality prey (amphipods and squid) recently compared to 1960-1970. Further, the energy density of capelin, their primary prey item at Greenland (~40-90% annually), decreased by almost 34% recently. This coincides with an approximate 66% reduction in Atlantic salmon marine productivity. The influence of declining resource quality is not unique to Atlantic salmon, as some populations of Atlantic cod, bluefin tuna, seabirds, and marine mammals are either of lower body condition and/or not as productive as they once were in the region pre-1990. This may partially be a response to reduced prey quality caused by changes in bottom-up processes. Determining and understanding the mechanisms that influence marine food-webs is necessary to fully evaluate survival and productivity trends, and to establish realistic management targets for commercial, recreational, and protected species.
 
-```{r, fig.cap="Energy content of capelin\\label{energy}", echo = F, out.width='\\linewidth'}
+```{r, fig.cap="Energy content of capelin\\label{energy}", echo = F, out.width='.9\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'energycontent.png'))
 ```
 
@@ -1013,7 +1007,7 @@ ________________________________________________________________________________
 ##Annual sea surface temperature cycle  
 The Mid-Atlantic experienced above average sea surface temperatures (SSTs) during 2016. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions moderated in the Mid-Atlantic to below average temperature conditions in June and July. The ecoregions warmed dramatically from late summer into fall and remained above average temperatures through the end of the year.
 
-```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, out.width='.9\\linewidth'}
+```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, out.width='.8\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'ann_sst_ Middle Atlantic Bight .jpeg'))
 
 ```
@@ -1083,7 +1077,7 @@ ________________________________________________________________________________
 \btwocol
 
 ##Gulf Stream North Wall
-Interannual and decadal shifts in the position of the Gulf Stream’s Northern Wall are associated with both deep ocean circulation and atmospheric fluctuations over the North Atlantic. An index of the position of the North Wall of the Gulf Stream (15 o C isotherm at 200 m depth), measured in degrees latitude, reveals a shift in the early 1980s from a low (more southerly) to a high (more northerly) index values, reaching a peak in the early-1990s. The Gulf Stream Index has been related to the spatial distribution and recruitment of certain U.S. NES commercial fish, phytoplankton blooms along the Shelf Break, and sea surface temperature in the Gulf of Maine such that a more northern Gulf Stream (positive index) is associated to warmer ocean temperature.  
+Interannual and decadal shifts in the position of the Gulf Stream’s Northern Wall are associated with both deep ocean circulation and atmospheric fluctuations over the North Atlantic. An index of the position of the North Wall of the Gulf Stream (15 ^o^ C isotherm at 200 m depth), measured in degrees latitude, reveals a shift in the early 1980s from a low (more southerly) to a high (more northerly) index values, reaching a peak in the early-1990s. The Gulf Stream Index has been related to the spatial distribution and recruitment of certain U.S. NES commercial fish, phytoplankton blooms along the Shelf Break, and sea surface temperature in the Gulf of Maine such that a more northern Gulf Stream (positive index) is associated to warmer ocean temperature.  
 
 ```{r, fig.cap="Gulf Stream Index \\label{GSI}", echo = F, fig.height=2.5 }
 opar <- par(mar = c(4, 6, 0, 0))
