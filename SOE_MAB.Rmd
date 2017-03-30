@@ -516,7 +516,7 @@ a <- legend('bottomright',
 
 ## Seafood Production
 \btwocol
-Seafood production is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. This indicator links the human activity commercial fishing to the seafood objective. Functional groups of species are listed with the codes below.
+Seafood production is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. This indicator links the human activity commercial fishing to the seafood objective. Functional groups of species are listed with the codes below, and these groups are also used to organize trawl survey data.
 \etwocol
 
 ##Species groupings  
@@ -525,7 +525,7 @@ tabl <- "
 | Group             | N species | Major species in the group       |
 |:------------------|:-------|:--------------------------------------------|
 | A: Benthos        | 7  | scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
-| B: Mesoplanktivores | 7  | Atlantic mackerel, butterfish, menhaden, Atantic herring, river herrings and shad |
+| B: Mesoplanktivores | 6  | Atlantic mackerel, butterfish, Atantic herring, river herrings and shad |
 | C: Macroplanktivore | 6  | longfin and shortfin squids, white hake, searobins, sculpin, lumpfish |
 | D: Macrozoo-piscivores| 12  | clearnose, little, and smooth skates, smooth dogfish, buckler dory, blackbelly rosefish, redfish, windowpane, cusk, pollock, red hake, cancer crabs|
 | E: Benthivores      | 24  | black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail winter and witch flounders, barnoor skate, other crabs|
@@ -535,7 +535,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
 \btwocol
-Commercial landings include all landings in the region, including species not managed by MAFMC, with the notable exception of Atlantic menhaden. For example, category E, Benthivores, includes blue crabs, which are a substantial portion of the landings. In 2015, Benthos was 68% MAFMC managed, Macro-planktivores 100% (this would be much reduced with menhaden landings included), Mesoplanktivores 84%, Macrizooplanktivores 0%, Benthivores 17%, Piscivores 59%. 
+Commercial landings include all landings in the region, including species not managed by MAFMC, with the notable exception of Atlantic menhaden. For example, category E, Benthivores, includes blue crabs, which are a substantial portion of the landings. In 2015, Benthos was 68% MAFMC managed, Macro-planktivores 100% (this would be much reduced with menhaden landings included), Mesoplanktivores 84%, Macrozooplanktivores 0%, Benthivores 17%, Piscivores 59%. 
 
 In these and subsequent time series plots, trends are assessed for both the full time series and the most recent 10 years (shaded dark grey background). Significant increasing trends have orange lines, while significant decreasing trends have purple lines. Dotted white horizontal lines indicate +- 1 standard deviation from the long term time series mean.
 
@@ -579,7 +579,7 @@ soe.plot(SOE.data, 'Time', 'MAB Benthivore Revenue',
 soe.plot(SOE.data, 'Time', 'MAB Piscivore Revenue',          
          scale.axis = 10^6, rel.y.num = 1.0, stacked = 'F')
 
-soe.stacked.axis('Year', 'Commercial Revenue, million $US')
+soe.stacked.axis('Year', 'Commercial Revenue, million inflation adjusted $US')
 ```
 
 ## Commercial Fleet Diversity
@@ -624,7 +624,7 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 ```
 
 ##Mariculture  
-Aquaculture indicators addresses both seafood production and possibly habitat objectives in that planted bivalves such as oysters may provide both habitat structure and contribute to improved water quality at sufficient numbers (we cannot evaluate that function here yet). Individual states collect and publish aquaculture production differently; at this time only information reported by VIMS is available for the Mid-Atlantic region. 
+Aquaculture indicators addresses both seafood production and possibly habitat objectives in that planted bivalves such as oysters may provide both habitat structure and contribute to improved water quality at sufficient numbers (we cannot evaluate that function here yet). Individual states collect and publish aquaculture production differently; at this time only information reported by VIMS is available for the Mid-Atlantic region. Virginia leads the Nation in hard clam production, and oyster culture is increasing steadily.
 
 ```{r Mariculture, fig.cap="Aquaculture stats from VA. A - hard clams, B - oysters \\label{mariculture}", echo = F, , out.width='.45\\linewidth', fig.show='hold', out.width='.45\\linewidth'}
 
@@ -898,7 +898,7 @@ par(opar)
 --> 
 
 ##Groundfish productivity
-The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are indications of a decrease in this indicator when aggregated across all species in the Mid-Atlantic. 
+The number of small fish relative to the biomass of larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed species in the Mid-Atlantic. 
 <!--\etwocol-->
 ```{r, echo = F, fig.align='default', out.width='\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'FishProdMAB.pdf'))
@@ -1005,9 +1005,9 @@ ________________________________________________________________________________
 \btwocol
 
 ##Annual sea surface temperature cycle  
-The Mid-Atlantic experienced above average sea surface temperatures (SSTs) during 2016. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions moderated in the Mid-Atlantic to below average temperature conditions in June and July. The ecoregions warmed dramatically from late summer into fall and remained above average temperatures through the end of the year.
+The Mid-Atlantic experienced above average sea surface temperatures (SSTs) during 2016. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions moderated in the Mid-Atlantic to below average temperature conditions in June and July. The region warmed dramatically from late summer into fall and remained above average temperature through the end of the year.
 
-```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, out.width='.8\\linewidth'}
+```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, out.width='.9\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'ann_sst_ Middle Atlantic Bight .jpeg'))
 
 ```
@@ -1073,11 +1073,13 @@ soe.stacked.axis('Year', 'Salinity, PSU', y.line = 3.7, rel.y.text = 1)
 \etwocol
 
 ______________________________________________________________________________________________________________ 
+\pagebreak  
+
 #Climate Indices 
 \btwocol
 
 ##Gulf Stream North Wall
-Interannual and decadal shifts in the position of the Gulf Stream’s Northern Wall are associated with both deep ocean circulation and atmospheric fluctuations over the North Atlantic. An index of the position of the North Wall of the Gulf Stream (15 ^o^ C isotherm at 200 m depth), measured in degrees latitude, reveals a shift in the early 1980s from a low (more southerly) to a high (more northerly) index values, reaching a peak in the early-1990s. The Gulf Stream Index has been related to the spatial distribution and recruitment of certain U.S. NES commercial fish, phytoplankton blooms along the Shelf Break, and sea surface temperature in the Gulf of Maine such that a more northern Gulf Stream (positive index) is associated to warmer ocean temperature.  
+Interannual and decadal shifts in the position of the Gulf Stream’s Northern Wall are associated with both deep ocean circulation and atmospheric fluctuations over the North Atlantic. An index of the position of the North Wall of the Gulf Stream (15 ^o^C isotherm at 200 m depth), measured in degrees latitude, reveals a shift in the early 1980s from a low (more southerly) to a high (more northerly) index values, reaching a peak in the early-1990s. The Gulf Stream Index has been related to the spatial distribution and recruitment of certain U.S. NES commercial fish, phytoplankton blooms along the Shelf Break, and sea surface temperature in the Gulf of Maine such that a more northern Gulf Stream (positive index) is associated to warmer ocean temperature.  
 
 ```{r, fig.cap="Gulf Stream Index \\label{GSI}", echo = F, fig.height=2.5 }
 opar <- par(mar = c(4, 6, 0, 0))
@@ -1116,9 +1118,14 @@ The upper ocean flow of warm, salty water to the high latitude North Atlantic wh
 ##Community level climate indicators-->
 
 # Research recommendations
-We are in the process of applying a suite of indicator evaluation criteria to the set of indicators presented here (as well as others not presented here) to provide more information on indicator performance.
+The MAFMC SSC requested more information regarding activities not managed by the Council that may interact with fisheries management, such as energy development. One way to address this could be through habitat indicators. We are actively working towards development and integration of multispecies habitat quantity and quality indicators in this report, and potentially habitat vulernability assessment in concert with Council EAFM and EFH efforts. 
+
+The MAFMC SSC requested more information on fleet diversity and stability metrics, and suggested including portfolio analyses (already in progress at NEFSC) as well as some metric of volatility that would speak to the temporal variation of revenue streams. We will bring examples forward for the next SSC review in 2018.
+
+We are in the process of applying a suite of indicator evaluation criteria to the set of indicators presented here (as well as others not presented here) to provide more information on indicator performance.  
 
 Incorporating information on ecosystem processes at multiple scales is a priority. We welcome collaboration with fishery participants and actively seek collaboration with investigators throughout the region.
+
 
 # More Information  
 http://www.nefsc.noaa.gov/ecosys/
