@@ -317,7 +317,8 @@ Anything to watch this year--interactions with the species in poor shape--->
 ##Community engagement and dependence on fisheries 
 Coastal communities have varying degress of engagement in and reliance on fishing. Engagement generally measures amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. In particular, communities around the Gulf of Maine region have a higher reliance commercial fishing relative to other regions of the Northeast US shelf. 
 
-```{r Community engagement, echo = F, out.width='.40\\linewidth', fig.align='default', fig.show='hold'}
+<!--
+```{r  engagement, echo = F, out.width='.40\\linewidth', fig.align='default', fig.show='hold'}
 knitr::include_graphics(file.path(image.dir, 'CommercialEngagement.pdf'))
 knitr::include_graphics(file.path(image.dir, 'RecEngagement.pdf'))
 
@@ -336,18 +337,265 @@ opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
+-->
+
+```{r Read GIS files, echo = F, results = 'hide'}
+coast <- readOGR(gis.dir, 'NES_LME_coast')
+coast <- spTransform(coast, CRS('+init=epsg:4326'))
+```
+
+```{r Community engagement, echo = F, fig.height = 6, fig.width = 6, fig.cap="Community engagement (A: Commercial, B: Recreational) and reliance (C: Commercial, D: Recreational) on fishing \\label{engagement}"}
+#knitr::include_graphics(file.path(image.dir, 'CommercialEngagement.pdf'))
+#knitr::include_graphics(file.path(image.dir, 'RecEngagement.pdf'))
+sea.col <- 'light blue'
+point.cex <- c(0.4, 0.8, 1.0, 1.2)
+opar<- par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(3, 3.5, 2, 2))
+
+#Commercial Engagement
+plot(0, 0, xlim = c(-74, -67), ylim = c(38, 45), xlab = '', ylab = '', axes = F,
+     typ = 'n')
+
+#Add background
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
+
+#Add coast  
+plot(coast, col = 'wheat', add = T)
+box()
+
+axis(2, at = c(35, 40, 45), labels = c(expression(35 * degree * ' N'),
+                                       expression(40 * degree * ' N'),
+                                       expression(45 * degree * ' N')), las = T)
+
+#Add points
+points(reliance[ComEngRank == 'Low', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'light green', cex = point.cex[1])
+points(reliance[ComEngRank == 'Moderate', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'green', cex = point.cex[2])
+points(reliance[ComEngRank == 'MedHigh', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'yellow', cex = point.cex[3])
+points(reliance[ComEngRank == 'High', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'red', cex = point.cex[4])
+
+#Add Label
+text(u[1], u[4], labels = 'A', cex = 2, adj = c(-0.5, 1.5))
+
+#Recreational Engagement
+plot(0, 0, xlim = c(-74, -67), ylim = c(38, 45), xlab = '', ylab = '', axes = F,
+     typ = 'n')
+
+#Add background
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
+
+#Add coast
+plot(coast, col = 'wheat', add = T)
+box()
+
+#Add points
+points(reliance[RecEngRank == 'Low', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'light green', cex = point.cex[1])
+points(reliance[RecEngRank == 'Moderate', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'green', cex = point.cex[2])
+points(reliance[RecEngRank == 'MedHigh', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'yellow', cex = point.cex[3])
+points(reliance[RecEngRank == 'High', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'red', cex = point.cex[4])
+
+#Add Label
+text(u[1], u[4], labels = 'B', cex = 2, adj = c(-0.5, 1.5))
+
+#Commercial Reliance
+plot(0, 0, xlim = c(-74, -67), ylim = c(38, 45), xlab = '', ylab = '', axes = F,
+     typ = 'n')
+
+#Add background
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
+
+#Add coast
+plot(coast, col = 'wheat', add = T)
+box()
+axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
+                                          expression('70'* degree * ' W'),
+                                          expression('65'* degree * ' W')))
+
+axis(2, at = c(35, 40, 45), labels = c(expression(35 * degree * ' N'),
+                                       expression(40 * degree * ' N'),
+                                       expression(45 * degree * ' N')), las = T)
+
+#Add points
+points(reliance[ComRelRank == 'Low', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'light green', cex = point.cex[1])
+points(reliance[ComRelRank == 'Moderate', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'green', cex = point.cex[2])
+points(reliance[ComRelRank == 'MedHigh', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'yellow', cex = point.cex[3])
+points(reliance[ComRelRank == 'High', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'red', cex = point.cex[4])
+
+#Add Label
+text(u[1], u[4], labels = 'C', cex = 2, adj = c(-0.5, 1.5))
+
+#Recreational Reliance
+plot(0, 0, xlim = c(-74, -67), ylim = c(38, 45), xlab = '', ylab = '', axes = F,
+     typ = 'n')
+
+#Add background
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
+
+#Add coast
+plot(coast, col = 'wheat', add = T)
+box()
+axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
+                                          expression('70'* degree * ' W'),
+                                          expression('65'* degree * ' W')))
+
+#Add points
+points(reliance[RecRelRank == 'Low', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'light green', cex = point.cex[1])
+points(reliance[RecRelRank == 'Moderate', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'green', cex = point.cex[2])
+points(reliance[RecRelRank == 'MedHigh', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'yellow', cex = point.cex[3])
+points(reliance[RecRelRank == 'High', list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'red', cex = point.cex[4])
+
+#Add Label
+text(u[1], u[4], labels = 'D', cex = 2, adj = c(-0.5, 1.5))
+
+#Add Legend
+a <- legend('bottomright', 
+            legend = c('High', 'Medium/High', 'Moderate', 'Low'), bty = 'n',
+            pch = 21, pt.bg = c('red', 'yellow', 'green', 'light green'), 
+            pt.cex = point.cex[4:1], cex = 1, y.intersp = 1)
+
+```
 
 <!--##Aggregate measures of fishing performance--> 
 ## Climate Risk to Coastal Communities
-Do we have this for New England? 
-<!--Mid-Atlantic communities clustered around the Chesapeake Bay area and the New Jersey shore have especially high vulnerability to sea level rise. These vulnerabilities include infrastructure (docks, marinas, bait shops, gear storage) and access to shore-based facilities due realignment of coastal communities.
+Do we have this for New England? YES
 
-Mid-Atlantic fishing communities with total landings value of $100,000 or more were mapped for their dependence on species vulnerable to climate change and catch composition diversity (Simpson Reciprocal Index). A number of communities in southern New Jersey, Maryland and Virginia are highly dependent on species such as clams that are highly vulnerable to climate change while displaying low catch composition diversity. 
+```{r Community Risk, fig.cap="Risks from sea level rise (A), reliance on climate-vulnerable species (B), and catch diversity (C) \\label{commrisk}", echo = F, fig.height = 3.8, fig.width = 9}
+#knitr::include_graphics(file.path(image.dir, 'MidClimateRisk.png'))
+#Risk maps
+sea.col <- 'light blue'
+point.cex <- c(0.6, 1.0, 1.2, 1.4)
+opar<- par(mfrow = c(1, 3), mar = c(0, 0, 0, 0), oma = c(3, 4.2, 1, 1))
 
-```{r, fig.cap="Risks from sea level rise, reliance on climate-vulnerable species, and catch diversity \\label{commrisk}", echo = F}
-knitr::include_graphics(file.path(image.dir, 'MidClimateRisk.png'))
+#Sea Level Rise
+plot(0, 0, xlim = c(-74, -67), ylim = c(38, 45), xlab = '', ylab = '', axes = F,
+     typ = 'n')
+
+#Add background
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
+
+#Add coast  
+plot(coast, col = 'wheat', add = T)
+box()
+
+axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
+                                          expression('70'* degree * ' W'),
+                                          expression('65'* degree * ' W')), 
+     cex.axis = 1.5)
+axis(2, at = c(35, 40, 45), labels = c(expression(35 * degree * ' N'),
+                                       expression(40 * degree * ' N'),
+                                       expression(45 * degree * ' N')), las = T,
+     cex.axis = 1.5)
+
+#Add points
+points(risk[SLR_NE1 == 1, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'light green', cex = point.cex[1])
+points(risk[SLR_NE1 == 2, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'green', cex = point.cex[2])
+points(risk[SLR_NE1 == 3, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'yellow', cex = point.cex[3])
+points(risk[SLR_NE1 == 4, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'red', cex = point.cex[4])
+
+#Add Label
+text(u[1], u[4], labels = 'A', cex = 2, adj = c(-0.5, 1.5))
+
+a <- legend('bottomright', 
+            legend = c('High', 'Medium/High', 'Moderate', 'Low'), bty = 'n',
+            pch = 21, pt.bg = c('red', 'yellow', 'green', 'light green'), 
+            pt.cex = point.cex[4:1], cex = 1.5, y.intersp = 1)
+
+#Species Risk
+point.cex <- c(0.0, 1.0, 1.5, 2.0)
+plot(0, 0, xlim = c(-74, -67), ylim = c(38, 45), xlab = '', ylab = '', axes = F,
+     typ = 'n')
+
+#Add background
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
+
+#Add coast  
+plot(coast, col = 'wheat', add = T)
+box()
+
+axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
+                                          expression('70'* degree * ' W'),
+                                          expression('65'* degree * ' W')),
+     cex.axis = 1.5)
+
+#Add points
+for(i in 2:4){
+    points(risk[SpeciesVul == 'Mixed' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)], 
+           pch = 21, bg = 'white', cex = point.cex[i])
+    points(risk[SpeciesVul == 'Low' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)], 
+           pch = 21, bg = 'green', cex = point.cex[i])
+    points(risk[SpeciesVul == 'Moderate' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)],
+           pch = 21, bg = 'blue', cex = point.cex[i])
+    points(risk[SpeciesVul == 'High/Very High' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)],
+           pch = 21, bg = 'red', cex = point.cex[i])
+}
+
+a <- legend('bottomright', 
+            legend = c('High/Very High', 'Moderate', 'Low', 'Mixed', '', 
+                       '< $1M', '$1M - $10M', '> $10M'), bty = 'n',
+            pch = 21, pt.bg = c('red', 'blue', 'green', 'white', rep('white', 4)), 
+            pt.cex = c(rep(point.cex[3], 4), 0, point.cex[2:4]), cex = 1.5)
+
+#Add Label
+text(u[1], u[4], labels = 'B', cex = 2, adj = c(-0.5, 1.5))
+
+#Catch Diversity
+plot(0, 0, xlim = c(-74, -67), ylim = c(38, 45), xlab = '', ylab = '', axes = F,
+     typ = 'n')
+
+#Add background
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
+
+#Add coast  
+plot(coast, col = 'wheat', add = T)
+box()
+
+axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
+                                          expression('70'* degree * ' W'),
+                                          expression('65'* degree * ' W')),
+     cex.axis = 1.5)
+
+#Add points
+points(risk[Simpson >= 1 & Simpson < 2.5, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'red', cex = point.cex[4])
+points(risk[Simpson >= 2.5 & Simpson < 5, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'yellow', cex = point.cex[3])
+points(risk[Simpson >= 5, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'green', cex = point.cex[2])
+
+#Add Label
+text(u[1], u[4], labels = 'C', cex = 2, adj = c(-0.5, 1.5))
+
+a <- legend('bottomright', 
+            legend = c('Low', 'Moderate', 'High'), bty = 'n',
+            pch = 21, pt.bg = c('red', 'yellow', 'green'), 
+            pt.cex = point.cex[4:2], cex = 1.5, y.intersp = 1)
+
 ```
--->
 
 ## Seafood Production
 Seafood production is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. This indicator links the human activity commercial fishing to the seafood objective. Functional groups of species are listed with the codes below.
