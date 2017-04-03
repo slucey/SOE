@@ -36,7 +36,7 @@ knitr::opts_chunk$set(echo = FALSE, fig.align='center')
 ```{r Generic Plot Function, echo = F}
 #Plot figure new
 soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
-                     x.start = NA, x.end = NA, end.start = 2006, bg.col = background,
+                     x.start = NA, x.end = NA, end.start = 2007, bg.col = background,
                      end.col = recent, trend.neg = main.neg, trend.pos = main.pos,
                      end.trend.neg = end.neg, end.trend.pos = end.pos,
 
@@ -196,9 +196,9 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-**Eight New England Council (NEFMC) stocks are not meeting objectives at the managed species level** for fishing mortality (F) rates and biomass (B) levels relative to established reference points. The remaining stocks are currently within target ranges for F and above the limit for B.
+**Eight New England Council (NEFMC) stocks are not meeting objectives at the managed species level** for fishing mortality (F) rates and/or biomass (B) levels relative to established reference points. The remaining stocks are currently within target ranges for F and above the limit for B.
 
-```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", echo = F,fig.height=8, fig.width=5, message = FALSE, warning = FALSE}
+```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", echo = F,fig.height=8, fig.width=6, out.width='0.5\\linewidth', message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'NEFMC_joint_stocks.png'))
 
 dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
@@ -291,21 +291,21 @@ plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 
 ```
 
-At the ecosystem scale, commercial **Gulf of Maine seafood production relies on benthos and benthivores (scallops, lobster)**, with other groups stable or decreasing in landings (forage fish, piscivores). **Georges Bank seafood production has decreased over the long term.** Aquaculture production information has been steady for Maine salmon and increasing in Rhode Island. **Commercial revenues show long term increases for most groups other than piscivores.** **However, these increases are only partially driven by NEFMC managed species, underlining the need to work across jurisdictions to address ecosystem-level objectives.**
+At the ecosystem scale, commercial **Gulf of Maine seafood production relies on benthos and benthivores (scallops, lobster)**, with other groups stable or decreasing in landings (forage fish, piscivores). **Georges Bank seafood production has decreased over the long term.** Aquaculture production information has been steady for Maine salmon and increasing in Rhode Island. **Commercial revenues show long term increases for most groups other than piscivores. The majority of Georges Bank revenue is from a single species (scallops), and the majority of Gulf of Maine revenue is from a single species not managed by the Council (lobster),** underlining the need to work across jurisdictions to address ecosystem-level objectives.
 
 **Recreational opportunities** from fishing have also **increased over the long term**, according to numbers of angler trips and anglers. However, there has been a **significant decline over the past 10 years** which may have started with the 2008 economic collapse, though recovery of recreational indices has not matched recovery in the wider economy. 
 
-Community vulnerability assessments suggest that although species managed by the MAFMC have lower vulnerability to climate impacts than species managed by NEFMC, many of the **fishing communities in the region are vulnerable to sea level rise**, for which exposure is expected to increase. **Mid Atlantic coastal communities have a high reliance on both commercial and recreational fisheries.** 
+Community vulnerability assessments suggest that although **fishing communities in New England have** generally moderate to low risks from sea level rise, there is **moderate to high reliance on species vulnerable to climate, and generally low catch diversity** in the Gulf of Maine. Maine coastal communities have a high reliance on commercial fisheries, while communities from Cape Cod south rely on both recreational and commercial fisheries.
 
 Stability is addressed with indices of **commercial fleet and species revenue diversity**. These **show long term declines** in New England, which may raise a caution flag for stability within the industry, but requires further investigation into mechanisms. 
 
-Survey **biomass trends for aggregated trophic groups are similar across seasons and regions**. At the lowest trophic level, **both forage fish and benthos, including commercial shellfish, show long term increases in both seasons**. Both **benthivores and piscivores at higher trophic levels have stable or increasing trends depending on the season** sampled, in particular during the most recent decade. **Species diversity has increased in the Gulf of Maine, but remained stable or decreased on Georges Bank** depending on the season sampled.
+Survey **biomass trends for aggregated trophic groups are similar across seasons and regions**. At the lowest trophic level, **both forage fish and benthos, including commercial shellfish, show long term increases in both seasons**. Both **benthivores and piscivores at higher trophic levels have stable or increasing trends depending on the season** sampled, in particular during the most recent decade. However, these increases are largely driven by non-commercial species. **Species diversity has increased in the Gulf of Maine, but remained stable or decreased on Georges Bank** depending on the season sampled.
 
 Additional indicators in this report suggest a note of **caution for the aggregate productivity of fish species in the region** (fish condition declined and recovered for some species). In addition, while there are few time series for protected species, **the most endangered species in the system (North Atlantic right whale) may be declining** over the most recent few years after a slow but steady increase. Further, signals from the wider northwest Atlantic suggest a **decrease in forage fish energy content**. While there are no clear long-term trends at the bottom of the food web in New England, **smaller less energy dense zooplankton have been increasing while primary production has been average**.
 
-**Temperature is increasing** in long term sea surface records as well as surface and bottom measurements from surveys. The seasonal temperature signal also shows sustained warming. **Warming waters have impacts** on the ecosystem that can be complex due to differential impacts at the species level, **including observed shifts in species distribution and changes in productivity** as thermal habitats shift. Regional climate indices show a northward movement of the Gulf Stream north wall which can be a local mechanism for increased temperature and species redistribution, in addition the to broader influences of a warming climate. 
+**Temperature is increasing** in long term sea surface records as well as bottom measurements from surveys. The seasonal temperature signal also shows sustained warming. **Warming waters have impacts** on the ecosystem that can be complex due to differential impacts at the species level, **including observed shifts in species distribution and changes in productivity** as thermal habitats shift. Regional climate indices show a northward movement of the Gulf Stream north wall, a local mechanism for increased temperature and species redistribution, adding to broader influences of a warming climate. 
 
-This report currently lacks indicators for general objectives related to employment (information exists and can be updated) and habitat quality, quantity, and diversity. Risks to habitat including frequency and intensity of harmful algal blooms (HABs) in the region are being investigated, although information is in multiple locations with a range of accessibility. Data for cultural practices and attachments (e.g., number of generations of individual families involved in fishing, length of residence in individual fishing communities, use of kin as crew) require more investigation.  
+This report currently lacks indicators for employment (information exists and can be updated) and habitat quality, quantity, and diversity. Risks to habitat including frequency and intensity of harmful algal blooms (HABs) in the region are being investigated. Data for cultural practices and attachments (e.g., number of generations of individual families involved in fishing, length of residence in individual fishing communities, use of kin as crew) require more investigation.  
 
 <!---##Living marine resources status
 Are the signs for higher or lower productivity? Earlier or later seasons? Changes in species mixes or interactions? 
@@ -475,10 +475,10 @@ a <- legend('bottomright',
 
 <!--##Aggregate measures of fishing performance--> 
 ## Climate Risk to Coastal Communities
-Do we have this for New England? YES
+Assessment of the potential impacts of climate change on recreational and commercial fishermen and their communities has begun by linking social and economic indicators of community vulnerability and resilience to the climate vulnerability assessments of biological and ecological change expected to result from climate change and sea-level rise. Fishing communities in New England have generally moderate to low risks from sea level rise compared with communities in the Mid-Atlantic. However, there is moderate to high reliance on species vulnerable to climate in New England, and generally low catch diversity for communities in the Gulf of Maine. 
 
 ```{r Community Risk, fig.cap="Risks from sea level rise (A), reliance on climate-vulnerable species (B), and catch diversity (C) \\label{commrisk}", echo = F, fig.height = 3.8, fig.width = 9}
-#knitr::include_graphics(file.path(image.dir, 'MidClimateRisk.png'))
+
 #Risk maps
 sea.col <- 'light blue'
 point.cex <- c(0.6, 1.0, 1.2, 1.4)
@@ -624,33 +624,33 @@ In these and subsequent time series plots, trends are assessed for both the full
 ```{r Commerical Landings, fig.cap="Commercial landings of A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commland}", echo = F, fig.show='hold', fig.height=7, out.width='.49\\linewidth'}
 
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GOM Benthos Landings',            
+soe.plot(SOE.data, 'Time', 'GOM Benthos Landings', end.start = 2006,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Landings', x.start = 1964,
+soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Landings', x.start = 1964, end.start = 2006,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'B')
-soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Landings',   
+soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Landings', end.start = 2006,  
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'C')
-soe.plot(SOE.data, 'Time', 'GOM Macrozoo-piscivore Landings', 
+soe.plot(SOE.data, 'Time', 'GOM Macrozoo-piscivore Landings', end.start = 2006,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'D')
-soe.plot(SOE.data, 'Time', 'GOM Benthivore Landings',         
+soe.plot(SOE.data, 'Time', 'GOM Benthivore Landings', end.start = 2006,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'E')
-soe.plot(SOE.data, 'Time', 'GOM Piscivore Landings',          
+soe.plot(SOE.data, 'Time', 'GOM Piscivore Landings', end.start = 2006,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'F')
 
 soe.stacked.axis('Year', expression('GOM Commercial Landings, 10'^3*'mt'))
 
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GB Benthos Landings',            
+soe.plot(SOE.data, 'Time', 'GB Benthos Landings', end.start = 2006,   
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Landings', x.start = 1964,
+soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Landings', x.start = 1964, end.start = 2006,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'B')
-soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Landings',   
+soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Landings',  end.start = 2006, 
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'C')
-soe.plot(SOE.data, 'Time', 'GB Macrozoo-piscivore Landings', 
+soe.plot(SOE.data, 'Time', 'GB Macrozoo-piscivore Landings', end.start = 2006,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'D')
-soe.plot(SOE.data, 'Time', 'GB Benthivore Landings',         
+soe.plot(SOE.data, 'Time', 'GB Benthivore Landings', end.start = 2006,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'E')
-soe.plot(SOE.data, 'Time', 'GB Piscivore Landings',          
+soe.plot(SOE.data, 'Time', 'GB Piscivore Landings', end.start = 2006, 
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'F')
 
 soe.stacked.axis('Year', expression('GB Commercial Landings, 10'^3*'mt'))
@@ -665,33 +665,33 @@ This indicator links the human activity commercial fishing to the profits object
 
 ```{r, fig.cap="Commercial revenue from A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commrev}", echo = F, fig.show='hold', fig.height=7, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GOM Benthos Revenue',            
+soe.plot(SOE.data, 'Time', 'GOM Benthos Revenue', end.start = 2006,           
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Revenue',  x.start = 1964,
+soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Revenue',  x.start = 1964, end.start = 2006,
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'B')
-soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Revenue',   
+soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Revenue', end.start = 2006,  
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'C')
-soe.plot(SOE.data, 'Time', 'GOM Macrozoo-piscivore Revenue', 
+soe.plot(SOE.data, 'Time', 'GOM Macrozoo-piscivore Revenue', end.start = 2006,
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'D')
-soe.plot(SOE.data, 'Time', 'GOM Benthivore Revenue',         
+soe.plot(SOE.data, 'Time', 'GOM Benthivore Revenue',  end.start = 2006,
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'E')
-soe.plot(SOE.data, 'Time', 'GOM Piscivore Revenue',          
+soe.plot(SOE.data, 'Time', 'GOM Piscivore Revenue', end.start = 2006, 
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'F')
 
 soe.stacked.axis('Year', 'GOM Commercial Revenue, million $US')
 
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GB Benthos Revenue',            
+soe.plot(SOE.data, 'Time', 'GB Benthos Revenue', end.start = 2006,           
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Revenue',  x.start = 1964,
+soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Revenue',  x.start = 1964, end.start = 2006,
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'B')
-soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Revenue',   
+soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Revenue', end.start = 2006,  
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'C')
-soe.plot(SOE.data, 'Time', 'GB Macrozoo-piscivore Revenue', 
+soe.plot(SOE.data, 'Time', 'GB Macrozoo-piscivore Revenue', end.start = 2006,
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'D')
-soe.plot(SOE.data, 'Time', 'GB Benthivore Revenue',         
+soe.plot(SOE.data, 'Time', 'GB Benthivore Revenue', end.start = 2006, 
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'E')
-soe.plot(SOE.data, 'Time', 'GB Piscivore Revenue',          
+soe.plot(SOE.data, 'Time', 'GB Piscivore Revenue', end.start = 2006,  
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'F')
 
 soe.stacked.axis('Year', 'GB Commercial Revenue, million $US')
@@ -699,16 +699,17 @@ soe.stacked.axis('Year', 'GB Commercial Revenue, million $US')
 ```
 
 ## Commercial Fleet Diversity
-Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Diversity estimates have been developed for fleets and species landed by vessels with Mid-Atlantic permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. 
+Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Diversity estimates have been developed for fleets and species landed by vessels with New England species permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. 
 
-A declining trend in diversity indicates reliance on either a smaller number of resources, or a less diverse pool of resources but cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem. 
+The fleet revenue diversity for individuals landing NEFMC FMP species shows a consistent downward trend across the entire time series. A declining trend in diversity indicates reliance on either a smaller number of resources, or a less diverse pool of resources but cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in New England. 
 
-<!-- The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets. --> 
+A count of the number of fleets actively landing NEFMC FMP species in each year is relatively consistent with the revenue diversity metric, with a consistent downward trend throughout the time series.
 
-```{r Fleet Diversity, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
+```{r Fleet Diversity, fig.cap="A: average fleet diversity, B: fleet count  \\label{fleetdiv}", echo = F, fig.height=3.5}
+
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'New England fleet count', rel.y.num = 0.8, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'New England average fleet diversity', rel.y.num = 0.8, stacked = 'B')
+soe.plot(SOE.data, 'Time', 'New England average fleet diversity', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'New England fleet count', rel.y.num = 0.8, stacked = 'B')
 
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
@@ -721,12 +722,12 @@ soe.plot(SOE.data, 'Time', 'New England commercial species diversity',
          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
 
 ```
-This trend contrasts with the species diversity trends from survey data presented below, which indicate relatively low diversity during the mid-1990's and higher diversity now (with a significantly increasing recent trend in the spring survey data). 
+This trend contrasts with the species diversity trends for the Gulf of Maine from survey data presented below, which indicate relatively low diversity during the mid-1990's and higher diversity now (with a significantly increasing recent trend in both the fall and spring survey data). However, Georges Bank survey species diversity trends differ from Gulf of Maine in both seasons with less contrast between the mid-1990's and the present.
 
-Ultimately diversity can be measured in numerous ways (for example, in numbers of vessels in each fleet component as opposed to revenue) and feedback from the Council as to how this should be defined is welcomed.
+Ultimately, diversity can be measured in numerous ways (for example, in numbers of vessels in each fleet component as opposed to revenue) and feedback from the Council as to how this should be defined is welcomed.
 
 ##Recreational opportunities
-Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. <!-- Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation  in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. --> 
+Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Recreational fishing is important in the New England region, with many  coastal communities from Cape Cod southward having high recreational dependence. Although there is a long-term trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices.
 ```{r Rec Participation, fig.cap="A: number of anglers, B: number of trips \\label{recreation}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'North Atlantic Rec participation', x.end = 2016,
@@ -742,28 +743,38 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 ##Mariculture  
 Aquaculture indicators addresses both seafood production and possibly habitat objectives in that planted bivalves such as oysters may provide both habitat structure and contribute to improved water quality at sufficient numbers (we cannot evaluate that function here yet). Individual states collect and publish aquaculture production differently; at this time only information reported by the state of Maine is available for the Gulf of Maine region. 
 
-```{r Mariculture, fig.cap="Aquaculture stats from ME. A - Atlantic salmon, B - trout, C - blue mussels, D - oysters \\label{mariculture}", echo = F, out.width='.45\\linewidth', fig.show='hold'}
+```{r Mariculture, fig.cap="Aquaculture stats from ME. A - Atlantic salmon, B - trout, C - blue mussels, D - oysters \\label{mariculture}", echo = F, out.width='.45\\linewidth', fig.show='hold',  message = FALSE, warning = FALSE}
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'aquaculture ME Atlantic salmon harvest weight', stacked = 'A')
-soe.plot(SOE.data, 'Time', 'aquaculture ME trout harvest weight', stacked = 'B')
-soe.stacked.axis('Year', 'Amount sold, whole pounds')
+soe.plot(SOE.data, 'Time', 'aquaculture ME Atlantic salmon harvest weight', scale.axis = 100000, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'aquaculture ME trout harvest weight', scale.axis = 100000, stacked = 'B')
+soe.stacked.axis('Year', 'Amount sold, 100,000s lbs')
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'aquaculture ME blue mussels harvest weight', stacked = 'C')
-soe.plot(SOE.data, 'Time', 'aquaculture ME oysters harvest weight', stacked = 'D')
-soe.stacked.axis('Year', 'Amount sold, whole pounds')
+soe.plot(SOE.data, 'Time', 'aquaculture ME blue mussels harvest weight', scale.axis = 100000,  stacked = 'C')
+soe.plot(SOE.data, 'Time', 'aquaculture ME oysters harvest weight', scale.axis = 100000,  stacked = 'D')
+soe.stacked.axis('Year', 'Amount sold, 100,000s lbs')
 
 ```
 
+In Rhode Island, the total value of aquaculture production has been steadily increasing. The number of oysters sold is similarly increasing.
+
+```{r Mariculture2, fig.cap="Aquaculture stats from RI: total value (left), oysters sold (right) \\label{mariculture}", echo = F, fig.height=2.5, out.width='.45\\linewidth', fig.show='hold'}
+
+opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'aquaculture RI total value value', x.label = 'Year', y.label='Total value millions $', scale.axis = 1000000)
+
+opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'aquaculture RI oysters sold', x.label ='Year', y.label='Millions of oysters sold', scale.axis = 1000000)
+
+```
 
 #Resource Species  
 Patterns for groups of species that feed on similar prey can indicate how overall ecosystem conditions are changing, and provide context for individual species stock assessments. This information is from NEFSC bottom trawl surveys in spring and fall.  
 
 ##Trends in biomass
-<!--Biomass across trophic levels shows different trends between the fall and spring NEFSC trawl surveys, with few significant fall trends and many significant spring trends. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in both seasons. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled. 
-
-Seasonally divergent aggregate biomass trends require further investigation. They could indicate the trends of different fish communities with seasonal differences that are the result of regular seasonal migrations, or they could indicate movement of new species into/out of the region on a seasonal basis, or both. These trends across trophic levels point to the potentially complex and dynamic trophic structure of the Mid-Atlantic ecosystem. -->
+Biomass across trophic levels shows similar trends between the Gulf of Maine and Georges Bank. At the lowest trophic levels, benthos and forage fish, groups including commercial shellfish and herring, show long term increases in both seasons. Benthos also have recent short term increases in spring and forage fish have short term increases in fall surveys. In contrast, piscivores at higher trophic levels have significant long term increasing trends only during fall surveys. 
+ 
 ```{r, fig.cap="Fall survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{fallsurvB}", echo = F, fig.show = 'hold', fig.height = 7, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Benthos Fall',            
@@ -839,9 +850,8 @@ soe.stacked.axis('Year', expression('GB Survey biomass, kg tow'^-1))
 Removing this section?-->
 
 ##Species composition 
-Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity (here estimated as the mean number of species found in a random sample of 100 fish at a station for the Gulf of Maine and Georges Bank portions of NEFSC surveys) can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. 
+Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity (here estimated as the mean number of species found in a random sample of 100 fish at a station for the Gulf of Maine and Georges Bank portions of NEFSC surveys) can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Unlike total biomass trends by trophic group, trends in species diversity differ between Gulf of Maine and Georges Bank. The number of species has steadily increased in the Gulf of Maine over the long term in the fall, and over the most recent decade in both the fall and spring surveys. 
 
-<!--Diversity shows a signficant increase for one season in the Mid-Atlantic, suggesting that survey timing may be interacting with changes in the seasonal movement of fish (see above) as well as a potential change in species availability due to distribution shifts (see below). --> 
 ```{r, fig.cap="A-Fall, B-Spring \\label{sppdiv}", echo = F, fig.height=3.5, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'FALL GOM ESn',   rel.y.num = 1.1, stacked = "A")
@@ -858,7 +868,7 @@ soe.stacked.axis('Year', 'GB Expected n species / 100 fish', rel.y.text = 1)
 ```
 
 ##Species distribution
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and the depth of occurrence. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. Depth ranges from 0 to -260, which relates to depth of occurrence in meters. The mean along shelf distance for several NEFMC species by year is shown below; most show a norteastward change along the shelf, aside from herring. However, herring has a long term deeper distribution trend. Cod and yellowtail flounder while have a long term deeper distribution but a more recent return to shallower distributions. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and the depth of occurrence. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. Depth ranges from 0 to 260, which relates to depth of occurrence in meters. The mean along shelf distance for several NEFMC species by year is shown below; most show a norteastward change along the shelf, aside from herring. However, herring has a long term deeper distribution trend. Cod has a long term shift towards deeper distribution, but a more recent return to shallower distributions (along with winter flounder and haddock). Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 
 ```{r, fig.cap="Shifts in species distribution over time; A: Yellowtail flounder, B: Winter flounder, C: Cod, D: Haddock, E: Atlantic herring, F: Acadian redfish \\label{shifts}", fig.height=8, fig.show='hold', out.width='.49\\linewidth', echo = F, message = FALSE, warning = FALSE}
@@ -885,29 +895,35 @@ soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.t
 
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-soe.plot(SOE.data, 'Time', 'YELLOWTAIL FLOUNDER DTEOC',    stacked = 'A', scale.axis = 100, 
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'WINTER FLOUNDER DTEOC',   stacked = 'B', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC COD DTEOC',              stacked = 'C', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'HADDOCK DTEOC',        stacked = 'D', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC HERRING DTEOC', stacked = 'E', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ACADIAN REDFISH DTEOC',     stacked = 'F', scale.axis = 100,
-         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'YELLOWTAIL FLOUNDER DTEOC', stacked = 'A',
+         scale.axis = 1, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'WINTER FLOUNDER DTEOC',   stacked = 'B',
+         scale.axis = 1, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC COD DTEOC',   stacked = 'C', 
+         scale.axis = 1, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'HADDOCK DTEOC',        stacked = 'D', 
+         scale.axis = 1, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC HERRING DTEOC', stacked = 'E', 
+         scale.axis = 1, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ACADIAN REDFISH DTEOC',     stacked = 'F', 
+         scale.axis = 1, rel.y.num = 0.9)
 
 soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
 
 ```
 
 
-Spatial distribution has changed over time for some species more than for others. Lobster distributions measured by NEFSC surveys have shifted northward relative to historical distributions. However, Acadian redfish distributions in the Gulf of Maine have remained relatively stable. A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
+Spatial distribution has changed over time for some species more than for others. Lobster, yellowtail flounder, and haddock distributions measured by NEFSC surveys have shifted northward relative to historical distributions. However, Acadian redfish distributions in the Gulf of Maine have remained relatively stable. A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'american-lobster-kd.png'))
 knitr::include_graphics(file.path(image.dir, 'acadian-redfish-kd.png'))
+
+```
+
+```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
+knitr::include_graphics(file.path(image.dir, 'yellowtail-flounder-kd.png'))
+knitr::include_graphics(file.path(image.dir, 'haddock-kd.png'))
 
 ```
 
@@ -1070,49 +1086,111 @@ soe.plot(SOE.data, 'Time', 'Right whale population', x.label = 'Year',
          y.label = 'Minimum n alive', rel.y.text = 1)
 ```
 
-<!--##Turtles
-##Seabirds--> 
+<!--##Turtles--> 
+
+##Seabirds
+Seabird breeding colonies in the Gulf of Maine are monitored and managed to promote recovery of formerly harvested species. Common and Arctic terns both breed on islands throughout the Gulf of Maine, feeding on a wide range of invertebrates and fish including Atlantic herring, juvenile hakes, and sandlance. Data compiled from the Gulf of Maine Seabird Working group show mixed trends for seabirds with high variability at particular colonies. However, common terns have a long term increasing trend across 13 Gulf of Maine colonies, while Arctic terns have decreased in the same region during the past decade.
+
+```{r, fig.cap='Gulf of Maine seabirds, number of breeding pairs: A - Common tern, B - Arctic tern \\label{GOMterns}', fig.height=3.5, echo=F}
+
+par <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'GOM Common tern', stacked = 'A', tol = 0.03,
+         rel.y.num = 1.1, end.start = 2006, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'GOM Arctic tern', stacked = 'B', tol = 0.03, 
+         rel.y.num = 1.1, end.start = 2006, scale.axis = 10^3)
+
+soe.stacked.axis('Year', 'Breeding pairs, 1000s', rel.y.text = 1.1)
+
+```
+
+
 ##Endangered Fish
 Despite diverse population structures and management regimes, concurrent abundance declines in disparate North American and European Atlantic salmon populations suggest that marine feeding conditions may be poor.  Diet analysis of Atlantic salmon sampled off the coast of West Greenland demonstrated that they are consuming slightly less capelin by weight, but more lower quality prey (amphipods and squid) recently compared to 1960-1970. Further, the energy density of capelin, their primary prey item at Greenland (~40-90% annually), decreased by almost 34% recently. This coincides with an approximate 66% reduction in Atlantic salmon marine productivity. The influence of declining resource quality is not unique to Atlantic salmon, as some populations of Atlantic cod, bluefin tuna, seabirds, and marine mammals are either of lower body condition and/or not as productive as they once were in the region pre-1990. This may partially be a response to reduced prey quality caused by changes in bottom-up processes. Determining and understanding the mechanisms that influence marine food-webs is necessary to fully evaluate survival and productivity trends, and to establish realistic management targets for commercial, recreational, and protected species.
 
-```{r, fig.cap="Energy content of capelin\\label{energy}", echo = F,  fig.height=2.5}
+```{r, fig.cap="Energy content of capelin\\label{energy}", echo = F,  fig.height=2.5, out.width='.5\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'energycontent.png'))
 ```
 
 
 #Lower Trophic Levels  
 ##Phytoplankton production  
-<!--Primary production has fluctuated recently with current conditions near average. This suggests that ecosystem production overall is relatively stable, although the trends in higher trophic levels reported above suggest that the uptake of primary production through benthic channels may be increasing over the long term, leading to the steady increase in benthos biomass over time. --> 
-```{r, fig.cap="Primary production \\label{pp}", echo = F,  fig.height=2.5}
+Primary production has fluctuated recently with current conditions near average. This suggests that ecosystem production overall is relatively stable, although the trends in higher trophic levels reported above suggest that the uptake of primary production through benthic channels may be increasing over the long term, leading to the steady increase in benthos biomass over time. 
+```{r, fig.cap="Primary production, Gulf of Maine (left) and Georges Bank (right) \\label{pp}", echo = F,  fig.height=2.5, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM PPD', x.label = 'Year', 
-         y.label = expression('Production, gC m'^-2 * ' d'^1), 
+         y.label = expression('GOM Production, gC m'^-2 * ' d'^1), 
+         rel.y.num = 1.1, rel.y.text = 1)
+
+opar <- par(mar = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'GBK PPD', x.label = 'Year', 
+         y.label = expression('GB Production, gC m'^-2 * ' d'^1), 
          rel.y.num = 1.1, rel.y.text = 1)
 
 ```
 
-##Harmful algal blooms   
-<!--Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic region is sparse.  In the lower Chesapeake Bay, annual blooms of the dinoflagellate *Cochlodinium polykrikoides* have been observed for several decades and more recently, blooms of *Alexandrium monilatum*, a toxin-producing dinoflagellate common to the Gulf of Mexico, has invaded the region.  Both dinoflagellate species have been associated with fish kills either directly or indirectly, due to hypoxic events following a bloom.  Blooms of *C. polykrikoides* have also occurred on a nearly annual basis in the Long Island Sound region. Other major HAB events have been observed along the Eastern Shore of Maryland and Virginia, and in and around Narragansett Bay, but typically not on an annual basis.-->
+<!--##Harmful algal blooms   
+Harmful algal bloom (HAB) data on the continental shelf of the new England region is sparse.  In the lower Chesapeake Bay, annual blooms of the dinoflagellate *Cochlodinium polykrikoides* have been observed for several decades and more recently, blooms of *Alexandrium monilatum*, a toxin-producing dinoflagellate common to the Gulf of Mexico, has invaded the region.  Both dinoflagellate species have been associated with fish kills either directly or indirectly, due to hypoxic events following a bloom.  Blooms of *C. polykrikoides* have also occurred on a nearly annual basis in the Long Island Sound region. Other major HAB events have been observed along the Eastern Shore of Maryland and Virginia, and in and around Narragansett Bay, but typically not on an annual basis.-->
 
 ##Zooplankton  
 Zooplankton provide a critical link between phytoplankton at the base of the food web, and higher trophic organisms such as fish, mammals, and birds. Changes in the species compostion and biomass of the zooplankton community have a great potential to affect recruitment success and fisheries productivity, and climate change may be the most important pathway for these changes to manifest. Therefore these indices are relevant to both productivity and trophic structure objectives.  
 
+## (Zoop option 1)
+Zooplankton represent intermediate levels of the Gulf of Maine and Georges Bank food webs, which has undergone shifts in recent decades. Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume for spring (combined February, March and April samples) and fall (September, October, November) suggest that overall secondary production has not changed in the spring but has declined in the fall. This decline can be attributed to the decline in key zooplankton species, in particular *Pseudocalanus* spp., which has declined during fall in both the Gulf of Maine and Georges Bank, in contrast to an absence on long-term trend in the spring for both ecoregions. Similarly, the zooplankton *Calanus finmarchicus* may have slightly increased in abundance during spring in both ecoregions, however, *C. finmarchicus* declined in the fall on Georges Bank. Adult *Calanus* are the principal prey of North Atlantic right whales; any reduction in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
+
+```{r , fig.cap="A: Pseudocalanus spring, B: Pseudocalanus fall, C: Calanus finmarchicus spring, D: Calanus finmarchicus fall \\label{zoopspp}", echo = F, fig.height=5, fig.show='hold', out.width='.49\\linewidth'}
+opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'GOM Pseudocalanus spring', stacked = 'A', tol = 0.03,
+         rel.y.num = 1.1, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'GOM Pseudocalanus fall', stacked = 'B', tol = 0.03, 
+         rel.y.num = 1.1, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'GOM Calanus finmarchicus spring', stacked = 'C', tol = 0.03,
+         rel.y.num = 1.1, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'GOM Calanus finmarchicus fall', stacked = 'D', tol = 0.03, 
+         rel.y.num = 1.1, scale.axis = 10^3)
+
+soe.stacked.axis('Year', expression('GOM thousands per 100 m' ^ 3), rel.y.text = 1.1,
+                 y.line = 3)
+
+opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'GB Pseudocalanus spring', stacked = 'A', tol = 0.03,
+         rel.y.num = 1.1, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'GB Pseudocalanus fall', stacked = 'B', tol = 0.03, 
+         rel.y.num = 1.1, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'GB Calanus finmarchicus spring', stacked = 'C', tol = 0.03,
+         rel.y.num = 1.1, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'GB Calanus finmarchicus fall', stacked = 'D', tol = 0.03, 
+         rel.y.num = 1.1, scale.axis = 10^3)
+
+soe.stacked.axis('Year', expression('GB thousands per 100 m' ^ 3), rel.y.text = 1.1,
+                 y.line = 3)
+
+```
+
+## (Zoop option 2)
 One simple indicator of overall zooplankton biomass is the volume of material collected in plankton nets, which has been relatively consistent, suggesting large scale coherence in zooplankton throughout much of NES. While the anomalies show no significant long or short term trends, the composition of the zooplankton community shows shifts over time. Specifically, small copepods increased in abundance in the 1990s, but shifted to larger bodied copepod species around 2000. There is evidence of a more recent shift, with both smaller zooplankton and *Calanus finmarchicus* becoming more abundant again over the last several years. The small copeods are most important during the autumn while *Calanus finmarchicus* dominates early in the year following the spring phytoplankton bloom. Adult *Calanus* are the principal prey of North Atlantic right whales; any reduction in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
-```{r zooplankton anomoly, fig.cap="A: Calanus, B: zooplankton biomass, C: small copepods", echo = F, fig.height=4}
+```{r zooplankton anomoly, fig.cap="A: Calanus, B: zooplankton biomass, C: small copepods", echo = F, fig.height=4, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mfrow = c(3, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Yearly Calanus Anomaly', stacked = 'A', tol = 0.01)
 soe.plot(SOE.data, 'Time', 'GOM Yearly Zooplankton Biovolume', stacked = 'B', tol = 0.01)
 soe.plot(SOE.data, 'Time', 'GOM Yearly small copeopods anomaly', stacked = 'C', tol = 0.01)
 
-soe.stacked.axis('Year', 'Anomaly', rel.y.text = 1)
-```
+soe.stacked.axis('Year', 'GOM Anomaly', rel.y.text = 1)
 
+opar <- par(mfrow = c(3, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'GBK Yearly Calanus Anomaly', stacked = 'A', tol = 0.01)
+soe.plot(SOE.data, 'Time', 'GBK Yearly Zooplankton Biovolume', stacked = 'B', tol = 0.01)
+soe.plot(SOE.data, 'Time', 'GBK Yearly small copeopods anomaly', stacked = 'C', tol = 0.01)
+
+soe.stacked.axis('Year', 'GB Anomaly', rel.y.text = 1)
+
+```
+--> 
 
 #Physical Environment  
 ##Annual sea surface temperature cycle  
 The Gulf of Maine and Georges Bank ecoregions experienced above average sea surface temperatures (SSTs) during 2016. In each graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions were moderate on Georges Bank at temperature levels often matching the mean. Both ecoregions warmed dramatically from late summer into fall. The Gulf of Maine ecoregion remained at above average temperature through the end of the year, whereas Gorges Bank saw temperatures moderate at the end of December.
 
-```{r,  echo=F, fig.show='hold', out.width='.4\\linewidth'}
+```{r,  echo=F, fig.show='hold', out.width='.3\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'ann_sst_ Gulf of Maine .jpeg'))
 knitr::include_graphics(file.path(image.dir, 'ann_sst_ Georges Bank .jpeg'))
 ```
@@ -1125,7 +1203,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ##Long-term shelfwide sea surface temperature    
 Long-term sea surface temperature measurements have been collected off the Northeast Continental Shelf since the mid-1800s. The highest annual temperature in this time series was recorded in 2012, as the ecosystem warmed above the levels last seen in the late 1940s. The 2016 datum is the third highest temperature in the time series. The trend over the period 1856-2016, the full time series, was significant and positive, as is the trend over the most recent decade of the time series. 
-```{r, fig.cap="Long term sea surface temperature, Northeast US continental shelf \\label{ERSST}", echo=F, fig.height=2.75}
+```{r, fig.cap="Long term sea surface temperature, Northeast US continental shelf \\label{ERSST}", echo=F, fig.height=2.5}
 opar <- par(mar = c(4, 4, 0, 0))
 soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
          rel.y.num = 1.1, rel.y.text=1, y.label = expression('Sea Surface Temp., '*degree*'C'), y.line = 2.5, tol=0.01)
@@ -1170,17 +1248,18 @@ Seasonal sea surface temperature forecasts are made from an ensemble of seven mo
 
 <!--##Precipitation  -->
 ##Stratification and Salinity  
-Stratification shows no clear trend in the Gulf of Maine, but a long term increasing trend on Georges Bank. Increased stratification can potentially alter system productivity by reducing nutrient supply to the primary producers in the surface layer. 
+Stratification shows a decreasing trend for the last decade in the Gulf of Maine, but a long term increasing trend on Georges Bank. Changing stratification can potentially affect system productivity by altering the nutrient supply to the primary producers in the surface layer. 
 
-```{r, fig.cap="Stratification \\label{Stratification}", echo = F, fig.height=2.5 }
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GOM core', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
-soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GB core', stacked = 'B', tol = 0.01, rel.y.num = 1.1)
+```{r, fig.cap="Stratification \\label{Stratification}", echo = F, fig.height=2.5, fig.show='hold', out.width='.49\\linewidth' }
+opar <- par( mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GOM core', y.label = "GOM Stratification", tol = 0.01, rel.y.num = 1.1)
+
+soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GB core', y.label = "GB Stratification", tol = 0.01, rel.y.num = 1.1)
          
-soe.stacked.axis('Year', 'Stratification', y.line = 3.7, rel.y.text = 1)
 ```
 
-Salinity structures habitat for living resources, however the effects of increased salinity on marine organisms are currently less clear than the effects of increased temperature. Salinity shows no significant trends over time in the Gulf of Maine, but surface salinity has increased significantly during the past 10 years on Georges Bank. This increasing trend in surface salinity warrants further investigation.  
+Salinity structures habitat for living resources, however the effects of increased salinity on marine organisms are currently less clear than the effects of increased temperature. Salinity shows no significant trends over time in the Gulf of Maine or on Georges Bank. 
 ```{r , fig.cap="Survey measured salinity; A: Surface, B: Bottom \\label{Salinity}", echo = F, fig.show='hold', fig.height = 3.5, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Surface salinity GOM', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
