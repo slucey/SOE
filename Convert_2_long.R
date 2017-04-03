@@ -442,4 +442,12 @@ zoopCtyp <- as.data.table(read.csv(file.path(data.dir, 'MABzoopCtypicus.csv')))
 SOE.data <- rbindlist(list(SOE.data, zoopCtyp))
 
 save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+# and from xlsx file April 2
+zoopNE <- as.data.table(read.csv(file.path(data.dir, 'soe ne zoo_long.csv')))
+zoopNE <- zoopNE[,1:4]
+SOE.data <- rbindlist(list(SOE.data, zoopNE))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
 #Run Assign_EPU.R to add EPU designations
