@@ -1193,7 +1193,7 @@ soe.stacked.axis('Year', 'GB Anomaly', rel.y.text = 1)
 #Physical Environment  
 ##Annual sea surface temperature cycle  
 The Gulf of Maine and Georges Bank ecoregions experienced above average sea surface temperatures (SSTs) during 2016. In each graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions were moderate on Georges Bank at temperature levels often matching the mean. Both ecoregions warmed dramatically from late summer into fall. The Gulf of Maine ecoregion remained at above average temperature through the end of the year, whereas Gorges Bank saw temperatures moderate at the end of December.
-
+<!--
 ```{r,  echo=F, fig.show='hold', out.width='.3\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'ann_sst_ Gulf of Maine .jpeg'))
 knitr::include_graphics(file.path(image.dir, 'ann_sst_ Georges Bank .jpeg'))
@@ -1203,6 +1203,122 @@ knitr::include_graphics(file.path(image.dir, 'ann_sst_ Georges Bank .jpeg'))
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
+```
+-->
+```{r Current Temps, fig.cap="Annual sea surface temperature cycle for Georges Bank (A) and Gulf of Maine (B) in 2016.  Center line is the longterm mean.  Dark red color indicates temperature was above 1 standard deviation of the mean while light red indicates the temperature was above the mean. The grey shaded area is plus or minus 1 standard deviation.\\label{annual cycle}", echo = F, fig.height=2.5, out.width='.45\\linewidth', fig.show='hold'}
+#Colors
+high.col     <- '#d7191c'
+med.high.col <- '#fdae61'
+med.low.col  <- '#abdda4'
+low.col      <- '#2b83ba'
+bg.col       <- '#f4f7f2'
+
+#Plot Georges Bank
+#Seperate temp data
+GB.temp <- data.table(Day = 1:365, 
+                      Longterm.Mean = SOE.data[Var == 'GBK Longterm temperature mean', Value],
+                      Longterm.SD = SOE.data[Var == 'GBK Longterm temperature SD', Value],
+                      Current = SOE.data[Var == 'GBK temperature', Value])
+GB.temp[, Longterm.High := Longterm.Mean + Longterm.SD, by = Day]
+GB.temp[, Longterm.Low  := Longterm.Mean - Longterm.SD, by = Day]
+
+#Set-up High/Low polygon
+GB.temp[Current >  Longterm.Mean, Above.Mean := Current]
+GB.temp[Current <= Longterm.Mean, Above.Mean := Longterm.Mean]
+GB.temp[Current <  Longterm.Mean, Below.Mean := Current]
+GB.temp[Current >= Longterm.Mean, Below.Mean := Longterm.Mean]
+GB.temp[Current >  Longterm.High, Above.High := Current]
+GB.temp[Current <= Longterm.High, Above.High := Longterm.High]
+GB.temp[Current <  Longterm.Low,  Below.Low  := Current]
+GB.temp[Current >= Longterm.Low,  Below.Low := Longterm.Low]
+
+y.max <- max(GB.temp[, list(Longterm.High, Current)])
+y.min <- min(GB.temp[, list(Longterm.Low, Current)])
+
+opar <- par(mar = c(4, 6, 2, 2))
+plot(0, 0, xlim = c(1, 365), ylim = c(y.min, y.max), typ = 'n', axes = F, 
+     xlab = '', ylab = '', xaxs = 'i')
+
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = bg.col)
+
+polygon(c(1:365, 365:1), c(GB.temp[, Longterm.High], rev(GB.temp[, Longterm.Low])), 
+        col = 'light grey')
+lines(GB.temp[, list(Day, Longterm.Mean)], lwd = 3)
+polygon(c(1:365, 365:1), c(GB.temp[, Above.Mean], rev(GB.temp[, Longterm.Mean])),
+        col = med.high.col)
+polygon(c(1:365, 365:1), c(GB.temp[, Below.Mean], rev(GB.temp[, Longterm.Mean])),
+        col = med.low.col)
+polygon(c(1:365, 365:1), c(GB.temp[, Above.High], rev(GB.temp[, Longterm.High])),
+        col = high.col)
+polygon(c(1:365, 365:1), c(GB.temp[, Below.Low], rev(GB.temp[, Longterm.Low])),
+        col = low.col)
+
+axis(1, at = c(1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 365),
+     labels = c('Jan', '', 'Mar', '', 'May', '', 'Jul', '', 
+                'Sep', '', 'Nov', '', 'Jan'))
+axis(2, las = T)
+
+abline(h = u[3], lwd=3)
+abline(v = u[1], lwd=3)
+mtext(1, text = 'Month', line = 2.5, cex = 1.5)
+mtext(2, text = expression('Sea Surface Temperature, ' * degree * 'C'), 
+      line = 2.5)
+text(u[1], u[4], labels = 'A', cex = 2, adj = c(-0.5, 1.5))
+
+#Gulf of Maine
+#Seperate temp data
+GOM.temp <- data.table(Day = 1:365, 
+                       Longterm.Mean = SOE.data[Var == 'GOM Longterm temperature mean', Value],
+                       Longterm.SD = SOE.data[Var == 'GOM Longterm temperature SD', Value],
+                       Current = SOE.data[Var == 'GOM temperature', Value])
+GOM.temp[, Longterm.High := Longterm.Mean + Longterm.SD, by = Day]
+GOM.temp[, Longterm.Low  := Longterm.Mean - Longterm.SD, by = Day]
+
+#Set-up High/Low polygon
+GOM.temp[Current >  Longterm.Mean, Above.Mean := Current]
+GOM.temp[Current <= Longterm.Mean, Above.Mean := Longterm.Mean]
+GOM.temp[Current <  Longterm.Mean, Below.Mean := Current]
+GOM.temp[Current >= Longterm.Mean, Below.Mean := Longterm.Mean]
+GOM.temp[Current >  Longterm.High, Above.High := Current]
+GOM.temp[Current <= Longterm.High, Above.High := Longterm.High]
+GOM.temp[Current <  Longterm.Low,  Below.Low  := Current]
+GOM.temp[Current >= Longterm.Low,  Below.Low := Longterm.Low]
+
+#Plot
+y.max <- max(GOM.temp[, list(Longterm.High, Current)])
+y.min <- min(GOM.temp[, list(Longterm.Low, Current)])
+
+opar <- par(mar = c(4, 6, 2, 2))
+plot(0, 0, xlim = c(1, 365), ylim = c(y.min, y.max), typ = 'n', axes = F, 
+     xlab = '', ylab = '', xaxs = 'i')
+
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = bg.col)
+
+polygon(c(1:365, 365:1), c(GOM.temp[, Longterm.High], rev(GOM.temp[, Longterm.Low])), 
+        col = 'light grey')
+lines(GOM.temp[, list(Day, Longterm.Mean)], lwd = 3)
+polygon(c(1:365, 365:1), c(GOM.temp[, Above.Mean], rev(GOM.temp[, Longterm.Mean])),
+        col = med.high.col)
+polygon(c(1:365, 365:1), c(GOM.temp[, Below.Mean], rev(GOM.temp[, Longterm.Mean])),
+        col = med.low.col)
+polygon(c(1:365, 365:1), c(GOM.temp[, Above.High], rev(GOM.temp[, Longterm.High])),
+        col = high.col)
+polygon(c(1:365, 365:1), c(GOM.temp[, Below.Low], rev(GOM.temp[, Longterm.Low])),
+        col = low.col)
+
+axis(1, at = c(1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 365),
+     labels = c('Jan', '', 'Mar', '', 'May', '', 'Jul', '', 
+                'Sep', '', 'Nov', '', 'Jan'))
+axis(2, las = T)
+
+abline(h = u[3], lwd=3)
+abline(v = u[1], lwd=3)
+mtext(1, text = 'Month', line = 2.5, cex = 1.5)
+mtext(2, text = expression('Sea Surface Temperature, ' * degree * 'C'), 
+      line = 2.5)
+text(u[1], u[4], labels = 'B', cex = 2, adj = c(-0.5, 1.5))
 ```
 
 ##Long-term shelfwide sea surface temperature    
