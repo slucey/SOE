@@ -710,7 +710,7 @@ opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'New England average fleet diversity', rel.y.num = 0.8, stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'New England fleet count', rel.y.num = 0.8, stacked = 'B')
 
-soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
+soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1, y.line = 2.5)
 ```
 
 Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of NEFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
@@ -718,7 +718,8 @@ Another diversity index is the average effective Shannon index for species reven
 ```{r, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=2.5}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'New England commercial species diversity', 
-         rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
+         rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', 
+         rel.y.text = 1, y.line = 2.5)
 
 ```
 This trend contrasts with the species diversity trends for the Gulf of Maine from survey data presented below, which indicate relatively low diversity during the mid-1990's and higher diversity now (with a significantly increasing recent trend in both the fall and spring survey data). However, Georges Bank survey species diversity trends differ from Gulf of Maine in both seasons with less contrast between the mid-1990's and the present.
