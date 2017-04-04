@@ -736,7 +736,7 @@ soe.plot(SOE.data, 'Time', 'North Atlantic angler trips', x.end = 2016,
          scale.axis = 10^6, rel.y.num = 0.8, stacked = 'B')
 
 soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
-                 rel.y.text = .8)
+                 rel.y.text = .8, y.line = 2.5)
 
 ```
 
@@ -857,13 +857,13 @@ opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'FALL GOM ESn',   rel.y.num = 1.1, stacked = "A")
 soe.plot(SOE.data, 'Time', 'SPRING GOM ESn', rel.y.num = 1.1, stacked = "B")
 
-soe.stacked.axis('Year', 'GOM Expected n species / 100 fish', rel.y.text = 1)
+soe.stacked.axis('Year', 'GOM Expected n species / 100 fish', rel.y.text = 1, y.line = 2.5)
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'FALL GB ESn',   rel.y.num = 1.1, stacked = "A")
 soe.plot(SOE.data, 'Time', 'SPRING GB ESn', rel.y.num = 1.1, stacked = "B")
 
-soe.stacked.axis('Year', 'GB Expected n species / 100 fish', rel.y.text = 1)
+soe.stacked.axis('Year', 'GB Expected n species / 100 fish', rel.y.text = 1, y.line = 2.5)
 
 ```
 
@@ -1099,7 +1099,7 @@ soe.plot(SOE.data, 'Time', 'GOM Common tern', stacked = 'A', tol = 0.03,
 soe.plot(SOE.data, 'Time', 'GOM Arctic tern', stacked = 'B', tol = 0.03, 
          rel.y.num = 1.1, end.start = 2006, scale.axis = 10^3)
 
-soe.stacked.axis('Year', 'Breeding pairs, 1000s', rel.y.text = 1.1)
+soe.stacked.axis('Year', 'Breeding pairs, 1000s', rel.y.text = 1.1, y.line = 2.5)
 
 ```
 
@@ -1218,13 +1218,13 @@ opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM spring bottom temperature', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
 soe.plot(SOE.data, 'Time', 'GOM fall bottom temperature', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
 
-soe.stacked.axis('Year', expression('GOM Bottom Temperature, '*degree*'C'), rel.y.text = 1)
+soe.stacked.axis('Year', expression('GOM Bottom Temperature, '*degree*'C'), rel.y.text = 1, y.line = 2.5)
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GBK spring bottom temperature', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
 soe.plot(SOE.data, 'Time', 'GBK fall bottom temperature', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
 
-soe.stacked.axis('Year', expression('GB Bottom Temperature, '*degree*'C'), rel.y.text = 1)
+soe.stacked.axis('Year', expression('GB Bottom Temperature, '*degree*'C'), rel.y.text = 1, y.line = 2.5)
 
 ```
 
@@ -1296,7 +1296,7 @@ opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM sst standard deviation', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
 soe.plot(SOE.data, 'Time', 'GBK sst standard deviation',  stacked = 'B', tol = 0.01, rel.y.num = 1.1)
 
-soe.stacked.axis('Year', expression('Sea surface temperature SD, '*degree*'C'), y.line = 3.7, rel.y.text = 1)
+soe.stacked.axis('Year', expression('Sea surface temperature SD, '*degree*'C'), y.line = 2.5, rel.y.text = 1)
 ```
 
 ##Inundation
