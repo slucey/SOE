@@ -879,34 +879,34 @@ Species distribution on the NE Shelf can be characterized by the position in the
 #SOE.data[Var %like% "ASDIST"]
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-soe.plot(SOE.data, 'Time', 'YELLOWTAIL FLOUNDER ASDIST',    stacked = 'A', scale.axis = 100, 
+soe.plot(SOE.data, 'Time', 'YELLOWTAIL FLOUNDER ASDIST', stacked = 'A', stacked.ticks = F, 
+         scale.axis = 100, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'WINTER FLOUNDER ASDIST', stacked = 'B', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'WINTER FLOUNDER ASDIST',   stacked = 'B', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'ATLANTIC COD ASDIST', stacked = 'C', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC COD ASDIST',              stacked = 'C', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'HADDOCK ASDIST',        stacked = 'D', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'HADDOCK ASDIST', stacked = 'D', scale.axis = 100,
          rel.y.num = 0.9)
 soe.plot(SOE.data, 'Time', 'ATLANTIC HERRING ASDIST', stacked = 'E', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ACADIAN REDFISH ASDIST',     stacked = 'F', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'ACADIAN REDFISH ASDIST', stacked = 'F', scale.axis = 100,
          rel.y.num = 0.9)
 
 soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.text = 1.5)
 
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-soe.plot(SOE.data, 'Time', 'YELLOWTAIL FLOUNDER DTEOC', stacked = 'A',
+soe.plot(SOE.data, 'Time', 'YELLOWTAIL FLOUNDER DTEOC', stacked = 'A', stacked.ticks = F,
          scale.axis = 1, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'WINTER FLOUNDER DTEOC',   stacked = 'B',
+soe.plot(SOE.data, 'Time', 'WINTER FLOUNDER DTEOC', stacked = 'B',
          scale.axis = 1, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC COD DTEOC',   stacked = 'C', 
+soe.plot(SOE.data, 'Time', 'ATLANTIC COD DTEOC', stacked = 'C', 
          scale.axis = 1, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'HADDOCK DTEOC',        stacked = 'D', 
+soe.plot(SOE.data, 'Time', 'HADDOCK DTEOC', stacked = 'D', 
          scale.axis = 1, rel.y.num = 0.9)
 soe.plot(SOE.data, 'Time', 'ATLANTIC HERRING DTEOC', stacked = 'E', 
          scale.axis = 1, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ACADIAN REDFISH DTEOC',     stacked = 'F', 
+soe.plot(SOE.data, 'Time', 'ACADIAN REDFISH DTEOC', stacked = 'F', 
          scale.axis = 1, rel.y.num = 0.9)
 
 soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
@@ -1095,7 +1095,7 @@ Seabird breeding colonies in the Gulf of Maine are monitored and managed to prom
 ```{r, fig.cap='Gulf of Maine seabirds, number of breeding pairs: A - Common tern, B - Arctic tern \\label{GOMterns}', fig.height=3.5, echo=F}
 
 par <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GOM Common tern', stacked = 'A', tol = 0.03,
+soe.plot(SOE.data, 'Time', 'GOM Common tern', stacked = 'A', stacked.ticks = F, tol = 0.03,
          rel.y.num = 1.1, end.start = 2006, scale.axis = 10^3)
 soe.plot(SOE.data, 'Time', 'GOM Arctic tern', stacked = 'B', tol = 0.03, 
          rel.y.num = 1.1, end.start = 2006, scale.axis = 10^3)
@@ -1140,8 +1140,8 @@ Zooplankton represent intermediate levels of the Gulf of Maine and Georges Bank 
 
 ```{r , fig.cap="A: Pseudocalanus spring, B: Pseudocalanus fall, C: Calanus finmarchicus spring, D: Calanus finmarchicus fall \\label{zoopspp}", echo = F, fig.height=5, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GOM Pseudocalanus spring', stacked = 'A', tol = 0.03,
-         rel.y.num = 1.1, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'GOM Pseudocalanus spring', stacked = 'A', stacked.ticks = F, 
+         tol = 0.03, rel.y.num = 1.1, scale.axis = 10^3)
 soe.plot(SOE.data, 'Time', 'GOM Pseudocalanus fall', stacked = 'B', tol = 0.03, 
          rel.y.num = 1.1, scale.axis = 10^3)
 soe.plot(SOE.data, 'Time', 'GOM Calanus finmarchicus spring', stacked = 'C', tol = 0.03,
@@ -1153,8 +1153,8 @@ soe.stacked.axis('Year', expression('GOM thousands per 100 m' ^ 3), rel.y.text =
                  y.line = 3)
 
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GB Pseudocalanus spring', stacked = 'A', tol = 0.03,
-         rel.y.num = 1.1, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'GB Pseudocalanus spring', stacked = 'A', stacked.ticks = F, 
+         tol = 0.03, rel.y.num = 1.1, scale.axis = 10^3)
 soe.plot(SOE.data, 'Time', 'GB Pseudocalanus fall', stacked = 'B', tol = 0.03, 
          rel.y.num = 1.1, scale.axis = 10^3)
 soe.plot(SOE.data, 'Time', 'GB Calanus finmarchicus spring', stacked = 'C', tol = 0.03,
@@ -1171,14 +1171,16 @@ soe.stacked.axis('Year', expression('GB thousands per 100 m' ^ 3), rel.y.text = 
 One simple indicator of overall zooplankton biomass is the volume of material collected in plankton nets, which has been relatively consistent, suggesting large scale coherence in zooplankton throughout much of NES. While the anomalies show no significant long or short term trends, the composition of the zooplankton community shows shifts over time. Specifically, small copepods increased in abundance in the 1990s, but shifted to larger bodied copepod species around 2000. There is evidence of a more recent shift, with both smaller zooplankton and *Calanus finmarchicus* becoming more abundant again over the last several years. The small copeods are most important during the autumn while *Calanus finmarchicus* dominates early in the year following the spring phytoplankton bloom. Adult *Calanus* are the principal prey of North Atlantic right whales; any reduction in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
 ```{r zooplankton anomoly, fig.cap="A: Calanus, B: zooplankton biomass, C: small copepods", echo = F, fig.height=4, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mfrow = c(3, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GOM Yearly Calanus Anomaly', stacked = 'A', tol = 0.01)
+soe.plot(SOE.data, 'Time', 'GOM Yearly Calanus Anomaly', stacked = 'A', stacked.ticks = F, 
+         tol = 0.01)
 soe.plot(SOE.data, 'Time', 'GOM Yearly Zooplankton Biovolume', stacked = 'B', tol = 0.01)
 soe.plot(SOE.data, 'Time', 'GOM Yearly small copeopods anomaly', stacked = 'C', tol = 0.01)
 
 soe.stacked.axis('Year', 'GOM Anomaly', rel.y.text = 1)
 
 opar <- par(mfrow = c(3, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GBK Yearly Calanus Anomaly', stacked = 'A', tol = 0.01)
+soe.plot(SOE.data, 'Time', 'GBK Yearly Calanus Anomaly', stacked = 'A', stacked.ticks = F, 
+         tol = 0.01)
 soe.plot(SOE.data, 'Time', 'GBK Yearly Zooplankton Biovolume', stacked = 'B', tol = 0.01)
 soe.plot(SOE.data, 'Time', 'GBK Yearly small copeopods anomaly', stacked = 'C', tol = 0.01)
 
@@ -1216,13 +1218,15 @@ soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
 The thermal conditions at the bottom of the water column are extremely important in defining the habitats for the majority of resource species. Unlike sea surface temperatures that can be measured synoptically with satellite telemetry, bottom temperatures must be measured directly from ship surveys and other means. Thus, we often have incomplete spatial and temporal sample coverage to describe bottom temperature conditions. Recently, scientists at the NEFSC developed an interpolation approach that provides a more accurate depiction of spring and fall bottom temperatures. The time series of April bottom temperature in the Gulf of Maine and Georges Bank suggest no trend over time, whereas the October  temperatures steadily increased over the past half century in both regions.  
 ```{r, fig.cap="Interpolated survey bottom temperature, A: April, B: October \\label{survtemp}", echo = F, fig.show='hold', fig.height = 3.5, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GOM spring bottom temperature', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'GOM spring bottom temperature', stacked = 'A', stacked.ticks = F,
+         tol = 0.01, rel.y.num = 1.1)
 soe.plot(SOE.data, 'Time', 'GOM fall bottom temperature', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
 
 soe.stacked.axis('Year', expression('GOM Bottom Temperature, '*degree*'C'), rel.y.text = 1, y.line = 2.5)
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GBK spring bottom temperature', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'GBK spring bottom temperature', stacked = 'A', stacked.ticks = F,
+         tol = 0.01, rel.y.num = 1.1)
 soe.plot(SOE.data, 'Time', 'GBK fall bottom temperature', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
 
 soe.stacked.axis('Year', expression('GB Bottom Temperature, '*degree*'C'), rel.y.text = 1, y.line = 2.5)
@@ -1265,13 +1269,15 @@ soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GB core', y.label = "GB Strat
 Salinity structures habitat for living resources, however the effects of increased salinity on marine organisms are currently less clear than the effects of increased temperature. Salinity shows no significant trends over time in the Gulf of Maine or on Georges Bank. 
 ```{r , fig.cap="Survey measured salinity; A: Surface, B: Bottom \\label{Salinity}", echo = F, fig.show='hold', fig.height = 3.5, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Surface salinity GOM', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Surface salinity GOM', stacked = 'A', stacked.ticks = F, 
+         tol = 0.01, rel.y.num = 1.1)
 soe.plot(SOE.data, 'Time', 'Bottom salinity GOM',  stacked = 'B', tol = 0.01, rel.y.num = 1.1)
 
 soe.stacked.axis('Year', 'Gulf of Maine Salinity, PSU', y.line = 3.7, rel.y.text = 1)
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Surface Salinity GB', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Surface Salinity GB', stacked = 'A', stacked.ticks = F,
+         tol = 0.01, rel.y.num = 1.1)
 soe.plot(SOE.data, 'Time', 'Bottom salinity GB',  stacked = 'B', tol = 0.01, rel.y.num = 1.1)
 
 soe.stacked.axis('Year', 'Georges Bank Salinity, PSU', y.line = 3.7, rel.y.text = 1)
@@ -1296,7 +1302,8 @@ Climate change involves not only the change in level of climate parameters, it a
 
 ```{r, fig.cap="Standard deviation of annual sea surface temperature; A: Gulf of Maine, B: Georges Bank  \\label{sstSD}", echo = F, fig.height=3.5 }
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GOM sst standard deviation', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'GOM sst standard deviation', stacked = 'A', stacked.ticks = F,
+         tol = 0.01, rel.y.num = 1.1)
 soe.plot(SOE.data, 'Time', 'GBK sst standard deviation',  stacked = 'B', tol = 0.01, rel.y.num = 1.1)
 
 soe.stacked.axis('Year', expression('Sea surface temperature SD, '*degree*'C'), y.line = 2.5, rel.y.text = 1)
