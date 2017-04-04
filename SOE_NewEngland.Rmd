@@ -557,7 +557,7 @@ a <- legend('bottomright',
             legend = c('High/Very High', 'Moderate', 'Low', 'Mixed', '', 
                        '< $1M', '$1M - $10M', '> $10M'), bty = 'n',
             pch = 21, pt.bg = c('red', 'blue', 'green', 'white', rep('white', 4)), 
-            pt.cex = c(rep(point.cex[3], 4), 0, point.cex[2:4]), cex = 1.5)
+            pt.cex = c(rep(point.cex[3], 4), 0, point.cex[2:4]), cex = 1.5, ncol = 2)
 
 #Add Label
 text(u[1], u[4], labels = 'B', cex = 2, adj = c(-0.5, 1.5))
