@@ -39,9 +39,8 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
                      x.start = NA, x.end = NA, end.start = 2007, bg.col = background,
                      end.col = recent, trend.neg = main.neg, trend.pos = main.pos,
                      end.trend.neg = end.neg, end.trend.pos = end.pos,
-
-                     stacked = NA, x.line = 2.6, y.line = 3.5, scale.axis = 1,
-                     rel.y.num = 1.5, rel.y.text = 1.5){
+                     stacked = NA, stacked.ticks = T, x.line = 2.6, y.line = 3.5, 
+                     scale.axis = 1, rel.y.num = 1.5, rel.y.text = 1.5){
  
   #Select Data
   x <- data[Var == y.var, ]
@@ -83,7 +82,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   #Add axis
   if(is.na(stacked)) axis(1, cex.axis = 1.5)
   if(!is.na(stacked)){
-    if(stacked!= 'A') axis(3, cex.axis = 1.5, tck = 0.1, labels = F)
+    if(stacked.ticks == T) axis(3, cex.axis = 1.5, tck = 0.1, labels = F)
   }
   #Stacked axes with 0 overlap so need to remove
   if(scale.axis != 1){
@@ -625,7 +624,7 @@ In these and subsequent time series plots, trends are assessed for both the full
 
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Benthos Landings', end.start = 2006,
-         scale.axis = 10^3, rel.y.num = 0.9, stacked = 'A')
+         scale.axis = 10^3, rel.y.num = 0.9, stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Landings', x.start = 1964, end.start = 2006,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'B')
 soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Landings', end.start = 2006,  
@@ -641,7 +640,7 @@ soe.stacked.axis('Year', expression('GOM Commercial Landings, 10'^3*'mt'))
 
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GB Benthos Landings', end.start = 2006,   
-         scale.axis = 10^3, rel.y.num = 0.9, stacked = 'A')
+         scale.axis = 10^3, rel.y.num = 0.9, stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Landings', x.start = 1964, end.start = 2006,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'B')
 soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Landings',  end.start = 2006, 
@@ -666,7 +665,7 @@ This indicator links the human activity commercial fishing to the profits object
 ```{r, fig.cap="Commercial revenue from A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commrev}", echo = F, fig.show='hold', fig.height=7, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Benthos Revenue', end.start = 2006,           
-         scale.axis = 10^6, rel.y.num = 0.9, stacked = 'A')
+         scale.axis = 10^6, rel.y.num = 0.9, stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Revenue',  x.start = 1964, end.start = 2006,
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'B')
 soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Revenue', end.start = 2006,  
@@ -682,7 +681,7 @@ soe.stacked.axis('Year', 'GOM Commercial Revenue, million $US')
 
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GB Benthos Revenue', end.start = 2006,           
-         scale.axis = 10^6, rel.y.num = 0.9, stacked = 'A')
+         scale.axis = 10^6, rel.y.num = 0.9, stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Revenue',  x.start = 1964, end.start = 2006,
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'B')
 soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Revenue', end.start = 2006,  
@@ -708,7 +707,7 @@ A count of the number of fleets actively landing NEFMC FMP species in each year 
 ```{r Fleet Diversity, fig.cap="A: average fleet diversity, B: fleet count  \\label{fleetdiv}", echo = F, fig.height=3.5}
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'New England average fleet diversity', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'New England average fleet diversity', rel.y.num = 0.8, stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'New England fleet count', rel.y.num = 0.8, stacked = 'B')
 
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
@@ -731,7 +730,7 @@ Providing recreational opportunities is a stated goal of optimal fishery managem
 ```{r Rec Participation, fig.cap="A: number of anglers, B: number of trips \\label{recreation}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'North Atlantic Rec participation', x.end = 2016,
-         scale.axis = 10^6, rel.y.num = 0.8, stacked = 'A')
+         scale.axis = 10^6, rel.y.num = 0.8, stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'North Atlantic angler trips', x.end = 2016,
          scale.axis = 10^6, rel.y.num = 0.8, stacked = 'B')
 
@@ -746,12 +745,12 @@ Aquaculture indicators addresses both seafood production and possibly habitat ob
 ```{r Mariculture, fig.cap="Aquaculture stats from ME. A - Atlantic salmon, B - trout, C - blue mussels, D - oysters \\label{mariculture}", echo = F, out.width='.45\\linewidth', fig.show='hold',  message = FALSE, warning = FALSE}
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'aquaculture ME Atlantic salmon harvest weight', scale.axis = 100000, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'aquaculture ME Atlantic salmon harvest weight', scale.axis = 100000, stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'aquaculture ME trout harvest weight', scale.axis = 100000, stacked = 'B')
 soe.stacked.axis('Year', 'Amount sold, 100,000s lbs')
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'aquaculture ME blue mussels harvest weight', scale.axis = 100000,  stacked = 'C')
+soe.plot(SOE.data, 'Time', 'aquaculture ME blue mussels harvest weight', scale.axis = 100000,  stacked = 'C', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'aquaculture ME oysters harvest weight', scale.axis = 100000,  stacked = 'D')
 soe.stacked.axis('Year', 'Amount sold, 100,000s lbs')
 
@@ -780,7 +779,7 @@ Biomass across trophic levels shows similar trends between the Gulf of Maine and
 ```{r, fig.cap="Fall survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{fallsurvB}", echo = F, fig.show = 'hold', fig.height = 7, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Benthos Fall',            
-         rel.y.num = 1.2,  stacked = 'A')
+         rel.y.num = 1.2,  stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Fall',    
           rel.y.num = 1.2, stacked = 'B')
 soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Fall',   
@@ -796,7 +795,7 @@ soe.stacked.axis('Year', expression('GOM Survey biomass, kg tow'^-1))
 
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GB Benthos Fall',            
-         rel.y.num = 1.2,  stacked = 'A')
+         rel.y.num = 1.2,  stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Fall',    
           rel.y.num = 1.2, stacked = 'B')
 soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Fall',   
@@ -816,7 +815,7 @@ soe.stacked.axis('Year', expression('GB Survey biomass, kg tow'^-1))
 ```{r ,fig.cap="Spring survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{springsurvB}", echo = F, fig.show = 'hold', fig.height = 7, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Benthos Spring',            
-         rel.y.num = 1.2, stacked = 'A')
+         rel.y.num = 1.2, stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Spring',    
          rel.y.num = 1.2, stacked = 'B')
 soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Spring',   
@@ -832,7 +831,7 @@ soe.stacked.axis('Year', expression('GOM Survey biomass, kg tow'^-1))
 
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GB Benthos Spring',            
-         rel.y.num = 1.2, stacked = 'A')
+         rel.y.num = 1.2, stacked = 'A', stacked.ticks = F)
 soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Spring',    
          rel.y.num = 1.2, stacked = 'B')
 soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Spring',   
