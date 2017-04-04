@@ -1205,15 +1205,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
 -->
-```{r Current Temps, fig.cap="Annual sea surface temperature cycle for Georges Bank (A) and Gulf of Maine (B) in 2016.  Center line is the longterm mean.  Dark red color indicates temperature was above 1 standard deviation of the mean while light red indicates the temperature was above the mean. The grey shaded area is plus or minus 1 standard deviation.\\label{annual cycle}", echo = F, fig.height=2.5, out.width='.45\\linewidth', fig.show='hold'}
-#Colors
-high.col     <- '#d7191c'
-med.high.col <- '#fdae61'
-med.low.col  <- '#abdda4'
-low.col      <- '#2b83ba'
-bg.col       <- '#f4f7f2'
-
-#Plot Georges Bank
+```{r Current Temp data, echo = F}
 #Seperate temp data
 GB.temp <- data.table(Day = 1:365, 
                       Longterm.Mean = SOE.data[Var == 'GBK Longterm temperature mean', Value],
@@ -1232,6 +1224,35 @@ GB.temp[Current <= Longterm.High, Above.High := Longterm.High]
 GB.temp[Current <  Longterm.Low,  Below.Low  := Current]
 GB.temp[Current >= Longterm.Low,  Below.Low := Longterm.Low]
 
+#Seperate temp data
+GOM.temp <- data.table(Day = 1:365, 
+                       Longterm.Mean = SOE.data[Var == 'GOM Longterm temperature mean', Value],
+                       Longterm.SD = SOE.data[Var == 'GOM Longterm temperature SD', Value],
+                       Current = SOE.data[Var == 'GOM temperature', Value])
+GOM.temp[, Longterm.High := Longterm.Mean + Longterm.SD, by = Day]
+GOM.temp[, Longterm.Low  := Longterm.Mean - Longterm.SD, by = Day]
+
+#Set-up High/Low polygon
+GOM.temp[Current >  Longterm.Mean, Above.Mean := Current]
+GOM.temp[Current <= Longterm.Mean, Above.Mean := Longterm.Mean]
+GOM.temp[Current <  Longterm.Mean, Below.Mean := Current]
+GOM.temp[Current >= Longterm.Mean, Below.Mean := Longterm.Mean]
+GOM.temp[Current >  Longterm.High, Above.High := Current]
+GOM.temp[Current <= Longterm.High, Above.High := Longterm.High]
+GOM.temp[Current <  Longterm.Low,  Below.Low  := Current]
+GOM.temp[Current >= Longterm.Low,  Below.Low := Longterm.Low]
+
+```
+
+```{r Current Temps, fig.cap="Annual sea surface temperature cycle for Georges Bank (A) and Gulf of Maine (B) in 2016.  Center line is the longterm mean.  Dark red color indicates temperature was above 1 standard deviation of the mean while light red indicates the temperature was above the mean. The grey shaded area is plus or minus 1 standard deviation.\\label{annual cycle}", echo = F, fig.height=2.5, out.width='.45\\linewidth', fig.show='hold'}
+#Colors
+high.col     <- '#d7191c'
+med.high.col <- '#fdae61'
+med.low.col  <- '#abdda4'
+low.col      <- '#2b83ba'
+bg.col       <- '#f4f7f2'
+
+#Plot Georges Bank
 y.max <- max(GB.temp[, list(Longterm.High, Current)])
 y.min <- min(GB.temp[, list(Longterm.Low, Current)])
 
@@ -1267,24 +1288,6 @@ mtext(2, text = expression('Sea Surface Temperature, ' * degree * 'C'),
 text(u[1], u[4], labels = 'A', cex = 2, adj = c(-0.5, 1.5))
 
 #Gulf of Maine
-#Seperate temp data
-GOM.temp <- data.table(Day = 1:365, 
-                       Longterm.Mean = SOE.data[Var == 'GOM Longterm temperature mean', Value],
-                       Longterm.SD = SOE.data[Var == 'GOM Longterm temperature SD', Value],
-                       Current = SOE.data[Var == 'GOM temperature', Value])
-GOM.temp[, Longterm.High := Longterm.Mean + Longterm.SD, by = Day]
-GOM.temp[, Longterm.Low  := Longterm.Mean - Longterm.SD, by = Day]
-
-#Set-up High/Low polygon
-GOM.temp[Current >  Longterm.Mean, Above.Mean := Current]
-GOM.temp[Current <= Longterm.Mean, Above.Mean := Longterm.Mean]
-GOM.temp[Current <  Longterm.Mean, Below.Mean := Current]
-GOM.temp[Current >= Longterm.Mean, Below.Mean := Longterm.Mean]
-GOM.temp[Current >  Longterm.High, Above.High := Current]
-GOM.temp[Current <= Longterm.High, Above.High := Longterm.High]
-GOM.temp[Current <  Longterm.Low,  Below.Low  := Current]
-GOM.temp[Current >= Longterm.Low,  Below.Low := Longterm.Low]
-
 #Plot
 y.max <- max(GOM.temp[, list(Longterm.High, Current)])
 y.min <- min(GOM.temp[, list(Longterm.Low, Current)])
