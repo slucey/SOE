@@ -762,10 +762,12 @@ In Rhode Island, the total value of aquaculture production has been steadily inc
 ```{r Mariculture2, fig.cap="Aquaculture stats from RI: total value (left), oysters sold (right) \\label{mariculture}", echo = F, fig.height=2.5, out.width='.45\\linewidth', fig.show='hold'}
 
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'aquaculture RI total value value', x.label = 'Year', y.label='Total value millions $', scale.axis = 1000000)
+soe.plot(SOE.data, 'Time', 'aquaculture RI total value value', x.label = 'Year', 
+         y.label='Total value millions $', scale.axis = 1000000, rel.y.text = 0.8)
 
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'aquaculture RI oysters sold', x.label ='Year', y.label='Millions of oysters sold', scale.axis = 1000000)
+soe.plot(SOE.data, 'Time', 'aquaculture RI oysters sold', x.label ='Year', 
+         y.label='Millions of oysters sold', scale.axis = 1000000, rel.y.text = 0.8)
 
 ```
 
@@ -1253,9 +1255,11 @@ Stratification shows a decreasing trend for the last decade in the Gulf of Maine
 ```{r, fig.cap="Stratification \\label{Stratification}", echo = F, fig.height=2.5, fig.show='hold', out.width='.49\\linewidth' }
 opar <- par( mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GOM core', y.label = "GOM Stratification", tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GOM core', y.label = "GOM Stratification", 
+         tol = 0.01, rel.y.num = 1.1, rel.y.text = 1)
 
-soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GB core', y.label = "GB Stratification", tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GB core', y.label = "GB Stratification", 
+         tol = 0.01, rel.y.num = 1.1, rel.y.text = 1)
          
 ```
 
@@ -1283,7 +1287,7 @@ Interannual and decadal shifts in the position of the Gulf Stream’s Northern W
 ```{r, fig.cap="Gulf Stream Index \\label{GSI}", echo = F, fig.height=2.5 }
 opar <- par(mar = c(4, 6, 0, 0))
 soe.plot(SOE.data, 'Time', 'Gulf Stream Index', x.label = 'Year',
-         rel.y.num = 1.1, y.label = expression('Gulf Stream North Wall, '*degree*'latitude'),
+         rel.y.num = 1.1, y.label = expression('Gulf Stream N Wall, '*degree*'latitude'),
          tol = 0.001, rel.y.text = 0.8)
 ```
 
