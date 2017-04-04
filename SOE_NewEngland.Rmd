@@ -759,7 +759,7 @@ soe.stacked.axis('Year', 'Amount sold, 100,000s lbs')
 
 In Rhode Island, the total value of aquaculture production has been steadily increasing. The number of oysters sold is similarly increasing.
 
-```{r Mariculture2, fig.cap="Aquaculture stats from RI: total value (left), oysters sold (right) \\label{mariculture}", echo = F, fig.height=2.5, out.width='.45\\linewidth', fig.show='hold'}
+```{r Mariculture2, fig.cap="Aquaculture stats from RI: total value (left), oysters sold (right) \\label{mariculture}", echo = F, fig.height=2.5, out.width='.45\\linewidth', fig.show='hold', warning = F}
 
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'aquaculture RI total value value', x.label = 'Year', 
@@ -1188,7 +1188,7 @@ soe.plot(SOE.data, 'Time', 'GBK Yearly small copeopods anomaly', stacked = 'C', 
 soe.stacked.axis('Year', 'GB Anomaly', rel.y.text = 1)
 
 ```
---> 
+
 
 #Physical Environment  
 ##Annual sea surface temperature cycle  
@@ -1205,7 +1205,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
 -->
-```{r Current Temp data, echo = F}
+```{r Current Temp data, echo = F, results='hide'}
 #Seperate temp data
 GB.temp <- data.table(Day = 1:365, 
                       Longterm.Mean = SOE.data[Var == 'GBK Longterm temperature mean', Value],
@@ -1243,7 +1243,7 @@ GOM.temp[Current >= Longterm.Low,  Below.Low := Longterm.Low]
 
 ```
 
-```{r Current Temps, fig.cap="Annual sea surface temperature cycle for Georges Bank (A) and Gulf of Maine (B) in 2016.  Center line is the longterm mean.  Dark red color indicates temperature was above 1 standard deviation of the mean while light red indicates the temperature was above the mean. The grey shaded area is plus or minus 1 standard deviation.\\label{annual cycle}", echo = F, fig.height=2.5, out.width='.45\\linewidth', fig.show='hold'}
+```{r Current Temps, fig.cap="Annual sea surface temperature cycle for Gulf of Maine (A) and Georges Bank (B) in 2016.  Center line is the longterm mean.  Dark red color indicates temperature was above 1 standard deviation of the mean while light red indicates the temperature was above the mean. The grey shaded area is plus or minus 1 standard deviation.\\label{annual cycle}", echo = F, fig.height=3.5, out.width='.45\\linewidth', fig.show='hold'}
 #Colors
 high.col     <- '#d7191c'
 med.high.col <- '#fdae61'
