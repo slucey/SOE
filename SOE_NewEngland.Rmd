@@ -26,10 +26,12 @@ image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
 gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
 #image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
-library(data.table); library(Kendall); library(rgdal)
+library(data.table); library(Kendall); library(rgdal); library(knitr)
 load(file.path(data.dir, 'SOE_data.RData'))
 load(file.path(data.dir, 'Comm_Climate_Vul.RData'))
 load(file.path(data.dir, 'Fisheries_Eng_Rel.RData'))
+load(file.path(data.dir, 'GOM_percent_managed.RData'))
+load(file.path(data.dir, 'GB_percent_managed.RData'))
 knitr::opts_chunk$set(echo = FALSE, fig.align='center')
 ```
 
@@ -322,7 +324,7 @@ Anything to watch this year--interactions with the species in poor shape--->
 
 #Human Dimensions 
 ##Community engagement and dependence on fisheries 
-Coastal communities have varying degress of engagement in and reliance on fishing. Engagement generally measures amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. In particular, communities around the Gulf of Maine region have a higher reliance commercial fishing relative to other regions of the Northeast US shelf. 
+Coastal communities have varying degress of engagement in and reliance on fishing. Engagement generally measures the amount of fishing activity in terms of landings, permits, and fish dealers in a community, while reliance measures these on a per capita basis. In particular, communities around the Gulf of Maine region have a higher reliance on commercial fishing relative to other regions of the Northeast US shelf. 
 
 <!--
 ```{r  engagement, echo = F, out.width='.40\\linewidth', fig.align='default', fig.show='hold'}
@@ -482,7 +484,7 @@ a <- legend('bottomright',
 
 <!--##Aggregate measures of fishing performance--> 
 ## Climate Risk to Coastal Communities
-Assessment of the potential impacts of climate change on recreational and commercial fishermen and their communities has begun by linking social and economic indicators of community vulnerability and resilience to the climate vulnerability assessments of biological and ecological change expected to result from climate change and sea-level rise. Fishing communities in New England have generally moderate to low risks from sea level rise compared with communities in the Mid-Atlantic. However, there is moderate to high reliance on species vulnerable to climate in New England, and generally low catch diversity for communities in the Gulf of Maine. 
+Assessment of the potential impacts of climate change on recreational and commercial fishermen and their communities has begun by linking social and economic indicators of community vulnerability and resilience to the climate vulnerability assessments of biological and ecological change expected to result from climate change and sea-level rise. Fishing communities in New England have generally moderate to low risks from sea level rise compared with communities in the Mid-Atlantic. However, there is moderate to high reliance on species vulnerable to climate in New England, and generally low catch diversity for communities in the Gulf of Maine, which may also increase risk. 
 
 ```{r Community Risk, fig.cap="Risks from sea level rise (A), reliance on climate-vulnerable species (B), and catch diversity (C) \\label{commrisk}", echo = F, fig.height = 3.8, fig.width = 9}
 
@@ -560,15 +562,15 @@ for(i in 2:4){
            pch = 21, bg = 'red', cex = point.cex[i])
 }
 
-# a <- legend('bottomright', 
-#             legend = c('High/Very High', 'Moderate', 'Low', 'Mixed', '', 
-#                        '< $1M', '$1M - $10M', '> $10M'), bty = 'n',
-#             pch = 21, pt.bg = c('red', 'blue', 'green', 'white', rep('white', 4)), 
-#             pt.cex = c(rep(point.cex[3], 4), 0, point.cex[2:4]), cex = 1.5, ncol = 2)
-a <- legend('bottomright', 
-            legend = c('High/Very High', 'Moderate', 'Low', 'Mixed'), bty = 'n',
-            pch = 21, pt.bg = c('red', 'blue', 'green', 'white'), 
-            pt.cex = c(rep(point.cex[3], 4)), cex = 1.5)
+ a <- legend('bottom', 
+             legend = c('','< $1M', '$1-$10M', '> $10M',
+               'High/Very High', 'Moderate', 'Low', 'Mixed'), bty = 'n',
+             pch = 21, pt.bg = c(rep('white', 4),'red', 'blue', 'green', 'white'), 
+             pt.cex = c(0, point.cex[2:4], rep(point.cex[3], 4)), cex = 1.5, ncol = 2)
+#a <- legend('bottomright', 
+#            legend = c('High/Very High', 'Moderate', 'Low', 'Mixed'), bty = 'n',
+#            pch = 21, pt.bg = c('red', 'blue', 'green', 'white'), 
+#            pt.cex = c(rep(point.cex[3], 4)), cex = 1.5)
 #Add Label
 text(u[1], u[4], labels = 'B', cex = 2, adj = c(-0.5, 1.5))
 
@@ -608,26 +610,34 @@ a <- legend('bottomright',
 ```
 
 ## Seafood Production
-Seafood production is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. This indicator links the human activity commercial fishing to the seafood objective. Functional groups of species are listed with the codes below.
+Seafood production is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. This indicator links commercial fishing (the human activity) to the seafood production objective. Functional groups based on food habits of species are listed with the codes below.
 
 ##Species groupings  
 ```{r Species Table, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
-| Group             | N species | Major species in the group       |
-|:------------------|:-------|:--------------------------------------------|
-| A: Benthos        | 7  | scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
-| B: Mesoplanktivores | 7  | Atlantic herring, butterfish, Atantic mackerel, menhaden, river herrings and shad |
-| C: Macroplanktivore | 6  | white hake, longfin and shortfin squids, searobins, sculpin, lumpfish |
-| D: Macrozoo-piscivores| 12  | redfish, windowpane, cusk, pollock, red hake, clearnose, little, and smooth skates, smooth dogfish, buckler dory, blackbelly rosefish,cancer crabs|
-| E: Benthivores      | 24  | lobster, haddock, yellowtail winter and witch flounders, barnoor skate, ocean pout, black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, other crabs|
-| F: Piscivores           | 13  | monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder, spiny dogfish, summer flounder, bluefish, striped bass, weakfish |
+| **Group** (Description)            | N species| Major species in the group       |
+|:-------------------|:------|:--------------------------------------------|
+| **A: Benthos** (Bottom dwellers)       | 7  | scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
+| **B: Mesoplanktivores** (Eat Copepods) | 7  | Atlantic herring, butterfish, Atantic mackerel, menhaden, river herrings and shad |
+| **C: Macroplanktivore** (Eat large zooplankton) | 6  | white hake, longfin and shortfin squids, searobins, sculpin, lumpfish |
+| **D: Macrozoo-piscivores** (Eat large zooplankton, shrimp, and fish)| 12  | redfish, windowpane, cusk, pollock, red hake, clearnose, little, and smooth skates, smooth dogfish, buckler dory, blackbelly rosefish|
+| **E: Benthivores** (Eat bottom dwellers)    | 24  | lobster, haddock, yellowtail, winter, and witch flounders, barnoor skate, ocean pout, black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, other crabs|
+| **F: Piscivores** (Eat fish)          | 13  | monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod, halibut, fourspot flounder, spiny dogfish, summer flounder, bluefish, striped bass, weakfish |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Commercial landings include all landings in the region, including species not managed by NEFMC. <!-- For example, category E, Benthivores, includes blue crabs, which are a substantial portion of the landings. In 2015, Benthos was 68% MAFMC managed, Macro-planktivores 100% (this would be much reduced with menhaden landings included), Mesoplanktivores 84%, Macrizooplanktivores 0%, Benthivores 17%, Piscivores 59%.-->  
+Commercial landings include all landings in the region, including species not managed by NEFMC. For example, category E, Benthivores, includes lobsters, which are a substantial portion of the landings. Over the most recent 5 years, NEFSC managed stocks made up from 5%-100% of total landings by category, as detailed in the table below. This indicator is being refined to eventually distinguish landings sold for human consumption versus other uses. 
 
-<!-- We also note that time series at the Mid-Atlantic regional scale may not include all states landings prior to 1994. This indicator is being refined to eventually distinguish landings sold for human consumption versus other uses. Further compilation of different agencies databases is required to include landings of menhaden. --> 
+```{r Prop Landings Table, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+names(gom.pct) <- c("Group", "GOM landings", "GOM value")
+names(gb.pct) <- c("Group", "GB landings", "GB value")
+propNE <- merge(gom.pct, gb.pct)
+#levels(propNE$Group)<-c('Benthos', 'Mesoplanktivore', 'Macroplanktivore', 'Macrozoo-piscivore', 'Benthivore', 'Piscivore')
+kable(propNE, digits=3, caption = "Proportion managed by NEFMC")
+
+```
+
 
 In these and subsequent time series plots, trends are assessed for both the full time series and the most recent 10 years (shaded dark grey background). Significant increasing trends have orange lines, while significant decreasing trends have purple lines. Dotted white horizontal lines indicate +- 1 standard deviation from the long term time series mean.
 
@@ -669,7 +679,7 @@ soe.stacked.axis('Year', expression('GB Commercial Landings, 10'^3*'mt'))
 ```
 
 ## Commercial Fishery Revenue
-This indicator links the human activity commercial fishing to the profits objective. We note that time series at the Gulf of Maine regional scale may not include all states landings prior to 1994, which affect revenue calculations. Similarly, 2006 and 2010 were missing some revenue data for some species.
+This indicator links commercial fishing (the human activity) to the profits objective. We note that time series at the Gulf of Maine regional scale may not include all states landings prior to 1994, which affect revenue calculations. Similarly, 2006 and 2010 were missing some revenue data for some species.
 
 <!-- Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the region over the last 5 years. By species group, in 2015, Benthos revenue was from 11% MAFMC managed species, Macro-planktivores 100% (would be reduced if including menhaden), Mesoplanktivores 97%, Macrizooplanktivores 0%, Benthivores 14%, Piscivores 67%. --> 
 
