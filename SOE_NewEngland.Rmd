@@ -167,7 +167,7 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses. An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highighting relationships between focal species groups, managed human activities, environmental drivers, habitats, and key ecological links. The activities link to high level strategic management objectives (described next). The activities link to high level strategic management objectives (described next). Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
 
 <!--##Conceptual model of ecosystem relationships--> 
-```{r, fig.cap="Gulf of Maine and Georges Bank Ecosystems \\label{conceptual}", echo = F, out.width = "450pt", fig.align='center'}
+```{r Conceptual Model, fig.cap="Gulf of Maine and Georges Bank Ecosystems \\label{conceptual}", echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'GBandGOM_simple.png'))
 
 ```
@@ -177,7 +177,7 @@ knitr::include_graphics(file.path(image.dir, 'GBandGOM_simple.png'))
 We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. We also report single-species status relative to established objectives and reference points.
 
 <!--[TABLE with general objectives and current status and or trend]--> 
-```{r objs, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r Objective Table, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Objective Category   | Indicators reported here                         |
 |:---------------------|:-------------------------------------------------|
@@ -197,7 +197,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 **Eight New England Council (NEFMC) stocks are not meeting objectives at the managed species level** for fishing mortality (F) rates and/or biomass (B) levels relative to established reference points. The remaining stocks are currently within target ranges for F and above the limit for B.
 
-```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", echo = F,fig.height=8, fig.width=6, out.width='0.5\\linewidth', message = FALSE, warning = FALSE}
+```{r Stock Status, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", echo = F,fig.height=8, fig.width=6, out.width='0.5\\linewidth', message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'NEFMC_joint_stocks.png'))
 
 dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
@@ -600,7 +600,7 @@ a <- legend('bottomright',
 Seafood production is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. This indicator links the human activity commercial fishing to the seafood objective. Functional groups of species are listed with the codes below.
 
 ##Species groupings  
-```{r pars, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r Species Table, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Group             | N species | Major species in the group       |
 |:------------------|:-------|:--------------------------------------------|
@@ -662,7 +662,7 @@ This indicator links the human activity commercial fishing to the profits object
 
 <!-- Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the region over the last 5 years. By species group, in 2015, Benthos revenue was from 11% MAFMC managed species, Macro-planktivores 100% (would be reduced if including menhaden), Mesoplanktivores 97%, Macrizooplanktivores 0%, Benthivores 14%, Piscivores 67%. --> 
 
-```{r, fig.cap="Commercial revenue from A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commrev}", echo = F, fig.show='hold', fig.height=7, out.width='.49\\linewidth'}
+```{r Commercial Revenue, fig.cap="Commercial revenue from A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commrev}", echo = F, fig.show='hold', fig.height=7, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Benthos Revenue', end.start = 2006,           
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'A', stacked.ticks = F)
@@ -715,7 +715,7 @@ soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1, y.line = 2
 
 Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of NEFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
  
-```{r, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=2.5}
+```{r Diversity in Revenue, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=2.5}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'New England commercial species diversity', 
          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', 
@@ -779,7 +779,7 @@ Patterns for groups of species that feed on similar prey can indicate how overal
 ##Trends in biomass
 Biomass across trophic levels shows similar trends between the Gulf of Maine and Georges Bank. At the lowest trophic levels, benthos and forage fish, groups including commercial shellfish and herring, show long term increases in both seasons. Benthos also have recent short term increases in spring and forage fish have short term increases in fall surveys. In contrast, piscivores at higher trophic levels have significant long term increasing trends only during fall surveys. 
  
-```{r, fig.cap="Fall survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{fallsurvB}", echo = F, fig.show = 'hold', fig.height = 7, out.width='.49\\linewidth'}
+```{r Fall Survey Biomass, fig.cap="Fall survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{fallsurvB}", echo = F, fig.show = 'hold', fig.height = 7, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Benthos Fall',            
          rel.y.num = 1.2,  stacked = 'A', stacked.ticks = F)
@@ -815,7 +815,7 @@ soe.stacked.axis('Year', expression('GB Survey biomass, kg tow'^-1))
 ```
 
 
-```{r ,fig.cap="Spring survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{springsurvB}", echo = F, fig.show = 'hold', fig.height = 7, out.width='.49\\linewidth'}
+```{r Spring Survey Biomass,fig.cap="Spring survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{springsurvB}", echo = F, fig.show = 'hold', fig.height = 7, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Benthos Spring',            
          rel.y.num = 1.2, stacked = 'A', stacked.ticks = F)
@@ -856,7 +856,7 @@ Removing this section?-->
 ##Species composition 
 Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity (here estimated as the mean number of species found in a random sample of 100 fish at a station for the Gulf of Maine and Georges Bank portions of NEFSC surveys) can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Unlike total biomass trends by trophic group, trends in species diversity differ between Gulf of Maine and Georges Bank. The number of species has steadily increased in the Gulf of Maine over the long term in the fall, and over the most recent decade in both the fall and spring surveys. 
 
-```{r, fig.cap="A-Fall, B-Spring \\label{sppdiv}", echo = F, fig.height=3.5, fig.show='hold', out.width='.49\\linewidth'}
+```{r Expected Number of Species, fig.cap="A-Fall, B-Spring \\label{sppdiv}", echo = F, fig.height=3.5, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'FALL GOM ESn',   rel.y.num = 1.1, stacked = "A")
 soe.plot(SOE.data, 'Time', 'SPRING GOM ESn', rel.y.num = 1.1, stacked = "B")
@@ -875,7 +875,7 @@ soe.stacked.axis('Year', 'GB Expected n species / 100 fish', rel.y.text = 1, y.l
 Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and the depth of occurrence. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. Depth ranges from 0 to 260, which relates to depth of occurrence in meters. The mean along shelf distance for several NEFMC species by year is shown below; most show a norteastward change along the shelf, aside from herring. However, herring has a long term deeper distribution trend. Cod has a long term shift towards deeper distribution, but a more recent return to shallower distributions (along with winter flounder and haddock). Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 
-```{r, fig.cap="Shifts in species distribution over time; A: Yellowtail flounder, B: Winter flounder, C: Cod, D: Haddock, E: Atlantic herring, F: Acadian redfish \\label{shifts}", fig.height=8, fig.show='hold', out.width='.49\\linewidth', echo = F, message = FALSE, warning = FALSE}
+```{r Species Distributions, fig.cap="Shifts in species distribution over time; A: Yellowtail flounder, B: Winter flounder, C: Cod, D: Haddock, E: Atlantic herring, F: Acadian redfish \\label{shifts}", fig.height=8, fig.show='hold', out.width='.49\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
 #out.width='\\linewidth'
 
@@ -919,13 +919,13 @@ soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
 
 Spatial distribution has changed over time for some species more than for others. Lobster, yellowtail flounder, and haddock distributions measured by NEFSC surveys have shifted northward relative to historical distributions. However, Acadian redfish distributions in the Gulf of Maine have remained relatively stable. A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
-```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
+```{r Species Kernal Density Plots,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'american-lobster-kd.png'))
 knitr::include_graphics(file.path(image.dir, 'acadian-redfish-kd.png'))
 
 ```
 
-```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
+```{r Species Kernal Density Plots 2,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'yellowtail-flounder-kd.png'))
 knitr::include_graphics(file.path(image.dir, 'haddock-kd.png'))
 
@@ -939,7 +939,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ##Species condition
 Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while yellowtail flounder remain thin for their length on average.  
-```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, fig.height=4}
+```{r Fish Condition, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, fig.height=4}
 #I will get the actual code here eventually but just don't have time right now
 knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition.jpg'))
 
@@ -1068,7 +1068,7 @@ par(opar)
 
 ##Groundfish productivity
 The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are no clear long term trends in this indicator when aggregated across all species in the Gulf of Maine and Georges Bank.  
-```{r, echo = F, fig.align='default', out.width='.75\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
+```{r Fish Productivity, echo = F, fig.align='default', out.width='.75\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'GOMGBprod.pdf'))
 knitr::include_graphics(file.path(image.dir, 'ProdLegend.eps'))
 
@@ -1084,7 +1084,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 #Species of concern
 ##Marine mammals
 North Atlantic right whales are among the most endangered large whale populations in the world. Although the population increased steadily from 1990 to 2011, it has decreased recently. This is fully discussed in an upcoming assessment, but may be attributable to survey methods and or linked to both ecosystem conditions and human activities. Changes in right whale trends can have implications for fisheries management where fisheries interact with these whales. 
-```{r, fig.cap="North Atlantic right whale estimated population \\label{rightwhale}", echo = F,  fig.height=2.5}
+```{r Right Whales, fig.cap="North Atlantic right whale estimated population \\label{rightwhale}", echo = F,  fig.height=2.5}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Right whale population', x.label = 'Year',
          y.label = 'Minimum n alive', rel.y.text = 1)
@@ -1095,12 +1095,12 @@ soe.plot(SOE.data, 'Time', 'Right whale population', x.label = 'Year',
 ##Seabirds
 Seabird breeding colonies in the Gulf of Maine are monitored and managed to promote recovery of formerly harvested species. Common and Arctic terns both breed on islands throughout the Gulf of Maine, feeding on a wide range of invertebrates and fish including Atlantic herring, juvenile hakes, and sandlance. Data compiled from the Gulf of Maine Seabird Working group show mixed trends for seabirds with high variability at particular colonies. However, common terns have a long term increasing trend across 13 Gulf of Maine colonies, while Arctic terns have decreased in the same region during the past decade.
 
-```{r, fig.cap='Gulf of Maine seabirds, number of breeding pairs: A - Common tern, B - Arctic tern \\label{GOMterns}', fig.height=3.5, echo=F}
+```{r Seabirds, fig.cap='Gulf of Maine seabirds, number of breeding pairs: A - Common tern, B - Arctic tern \\label{GOMterns}', fig.height=3.5, echo=F}
 
 par <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GOM Common tern', stacked = 'A', stacked.ticks = F, tol = 0.03,
+soe.plot(SOE.data, 'Time', 'GOM Common tern', stacked = 'A', stacked.ticks = F, tol = 0.05,
          rel.y.num = 1.1, end.start = 2006, scale.axis = 10^3)
-soe.plot(SOE.data, 'Time', 'GOM Arctic tern', stacked = 'B', tol = 0.03, 
+soe.plot(SOE.data, 'Time', 'GOM Arctic tern', stacked = 'B', tol = 0.05, 
          rel.y.num = 1.1, end.start = 2006, scale.axis = 10^3)
 
 soe.stacked.axis('Year', 'Breeding pairs, 1000s', rel.y.text = 1.1, y.line = 2.5)
@@ -1111,7 +1111,7 @@ soe.stacked.axis('Year', 'Breeding pairs, 1000s', rel.y.text = 1.1, y.line = 2.5
 ##Endangered Fish
 Despite diverse population structures and management regimes, concurrent abundance declines in disparate North American and European Atlantic salmon populations suggest that marine feeding conditions may be poor.  Diet analysis of Atlantic salmon sampled off the coast of West Greenland demonstrated that they are consuming slightly less capelin by weight, but more lower quality prey (amphipods and squid) recently compared to 1960-1970. Further, the energy density of capelin, their primary prey item at Greenland (~40-90% annually), decreased by almost 34% recently. This coincides with an approximate 66% reduction in Atlantic salmon marine productivity. The influence of declining resource quality is not unique to Atlantic salmon, as some populations of Atlantic cod, bluefin tuna, seabirds, and marine mammals are either of lower body condition and/or not as productive as they once were in the region pre-1990. This may partially be a response to reduced prey quality caused by changes in bottom-up processes. Determining and understanding the mechanisms that influence marine food-webs is necessary to fully evaluate survival and productivity trends, and to establish realistic management targets for commercial, recreational, and protected species.
 
-```{r, fig.cap="Energy content of capelin\\label{energy}", echo = F,  fig.height=2.5, out.width='.5\\linewidth'}
+```{r Energy Content, fig.cap="Energy content of capelin\\label{energy}", echo = F,  fig.height=2.5, out.width='.5\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'energycontent.png'))
 ```
 
@@ -1119,7 +1119,7 @@ knitr::include_graphics(file.path(image.dir, 'energycontent.png'))
 #Lower Trophic Levels  
 ##Phytoplankton production  
 Primary production has fluctuated recently with current conditions near average. This suggests that ecosystem production overall is relatively stable, although the trends in higher trophic levels reported above suggest that the uptake of primary production through benthic channels may be increasing over the long term, leading to the steady increase in benthos biomass over time. 
-```{r, fig.cap="Primary production, Gulf of Maine (left) and Georges Bank (right) \\label{pp}", echo = F,  fig.height=2.5, fig.show='hold', out.width='.49\\linewidth'}
+```{r Primary Production, fig.cap="Primary production, Gulf of Maine (left) and Georges Bank (right) \\label{pp}", echo = F,  fig.height=2.5, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM PPD', x.label = 'Year', 
          y.label = expression('GOM Production, gC m'^-2 * ' d'^1), 
@@ -1141,7 +1141,7 @@ Zooplankton provide a critical link between phytoplankton at the base of the foo
 ## (Zoop option 1)
 Zooplankton represent intermediate levels of the Gulf of Maine and Georges Bank food webs, which has undergone shifts in recent decades. Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume for spring (combined February, March and April samples) and fall (September, October, November) suggest that overall secondary production has not changed in the spring but has declined in the fall. This decline can be attributed to the decline in key zooplankton species, in particular *Pseudocalanus* spp., which has declined during fall in both the Gulf of Maine and Georges Bank, in contrast to an absence on long-term trend in the spring for both ecoregions. Similarly, the zooplankton *Calanus finmarchicus* may have slightly increased in abundance during spring in both ecoregions, however, *C. finmarchicus* declined in the fall on Georges Bank. Adult *Calanus* are the principal prey of North Atlantic right whales; any reduction in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
 
-```{r , fig.cap="A: Pseudocalanus spring, B: Pseudocalanus fall, C: Calanus finmarchicus spring, D: Calanus finmarchicus fall \\label{zoopspp}", echo = F, fig.height=5, fig.show='hold', out.width='.49\\linewidth'}
+```{r Zooplankton, fig.cap="A: Pseudocalanus spring, B: Pseudocalanus fall, C: Calanus finmarchicus spring, D: Calanus finmarchicus fall \\label{zoopspp}", echo = F, fig.height=5, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Pseudocalanus spring', stacked = 'A', stacked.ticks = F, 
          tol = 0.03, rel.y.num = 1.1, scale.axis = 10^3)
@@ -1328,7 +1328,7 @@ text(u[1], u[4], labels = 'B', cex = 2, adj = c(-0.5, 1.5))
 
 ##Long-term shelfwide sea surface temperature    
 Long-term sea surface temperature measurements have been collected off the Northeast Continental Shelf since the mid-1800s. The highest annual temperature in this time series was recorded in 2012, as the ecosystem warmed above the levels last seen in the late 1940s. The 2016 datum is the third highest temperature in the time series. The trend over the period 1856-2016, the full time series, was significant and positive, as is the trend over the most recent decade of the time series. 
-```{r, fig.cap="Long term sea surface temperature, Northeast US continental shelf \\label{ERSST}", echo=F, fig.height=2.5}
+```{r Sea Surface Temperature, fig.cap="Long term sea surface temperature, Northeast US continental shelf \\label{ERSST}", echo=F, fig.height=2.5}
 opar <- par(mar = c(4, 4, 0, 0))
 soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
          rel.y.num = 1.1, rel.y.text=1, y.label = expression('Sea Surface Temp., '*degree*'C'), y.line = 2.5, tol=0.01)
@@ -1338,7 +1338,7 @@ soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
 
 ##Regional bottom temperature  
 The thermal conditions at the bottom of the water column are extremely important in defining the habitats for the majority of resource species. Unlike sea surface temperatures that can be measured synoptically with satellite telemetry, bottom temperatures must be measured directly from ship surveys and other means. Thus, we often have incomplete spatial and temporal sample coverage to describe bottom temperature conditions. Recently, scientists at the NEFSC developed an interpolation approach that provides a more accurate depiction of spring and fall bottom temperatures. The time series of April bottom temperature in the Gulf of Maine and Georges Bank suggest no trend over time, whereas the October  temperatures steadily increased over the past half century in both regions.  
-```{r, fig.cap="Interpolated survey bottom temperature, A: April, B: October \\label{survtemp}", echo = F, fig.show='hold', fig.height = 3.5, out.width='.49\\linewidth'}
+```{r Bottom temperature, fig.cap="Interpolated survey bottom temperature, A: April, B: October \\label{survtemp}", echo = F, fig.show='hold', fig.height = 3.5, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM spring bottom temperature', stacked = 'A', stacked.ticks = F,
          tol = 0.01, rel.y.num = 1.1)
@@ -1377,7 +1377,7 @@ Seasonal sea surface temperature forecasts are made from an ensemble of seven mo
 ##Stratification and Salinity  
 Stratification shows a decreasing trend for the last decade in the Gulf of Maine, but a long term increasing trend on Georges Bank. Changing stratification can potentially affect system productivity by altering the nutrient supply to the primary producers in the surface layer. 
 
-```{r, fig.cap="Stratification \\label{Stratification}", echo = F, fig.height=2.5, fig.show='hold', out.width='.49\\linewidth' }
+```{r Stratification, fig.cap="Stratification \\label{Stratification}", echo = F, fig.height=2.5, fig.show='hold', out.width='.49\\linewidth' }
 opar <- par( mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
 soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GOM core', y.label = "GOM Stratification", 
@@ -1389,7 +1389,7 @@ soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GB core', y.label = "GB Strat
 ```
 
 Salinity structures habitat for living resources, however the effects of increased salinity on marine organisms are currently less clear than the effects of increased temperature. Salinity shows no significant trends over time in the Gulf of Maine or on Georges Bank. 
-```{r , fig.cap="Survey measured salinity; A: Surface, B: Bottom \\label{Salinity}", echo = F, fig.show='hold', fig.height = 3.5, out.width='.49\\linewidth'}
+```{r Salinity, fig.cap="Survey measured salinity; A: Surface, B: Bottom \\label{Salinity}", echo = F, fig.show='hold', fig.height = 3.5, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Surface salinity GOM', stacked = 'A', stacked.ticks = F, 
          tol = 0.01, rel.y.num = 1.1)
@@ -1411,7 +1411,7 @@ soe.stacked.axis('Year', 'Georges Bank Salinity, PSU', y.line = 3.7, rel.y.text 
 ##Gulf Stream North Wall
 Interannual and decadal shifts in the position of the Gulf Stream’s Northern Wall are associated with both deep ocean circulation and atmospheric fluctuations over the North Atlantic. An index of the position of the North Wall of the Gulf Stream (15 o C isotherm at 200 m depth), measured in degrees latitude, reveals a shift in the early 1980s from a low (more southerly) to a high (more northerly) index values, reaching a peak in the early-1990s. The Gulf Stream Index has been related to the spatial distribution and recruitment of certain U.S. NES commercial fish, phytoplankton blooms along the Shelf Break, and sea surface temperature in the Gulf of Maine such that a more northern Gulf Stream (positive index) is associated to warmer ocean temperature.  
 
-```{r, fig.cap="Gulf Stream Index \\label{GSI}", echo = F, fig.height=2.5 }
+```{r Gulf Stream Index, fig.cap="Gulf Stream Index \\label{GSI}", echo = F, fig.height=2.5 }
 opar <- par(mar = c(4, 6, 0, 0))
 soe.plot(SOE.data, 'Time', 'Gulf Stream Index', x.label = 'Year',
          rel.y.num = 1.1, y.label = expression('Gulf Stream N Wall, '*degree*'latitude'),
@@ -1422,7 +1422,7 @@ soe.plot(SOE.data, 'Time', 'Gulf Stream Index', x.label = 'Year',
 ##Daily temperature variability
 Climate change involves not only the change in level of climate parameters, it also involves change in system variability that can be seen in more dramatic shifts in weather in terrestrial systems and in ocean parameters on the Northeast Shelf. In an examination of daily sea surface temperatures in the Gulf of Maine and Georges Bank, system variability has increased as evidenced by the increase in the annual standard deviation of sea surface temperature, going from approximately 4.0 to 5.0 over the time period, indicating organisms have experienced greater day to day temperature excursions. 
 
-```{r, fig.cap="Standard deviation of annual sea surface temperature; A: Gulf of Maine, B: Georges Bank  \\label{sstSD}", echo = F, fig.height=3.5 }
+```{r Temperature Variation, fig.cap="Standard deviation of annual sea surface temperature; A: Gulf of Maine, B: Georges Bank  \\label{sstSD}", echo = F, fig.height=3.5 }
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM sst standard deviation', stacked = 'A', stacked.ticks = F,
          tol = 0.01, rel.y.num = 1.1)
@@ -1434,7 +1434,7 @@ soe.stacked.axis('Year', expression('Sea surface temperature SD, '*degree*'C'), 
 ##Inundation
 Sea level change occurring in the Northeast Shelf Ecosystem and on global scales reflects increased thermal expansion of the world’s ocean and an increase in ocean water volume resulting from the accelerated melting of glaciers and ice on land and at sea. Sea level has risen by nearly 0.35m in the southern states bordering the Northeast Shelf Ecosystem and on the order of 0.25m in the northern states; the data from these gauging stations is set relative to the most recent mean sea level established by NOAA’s Center for Operational Oceanographic Products and Services (CO-OPS). The rate of sea level change is expected to increase in the coming decades. With expectations of rising sea level, coastal communities face the likelihood of more frequent flooding of coastal structures and land habitats. 
 
-```{r, fig.cap="Sea level change, all Northeast States \\label{sealevel}" , echo=F, fig.height=2.5}
+```{r Sea Level Rise, fig.cap="Sea level change, all Northeast States \\label{sealevel}" , echo=F, fig.height=2.5}
 #knitr::include_graphics(file.path(image.dir, 'msl_all states .jpeg'))
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Relative sea level change all states', x.label = 'Year',
