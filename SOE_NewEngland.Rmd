@@ -763,11 +763,13 @@ In Rhode Island, the total value of aquaculture production has been steadily inc
 
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'aquaculture RI total value value', x.label = 'Year', 
-         y.label='Total value millions $', scale.axis = 1000000, rel.y.text = 0.8)
+         y.label='Total value millions $', scale.axis = 1000000, rel.y.text = 0.8,
+         y.line = 2.5)
 
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'aquaculture RI oysters sold', x.label ='Year', 
-         y.label='Millions of oysters sold', scale.axis = 1000000, rel.y.text = 0.8)
+         y.label='Millions of oysters sold', scale.axis = 1000000, rel.y.text = 0.8,
+         y.line = 2.5)
 
 ```
 
