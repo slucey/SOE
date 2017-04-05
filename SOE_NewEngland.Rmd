@@ -113,23 +113,26 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   }
  
   #Final portion of time series
-  mksld <- MannKendall(x[X > (end.start - 1), Value])
-  mksldp <- round(unlist(mksld[2]), 3)
-  if(mksldp < 0.05){
-    l10_x <- x[X > (end.start - 1), X]
-    l10_y <- x[X > (end.start - 1), Value]
-    lmod <- lm(l10_y ~ l10_x)
-    lmod_c <- unlist(lmod[1])
-    lmod_i <- lmod_c[1]
-    lmod_s <- lmod_c[2]
-    if(lmod_s > 0){
-      lines(l10_x, lmod_s * l10_x + lmod_i,
-            col = end.trend.pos, lwd=7)
+if(y.var != 'aquaculture ME trout harvest weight'){
+    mksld <- MannKendall(x[X > (end.start - 1), Value])
+    mksldp <- round(unlist(mksld[2]), 3)
+    if(mksldp < 0.05){
+      l10_x <- x[X > (end.start - 1), X]
+      l10_y <- x[X > (end.start - 1), Value]
+      lmod <- lm(l10_y ~ l10_x)
+      lmod_c <- unlist(lmod[1])
+      lmod_i <- lmod_c[1]
+      lmod_s <- lmod_c[2]
+      if(lmod_s > 0){
+        lines(l10_x, lmod_s * l10_x + lmod_i,
+              col = end.trend.pos, lwd=7)
+      }
+      if(lmod_s < 0){
+        lines(l10_x, lmod_s * l10_x + lmod_i,
+              col = end.trend.neg, lwd=7)
+      }
     }
-    if(lmod_s < 0){
-      lines(l10_x, lmod_s * l10_x + lmod_i,
-            col = end.trend.neg, lwd=7)
-    }
+    
   }
  
   #Add axis labels
