@@ -552,12 +552,15 @@ for(i in 2:4){
            pch = 21, bg = 'red', cex = point.cex[i])
 }
 
+# a <- legend('bottomright', 
+#             legend = c('High/Very High', 'Moderate', 'Low', 'Mixed', '', 
+#                        '< $1M', '$1M - $10M', '> $10M'), bty = 'n',
+#             pch = 21, pt.bg = c('red', 'blue', 'green', 'white', rep('white', 4)), 
+#             pt.cex = c(rep(point.cex[3], 4), 0, point.cex[2:4]), cex = 1.5, ncol = 2)
 a <- legend('bottomright', 
-            legend = c('High/Very High', 'Moderate', 'Low', 'Mixed', '', 
-                       '< $1M', '$1M - $10M', '> $10M'), bty = 'n',
-            pch = 21, pt.bg = c('red', 'blue', 'green', 'white', rep('white', 4)), 
-            pt.cex = c(rep(point.cex[3], 4), 0, point.cex[2:4]), cex = 1.5, ncol = 2)
-
+            legend = c('High/Very High', 'Moderate', 'Low', 'Mixed'), bty = 'n',
+            pch = 21, pt.bg = c('red', 'blue', 'green', 'white'), 
+            pt.cex = c(rep(point.cex[3], 4)), cex = 1.5)
 #Add Label
 text(u[1], u[4], labels = 'B', cex = 2, adj = c(-0.5, 1.5))
 
@@ -1412,7 +1415,7 @@ soe.stacked.axis('Year', 'Georges Bank Salinity, PSU', y.line = 3.7, rel.y.text 
 Interannual and decadal shifts in the position of the Gulf Stream’s Northern Wall are associated with both deep ocean circulation and atmospheric fluctuations over the North Atlantic. An index of the position of the North Wall of the Gulf Stream (15 o C isotherm at 200 m depth), measured in degrees latitude, reveals a shift in the early 1980s from a low (more southerly) to a high (more northerly) index values, reaching a peak in the early-1990s. The Gulf Stream Index has been related to the spatial distribution and recruitment of certain U.S. NES commercial fish, phytoplankton blooms along the Shelf Break, and sea surface temperature in the Gulf of Maine such that a more northern Gulf Stream (positive index) is associated to warmer ocean temperature.  
 
 ```{r Gulf Stream Index, fig.cap="Gulf Stream Index \\label{GSI}", echo = F, fig.height=2.5 }
-opar <- par(mar = c(4, 6, 2, 0))
+opar <- par(mar = c(4, 6, , 0))
 soe.plot(SOE.data, 'Time', 'Gulf Stream Index', x.label = 'Year',
          rel.y.num = 1.1, y.label = expression('Gulf Stream N Wall, '*degree*'latitude'),
          tol = 0.001, rel.y.text = 0.8)
