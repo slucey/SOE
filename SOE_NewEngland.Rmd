@@ -167,17 +167,17 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 ```
 
 <!--#Overall View of the Ecosystem--> 
-The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses. An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highighting relationships between focal species groups, managed human activities, environmental drivers, habitats, and key ecological links. The activities link to high level strategic management objectives (described next). The activities link to high level strategic management objectives (described next). Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
+The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses. An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highighting relationships between focal species groups, managed human activities, environmental drivers, habitats, and key ecological links. The activities link to high level strategic management objectives (described next). Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
 
 <!--##Conceptual model of ecosystem relationships--> 
-```{r Conceptual Model, fig.cap="Gulf of Maine and Georges Bank Ecosystems \\label{conceptual}", echo = F, out.width = "450pt", fig.align='center'}
+```{r Conceptual Model, fig.cap="Gulf of Maine and Georges Bank Ecosystems \\label{conceptual}", echo = F, out.width = "500pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'GBandGOM_simple.png'))
 
 ```
 
 
 ## Ecosystem status: Executive summary
-We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. We also report single-species status relative to established objectives and reference points.
+We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. The objectives and associated indicators are listed in the table below. We also report single-species status relative to established objectives and reference points.
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r Objective Table, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -187,7 +187,7 @@ tabl <- "
 | Seafood production   | Landings by functional group, mariculture  |
 | Profits              | Revenue by functional group |
 | Recreation           | Numbers of anglers and trips  |
-| Employment           | Indicator under development (see p. 4) |
+| Employment           | Indicator under development (see p. 3) |
 | Stability            | Diversity indices (fishery and species)|
 | Social-Cultural      | Community vulnerability, fishery engagement and reliance |
 | Biomass              | Biomass or abundance from surveys, biomass relative to reference  |
@@ -198,9 +198,9 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-**Eight New England Council (NEFMC) stocks are not meeting objectives at the managed species level** for fishing mortality (F) rates and/or biomass (B) levels relative to established reference points. The remaining stocks are currently within target ranges for F and above the limit for B.
+**40% of New England Council (NEFMC) stocks are meeting objectives at the managed species level.** Of 38 managed stocks, 15 are within target ranges for fishing mortality (F) and above the threshold for biomass (B), 9 stocks exceed F rates and/or are below B levels relative to reference points, and the remaining 14 have unknown status.
 
-```{r Stock Status, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", echo = F,fig.height=8, fig.width=6, out.width='0.5\\linewidth', message = FALSE, warning = FALSE}
+```{r Stock Status, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", echo = F,fig.height=7, fig.width=7, out.width='0.65\\linewidth', message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'NEFMC_joint_stocks.png'))
 
 dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
@@ -228,11 +228,11 @@ Frat[6] <- most.recent$F.Flimit[6]  # Ocean Quahog use Flimit because no Fmsy
 #model averages have been calculated and included in F/Fmsy column in 2017assess.csv
 #cbind(most.recent$Entity.Name,most.recent$F.Flimit,most.recent$F.Fmsy)
 
-# figure out appropriate range for axes
+# figure out appropriate range for axes WARNING HARD CODED
 #max(Frat,na.rm=T)
 #max(Brat,na.rm=T)
 x.r <- c(0,3.6)
-y.r <- c(0,10)
+y.r <- c(0,5.2)
 
 # set some colors
 my.col <- rep(NA,n.stocks)
@@ -247,10 +247,14 @@ for (i in 1:n.stocks){
 
 # create new matrix for plotting
 xx <- as.data.frame(cbind(decoder[,2:8],Frat,Brat,my.col))
-MA.unknown <- decoder$Code[c(1,3,4)] #mackerel, Loligo, Illex unknown
+newlist <- as.factor(decoder$Code)
+others <- as.factor("7 Skates")
+sppcodes <- unlist(list(newlist, others))
+MA.unknown <- sppcodes[c(1,3,4)] #mackerel, Loligo, Illex unknown
 #MA.unknown <- decoder$Code[c(1,3,4,8)] #BSB known
 #NE.unknown <- c(decoder$Code[c(14,23,33)],"7 Skates")
-NE.unknown <- decoder$Code[c(14,19,23,33,35,37)] #Red deepsea crab, halibut, Offshore hake, GOM winter flounder, Witch flounder, GB YT unknown
+NE.overfished <- sppcodes[c(17,19)] # GB cod, halibut
+NE.unknown <- sppcodes[c(14,23,33,35,37,47,48,50)] #Red deepsea crab,  Offshore hake, GOM winter flounder, Witch flounder, GB YT,2 monkfish, 7 skates unknown
 
 
 # break out the Councils
@@ -286,22 +290,23 @@ plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
    title(expression(phantom("NEFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
    title(expression(phantom("NEFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
    title(expression(phantom("NEFMC and Joint") * " Stocks"), col.main="black")  
-   legend('topright',legend=NE.unknown,pch=NA,title="Unknown Status")
+   legend('topright',legend=NE.overfished,pch=NA,title="Overfished, F \nStatus Unknown",bty="n", text.width=strwidth("Offshore Hake"), inset=c(0,.05))
+   legend('right',legend=NE.unknown,pch=NA,title="Unknown Status", bty="n")
    text(NEBO$Brat,NEBO$Frat,labels=NEBO$Code,pos=NEBO$my.pos3,col=my.col[12:49],cex=0.8)
 #if(saveplots) savePlot("NEFMC_Joint_stocks.png", type='png')
 #if(saveplots) dev.off()
 
 ```
 
-At the ecosystem scale, commercial **Gulf of Maine seafood production relies on benthos and benthivores (scallops, lobster)**, with other groups stable or decreasing in landings (forage fish, piscivores). **Georges Bank seafood production has decreased over the long term.** Aquaculture production information has been steady for Maine salmon and increasing in Rhode Island. **Commercial revenues show long term increases for most groups other than piscivores. The majority of Georges Bank revenue is from a single species (scallops), and the majority of Gulf of Maine revenue is from a single species not managed by the Council (lobster),** underlining the need to work across jurisdictions to address ecosystem-level objectives.
+At the ecosystem scale, commercial **Gulf of Maine and Georges Bank seafood production increasingly relies on benthos and benthivores (scallops, lobster)**, with other groups stable or decreasing in landings (forage fish, piscivores). Aquaculture production has been steady for Maine salmon and increasing in Rhode Island. **The majority of Georges Bank commercial fishery revenue is from a single species (scallops), and the majority of Gulf of Maine revenue is from a single species not managed by the Council (lobster),** underlining the need to work across jurisdictions to address ecosystem-level objectives.
 
-**Recreational opportunities** from fishing have also **increased over the long term**, according to numbers of angler trips and anglers. However, there has been a **significant decline over the past 10 years** which may have started with the 2008 economic collapse, though recovery of recreational indices has not matched recovery in the wider economy. 
+**Recreational opportunities** from fishing have **increased over the long term**, according to numbers of angler trips and anglers. However, there has been a **significant decline over the past 10 years** which may have started with the 2008 economic collapse, though recovery of recreational indices has not matched recovery in the wider economy. 
 
-Community vulnerability assessments suggest that although **fishing communities in New England have** generally moderate to low risks from sea level rise, there is **moderate to high reliance on species vulnerable to climate, and generally low catch diversity** in the Gulf of Maine. Maine coastal communities have a high reliance on commercial fisheries, while communities from Cape Cod south rely on both recreational and commercial fisheries.
+Community vulnerability assessments suggest that although **fishing communities in New England have** generally moderate to low risks from sea level rise, there is **moderate to high reliance on species vulnerable to climate. Catch diversity is lowest in eastern Maine.** Maine coastal communities have a high reliance on commercial fisheries, while communities from Cape Cod south rely on both recreational and commercial fisheries.
 
 Stability is addressed with indices of **commercial fleet and species revenue diversity**. These **show long term declines** in New England, which may raise a caution flag for stability within the industry, but requires further investigation into mechanisms. 
 
-Survey **biomass trends for aggregated trophic groups are similar across seasons and regions**. At the lowest trophic level, **both forage fish and benthos, including commercial shellfish, show long term increases in both seasons**. Both **benthivores and piscivores at higher trophic levels have stable or increasing trends depending on the season** sampled, in particular during the most recent decade. However, these increases are largely driven by non-commercial species. **Species diversity has increased in the Gulf of Maine, but remained stable or decreased on Georges Bank** depending on the season sampled.
+Survey **biomass trends for aggregated trophic groups are similar across spring and fall and between the Gulf of Maine and Georges Bank**. At the lowest trophic level, **both forage fish and benthos, including commercial shellfish, show long term increases in both seasons**. Both **benthivores and piscivores at higher trophic levels have stable or increasing trends depending on the season** sampled, in particular during the most recent decade. However, these increases are largely driven by non-commercial species. **Species diversity has increased in the Gulf of Maine, but remained stable or decreased on Georges Bank** depending on the season sampled.
 
 Additional indicators in this report suggest a note of **caution for the aggregate productivity of fish species in the region** (fish condition declined and recovered for some species). In addition, while there are few time series for protected species, **the most endangered species in the system (North Atlantic right whale) may be declining** over the most recent few years after a slow but steady increase. Further, signals from the wider northwest Atlantic suggest a **decrease in forage fish energy content**. While there are no clear long-term trends at the bottom of the food web in New England, **smaller less energy dense zooplankton have been increasing while primary production has been average**.
 
@@ -1418,7 +1423,7 @@ soe.stacked.axis('Year', 'Georges Bank Salinity, PSU', y.line = 3.7, rel.y.text 
 Interannual and decadal shifts in the position of the Gulf Stream’s Northern Wall are associated with both deep ocean circulation and atmospheric fluctuations over the North Atlantic. An index of the position of the North Wall of the Gulf Stream (15 o C isotherm at 200 m depth), measured in degrees latitude, reveals a shift in the early 1980s from a low (more southerly) to a high (more northerly) index values, reaching a peak in the early-1990s. The Gulf Stream Index has been related to the spatial distribution and recruitment of certain U.S. NES commercial fish, phytoplankton blooms along the Shelf Break, and sea surface temperature in the Gulf of Maine such that a more northern Gulf Stream (positive index) is associated to warmer ocean temperature.  
 
 ```{r Gulf Stream Index, fig.cap="Gulf Stream Index \\label{GSI}", echo = F, fig.height=2.5 }
-opar <- par(mar = c(4, 6, , 0))
+opar <- par(mar = c(4, 6, 0, 0))
 soe.plot(SOE.data, 'Time', 'Gulf Stream Index', x.label = 'Year',
          rel.y.num = 1.1, y.label = expression('Gulf Stream N Wall, '*degree*'latitude'),
          tol = 0.001, rel.y.text = 0.8)
