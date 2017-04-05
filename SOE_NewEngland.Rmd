@@ -759,7 +759,7 @@ soe.stacked.axis('Year', 'Amount sold, 100,000s lbs')
 
 In Rhode Island, the total value of aquaculture production has been steadily increasing. The number of oysters sold is similarly increasing.
 
-```{r Mariculture2, fig.cap="Aquaculture stats from RI: total value (left), oysters sold (right) \\label{mariculture}", echo = F, fig.height=2.5, out.width='.45\\linewidth', fig.show='hold', warning = F}
+```{r Mariculture2, fig.cap="Aquaculture stats from RI: total value (left), oysters sold (right) \\label{mariculture}", echo = F, fig.height=3.0, out.width='.45\\linewidth', fig.show='hold', warning = F}
 
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'aquaculture RI total value value', x.label = 'Year', 
