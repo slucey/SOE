@@ -627,14 +627,16 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Commercial landings include all landings in the region, including species not managed by NEFMC. For example, category E, Benthivores, includes lobsters, which are a substantial portion of the landings. Over the most recent 5 years, NEFSC managed stocks made up from 5%-100% of total landings by category, as detailed in the table below. This indicator is being refined to eventually distinguish landings sold for human consumption versus other uses. 
+Commercial landings include all landings in the region, including species not managed by NEFMC. For example, category E, Benthivores, includes lobsters, which are a substantial portion of the landings and drive increases in landings and revenue. Over the most recent 5 years, NEFSC managed stocks made up from 5%-100% of total landings by category, as detailed in the table below. This indicator is being refined to eventually distinguish landings sold for human consumption versus other uses. 
 
 ```{r Prop Landings Table, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 names(gom.pct) <- c("Group", "GOM landings", "GOM value")
 names(gb.pct) <- c("Group", "GB landings", "GB value")
 propNE <- merge(gom.pct, gb.pct)
-#levels(propNE$Group)<-c('Benthos', 'Mesoplanktivore', 'Macroplanktivore', 'Macrozoo-piscivore', 'Benthivore', 'Piscivore')
-kable(propNE, digits=3, caption = "Proportion managed by NEFMC")
+propNE <- propNE[propNE$Group != "Other"]
+propNE$Group<-factor(propNE$Group, levels=c('Benthos', 'Mesoplanktivore', 'Macroplanktivore', 'Macrozoo-piscivore', 'Benthivore', 'Piscivore'))
+
+kable(propNE[order(propNE$Group)], digits=2, caption = "Proportion managed by NEFMC")
 
 ```
 
@@ -679,9 +681,7 @@ soe.stacked.axis('Year', expression('GB Commercial Landings, 10'^3*'mt'))
 ```
 
 ## Commercial Fishery Revenue
-This indicator links commercial fishing (the human activity) to the profits objective. We note that time series at the Gulf of Maine regional scale may not include all states landings prior to 1994, which affect revenue calculations. Similarly, 2006 and 2010 were missing some revenue data for some species.
-
-<!-- Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the region over the last 5 years. By species group, in 2015, Benthos revenue was from 11% MAFMC managed species, Macro-planktivores 100% (would be reduced if including menhaden), Mesoplanktivores 97%, Macrizooplanktivores 0%, Benthivores 14%, Piscivores 67%. --> 
+This indicator links commercial fishing (the human activity) to the profits objective. The overwhelming majority of Gulf of Maine revenue is from lobster (within benthivores here). The majority of Georges Bank revenue is currently from benthos (scallops). Revenue from piscivores has decreased in both the Gulf of Maine and Georges Bank over the past decade. We note that time series at the Gulf of Maine regional scale may not include all states landings prior to 1994, which affect revenue calculations. Similarly, 2006 and 2010 were missing some revenue data for some species.
 
 ```{r Commercial Revenue, fig.cap="Commercial revenue from A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commrev}", echo = F, fig.show='hold', fig.height=7, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -798,7 +798,7 @@ soe.plot(SOE.data, 'Time', 'aquaculture RI oysters sold', x.label ='Year',
 Patterns for groups of species that feed on similar prey can indicate how overall ecosystem conditions are changing, and provide context for individual species stock assessments. This information is from NEFSC bottom trawl surveys in spring and fall.  
 
 ##Trends in biomass
-Biomass across trophic levels shows similar trends between the Gulf of Maine and Georges Bank. At the lowest trophic levels, benthos and forage fish, groups including commercial shellfish and herring, show long term increases in both seasons. Benthos also have recent short term increases in spring and forage fish have short term increases in fall surveys. In contrast, piscivores at higher trophic levels have significant long term increasing trends only during fall surveys. 
+Biomass across trophic levels shows similar trends between the Gulf of Maine and Georges Bank. At the lowest trophic levels, benthos and forage fish, groups including commercial shellfish and herring, show long term increases in both seasons. Benthos also have recent short term increases in spring and forage fish have short term increases in fall surveys. Interestingly, predators of benthos (benthivores) are also show long term increases and short term increases in fall surveys (and spring in the Gulf of Maine), perhaps supported by the observed increase in benthos. In contrast, although forage fish (mesoplanktivores) show long term incrases in all surveys, piscivores at higher trophic levels have significant long term increasing trends only during fall surveys. 
  
 ```{r Fall Survey Biomass, fig.cap="Fall survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{fallsurvB}", echo = F, fig.show = 'hold', fig.height = 7, out.width='.49\\linewidth'}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -875,7 +875,7 @@ soe.stacked.axis('Year', expression('GB Survey biomass, kg tow'^-1))
 Removing this section?-->
 
 ##Species composition 
-Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity (here estimated as the mean number of species found in a random sample of 100 fish at a station for the Gulf of Maine and Georges Bank portions of NEFSC surveys) can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Unlike total biomass trends by trophic group, trends in species diversity differ between Gulf of Maine and Georges Bank. The number of species has steadily increased in the Gulf of Maine over the long term in the fall, and over the most recent decade in both the fall and spring surveys. 
+Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity (here estimated as the mean number of species found in a random sample of 100 fish at a station for the Gulf of Maine and Georges Bank portions of NEFSC surveys) can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Unlike total biomass trends by trophic group, trends in species diversity differ between Gulf of Maine and Georges Bank. The number of species has steadily increased in the Gulf of Maine over the long term in the spring, and over the most recent decade in both the fall and spring surveys. 
 
 ```{r Expected Number of Species, fig.cap="A-Fall, B-Spring \\label{sppdiv}", echo = F, fig.height=3.5, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -893,7 +893,7 @@ soe.stacked.axis('Year', 'GB Expected n species / 100 fish', rel.y.text = 1, y.l
 ```
 
 ##Species distribution
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and the depth of occurrence. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. Depth ranges from 0 to 260, which relates to depth of occurrence in meters. The mean along shelf distance for several NEFMC species by year is shown below; most show a norteastward change along the shelf, aside from herring. However, herring has a long term deeper distribution trend. Cod has a long term shift towards deeper distribution, but a more recent return to shallower distributions (along with winter flounder and haddock). Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and the depth of occurrence. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. Depth ranges from 0 to 260, which relates to depth of occurrence in meters. The mean along shelf distance for several NEFMC species by year is shown below; most show a northeastward change along the shelf, aside from herring. However, herring has a long term deeper distribution trend. Cod has a long term shift towards deeper distribution, but a more recent return to shallower distributions (along with winter flounder and haddock). Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 
 ```{r Species Distributions, fig.cap="Shifts in species distribution over time; A: Yellowtail flounder, B: Winter flounder, C: Cod, D: Haddock, E: Atlantic herring, F: Acadian redfish \\label{shifts}", fig.height=8, fig.show='hold', out.width='.49\\linewidth', echo = F, message = FALSE, warning = FALSE}
@@ -960,7 +960,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ##Species condition
 Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while yellowtail flounder remain thin for their length on average.  
-```{r Fish Condition, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, fig.height=4}
+```{r Fish Condition, fig.cap="Fish Condition (weight/length anomaly) \\label{cond}", echo = F, fig.height=4}
 #I will get the actual code here eventually but just don't have time right now
 knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition.jpg'))
 
@@ -1095,7 +1095,7 @@ knitr::include_graphics(file.path(image.dir, 'ProdLegend.eps'))
 
 ```
 
-```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for species in the Gulf of Maine (GOM) and Georges Bank (GB). Annual anomalies shown are the average of spring and fall anomalies. \\label{fishprodsurvey}", fig.height=0.05}
+```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for species in the Gulf of Maine (GOM) and Georges Bank (GB), 1980-2015. Annual anomalies shown (small fish numbers per large fish biomass anomaly, y axis) are the average of spring and fall anomalies. \\label{fishprodsurvey}", fig.height=0.05}
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
@@ -1104,7 +1104,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 #Species of concern
 ##Marine mammals
-North Atlantic right whales are among the most endangered large whale populations in the world. Although the population increased steadily from 1990 to 2011, it has decreased recently. This is fully discussed in an upcoming assessment, but may be attributable to survey methods and or linked to both ecosystem conditions and human activities. Changes in right whale trends can have implications for fisheries management where fisheries interact with these whales. 
+North Atlantic right whales are among the most endangered large whale populations in the world. Although the population increased steadily from 1990 to 2011, it has decreased recently. This is fully discussed in an upcoming assessment, but may be attributable to survey methods and/or linked to both ecosystem conditions and human activities. Changes in right whale trends can have implications for fisheries management where fisheries interact with these whales. 
 ```{r Right Whales, fig.cap="North Atlantic right whale estimated population \\label{rightwhale}", echo = F,  fig.height=2.5}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Right whale population', x.label = 'Year',
@@ -1159,8 +1159,8 @@ Harmful algal bloom (HAB) data on the continental shelf of the new England regio
 ##Zooplankton  
 Zooplankton provide a critical link between phytoplankton at the base of the food web, and higher trophic organisms such as fish, mammals, and birds. Changes in the species compostion and biomass of the zooplankton community have a great potential to affect recruitment success and fisheries productivity, and climate change may be the most important pathway for these changes to manifest. Therefore these indices are relevant to both productivity and trophic structure objectives.  
 
-## (Zoop option 1)
-Zooplankton represent intermediate levels of the Gulf of Maine and Georges Bank food webs, which has undergone shifts in recent decades. Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume for spring (combined February, March and April samples) and fall (September, October, November) suggest that overall secondary production has not changed in the spring but has declined in the fall. This decline can be attributed to the decline in key zooplankton species, in particular *Pseudocalanus* spp., which has declined during fall in both the Gulf of Maine and Georges Bank, in contrast to an absence on long-term trend in the spring for both ecoregions. Similarly, the zooplankton *Calanus finmarchicus* may have slightly increased in abundance during spring in both ecoregions, however, *C. finmarchicus* declined in the fall on Georges Bank. Adult *Calanus* are the principal prey of North Atlantic right whales; any reduction in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
+### Seasonal trends in major species
+Zooplankton represent intermediate levels of the Gulf of Maine and Georges Bank food webs, which have undergone shifts in recent decades. Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume for spring (combined February, March and April samples) and fall (September, October, November) suggest that overall secondary production has not changed in the spring but has declined in the fall. This decline can be attributed to the decline in key zooplankton species, in particular *Pseudocalanus* spp., which has declined during fall in both the Gulf of Maine and Georges Bank, in contrast to an absence on long-term trend in the spring for both ecoregions. Similarly, the zooplankton *Calanus finmarchicus* shows no spring trends, but a long-term decline in the fall on Georges Bank as well as a short term decline in both regions over the past decade. Adult *Calanus* are the principal prey of North Atlantic right whales; reductions in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
 
 ```{r Zooplankton, fig.cap="A: Pseudocalanus spring, B: Pseudocalanus fall, C: Calanus finmarchicus spring, D: Calanus finmarchicus fall \\label{zoopspp}", echo = F, fig.height=5, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -1191,8 +1191,8 @@ soe.stacked.axis('Year', expression('GB thousands per 100 m' ^ 3), rel.y.text = 
 
 ```
 
-## (Zoop option 2)
-One simple indicator of overall zooplankton biomass is the volume of material collected in plankton nets, which has been relatively consistent, suggesting large scale coherence in zooplankton throughout much of NES. While the anomalies show no significant long or short term trends, the composition of the zooplankton community shows shifts over time. Specifically, small copepods increased in abundance in the 1990s, but shifted to larger bodied copepod species around 2000. There is evidence of a more recent shift, with both smaller zooplankton and *Calanus finmarchicus* becoming more abundant again over the last several years. The small copeods are most important during the autumn while *Calanus finmarchicus* dominates early in the year following the spring phytoplankton bloom. Adult *Calanus* are the principal prey of North Atlantic right whales; any reduction in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
+### Aggregate zooplankton trends
+One simple indicator of overall zooplankton biomass is the volume of material collected in plankton nets, which has been relatively consistent, suggesting large scale coherence in zooplankton throughout much of NES. While the anomalies show no significant long or short term trends, the composition of the zooplankton community shows shifts over time. Specifically, small copepods increased in abundance in the 1990s, but shifted to larger bodied copepod species around 2000. There is evidence of a more recent shift, with both smaller zooplankton and *Calanus finmarchicus* becoming more abundant again over the last several years. The small copeods are most important during the autumn while *Calanus finmarchicus* dominates early in the year following the spring phytoplankton bloom. 
 ```{r zooplankton anomoly, fig.cap="A: Calanus, B: zooplankton biomass, C: small copepods", echo = F, fig.height=4, fig.show='hold', out.width='.49\\linewidth'}
 opar <- par(mfrow = c(3, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GOM Yearly Calanus Anomaly', stacked = 'A', stacked.ticks = F, 
@@ -1430,10 +1430,10 @@ soe.stacked.axis('Year', 'Georges Bank Salinity, PSU', y.line = 3.7, rel.y.text 
 
 #Climate Indices 
 ##Gulf Stream North Wall
-Interannual and decadal shifts in the position of the Gulf Stream’s Northern Wall are associated with both deep ocean circulation and atmospheric fluctuations over the North Atlantic. An index of the position of the North Wall of the Gulf Stream (15 o C isotherm at 200 m depth), measured in degrees latitude, reveals a shift in the early 1980s from a low (more southerly) to a high (more northerly) index values, reaching a peak in the early-1990s. The Gulf Stream Index has been related to the spatial distribution and recruitment of certain U.S. NES commercial fish, phytoplankton blooms along the Shelf Break, and sea surface temperature in the Gulf of Maine such that a more northern Gulf Stream (positive index) is associated to warmer ocean temperature.  
+Interannual and decadal shifts in the position of the Gulf Stream’s Northern Wall are associated with both deep ocean circulation and atmospheric fluctuations over the North Atlantic. An index of the position of the North Wall of the Gulf Stream (15°C isotherm at 200 m depth), measured in degrees latitude, reveals a shift in the early 1980s from a low (more southerly) to a high (more northerly) index values, reaching a peak in the early-1990s. The Gulf Stream Index has been related to the spatial distribution and recruitment of certain U.S. NES commercial fish, phytoplankton blooms along the Shelf Break, and sea surface temperature in the Gulf of Maine such that a more northern Gulf Stream (positive index) is associated to warmer ocean temperature.  
 
 ```{r Gulf Stream Index, fig.cap="Gulf Stream Index \\label{GSI}", echo = F, fig.height=2.5 }
-opar <- par(mar = c(4, 6, 0, 0))
+opar <- par(mar = c(4, 6, 2, 0))
 soe.plot(SOE.data, 'Time', 'Gulf Stream Index', x.label = 'Year',
          rel.y.num = 1.1, y.label = expression('Gulf Stream N Wall, '*degree*'latitude'),
          tol = 0.001, rel.y.text = 0.8)
