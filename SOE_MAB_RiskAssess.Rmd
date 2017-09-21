@@ -15,6 +15,9 @@ output:
     toc: no
 geometry: margin=0.8in
 fontsize: 11pt
+bibliography: /Users/sgaichas/Documents/0_Data/EAFM_MAFMC/My_Library.bib
+csl: canadian-journal-of-fisheries-and-aquatic-sciences.csl
+
 ---
 
 ```{r Directory and Data Set-up, echo = F, message = F}
@@ -170,7 +173,7 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 #Introduction
 The purpose of this report is to document the use of ecosystem indicators within the Mid-Atlantic Council's Ecosystem Approach to Fisheries Management (EAFM) intial risk assessment. 
 
-The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). An overview of the risk elements with definitions and associated indicators as discussed by the Council's Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below (Table \ref{riskel}). In sections below, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. All risk rankings are summarized at the end of the document.
+The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). An overview of the risk elements with definitions and associated indicators as discussed by the Council's Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below. In sections below, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. All risk rankings are summarized at the end of the document.
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -192,20 +195,18 @@ tabl <- "
 | Offshore habitat     | Risk of not achieving OY due to threats to offshore habitat   | Enumerated threats + thermal habitat trends + Friedland's index |
 | *Economic* |  |
 | Commercial Profits   | Risk of not maximizing fishery value             | Revenue by fleet |
-| Recreational Value   | Risk of not maximizing fishery value             | Revenue by fleet |    
-| Fishery Resilience (1)  | Risk of reduced fishery business resilience   | Fleet diversity |         
-| Fishery Resilience (2)  | Risk of reduced fishery business resilience   | Access to capital |         
-| Fishery Resilience (3)  | Risk of reduced fishery business resilience   | Insurance availabilty |         
-| Fishery Resilience (4)  | Risk of reduced fishery business resilience   | Shoreside support infrastructure |         
-| Fishery Resilience (5)  | Risk of reduced fishery business resilience   | Access to emerging markets/opportunities |         
+| Recreational Value   | Risk of not maximizing fishery value             | Revenue by fleet, Numbers of anglers and trips in aggregate |    
+| Fishery Resilience (1)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
+| Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
+| Fishery Resilience (3)  | Risk of reduced fishery business resilience due to insurance availabilty  |  No current indicator available |         
+| Fishery Resilience (4)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
+| Fishery Resilience (5)  | Risk of reduced fishery business resilience due to access to emerging markets/opportunities  | Needs clarification  |
+| Commercial Employment   | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
+| Recreational Employment | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | *Social* |  |
-| Recreation           | Risk of not maximizing recreational opportunities | Numbers of anglers and trips  |
-| Commercial Employment   | Risk of not maximizing employment opportunities | Fisheries of US employment  |
-| Recreational Employment | Risk of not maximizing employment opportunities | Fisheries of US employment  |
-| Stability            | Diversity indices (fleet)|
 | Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
 | *Food Production* |  |
-| Commercial     | Risk of not maximizing seafood production             | Seafood landings in aggregate |
+| Commercial     | Risk of not optimizing seafood production             | Seafood landings in aggregate |
 | Recreational   | Risk of not maintaining personal food security      | Recreational landings in aggregate |
 | Seafood safety   | Risk of not maintaining market access, human health    | Number of public advisories by species |
 | *Management* |  |
@@ -250,7 +251,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Current assessment results for all MAFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for surfclams, ocean quahogs, scup, black sea bass, and butterfish. Bluefish, golden tilefish, and spiny dogfish F status is in the low risk category, and B risk is in the low-moderate risk category. Summer flounder F status is in the high risk category and B status is in the low-moderate risk category. F and B status for northern and southern goosefish stocks were formerly in the low risk categories, but a recent assessment update was rejected and unable to determine status, so we provisionally rank them low-moderate risk (unknown but weight of evidence supports lower risk). Similarly, both squid stocks have unknown status but F is likely to be low and stock size robust so they are ranked low-moderate risk. Blueline tilefish are high risk for F status and have unknown B status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for B status. Finally, Atlantic mackerel has moderate-high risk for both F and B status due both to failed assessment/unknown status and indications from recent analyses. Atlantic mackerel status will be updated after SAW/SARC review of the new benchmark assessment.
 
-```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", echo = F, message = FALSE, warning = FALSE}
+```{r, fig.cap="NEED TO UPDATE THIS PLOT Summary of single species status for MAFMC stocks \\label{KOBE}", echo = F, message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
 
 ```
@@ -382,7 +383,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 To summarize, primary production shows no trend (although the seasonal timing of primary production may be changing). Similarly, there are no trends in overall zooplankton abundance, but a dominant Mid-Atlantic species shows different trends by season, possibly also indicating a shift in timing. Fish condition showed a drop across all species in the early 2000s, but most species appear to have recovered. There is a decreasing trend in aggregate numbers of small fish per large fish. This one clear trend, along with changes in timing at lower trophic levels, suggest a low-moderate risk of changing ecosystem productivity in the Mid-Atlantic region. 
 
 ##Population diversity
-This element is applied at the species level. Changes (particularly reduction) in diversity at the species/stock level (size, sex, reproductive). 
+This element is applied at the species level. Changes (particularly reduction) in diversity at the species/stock level (size, sex, reproductive). *Needs data workup by species, may not be done by Oct*
 
 
 ```{r riskpopdiv, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -414,7 +415,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Diversity shows a signficant increase for one season in the Mid-Atlantic, suggesting that survey timing may be interacting with changes in the seasonal movement of fish (see above) as well as a potential change in species availability due to distribution shifts (see below). Therefore, there is a moderate-high risk of changing species diversity in the region.
+Diversity shows a signficant increase for one season in the Mid-Atlantic, suggesting that survey timing may be interacting with changes in the seasonal movement of fish (see above) as well as a potential change in species availability due to distribution shifts (see below). However, additional analysis is required to ensure that the transition between survey vessels did not affect this metric. Therefore, while the criteria above would indicate a moderate-high risk of changing species diversity in the region, we rank this low-moderate risk until further analysis of the ship effect is complete.
 
 ```{r, fig.cap="A-Fall, B-Spring \\label{sppdiv}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -425,72 +426,148 @@ soe.stacked.axis('Year', 'Expected n species / 100 fish', rel.y.text = 1)
 ```
 
 ##Climate
-This element is applied at the species level. 
+This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those climate vulnerability rankings directly here. This assessment is intended to be conducted iteratively, so these results can be updated in the future. 
 
 ```{r riskclim, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  |  |
-| Low-Moderate |  |
-| Moderate-High |  |
-| High |  |
+| Low  | Low climate vulnerability ranking |
+| Low-Moderate | Moderate climate vulnerability ranking |
+| Moderate-High | High climate vulnerability ranking |
+| High | Very high climate vulnerability ranking |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking.
+
+```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species \\label{NEVAvul}", out.width='\\linewidth'}
+knitr::include_graphics(file.path(image.dir, 'NEVAvulmid.png'))
+
+```
 
 ##Distribution Shifts
-This element is applied at the species level.
+This element is applied at the species level. Risks of species distribution change (and therefore risks to achieving OY as well as straightforward allocation) due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly here. In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
 
 ```{r riskdist, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  |  |
-| Low-Moderate |  |
-| Moderate-High |  |
-| High |  |
+| Low  | Low potential for distribution shifts |
+| Low-Moderate | Moderate potential for distribution shifts |
+| Moderate-High | High potential for distribution shifts |
+| High | Very high potential for distribution shifts |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+All Mid-Atlantic species with the exception of golden tilefish had either high or very high risk of distribution shifts in the Northeast US. 
+
+```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species distribution shift risk \\label{NEVAshift}", out.width='\\linewidth'}
+knitr::include_graphics(file.path(image.dir, 'NEVAshiftmid.png'))
+
+```
+
+###Historical vs. Current Distribution Maps
+Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. *could include all recent maps based on Spring 2017 here*
+
+```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
+knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
+knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
+
+```
+
+```{r, fig.cap="Shifts in species distribution, 1970s (blue), recent (red) and overlap (purple) \\label{dists}", fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
+
+```
+
+A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
+
+###Changes in Along Shelf Position
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from shortfin squid.  Therefore, shortfin squid, which was not included in NEVA, is ranked low risk for distribution shifts. Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
+
+```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, echo = F, message = FALSE, warning = FALSE}
+#knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
+#out.width='\\linewidth'
+
+#SOE.data[Var %like% "ASDIST"]
+opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+soe.plot(SOE.data, 'Time', 'BLACK SEA BASS ASDIST',    stacked = 'A', scale.axis = 100, 
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER ASDIST',   stacked = 'B', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'SCUP ASDIST',              stacked = 'C', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'BUTTERFISH ASDIST',        stacked = 'D', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL ASDIST', stacked = 'E', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'LONGFIN SQUID ASDIST',     stacked = 'F', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID ASDIST', stacked = 'G', 
+         scale.axis = 100, rel.y.num = 0.9)
+soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.text = 1.5)
+
+#opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+#soe.plot(SOE.data, 'Time', 'BLACK SEA BASS DTEOC',    stacked = 'A', scale.axis = 100, 
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER DTEOC',   stacked = 'B', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'SCUP DTEOC',              stacked = 'C', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'BUTTERFISH DTEOC',        stacked = 'D', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL DTEOC', stacked = 'E', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'LONGFIN SQUID DTEOC',     stacked = 'F', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID DTEOC', stacked = 'G', 
+#         scale.axis = 100, rel.y.num = 0.9)
+#soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
+
+```
+
 
 ##Estuarine Habitat
-This element is applied at the species level.
+This element is applied at the species level. Risk of not achieving OY due to threats to estuarine habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Water and habitat quality assessments produced for Cheseapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered. *will see how much I can get done by October to make this happen instead of our former is/is not dependent on estuaries ranking*
 
 ```{r riskesthab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  |  |
-| Low-Moderate |  |
-| Moderate-High |  |
-| High |  |
+| Low  | Not dependent on estuarine habitat |
+| Low-Moderate | Estuarine dependent, estuarine condition stable |
+| Moderate-High | Estuarine dependent, estuarine condition fair |
+| High | Estuarine dependent, estuarine condition poor |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@waters_national_2012] was used to evaluate estuarine condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habiat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine dependent species (summer flounder, scup, black sea bass, and bluefish) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to minimal estuarine dependence. 
 
 ##Offshore Habitat
-This element is applied at the species level.
+This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity was assessed using species-specific habitat modeling. *work in progress, need to get from Kevin Friedland*
 
 ```{r riskoffhab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  |  |
-| Low-Moderate |  |
-| Moderate-High |  |
-| High |  |
+| Low  | No change in offshore habitat quality or quantity |
+| Low-Moderate | Significant long term change (increase or decrease) in habitat quality or quantity |
+| Moderate-High | Significant long term decrease in habitat quality or quantity |
+| High | Significant recent decrease in habitat quality or quantity |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+Random forest habitat models using both static and dynamics variables have been developed for many of the resource species on the Northeast Shelf. These models estimate spring and fall habitat for the time series 1992 to 2016 reflecting the use of the ecosystem based on the NEFSC bottom trawl survey. The variables evaluated for use in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. The random forest approach differentiates variables with strong predictive power and was used to reduce the variable set to 11 variables for each species. The models were used to estimate spring and fall habitat scores over the entire shelf over the time series.
+
+Spring and fall habitat trends for Northeast Shelf species over the time period 1992 to 2016 were developed by mapping linear model slope estimates for grid locations constrained to the segment of the shelf used by each species. These segments were estimated as a 99% kernel density shapes based on occurrence of each species during the study period. 
 
 #Economic Elements
 
@@ -511,6 +588,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Picture of indicator, reference, or words describing rankings.
 
+#References
 
 <!--
 At the ecosystem scale, trends in commercial **seafood production** indicate generally **long term increases with recent stability across trophic levels**, with the exception of forage fish (mackerel are at a historic low; menhaden are not included here). The single state (Virginia) with aquaculture production information similarly shows steady production of oysters and increasing production of hard clams. Similarly, **commercial revenues** in the region mainly **show long-term increases**. **However, these increases are only partially driven by MAFMC managed species, underlining the need to work across jurisdictions to address ecosystem-level objectives.**
