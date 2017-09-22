@@ -173,7 +173,7 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 #Introduction
 The purpose of this report is to document the use of ecosystem indicators within the Mid-Atlantic Council's Ecosystem Approach to Fisheries Management (EAFM) intial risk assessment. 
 
-The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). An overview of the risk elements with definitions and associated indicators as discussed by the Council's Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below. In sections below, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. All risk rankings are summarized at the end of the document.
+The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. An overview of the risk elements with definitions and associated indicators as discussed by the Council's Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below. In sections below, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. All risk rankings are summarized at the end of the document.
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -308,7 +308,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Picture of indicator, reference, or words describing rankings.
 
 ##Ecosystem Productivity
-This element is applied at the ecosystem level, and therefore poses the same risk to each species. This element ranks the risk of not achieving OY due to changes in ecosystem productivity at the base of the food web. Four indicators are used together to assess risk of changing ecosystem productivity. We examine trends in total primary production, zooplankton abundance for a key Mid-Atlantic species, and two aggregate fish productivity measures: condition factor (weight divided by length of individual fish) and a survey based "recruitment" (small fish to large fish) index.  
+This element is applied at the ecosystem level, and therefore poses the same risk to each species. This element ranks the risk of not achieving OY due to changes in ecosystem productivity at the base of the food web. Four indicators are used together to assess risk of changing ecosystem productivity. We examine trends in total primary production, zooplankton abundance for a key Mid-Atlantic species, and two aggregate fish productivity measures: condition factor (weight divided by length of individual fish) and a survey based "recruitment" (small fish to large fish) index. Because many MAFMC managed species rely on benthic crustaceans as forage, a benthic production indicator is also desirable. *I will look for one and see what is available*
 
 ```{r riskecop, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -383,7 +383,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 To summarize, primary production shows no trend (although the seasonal timing of primary production may be changing). Similarly, there are no trends in overall zooplankton abundance, but a dominant Mid-Atlantic species shows different trends by season, possibly also indicating a shift in timing. Fish condition showed a drop across all species in the early 2000s, but most species appear to have recovered. There is a decreasing trend in aggregate numbers of small fish per large fish. This one clear trend, along with changes in timing at lower trophic levels, suggest a low-moderate risk of changing ecosystem productivity in the Mid-Atlantic region. 
 
 ##Population diversity
-This element is applied at the species level. Changes (particularly reduction) in diversity at the species/stock level (size, sex, reproductive). *Needs data workup by species, may not be done by Oct*
+This element is applied at the species level. Changes (particularly reduction) in diversity at the species/stock level (size, sex, reproductive). *Needs data workup by species, may not all be done by Oct BUT PRIORITIZE SUMMER FLOUNDER age/size diversity*
 
 
 ```{r riskpopdiv, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -426,7 +426,7 @@ soe.stacked.axis('Year', 'Expected n species / 100 fish', rel.y.text = 1)
 ```
 
 ##Climate
-This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those climate vulnerability rankings directly here. This assessment is intended to be conducted iteratively, so these results can be updated in the future. 
+This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidificaiton, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. This assessment is intended to be conducted iteratively, so these results can be updated in the future. 
 
 ```{r riskclim, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -440,7 +440,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking.
+Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here (Fig. \ref{NEVAvul}). 
 
 ```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species \\label{NEVAvul}", out.width='\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'NEVAvulmid.png'))
@@ -534,7 +534,7 @@ soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.t
 
 
 ##Estuarine Habitat
-This element is applied at the species level. Risk of not achieving OY due to threats to estuarine habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Water and habitat quality assessments produced for Cheseapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered. *will see how much I can get done by October to make this happen instead of our former is/is not dependent on estuaries ranking*
+This element is applied at the species level. Risk of not achieving OY due to threats to estuarine habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Water and habitat quality assessments produced for Cheseapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered. *will see how much I can get done by October to make this happen HIGH PROIRITY*
 
 ```{r riskesthab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -551,7 +551,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@waters_national_2012] was used to evaluate estuarine condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habiat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine dependent species (summer flounder, scup, black sea bass, and bluefish) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to minimal estuarine dependence. 
 
 ##Offshore Habitat
-This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity was assessed using trends in thermal habitat and species-specific habitat modeling. *work in progress, need to get from Kevin Friedland*
+This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity was assessed using trends in thermal habitat and species-specific habitat modeling. In addition, the number of threats from other human uses were enumerated. *work in progress, need to get from Kevin Friedland*
 
 ```{r riskoffhab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -580,8 +580,8 @@ This element is applied at the fleet *(or ecosystem?)* level. This element addre
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No trend in revenue |
-| Low-Moderate | Significant long term revenue decrease |
+| Low  | No trend and low variability in revenue |
+| Low-Moderate | Increasing or high variability in revenue |
 | Moderate-High | Significant long term revenue decrease |
 | High | Significant recent decrease in revenue |
 "
@@ -621,35 +621,21 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value for the species subject to recreational fisheries (summer flounder, scup, black sea bass, bluefish). However, including information on recreational revenue *may change the picture once we have that*
 
 ##Fishery Resilience (1)
-This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating three indicators of fleet diveristy, including the number of distinct fleets, diversity of revenue across fleets, and species diversity of revenue. 
+This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue. 
 
 ```{r riskfrel1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No trend in any diversity measure |
-| Low-Moderate | Significant long term decrease in 1 diversity measure |
-| Moderate-High | Significant long term decrease in 2+ diversity measures |
-| High | Significant recent decrease in 2+ diversity measures |
+| Low  | No trend in diversity measure |
+| Low-Moderate | Significant long term trend (either direction) in diversity measure |
+| Moderate-High | Significant recent increasing trend in diversity measure |
+| High | Significant recent downward trend in diversity measure |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Diversity estimates have been developed for fleets and species landed by vessels with Mid-Atlantic permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. 
-
-A declining trend in diversity indicates reliance on either a smaller number of resources, or a less diverse pool of resources but cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem. 
-
-The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
-
-```{r Fleet Diversity, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Mid-Atlantic fleet count', rel.y.num = 0.8, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y.num = 0.8, stacked = 'B')
-
-soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
-```
-
-Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
+This diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
  
 ```{r, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=2.5}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -658,7 +644,7 @@ soe.plot(SOE.data, 'Time', 'Mid-Atlantic commercial species diversity',
 
 ```
 
-Because more than 2 of these indices show a significant long term decrease, there is moderate-high risk to fishery resilience based on diversity. 
+Because this index show a significant long term decrease, there is low-moderate risk to fishery business resilience based on diversity in species revenue. 
 
 ##Fishery Resilience (2)
 This element is applied at the *??* level. This element ranks the risk of reduced fishery business resilience due to access to capital. 
@@ -668,7 +654,7 @@ tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend in access to capital |
-| Low-Moderate | Significant long term decrease in access to capital |
+| Low-Moderate | Increasing or high variability in access to capital |
 | Moderate-High | Significant long term decrease in access to capital |
 | High | Significant recent decrease in access to capital |
 "
@@ -685,7 +671,7 @@ tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend in insurance availability |
-| Low-Moderate | Significant long term decrease in insurance availability |
+| Low-Moderate | Increasing or high variability in insurance availability |
 | Moderate-High | Significant long term decrease in insurance availability |
 | High | Significant recent decrease in insurance availability |
 "
@@ -702,7 +688,7 @@ tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend in shoreside support businesses |
-| Low-Moderate | Significant long term decrease in shoreside support businesses |
+| Low-Moderate | Increasing or high variability in shoreside support businesses |
 | Moderate-High | Significant long term decrease in shoreside support businesses |
 | High | Significant recent decrease in shoreside support businesses |
 "
@@ -713,7 +699,7 @@ Picture of indicator, reference, or words describing rankings.
 
 ##Fishery Resilience (5)
 This element is applied at the *??* level. This element ranks the risk of reduced fishery business resilience due to limited access to emerging markets/opportunities. *This risk element needs further clarification*
-
+<!--
 ```{r riskfrel5, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
@@ -727,7 +713,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
 Picture of indicator, reference, or words describing rankings.
-
+-->
 ##Commercial Employment
 This element is applied at the *??* level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015] *I dont see employment in here*
 
@@ -736,7 +722,7 @@ tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend in employment |
-| Low-Moderate | Significant long term decrease in employment |
+| Low-Moderate | Increasing or high variability in employment |
 | Moderate-High | Significant long term decrease in employment |
 | High | Significant recent decrease in employment |
 "
@@ -753,7 +739,7 @@ tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend in employment |
-| Low-Moderate | Significant long term decrease in employment |
+| Low-Moderate | Increasing or high variability in employment |
 | Moderate-High | Significant long term decrease in employment |
 | High | Significant recent decrease in employment |
 "
@@ -765,18 +751,32 @@ Picture of indicator, reference, or words describing rankings.
 #Social Elements
 
 ##Social-Cultural
-This element is applied at the *??* level. This element ranks the risk to maintaining human coastal community resilience. *Element needs clarification--not sure which indicators to use but we do have community level vulnerability indicators, could be aggregated to regional level* 
+This element is applied at the ecosystem level. This element ranks the risk to maintaining human coastal community resilience. Two indicators of commercial fleet diversity, including the number of distinct fleets and diversity of revenue across fleets are used in combination with indicators of social vulnerability to evaluate current community resilience throughout the Mid-Atlantic region. Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. *Element needs clarification--not sure which indicators to use but we do have community level vulnerability indicators, could be aggregated to regional level* 
 
 ```{r risksoc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No trend in community indices |
-| Low-Moderate | Significant long term trend in community indices |
+| Low  | No trend in diversity indices, <X% of vulnerable communities |
+| Low-Moderate | Increasing or high variability in community indices |
 | Moderate-High | Significant long term trend in community indices |
 | High | Significant recent trend in community indices |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+Diversity estimates have been developed for fleets and species landed by vessels with Mid-Atlantic permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. 
+
+A declining trend in diversity indicates reliance on either a smaller number of resources, or a less diverse pool of resources but cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem. 
+
+The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
+
+```{r Fleet Diversity, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'Mid-Atlantic fleet count', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y.num = 0.8, stacked = 'B')
+
+soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
 
 Coastal communities have varying degress of engagement in and reliance on fishing. Engagement generally measures amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. Communities in the Mid-Atlantic region have a more balanced reliance on recreational and commercial fishing than do other regions of the Northeast US shelf.
@@ -795,7 +795,7 @@ tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend or increase in seafood landings |
-| Low-Moderate | Significant long term decrease in seafood landings |
+| Low-Moderate | Increasing or high variability in seafood landings |
 | Moderate-High | Significant long term decrease in seafood landings |
 | High | Significant recent decrease in seafood landings |
 "
@@ -805,14 +805,14 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Picture of indicator, reference, or words describing rankings.
 
 ##Recreational/Subsistence Food Provision
-This element is applied at the ecosystem level *(or do we want to/can we aggregate just the MAFMC managed species?)*. This element describes the risk of not maintaining personal food security. Recreational seafood landings (as opposed to total landings which include catch and release) were used to assess food use of recreationally caught fish.
+This element is applied at the ecosystem level *(or do we want to/can we aggregate just the MAFMC managed species?)*. This element describes the risk of not maintaining personal food security. Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
 
 ```{r riskrfood, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend or increase in recreational landings |
-| Low-Moderate | Significant long term decrease in recreational landings |
+| Low-Moderate | Increasing or high variability in recreational landings |
 | Moderate-High | Significant long term decrease in recreational landings |
 | High | Significant recent decrease in recreational landings |
 "
@@ -857,15 +857,15 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Picture of indicator, reference, or words describing rankings.
 
-##Interactions
-This element is applied at the species level. This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species, including protected species. *THIS COULD BE: dependence on outside managed species ecologically, or caught together with outside managed species/fleet primarily regulated by outside agency, or ruled by the bycatch of a protected species* 
+##Technical Interactions
+This element is applied at the species level. This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species, including protected species. *THIS COULD BE: caught together with outside managed species/fleet primarily regulated by outside agency, constrained by regs for outside managed fishery, or ruled by the bycatch of a protected species* 
 
 ```{r riskmint, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | Few interactions with non-MAFMC managed species |
-| Low-Moderate | Important predator or prey on non-MAFMC managed species |
+| Low-Moderate |  |
 | Moderate-High | Unmanaged high bycatch in non-MAFMC managed fishery |
 | High | Takes in fishery and total above PBR for protected species |
 "
@@ -875,7 +875,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Picture of indicator, reference, or words describing rankings.
 
 ##Other Ocean Uses
-This element is applied at the *??* level. This element addresses the risk of fishery displacement *(or damage of a fishery resource/habitat?)* Do historical fishing areas overlap with energy development/sand mining/other industrial locations?
+This element is applied at the *??* level. This element addresses the risk of fishery displacement (the risk of other ocean uses to fishery production due to habitat alteration is addressed under the habitat elements above).  Do historical fishing areas overlap with energy development/sand mining/other industrial locations?
 
 ```{r riskoou, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
