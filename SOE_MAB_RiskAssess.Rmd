@@ -171,7 +171,7 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 ```
 
 #Introduction
-The purpose of this report is to document the use of ecosystem indicators within the Mid-Atlantic Council's Ecosystem Approach to Fisheries Management (EAFM) intial risk assessment. 
+The purpose of this report is to document the use of ecosystem indicators within the Mid-Atlantic Council's Ecosystem Approach to Fisheries Management (EAFM) initial risk assessment. 
 
 The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. An overview of the risk elements with definitions and associated indicators as discussed by the Council's Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below. In sections below, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. All risk rankings are summarized at the end of the document.
 
@@ -274,7 +274,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Stocks with low risk due to assessment type include ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk. The monkfish 2016 operational assessment was rejected, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because is assessed with the data limited methods (DLM) toolbox. At the time of this writing, Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment is currently undergoing peer review which may change this ranking later this year.
 
 ##Food Web (1)
-This element is applied at the species level. This element ranks the risks of not achieving OY due to species interactions between MAFMC managed species. To rank these risks, the "importance" of each species as predator and or prey must be assessed. Diet information and a food web model were used to develop thresholds: an "important" predator of MAFMC managed species could be defined as causing >10% of individual species mortality. If individual mortality estiamtes are not available (current food web models are not defined at the species level) then an important predator of MAFMC managed species can be defined as having >30% in aggregate of MAFMC managed species in the diet by weight. An important prey of MAFMC managed species is defined as individually comprising >10% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual MAFMC managed species.
+This element is applied at the species level. This element ranks the risks of not achieving OY due to species interactions between MAFMC managed species. To rank these risks, the "importance" of each species as predator and or prey must be assessed. Diet information and a food web model were used to develop thresholds: an "important" predator of MAFMC managed species could be defined as causing >10% of individual species mortality. If individual mortality estimates are not available (current food web models are not defined at the species level) then an important predator of MAFMC managed species can be defined as having >30% in aggregate of MAFMC managed species in the diet by weight. An important prey of MAFMC managed species is defined as individually comprising >10% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual MAFMC managed species.
 
 ```{r riskfw1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -291,7 +291,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 This information is gathered from the NEFSC food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008].  Surfclams and ocean quahogs are not predators or prey of other MAFMC managed species, so they rank low risk for this element. Similarly, scup, black sea bass, and golden and blueline tilefish eat primarily benthic invertebrates, and do not show up individually as >10% of prey by weight in any MAFMC managed species diets, so they rank low risk. Summer flounder are potentially important predators of other MAFMC managed species, including longfin and other squid, Atlantic mackerel, scup, and butterfish (not resolved in food web; combined diet >30%), but are not important prey, ranking low-moderate risk. Atlantic mackerel is an important prey of spiny dogfish (~10% of diet with high interannual variability), ranking moderate-high risk. Butterfish is an important prey of bluefish (>10% of diet), but the reference point applied to butterfish considers it's role as a forage fish, so this ranks low-moderate risk. Longfin squid are important prey of summer flounder (>10% of diet), ranking moderate-high risk. Both shortfin and longfin squid are important prey of shortfin and longfin squid, ranking moderate-high risk. Spiny dogfish, bluefish, and monkfish are predators of MAFMC managed species, but do not meet the threshold of >30% of combined diet. Dogfish have ~20% of total diet from squids and mackerel, bluefish have ~25% of diet from butterfish, squids, bluefish, mackerel, and scup, and monkfish have ~20% of diet from squids, mackerel, summer flounder, scup, and monkfish. Therefore, these three predators rank low risk for food web interactions with other MAFMC managed species. 
 
 ##Food Web (2)
-This element is applied at the species level. This element ranks the risks of not achieving protected species objectives due to species interactions with MAFMC managed species. As above, a food web model and updated marine mammal diet information can be used to establish thresholds of "importance" for predators and prey. An "important" predator of protected species could be defined as causing >10% of individual species mortality. If individual mortality estiamtes are not available (current food web models are not defined at the species level) then an important predator of protected species can be defined as having >30% in aggregate of protected species in the diet by weight. An important prey of protected species is defined as individually comprising >10% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual protected species.
+This element is applied at the species level. This element ranks the risks of not achieving protected species objectives due to species interactions with MAFMC managed species. As above, a food web model and updated marine mammal diet information can be used to establish thresholds of "importance" for predators and prey. An "important" predator of protected species could be defined as causing >10% of individual species mortality. If individual mortality estimates are not available (current food web models are not defined at the species level) then an important predator of protected species can be defined as having >30% in aggregate of protected species in the diet by weight. An important prey of protected species is defined as individually comprising >10% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual protected species.
 
 ```{r riskfw2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -305,9 +305,9 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgean, all sea turtle species, and 5 baleen whales. MAFMC managed species are not important predators of protected species [@smith_trophic_2010], even though monkfish occasionally ingest seabirds [@perry_predation_2013]. Atlantic salmon, both species of sturgeon, and sea turtles are not major predators of MAFMC managed species, as reviewed in the MAFMC Forage Fish white paper [@savoy_prey_2007; @johnson_food_1997; @burke_diet_1993; @burke_diet_1994; @mcclellan_complexity_2007; @seney_historical_2007; @shoop_seasonal_1992]. Information sources for marine mammal diets in the Northeast US [@smith_consumption_2015], and seabird diets [@powers_pelagic_1983; @powers_energy_1987; @powers_seabirds_1987; @schneider_state_1996; @barrett_diet_2007; @bowser_puffins_2013] were reviewed. 
+Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgeon, all sea turtle species, and 5 baleen whales. MAFMC managed species are not important predators of protected species [@smith_trophic_2010], even though monkfish occasionally ingest seabirds [@perry_predation_2013]. Atlantic salmon, both species of sturgeon, and sea turtles are not major predators of MAFMC managed species, as reviewed in the MAFMC Forage Fish white paper [@savoy_prey_2007; @johnson_food_1997; @burke_diet_1993; @burke_diet_1994; @mcclellan_complexity_2007; @seney_historical_2007; @shoop_seasonal_1992]. Information sources for marine mammal diets in the Northeast US [@smith_consumption_2015], and seabird diets [@powers_pelagic_1983; @powers_energy_1987; @powers_seabirds_1987; @schneider_state_1996; @barrett_diet_2007; @bowser_puffins_2013] were reviewed. 
 
-Diet information for protected species tends to be more uncertain than for fished species, so we consider diet at the family level for these rankings because diet compositions are not reported to the species level. Squids and scombrids are estimated to comprise >10% each of the aggregate diet of toothed whales in the Northeast US [@smith_consumption_2015], therefore we rank these species moderate-high risk for this element. Squids in general and shortfin squid in particular were identifed as important prey for pelagic seabirds in the Northeast US [@powers_energy_1987], further supporting this ranking. Other MAFMC managed species do not appear to meet the treshold of important prey of protected species based on available information, so they rank low risk for this element.
+Diet information for protected species tends to be more uncertain than for fished species, so we consider diet at the family level for these rankings because diet compositions are not reported to the species level. Squids and scombrids are estimated to comprise >10% each of the aggregate diet of toothed whales in the Northeast US [@smith_consumption_2015], therefore we rank these species moderate-high risk for this element. Squids in general and shortfin squid in particular were identified as important prey for pelagic seabirds in the Northeast US [@powers_energy_1987], further supporting this ranking. Other MAFMC managed species do not appear to meet the threshold of important prey of protected species based on available information, so they rank low risk for this element.
 
 ##Ecosystem Productivity
 This element is applied at the ecosystem level, and therefore poses the same risk to each species. This element ranks the risk of not achieving OY due to changes in ecosystem productivity at the base of the food web. Four indicators are used together to assess risk of changing ecosystem productivity. We examine trends in total primary production, zooplankton abundance for a key Mid-Atlantic species, and two aggregate fish productivity measures: condition factor (weight divided by length of individual fish) and a survey based "recruitment" (small fish to large fish) index. Because many MAFMC managed species rely on benthic crustaceans as forage, a benthic production indicator is also desirable. *I will look for one and see what is available*
@@ -368,7 +368,7 @@ knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition.jpg'))
 ```
 
 ###Groundfish productivity
-The number of small fish relative to the biomass of larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed species in the Mid-Atlantic. 
+The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed species in the Mid-Atlantic. 
 
 ```{r, echo = F, fig.align='default', out.width='\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'FishProdMAB.pdf'))
@@ -417,7 +417,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Diversity shows a signficant increase for one season in the Mid-Atlantic, suggesting that survey timing may be interacting with changes in the seasonal movement of fish (see above) as well as a potential change in species availability due to distribution shifts (see below). However, additional analysis is required to ensure that the transition between survey vessels did not affect this metric. Therefore, while the criteria above would indicate a moderate-high risk of changing species diversity in the region, we rank this low-moderate risk until further analysis of the ship effect is complete.
+Diversity shows a significant increase for one season in the Mid-Atlantic, suggesting that survey timing may be interacting with changes in the seasonal movement of fish (see above) as well as a potential change in species availability due to distribution shifts (see below). However, additional analysis is required to ensure that the transition between survey vessels did not affect this metric. Therefore, while the criteria above would indicate a moderate-high risk of changing species diversity in the region, we rank this low-moderate risk until further analysis of the ship effect is complete.
 
 ```{r, fig.cap="A-Fall, B-Spring \\label{sppdiv}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -428,7 +428,7 @@ soe.stacked.axis('Year', 'Expected n species / 100 fish', rel.y.text = 1)
 ```
 
 ##Climate
-This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidificaiton, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. This assessment is intended to be conducted iteratively, so these results can be updated in the future. 
+This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. This assessment is intended to be conducted iteratively, so these results can be updated in the future. 
 
 ```{r riskclim, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -489,7 +489,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
 ###Changes in Along Shelf Position
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from shortfin squid.  Therefore, shortfin squid, which was not included in NEVA, is ranked low risk for distribution shifts. Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from shortfin squid.  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 ```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
@@ -535,8 +535,8 @@ soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.t
 ```
 
 
-##Estuarine Habitat
-This element is applied at the species level. Risk of not achieving OY due to threats to estuarine habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Water and habitat quality assessments produced for Cheseapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered. *will see how much I can get done by October to make this happen HIGH PROIRITY*
+##Estuarine and Coastal Habitat
+This element is applied at the species level. Risk of not achieving OY due to threats to estuarine and coastal habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Water and habitat quality assessments produced for Chesapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered. *will see how much I can get done by October to make this happen HIGH PROIRITY*
 
 ```{r riskesthab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -550,7 +550,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@us_epa_national_2012] was used to evaluate estuarine condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habiat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine dependent species (summer flounder, scup, black sea bass, and bluefish) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to minimal estuarine dependence. 
+As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and coastal condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine dependent species (summer flounder, scup, black sea bass, and bluefish, [@able_re-examination_2005]) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to minimal estuarine dependence. 
 
 ##Offshore Habitat
 This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity was assessed using trends in thermal habitat and species-specific habitat modeling. In addition, the number of threats from other human uses were enumerated. *work in progress, need to get from Kevin Friedland*
@@ -663,7 +663,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-There is no current indicator avaialable for this risk element. Ranking based on expert opinion should be explored.
+There is no current indicator available for this risk element. Ranking based on expert opinion should be explored.
 
 ##Fishery Resilience (3)
 This element is applied at the *??* level. This element ranks the risk of reduced fishery business resilience due to insurance availability. 
@@ -680,7 +680,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-There is no current indicator avaialable for this risk element. Ranking based on expert opinion should be explored.
+There is no current indicator available for this risk element. Ranking based on expert opinion should be explored.
 
 ##Fishery Resilience (4)
 This element is applied at the *??* level. This element ranks the risk of reduced fishery business resilience due to shoreside support infrastructure by examining the number of shoreside support businesses. 
@@ -781,7 +781,7 @@ soe.plot(SOE.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y.num = 0
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
 
-Coastal communities have varying degress of engagement in and reliance on fishing. Engagement generally measures amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. Communities in the Mid-Atlantic region have a more balanced reliance on recreational and commercial fishing than do other regions of the Northeast US shelf.
+Coastal communities have varying degrees of engagement in and reliance on fishing. Engagement generally measures amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. Communities in the Mid-Atlantic region have a more balanced reliance on recreational and commercial fishing than do other regions of the Northeast US shelf.
 
 Mid-Atlantic communities clustered around the Chesapeake Bay area and the New Jersey shore have especially high vulnerability to sea level rise. These vulnerabilities include infrastructure (docks, marinas, bait shops, gear storage) and access to shore-based facilities due realignment of coastal communities.
 
@@ -790,7 +790,7 @@ Mid-Atlantic fishing communities with total landings value of $100,000 or more w
 #Food Production Elements
 
 ##Commercial Seafood Provision
-This element is applied at the ecosystem level *(or do we want to aggregate just the MAFMC managed species?)*. This element describes the risk of not optimizing domestic seafood production. Commercial seafood landings (as opposed to total landings which include bait and industrical uses) were used to assess seafood provisions.
+This element is applied at the ecosystem level *(or do we want to aggregate just the MAFMC managed species?)*. This element describes the risk of not optimizing domestic seafood production. Commercial seafood landings (as opposed to total landings which include bait and industrial uses) were used to assess seafood provisions.
 
 ```{r riskcfood, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "

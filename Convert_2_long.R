@@ -2,6 +2,7 @@
 #Long format for simplified graphs
 if(Sys.info()['sysname'] == "Windows") prefix <- 'Z:'
 if(Sys.info()['sysname'] == "Linux")   prefix <- '/home/slucey/EcoAP'
+if(Sys.info()['sysname'] == "Darwin")  prefix <- '/Users/sgaichas/Documents/0_Data/ESR'
 
 data.dir <- file.path(prefix, 'SOE2017', 'data')
 
@@ -451,3 +452,23 @@ SOE.data <- rbindlist(list(SOE.data, zoopNE))
 save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
 
 #Run Assign_EPU.R to add EPU designations
+
+#Sarah added data from Geret and Kevin for MAB risk assessment
+# needed the EPU dataset to have 5 columns
+
+load(file.path(data.dir, "Com_Rec_Employment.Rdata"))
+emp <- as.data.table(Total_Employment)
+emp[, Region := NULL]
+SOE.data <- rbindlist(list(SOE.data,emp))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+load(file.path(data.dir, "Rec_Anglers_and_Fish.Rdata"))
+recval <- as.data.table(REC_CATCH_ANGLER)
+recval[,EPU := factor(NA, levels = c('SS', 'GOM', 'GB', 'MAB', 'ALL'))]
+recval[Region %like% "MID-ATLANTIC", EPU := 'MAB']
+recval[Region %like% "NORTH ATLANTIC", EPU := 'GOM'] #should be both GOM and GB EPUs
+recval[, Region := NULL]
+SOE.data <- rbindlist(list(SOE.data,recval))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
