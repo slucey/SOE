@@ -458,8 +458,8 @@ save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
 
 load(file.path(data.dir, "Com_Rec_Employment.Rdata"))
 emp <- as.data.table(Total_Employment)
-emp[, Time:=as.numeric(Time)]
-emp[, Value:=as.numeric(Value)]
+emp[, Time := as.numeric(levels(Time))[Time]]
+emp[, Value := as.numeric(levels(Value))[Value]]
 emp[, Region := NULL]
 SOE.data <- rbindlist(list(SOE.data,emp))
 
@@ -470,8 +470,8 @@ recval <- as.data.table(REC_CATCH_ANGLER)
 recval[, EPU := factor(NA, levels = c('SS', 'GOM', 'GB', 'MAB', 'ALL'))]
 recval[Region %like% "MID-ATLANTIC", EPU := 'MAB']
 recval[Region %like% "NORTH ATLANTIC", EPU := 'GOM'] #should be both GOM and GB EPUs
-recval[, Time := as.numeric(Year)]
-recval[, Value := as.numeric(Value)]
+recval[, Time := as.numeric(levels(Year))[Year]]
+recval[, Value := as.numeric(levels(Value))[Value]]
 recval[, Region := NULL]
 recval[, Year := NULL]
 setcolorder(recval, c("Time", "Value", "Var", "Units", "EPU"))
