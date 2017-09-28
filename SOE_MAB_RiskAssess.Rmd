@@ -1,6 +1,6 @@
 ---
-title: "Mid-Atlantic EAFM risk assessment documentation"
-author: "Gaichas, DePiper, Seagraves, Loftus, Sabo, Muffley"
+title: "DRAFT Mid-Atlantic EAFM Risk Assessment Documentation"
+author: "S. Gaichas, G. DePiper, R. Seagraves, A. Loftus, M. Sabo, B. Muffley"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   pdf_document:
@@ -171,9 +171,13 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 ```
 
 #Introduction
-The purpose of this report is to document the use of ecosystem indicators within the Mid-Atlantic Council's Ecosystem Approach to Fisheries Management (EAFM) initial risk assessment. 
+The purpose of this report is to document the use of ecosystem indicators within the Mid-Atlantic Council’s Ecosystem Approach to Fisheries Management (EAFM) initial risk assessment.
 
-The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. An overview of the risk elements with definitions and associated indicators as discussed by the Council's Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below. In sections below, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. All risk rankings are summarized at the end of the document.
+A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements may move up or down in priority as conditions change or new information becomes available. Thus, it is important to note that EAFM Risk Assessment will be a dynamic and evolving process that will need to be revisited and updated in future years.
+
+The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). An overview of the risk elements with definitions and associated indicators as discussed by the Council’s Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below. In sections below, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. 
+
+*These elements and definitions are currently in draft form, pending EOP Committee review. The primary goal of presenting this informaiton is to clearly define and reach agreement about risks of concern to the Council. All risk rankings and indicators shown are examples intended for illustration and discussion to be tailored to meet Council needs. This is not a final risk assessment.*
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -188,7 +192,7 @@ tabl <- "
 | Food web  (2)       | Risk of not achieving protected species objectives due to species interactions   | Food web model outputs, management measures |
 | Ecosystem productivity  | Risk of not achieving OY due to changing system productivity   | Four indicators, see text |
 | Population diversity  | Risk of not achieving OY due to reduced diversity   | Size composition, sex ratio, genetic diversity |
-| Ecological diveristy  | Risk of not achieving OY due to reduced diversity   | Fishery independent species diversity |
+| Ecological diversity  | Risk of not achieving OY due to reduced diversity   | Fishery independent species diversity |
 | Climate              | Risk of not achieving OY due to climate vulnerability   | Northeast Climate Vulnerability Assessment |
 | Distribution shifts  | Risk of not achieving OY due to climate-driven distribution shifts   | Northeast Climate Vulnerability Assessment + 2 indicators (see text) |
 | Estuarine habitat    | Risk of not achieving OY due to threats to estuarine/nursery habitat | Enumerated threats + estuarine dependence |
@@ -367,8 +371,8 @@ knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition.jpg'))
 
 ```
 
-###Groundfish productivity
-The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed species in the Mid-Atlantic. 
+###Fish productivity
+The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed species in the Mid-Atlantic. *give a species list*
 
 ```{r, echo = F, fig.align='default', out.width='\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'FishProdMAB.pdf'))
@@ -996,10 +1000,10 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-The ability to control total annual catch is necessary to prevent overfishing (i.e., defined to occur when total catch exceeds the overfishing level defined in the FMP), which is a fundamental requirement of MSA. Chronic or persistent overfishing can lead to stock depletion and ultimately to a stock being declared as overfished (thus requiring a stock rebuilding plan).  The ability to constrain catch is a function of the efficacy of the catch monitoring program for each species which relies on both proactive (in -season closure) and reactive (pay backs for overages in subsequent years) accountability measures which were implemented post-MSA Reauthorization. NMFS dealer data in conjunction with estimates of discards are used to compare actual to realized annual catch.  Small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%.    
+The ability to control total annual catch is necessary to prevent overfishing (i.e., defined to occur when total catch exceeds the overfishing level defined in the FMP), which is a fundamental requirement of MSA. Chronic or persistent overfishing can lead to stock depletion and ultimately to a stock being declared as overfished (thus requiring a stock rebuilding plan).  The ability to constrain catch is a function of the efficacy of the catch monitoring program for each species which relies on both proactive (in -season closure) and reactive (pay backs for overages in subsequent years) accountability measures which were implemented post-MSA Reauthorization. NMFS dealer data in conjunction with estimates of discards are used to compare actual to realized annual catch.  Small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%. This element will be evaluated by fishery sector (commercial and recreational).    
 
 ##Technical Interactions
-This element is applied at the species level. This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species, including protected species. Here the risk is caused by negative consequences from fishing activity regulated under MAFMC FMPs which interacts with species managed by other agencies, including bycatch of protected species. For example, windowpane flounder accountability measures implemented by the New England Council have the potential to negatively impact a number MAFMC managed fisheries if they are triggered. Similarly, interactions with marine mammals protected under the MMPA could result in greater restrictions in MAFMC managed fisheries increasing the risk that OY would not be achieved in those fisheries. For example, the measures necessary for recovery of the critically endangered North Atlantic right whale population have the potential to seriously impact numerous fisheries in the NE US.  
+This element is applied at the species level. This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species, including protected species. Here the risk is caused by negative consequences from fishing activity regulated under MAFMC FMPs which interacts with species managed by other agencies, including bycatch of protected species. For example, windowpane flounder accountability measures (AM) implemented by the New England Council have the potential to negatively impact a number MAFMC managed fisheries if they are triggered. Similarly, interactions with marine mammals protected under the MMPA could result in greater restrictions in MAFMC managed fisheries increasing the risk that OY would not be achieved in those fisheries. For example, the measures necessary for recovery of the critically endangered North Atlantic right whale population have the potential to seriously impact numerous fisheries in the NE US.  
 
 ```{r riskmint, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1047,7 +1051,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified.  
+This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified. This element will be evaluated by fishery sector (commercial and recreational). 
 
 ##Discards
 This element is applied at the species level. Stakeholders have identified the reduction of discards as a high priority in the Council management program, especially those caused by regulations since they represent biological and economic waste.  Discards of either the target or non-target species in the fishery would be taken into consideration. 
@@ -1064,7 +1068,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-NMFS provides estimates of discards by species based on at-sea observations collected in the Northeast Fisheries Observer Program for stock assessment purposes and quota monitoring. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards will be evaluated for each species and fishery with focus on identification of discards caused by regulations.  
+NMFS provides estimates of discards by species based on at-sea observations collected in the Northeast Fisheries Observer Program for stock assessment purposes and quota monitoring. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards will be evaluated for each species and fishery with focus on identification of discards caused by regulations for each fishery sector (commercial and recreational).  
 
 ##Allocation
 This element is applied at the species level. This element addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations. Indicators for difficulty of allocation include a combination of distribution shifts (see above) and the number of interests (sectors, states, etc.) requiring allocation.
@@ -1081,7 +1085,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Each species would be evaluated as to the degree of spatial or sector allocation currently specified within the FMP. Expert judgement will be used to evaluate the level of risk of not achieving OY posed by existing allocation relative current states of nature. 
+Each species will be evaluated relative to the degree of spatial or sector allocation currently specified within the FMP. Expert judgement will be used to evaluate the level of risk of not achieving OY posed by existing allocation relative to current states of nature. This would include an evaluation of the degree of economic inefficiency resulting from increased costs incurred by fishermen caused by inconsistencies between historical allocation of quota and current or recent geographical distribution of stocks.  
 
 #References
 
