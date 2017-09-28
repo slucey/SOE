@@ -1,6 +1,6 @@
 ---
 title: "Mid-Atlantic EAFM risk assessment documentation"
-author: "Gaichas and DePiper, Northeast Fisheries Science Center"
+author: "Gaichas, DePiper, Seagraves, Loftus, Sabo, Muffley"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   pdf_document:
@@ -31,7 +31,8 @@ gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
 #image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
 #gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
-library(data.table); library(Kendall); library(rgdal)
+library(data.table); library(Kendall); library(rgdal); library(knitr)
+library(kableExtra)
 load(file.path(data.dir, 'SOE_data.RData'))
 load(file.path(data.dir, 'Comm_Climate_Vul.RData'))
 load(file.path(data.dir, 'Fisheries_Eng_Rel.RData'))
@@ -575,7 +576,7 @@ Spring and fall habitat trends for Northeast Shelf species over the time period 
 #Economic Elements
 
 ##Commercial Profits
-This element is applied at the fleet *(or ecosystem?)* level. This element addresses the risk of not maximizing fishery value. 
+This element is applied at the ecosystem level. This element addresses the risk of not maximizing fishery value. *fleet level could be calculated?*
 
 ```{r riskcomval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -589,7 +590,24 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+This is commercial revenue, aggregated for MAFMC managed species. There is a long term increase in revenue, but a recent significant decrease in revenue, indicating high risk to commercial fishery profit.
+
+```{r ComProfAgg, fig.cap="Aggregate Mid-Atlantic managed species revenue  \\label{comprofagg}", echo = F, fig.height=2.5}
+opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+aggrev <- SOE.data[Var %like% "MAFMC Revenue"]
+setkey(aggrev, Time)
+allrev <- aggrev[, sum(Value), by = key(aggrev)]
+setnames(allrev, 'V1', 'Value')
+allrev[, Var := paste('MAFMC Revenue')]
+allrev[, Units := 'USD']
+allrev[, EPU := 'ALL']
+
+soe.plot(allrev, 'Time', 'MAFMC Revenue', rel.y.num = 0.8)
+
+soe.stacked.axis('Year', 'Commercial Revenue USD',rel.y.text = 1)
+```
+
 
 ##Recreational Value
 This element is applied at both the fleet level and at the ecosystem level where it would apply equally to all recreationally fished species. Risk of not maximizing fishery value is evaluated using revenue by recreational fleet as well as the number of angler-days and number of trips in aggregate.
@@ -800,8 +818,6 @@ Diversity estimates have been developed for fleets and species landed by vessels
 
 A declining trend in diversity indicates reliance on either a smaller number of resources, or a less diverse pool of resources but cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem. 
 
-The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
-
 ```{r Fleet Diversity, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Mid-Atlantic fleet count', rel.y.num = 0.8, stacked = 'A')
@@ -810,8 +826,38 @@ soe.plot(SOE.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y.num = 0
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
 
+The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
+
 ###Community vulnerability
 Coastal communities have varying degrees of engagement in and reliance on fishing. Engagement generally measures amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. Communities in the Mid-Atlantic region have a more balanced reliance on recreational and commercial fishing than do other regions of the Northeast US shelf.
+
+```{r reltab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+reliance$STATEABBR <- factor(reliance$STATEABBR, levels=c("ME", "NH", "MA", "RI", "CT", "NY", "NJ", "PA", "DE", "MD", "VA", "NC"))
+
+creltab <- table(reliance$STATEABBR, reliance$ComRelRank)
+creltab.p <- prop.table(creltab, margin = 1)
+
+rreltab <- table(reliance$STATEABBR, reliance$RecRelRank)
+rreltab.p <- prop.table(rreltab, margin = 1)
+
+library(knitr, quietly = T)
+t1 <- kable(creltab.p, digits=2, format = 'latex', booktabs = T)
+t2 <- kable(rreltab.p, digits=2, format = 'latex', booktabs = T)
+cat(c("\\begin{table}[h] \\centering ", 
+      t1,
+    "\\hspace{1cm} \\centering ",
+      t2,
+    "\\caption{Proportion of communities at each level of commercial (left) and recreational (right) reliance} \\end{table}"))  
+
+#kable(creltab.p, digits=2, format = "latex", booktabs = T, caption="Proportion of communities at each level of commercial reliance") %>%
+#  kable_styling (position = "center", "HOLD_position") 
+
+#kable(rreltab.p, digits=2, format = "latex", booktabs = T, caption="Proportion of communities at each level of recreational reliance") %>%
+#  kable_styling (position = "center", "HOLD_position")
+
+```
+
 
 Mid-Atlantic communities clustered around the Chesapeake Bay area and the New Jersey shore have especially high vulnerability to sea level rise. These vulnerabilities include infrastructure (docks, marinas, bait shops, gear storage) and access to shore-based facilities due realignment of coastal communities.
 
