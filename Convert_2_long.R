@@ -470,8 +470,8 @@ recval <- as.data.table(REC_CATCH_ANGLER)
 recval[, EPU := factor(NA, levels = c('SS', 'GOM', 'GB', 'MAB', 'ALL'))]
 recval[Region %like% "MID-ATLANTIC", EPU := 'MAB']
 recval[Region %like% "NORTH ATLANTIC", EPU := 'GOM'] #should be both GOM and GB EPUs
-recval[, Time := as.numeric(levels(Year))[Year]]
-recval[, Value := as.numeric(levels(Value))[Value]]
+recval[, Time := as.numeric(Year)]
+recval[, Value := as.numeric(Value)]
 recval[, Region := NULL]
 recval[, Year := NULL]
 setcolorder(recval, c("Time", "Value", "Var", "Units", "EPU"))
