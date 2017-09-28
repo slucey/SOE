@@ -735,7 +735,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 This is commercial employment by state.
 
-```{r CommJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{fleetdiv}", echo = F, fig.height=6.5}
+```{r CommJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{commjobs}", echo = F, fig.height=6.5}
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'New_York Commercial Jobs', rel.y.num = 0.8, stacked = 'A')
 soe.plot(SOE.data, 'Time', 'New Jersey Commercial Jobs', rel.y.num = 0.8, stacked = 'B')
@@ -765,7 +765,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 This is recreational employment by state.
 
-```{r RecJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{fleetdiv}", echo = F, fig.height=6.5}
+```{r RecJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{recjobs}", echo = F, fig.height=6.5}
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'New_York Recreational Jobs', rel.y.num = 0.8, stacked = 'A')
 soe.plot(SOE.data, 'Time', 'New Jersey Recreational Jobs', rel.y.num = 0.8, stacked = 'B')
@@ -820,7 +820,7 @@ Mid-Atlantic fishing communities with total landings value of $100,000 or more w
 #Food Production Elements
 
 ##Commercial Seafood Provision
-This element is applied at the ecosystem level *(or do we want to aggregate just the MAFMC managed species?)*. This element describes the risk of not optimizing domestic seafood production. Commercial seafood landings (as opposed to total landings which include bait and industrial uses) were used to assess seafood provisions.
+This element is applied at the ecosystem level. This element describes the risk of not optimizing domestic seafood production from MAFMC managed species. Commercial seafood landings (as opposed to total landings which include bait and industrial uses) were used to assess seafood provision.
 
 ```{r riskcfood, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -834,7 +834,35 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+This is commercial seafood landings from MAFMC managed species. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production.
+<!--
+```{r ComFood, fig.cap="A: Scotian Shelf, B: Gulf of Maine, C: Georges Bank, D: Mid-Atlantic Bight  \\label{comfood}", echo = F, fig.height=3.5}
+opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data[EPU %like% "SS"], 'Time', 'MAFMC Landings', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data[EPU %like% "GOM"], 'Time', 'MAFMC Landings', rel.y.num = 0.8, stacked = 'B')
+soe.plot(SOE.data[EPU %like% "GB"], 'Time', 'MAFMC Landings', rel.y.num = 0.8, stacked = 'C')
+soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'MAFMC Landings', rel.y.num = 0.8, stacked = 'D')
+
+soe.stacked.axis('Year', 'Commercial Landings Metric Tons',rel.y.text = 1)
+```
+-->
+
+```{r ComFoodAgg, fig.cap="Aggregate Mid-Atlantic managed species landings  \\label{comfoodagg}", echo = F, fig.height=2.5}
+opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+aggland <- SOE.data[Var %like% "MAFMC Landings"]
+setkey(aggland, Time)
+allland <- aggland[, sum(Value), by = key(aggland)]
+setnames(allland, 'V1', 'Value')
+allland[, Var := paste('MAFMC Landings')]
+allland[, Units := 'metric tons']
+allland[, EPU := 'ALL']
+
+soe.plot(allland, 'Time', 'MAFMC Landings', rel.y.num = 0.8)
+
+soe.stacked.axis('Year', 'Commercial Landings Metric Tons',rel.y.text = 1)
+```
+
 
 ##Recreational/Subsistence Food Provision
 This element is applied at the ecosystem level *(or do we want to/can we aggregate just the MAFMC managed species?)*. This element describes the risk of not maintaining personal food security. Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
@@ -851,7 +879,17 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+This is total recreational harvest (all species) in the Mid-Atlantic region.
+
+```{r RecFood, fig.cap="A: Total recreational harvest, B: Harvest per angler  \\label{recfood}", echo = F, fig.height=3.5}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'Total_Harvest', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'Harvest.per.Angler', rel.y.num = 0.8, stacked = 'B')
+
+soe.stacked.axis('Year', 'N Recreationally Harvested Fish',rel.y.text = 1)
+```
+
+This significant long term decrease in both recreational landings and recreational landings per angler represents a moderate-high risk to personal food security.
 
 ##Seafood Safety
 This element is applied at the species level. This element describes the risk to market access (e.g. spiny dogfish EU market; surfclam on GB and PSP) as well as potential risks to human health. The number of advisories https://fishadvisoryonline.epa.gov/General.aspx for an MAFMC managed species is evaluated to determine risk. If trend information becomes available, that could be used as well. *this needs legwork may not complete by October*

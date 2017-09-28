@@ -479,3 +479,37 @@ SOE.data <- rbindlist(list(SOE.data,recval))
 
 save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
 
+#Commercial landings and revenue redo with just Mid spp aggregated
+load(file.path(data.dir, 'comland_meatwt_deflated.RData'))
+load(file.path(data.dir, 'Species_codes.RData'))
+
+# MAFMC species NESPP3 codes
+MAFMC<-data.frame(NESPP3 = c(769, 754, 121, 329, 335, 212, 51, 801, 802, 803, 446, 444, 447, 23, 352, 350, 11, 12))
+
+comland.spp <- merge(comland, spp[, list(NESPP3, COMNAME)], by = 'NESPP3')
+comland.mafmc <- merge(comland.spp, MAFMC, by= 'NESPP3')
+#seafood.mafmc <- comland.mafmc[, UTILCD==0] #same n rows, not necessary
+
+setkey(comland.mafmc, YEAR, EPU)
+landings <- comland.mafmc[, sum(SPPLIVMT), by = key(comland.mafmc)]
+setnames(landings, 'V1', 'SPPLIVMT')
+
+landings[, Var := paste('MAFMC Landings')]
+landings[, Units := 'metric tons']
+setnames(landings, c('YEAR', 'SPPLIVMT'), c('Time', 'Value'))
+
+revenue <- comland.mafmc[, sum(SPPVALUE), by = key(comland.mafmc)]
+setnames(revenue, 'V1', 'SPPVALUE')
+
+revenue[, Var := paste('MAFMC Revenue')]
+
+revenue[, Units := 'US Dollars']
+setnames(revenue, c('YEAR', 'SPPVALUE'), c('Time', 'Value'))
+
+soe.com.mafmc <- rbindlist(list(landings, revenue))
+setcolorder(soe.com.mafmc, c("Time", "Value", "Var", "Units", "EPU"))
+
+SOE.data <- rbindlist(list(SOE.data, soe.com.mafmc))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
