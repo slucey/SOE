@@ -597,7 +597,7 @@ opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
 aggrev <- SOE.data[Var %like% "MAFMC Revenue"]
 setkey(aggrev, Time)
-allrev <- aggrev[, sum(Value), by = key(aggrev)]
+allrev <- aggrev[, sum(Value, na.rm = T), by = key(aggrev)]
 setnames(allrev, 'V1', 'Value')
 allrev[, Var := paste('MAFMC Revenue')]
 allrev[, Units := 'USD']
@@ -715,7 +715,32 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+The number of shoreside support businesses were tallied for all Mid-Atlantic states in two categories: number of companies and number of non-employer entities, which we consider separately. Some state level data was not included due to confidentiality. 
+
+```{r Shoresupp, fig.cap="Shoreside support businesses: A: Number of Companies, B: Number of Nonemployer entities  \\label{shoresupp}", echo = F, fig.height=3.5}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+aggcomp <- SOE.data[Units %like% "Number of Companies"]
+setkey(aggcomp, Time, EPU)
+allcomp <- aggcomp[, sum(Value, na.rm = T), by = key(aggcomp)]
+setnames(allcomp, 'V1', 'Value')
+allcomp[, Var := paste('Mid-Atlantic Companies')]
+allcomp[, Units := 'Number']
+
+aggent <- SOE.data[Units %like% "Number of Nonemployer establishments"]
+setkey(aggent, Time, EPU)
+allent <- aggent[, sum(Value, na.rm = T), by = key(aggent)]
+setnames(allent, 'V1', 'Value')
+allent[, Var := paste('Mid-Atlantic Nonemployer Entities')]
+allent[, Units := 'Number']
+
+soe.plot(allcomp, 'Time', 'Mid-Atlantic Companies', rel.y.num = 0.8, stacked = 'A')
+soe.plot(allent, 'Time', 'Mid-Atlantic Nonemployer Entities', rel.y.num = 0.8, stacked = 'B')
+
+soe.stacked.axis('Year', 'Number of Support Businesses',rel.y.text = 1)
+```
+
+The number of shoreside support companies that include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states shows a long term decrease. However, the number of non-employer entities which include seafood preparation and packaging and seafood markets shows both a long term and short term increase. 
 
 ##Fishery Resilience (5)
 This element is applied at the *??* level. This element ranks the risk of reduced fishery business resilience due to limited access to emerging markets/opportunities. *This risk element needs further clarification*
@@ -898,7 +923,7 @@ opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
 aggland <- SOE.data[Var %like% "MAFMC Landings"]
 setkey(aggland, Time)
-allland <- aggland[, sum(Value), by = key(aggland)]
+allland <- aggland[, sum(Value, na.rm = T), by = key(aggland)]
 setnames(allland, 'V1', 'Value')
 allland[, Var := paste('MAFMC Landings')]
 allland[, Units := 'metric tons']

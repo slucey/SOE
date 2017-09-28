@@ -453,8 +453,14 @@ save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
 
 #Run Assign_EPU.R to add EPU designations
 
-#Sarah added data from Geret and Kevin for MAB risk assessment
+# September 2017
+# Sarah added data from Geret and Kevin for MAB risk assessment
 # needed the EPU dataset to have 5 columns
+# actual method, done repeatedly when correcting data below here
+#   re-import final NE SOE data from April as starting set (4 columns)
+#   run lines 12-30 in Assign_EPU.R to get 5 columns with EPU
+#   then run the below to tack on new sets
+#   had to do this because I'm not sure I have all original datasets above
 
 load(file.path(data.dir, "Com_Rec_Employment.Rdata"))
 emp <- as.data.table(Total_Employment)
@@ -513,3 +519,10 @@ SOE.data <- rbindlist(list(SOE.data, soe.com.mafmc))
 
 save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
 
+support <- read.csv(file.path(data.dir,"Commercial_Fishery_Support_Businesses_FINAL.csv"))
+support <- as.data.table(support)
+support[, Time := as.numeric(Time)]
+support[, Value := as.numeric(Value)]
+SOE.data <- rbindlist(list(SOE.data,support))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
