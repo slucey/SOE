@@ -13,11 +13,10 @@ output:
     toc: yes
   word_document:
     toc: no
-geometry: margin=0.8in
 fontsize: 11pt
-bibliography: /Users/sgaichas/Documents/0_Data/EAFM_MAFMC/My_Library.bib
+geometry: margin=0.8in
 csl: canadian-journal-of-fisheries-and-aquatic-sciences.csl
-
+bibliography: /Users/sgaichas/Documents/0_Data/EAFM_MAFMC/My_Library.bib
 ---
 
 ```{r Directory and Data Set-up, echo = F, message = F}
@@ -608,6 +607,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
 Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation  in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
+
 ```{r Rec Participation, fig.cap="A: number of anglers, B: number of trips \\label{recreation}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Mid-Atlantic Rec participation', x.end = 2016,
@@ -701,6 +701,7 @@ Picture of indicator, reference, or words describing rankings.
 
 ##Fishery Resilience (5)
 This element is applied at the *??* level. This element ranks the risk of reduced fishery business resilience due to limited access to emerging markets/opportunities. *This risk element needs further clarification*
+
 <!--
 ```{r riskfrel5, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -716,6 +717,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Picture of indicator, reference, or words describing rankings.
 -->
+
 ##Commercial Employment
 This element is applied at the *??* level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015] *I dont see employment in here*
 
@@ -759,7 +761,7 @@ This element is applied at the ecosystem level. This element ranks the risk to m
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No trend in diversity indices, <X% of vulnerable communities |
+| Low  | No trend in diversity indices, few vulnerable communities |
 | Low-Moderate | Increasing or high variability in community indices |
 | Moderate-High | Significant long term trend in community indices |
 | High | Significant recent trend in community indices |
@@ -767,6 +769,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+###Fleet Diveristy
 Diversity estimates have been developed for fleets and species landed by vessels with Mid-Atlantic permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. 
 
 A declining trend in diversity indicates reliance on either a smaller number of resources, or a less diverse pool of resources but cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem. 
@@ -781,6 +784,7 @@ soe.plot(SOE.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y.num = 0
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
 
+###Community vulnerability
 Coastal communities have varying degrees of engagement in and reliance on fishing. Engagement generally measures amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. Communities in the Mid-Atlantic region have a more balanced reliance on recreational and commercial fishing than do other regions of the Northeast US shelf.
 
 Mid-Atlantic communities clustered around the Chesapeake Bay area and the New Jersey shore have especially high vulnerability to sea level rise. These vulnerabilities include infrastructure (docks, marinas, bait shops, gear storage) and access to shore-based facilities due realignment of coastal communities.
@@ -843,7 +847,7 @@ Picture of indicator, reference, or words describing rankings.
 #Management Elements
 
 ##Control
-This element is applied at the species level. This element addresses the level of management control in terms of catch measurement and monitoring. Adequate management control indicates low risk of not achieving OY, while poor management control indicates higher risk of not achieving OY. Actual catch is compared with allocated quota over the fishery history. 
+This element is applied at the species level. This element addresses the level of management control in terms of catch measurement and monitoring. Adequate management control indicates low risk of not achieving OY, while poor management control indicates higher risk of not achieving OY. Actual catch is compared with the specifies ABC over the most recent five years of fishery history. 
 
 ```{r riskctl, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -857,61 +861,61 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+The ability to control total annual catch is necessary to prevent overfishing (i.e., defined to occur when total catch exceeds the overfishing level defined in the FMP), which is a fundamental requirement of MSA. Chronic or persistent overfishing can lead to stock depletion and ultimately to a stock being declared as overfished (thus requiring a stock rebuilding plan).  The ability to constrain catch is a function of the efficacy of the catch monitoring program for each species which relies on both proactive (in -season closure) and reactive (pay backs for overages in subsequent years) accountability measures which were implemented post-MSA Reauthorization. NMFS dealer data in conjunction with estimates of discards are used to compare actual to realized annual catch.  Small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%.    
 
 ##Technical Interactions
-This element is applied at the species level. This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species, including protected species. *THIS COULD BE: caught together with outside managed species/fleet primarily regulated by outside agency, constrained by regs for outside managed fishery, or ruled by the bycatch of a protected species* 
+This element is applied at the species level. This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species, including protected species. Here the risk is caused by negative consequences from fishing activity regulated under MAFMC FMPs which interacts with species managed by other agencies, including bycatch of protected species. For example, windowpane flounder accountability measures implemented by the New England Council have the potential to negatively impact a number MAFMC managed fisheries if they are triggered. Similarly, interactions with marine mammals protected under the MMPA could result in greater restrictions in MAFMC managed fisheries increasing the risk that OY would not be achieved in those fisheries. For example, the measures necessary for recovery of the critically endangered North Atlantic right whale population have the potential to seriously impact numerous fisheries in the NE US.  
 
 ```{r riskmint, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | Few interactions with non-MAFMC managed species |
-| Low-Moderate |  |
-| Moderate-High | Unmanaged high bycatch in non-MAFMC managed fishery |
-| High | Takes in fishery and total above PBR for protected species |
+| Low-Moderate | Interactions with non-MAFMC managed species but infrequent, Category II fishery under MMPA; or AMs not likely triggered |
+| Moderate-High | AMs in non-MAFMC managed species may be triggered; or Category I fishery under MMPA (but takes less than PBR) |
+| High | AMs in non-MAFMC managed species triggered; or Category I fishery under MMPA and takes above PBR   |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+Evaluation of this risk element requires quantification of the likelihood that AMs under other non-MAFMC FMPs would be triggered (thus impacting fishing activities for MAFMC managed species). In addition, NMFS manages marine mammal interactions with commercial fishing activity through take reductions plans. In cases where an MAMFC fishery interacts with marine mammals, conservation measures implemented through a take reduction plan could negatively impact that fishery. 
 
 ##Other Ocean Uses
-This element is applied at the *??* level. This element addresses the risk of fishery displacement (the risk of other ocean uses to fishery production due to habitat alteration is addressed under the habitat elements above).  Do historical fishing areas overlap with energy development/sand mining/other industrial locations?
+This element is applied at the species level. This element addresses the risk of fishery displacement or damage of a fishery resource and/or habitat that supports it as a result of non-fishing activities in the ocean.  
 
 ```{r riskoou, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No overlap |
-| Low-Moderate | Low-moderate overlap |
-| Moderate-High | Moderate-high overlap |
-| High | High overlap; energy development could seriously disrupt fishery |
+| Low-Moderate | Low-moderate overlap; minor habitat impacts but transient |
+| Moderate-High | Moderate-high overlap; minor habitat impacts but persistent |
+| High | High overlap; energy development could seriously disrupt fishery prosecution; major permanent habitat impacts |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+Non-fishing ocean activities (e.g., energy development/sand mining/other industrial, etc.)  could potentially impact MAFMC fisheries because they overlap with historical fishing grounds (physical displacement) and/or through negative impacts on important habitats. This element can be evaluated through GIS analyses which quantify the degree of overlap and/or expert opinion relative impacts on habitat quality and function. 
 
-##Regulatory Complexity
-This element is applied at the *??* level. Complex regulations may lead to non-compliance and/or impact other fisheries. *Could use number of regulations and or frequency of regulatory change to address*
+##Regulatory Complexity and Stability
+This element is applied at the species level. Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries. 
 
 ```{r riskcomplex, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | Simple/few regulations |
-| Low-Moderate | Low-moderate complexity |
-| Moderate-High | Moderate-high complexity |
-| High | High complexity |
+| Low  | Simple/few regulations; rarely if ever change |
+| Low-Moderate | Low-moderate complexity; occasional changes |
+| Moderate-High | Moderate-high complexity; occasional changes |
+| High | High complexity; frequently changed |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified.  
 
 ##Discards
-This element is applied at the species level.
+This element is applied at the species level. Stakeholders have identified the reduction of discards as a high priority in the Council management program, especially those caused by regulations since they represent biological and economic waste.  Discards of either the target or non-target species in the fishery would be taken into consideration. 
 
 ```{r riskdisc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -925,10 +929,10 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+NMFS provides estimates of discards by species based on at-sea observations collected in the Northeast Fisheries Observer Program for stock assessment purposes and quota monitoring. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards will be evaluated for each species and fishery with focus on identification of discards caused by regulations.  
 
 ##Allocation
-This element is applied at the species level. This element addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations. Indicators for difficulty of allocation include a combination of distribution shifts (see above) + the number of interests (sectors, states, etc.) requiring allocation.
+This element is applied at the species level. This element addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations. Indicators for difficulty of allocation include a combination of distribution shifts (see above) and the number of interests (sectors, states, etc.) requiring allocation.
 
 ```{r riskalloc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -942,7 +946,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+Each species would be evaluated as to the degree of spatial or sector allocation currently specified within the FMP. Expert judgement will be used to evaluate the level of risk of not achieving OY posed by existing allocation relative current states of nature. 
 
 #References
 
