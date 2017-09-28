@@ -719,7 +719,7 @@ Picture of indicator, reference, or words describing rankings.
 -->
 
 ##Commercial Employment
-This element is applied at the *??* level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015] *I dont see employment in here*
+This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015]. 
 
 ```{r riskcemp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -733,10 +733,23 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+This is commercial employment by state.
+
+```{r CommJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{fleetdiv}", echo = F, fig.height=6.5}
+opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'New_York Commercial Jobs', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'New Jersey Commercial Jobs', rel.y.num = 0.8, stacked = 'B')
+soe.plot(SOE.data, 'Time', 'Delaware Commercial Jobs', rel.y.num = 0.8, stacked = 'C')
+soe.plot(SOE.data, 'Time', 'Maryland Commercial Jobs', rel.y.num = 0.8, stacked = 'D')
+soe.plot(SOE.data, 'Time', 'Virginia Commercial Jobs', rel.y.num = 0.8, stacked = 'E')
+
+soe.stacked.axis('Year', 'Number of Commercial Jobs',rel.y.text = 1)
+```
+
+Based on this state-level information, most states show no trend in commercial fishery employment, but there is a significant recent decrease in employment in one state, Virginia. New York and New Jersey went from the hightest to lowest employment numbers within the most recent 2-4 years, suggesting increasing variability. Long term trends (over 10 years) cannot be determined with this dataset. 
 
 ##Recreational Employment
-This element is applied at the *??* level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015] *I dont see employment in here*
+This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015]. 
 
 ```{r riskremp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -750,7 +763,20 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Picture of indicator, reference, or words describing rankings.
+This is recreational employment by state.
+
+```{r RecJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{fleetdiv}", echo = F, fig.height=6.5}
+opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'New_York Recreational Jobs', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'New Jersey Recreational Jobs', rel.y.num = 0.8, stacked = 'B')
+soe.plot(SOE.data, 'Time', 'Delaware Recreational Jobs', rel.y.num = 0.8, stacked = 'C')
+soe.plot(SOE.data, 'Time', 'Maryland Recreational Jobs', rel.y.num = 0.8, stacked = 'D')
+soe.plot(SOE.data, 'Time', 'Virginia Recreational Jobs', rel.y.num = 0.8, stacked = 'E')
+
+soe.stacked.axis('Year', 'Number of Recreational Jobs',rel.y.text = 1)
+```
+
+Based on this state-level information, most states show no trend in recreational fishery employment, but there is a significant recent increase in employment in one state, New Jersey. Long term trends (over 10 years) cannot be determined with this dataset. 
 
 #Social Elements
 
