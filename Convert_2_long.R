@@ -526,3 +526,22 @@ support[, Value := as.numeric(Value)]
 SOE.data <- rbindlist(list(SOE.data,support))
 
 save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+# add experimental habitat indices for Mid Atlantic species, see OffshoreHabitat.R
+load(file.path(data.dir, "fall_hab4_mafmc_soe.Rdata"))
+fallhab <- as.data.table(fall_hab4_mafmc_soe)
+fallhab[, Var := paste0(Var, " Habitat Index Fall")]
+fallhab[, Units := 'Square Kilometers']
+fallhab[, EPU := 'ALL']
+SOE.data <- rbindlist(list(SOE.data,fallhab))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+load(file.path(data.dir, "spring_hab4_mafmc_soe.Rdata"))
+springhab <- as.data.table(spring_hab4_mafmc_soe)
+springhab[, Var := paste0(Var, " Habitat Index Spring")]
+springhab[, Units := 'Square Kilometers']
+springhab[, EPU := 'ALL']
+SOE.data <- rbindlist(list(SOE.data,springhab))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
