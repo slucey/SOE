@@ -1,0 +1,151 @@
+---
+title: "SOE data structure"
+author: "Sean Lucey"
+date: "October 12, 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+data.dir <- '/home/slucey/EcoAP/SOE2017/data'
+load(file.path(data.dir, 'SOE_data.RData'))
+library(data.table)
+```
+
+The NEFSC State of the Ecosystem (SOE) report is a collection of indicators that
+track the status and trend of the Northeast US Large Marine Ecosystem.  The report
+is broken into two separate regional reports to be delivered to the two Fishery 
+Management Councils that the Center serves: Mid-Atlantic and New England. The 
+SOE contains a diverse range of indicators from revenue and commercial fisheries
+reliance through biomass of aggregate species groups to primary production and
+climate drivers.
+
+## Data Format
+
+There are two different formats for structuring data: wide format and long format.  
+Most people are familiar with the wide format that structures data like this:
+
+```{r wide data}
+wide.data <- data.table(Year = c('1', '2', '3'),
+                        VarA = c('1', '2', '3'),
+                        VarB = c('4', '5', '6'),
+                        VarC = c('7', '8', '9'))
+knitr::kable(wide.data, align = 'c', caption = 'The wide format for data frames')
+```
+
+While this is convenient for reading and human interpretation, many analyses and 
+graphing routines prefer the long format:
+
+```{r long data}
+long.data <- data.table(Year = rep(c('1', '2', '3'), 3),
+                        Var  = c(rep('A', 3), rep('B', 3), rep('C', 3)),
+                        Value = 1:9)
+knitr::kable(long.data, align = 'c', caption = 'The long format for data frames')
+```
+
+The long format makes it easier to generically subset the data to be used in 
+functions.  For this reason, EDAB would prefer to receive data in the long format.
+More specifically, we are looking for the following columns: 
+
+\newpage
+
+```{r required columns}
+column.table <- data.table(column = c('Time', 'Var', 'Value', 'Units', 'Region', 'Source'),
+                           description = c(
+                             'Time stamp of the variable.  Typically this is the year but could be day of the week or month, etc.',
+                             'Name of variable.  Use a short description such as "Piscivore Landings".',
+                             'The numerical value for the data point.',
+                             'Units for the variable.  See standardized list below.',
+                             'Ecological production unit or shelf-wide. See standardized list below.',
+                             'Where did the data come from.  This will allow for reproducibility of future reports.'
+                           ))
+knitr::kable(column.table, align = 'l', caption = 'Required columns for the SOE')
+```
+
+### Standarized lists
+
+Here is the list of standardized unit notation.  Note that this list may not be
+comprehensive.  However this should give you an idea of how to label units.  
+If the units of your variable are not list please 
+contact Sean Lucey for guidance.  Having standard notation for units 
+helps in labeling the y-axis.
+
+```{r unit codes}
+units <- data.table(Abbreviations = c('unitless', 'anomaly', 'degrees latitude',
+                                      'km^2', 'degrees C', 'n', 'US dollars',
+                                      'n per 100m3', 'kg tow^-1'),
+                    Units =c('no units', 'standardized anomaly', 'position in latitude',
+                             'square kilometers', 'temperature in Celsius', 
+                             'number', 'currency', 'number per 100 cubic meters',
+                             'kilograms per tow'))
+knitr::kable(units, align = 'l', caption = 'Examples of unit standardization')
+```
+
+Please use the abbreviations below to indicate to which ecological production unit 
+(EPU) your indicator belongs.  This will aid in separating the data between the
+Mid-Atlantic and New England.
+
+```{r region codes}
+regions <- data.table(Abbreviation = c('GB', 'GOM', 'MAB', 'SS', 'All'),
+                      EPU = c('Georges Bank', 'Gulf of Maine', 'Mid-Atlantic Bight',
+                              'Scotian Shelf', 'Shelf-wide'))
+knitr::kable(regions, align = 'l', caption = 'Standard notation for EPUs')
+```
+
+\newpage
+
+### Covert from wide to long
+
+If your data is already in wide format, here is a simply function for converting 
+your data to long.  Run this code in R and follow the example.  Note there are 
+some R packages that can also do this.
+
+&nbsp;
+
+```{r wide to long, echo = T}
+#This function requires the data.table package
+library(data.table)
+
+#Function to convert from wide to long
+w2l <- function(x, by, by.name = 'Time', value.name = 'Value'){
+  x.new <- copy(x)
+  var.names <- names(x)[which(names(x) != by)]
+  out <- c()
+  setnames(x.new, by, 'by')
+  for(i in 1:length(var.names)){
+    setnames(x.new, var.names[i], 'V1')
+    single.var <- x.new[, list(by, V1)]
+    single.var[, Var := var.names[i]]
+    out <- rbindlist(list(out, single.var))
+    setnames(x.new, 'V1', var.names[i])
+  }
+  setnames(x.new, 'by', by)
+  setnames(out, c('by', 'V1'), c(by.name, value.name))
+}
+
+#Simple example from above
+#Wide table
+wide.format <- data.table(Year = c('1', '2', '3'),
+                        VarA = c('1', '2', '3'),
+                        VarB = c('4', '5', '6'),
+                        VarC = c('7', '8', '9'))
+print(wide.format)
+long.format <- w2l(wide.format, by = 'Year')
+print(long.format)
+
+#Notice that the w2l function named the columns to the ones noted above
+#but did not add units, region, or source
+#Add units and region manually
+units  <- data.table(Units  = c(rep('kg tows^-1', 6),
+                                rep('n per 100m3', 3)))
+region <- data.table(Region = rep('GB', 9))
+source <- data.table(Source = c(rep('NEFSC survey data (Survdat)', 6),
+                                rep('NEFSC ECOMON data', 3)))
+long.format <- cbind(long.format, units)
+long.format <- cbind(long.format, region)
+long.format <- cbind(long.format, source)
+print(long.format)
+```
+
+If you have any issues converting your data please contact Sean Lucey.
+
