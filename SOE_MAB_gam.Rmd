@@ -99,34 +99,52 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
              las = T)
     } else {axis(2, cex.axis = rel.y.num, las = T)}
 
-  #Identify significant trends
-  #Whole time series
-  data2gls <- 
+  ### Identify significant trends
+  
+  ## Whole time series
+  data2gam <- 
   data %>% 
   dplyr::filter(Var == y.var)
 
-  # Do not fit GAM if there are less than 10 observations.
+  # Do not fit GAM if there are less than 9 observations
   gamts_pval <- 1
-  if (nrow(data2gls) >= 10 & y.var != 'aquaculture VA hard clams planted') { 
-  gamts_mod <- mgcv::gamm(Value~s(Time), data = data2gls, na.action = na.omit,
-                              correlation = corAR1(form =~Time))
-  gamts_pval <- summary(gamts_mod$lme)$tTable["Xs(Time)Fx1", "p-value"]
+  if (nrow(data2gam) >= 9 & y.var != 'aquaculture VA hard clams planted') {
+    gamts_mod <- mgcv::gamm(Value~s(Time), data = data2gam, na.action = na.omit,
+                                correlation = corAR1(form =~Time))
+    gamts_pval <- summary(gamts_mod$lme)$tTable["Xs(Time)Fx1", "p-value"]
   }
   
   
   if(gamts_pval < 0.05){
-    lme_s <- summary(gamts_mod$lme)$tTable["Xs(Time)Fx1", "Value"]
+    gam_s <- summary(gamts_mod$lme)$tTable["Xs(Time)Fx1", "Value"]
     
-    if(lme_s > 0){
-      lines(x[, X], predict(gamts_mod$gam, newdata = data.frame(Time = x[, X])),
-            col = trend.pos, lty = 1, lwd = 7)
+    lines(x[, X], predict(gamts_mod$gam, newdata = data.frame(Time = x[, X])),
+          col = trend.pos, lty = 1, lwd = 7)
+  }
+  
+   ## Final portion of time series
+    data2gam_ld <-
+      data2gam %>%
+      dplyr::filter(Time > (end.start - 1))
+    
+    # Do not fit GAM if there are less than 9 observations
+    gamld_pval <- 1
+    if (nrow(data2gam_ld) >= 9) {
+      # Set number of knots to 1 for numerical stability
+      gamld_mod <- mgcv::gamm(Value~s(Time, k = 1),
+                              data = data2gam_ld,
+                              na.action = na.omit,
+                              correlation = corAR1(form =~Time))
+      gamld_pval <- summary(gamld_mod$lme)$tTable["Xs(Time)Fx1", "p-value"]
     }
-    if(lme_s < 0){
-      lines(x[, X], predict(gamts_mod$gam, newdata = data.frame(Time = x[, X])),
+    if(gamld_pval < 0.05){
+      gamld_s <- summary(gamld_mod$lme)$tTable["Xs(Time)Fx1", "Value"]
+    
+      lines(x[X > (end.start - 1), X], 
+            predict(gamld_mod$gam, newdata = data.frame(Time = x[X > (end.start - 1), X])),
             col = trend.neg, lty = 1, lwd = 7)
     }
-  }
- 
+  
   #Add axis labels
   if(!is.na(stacked)) text(u[1], u[4], labels = stacked, cex = 2, adj = c(-0.5, 1.5))
   if(is.na(stacked)){
@@ -134,7 +152,6 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
     mtext(2, text = y.label, line = y.line, cex = rel.y.text)
   }
 }
-
 #Add axis labels for stacked plots
 soe.stacked.axis <- function(x.label, y.label, x.line = 2.6,
                              y.line = 3.5, rel.y.text = 1.5){
@@ -1030,11 +1047,11 @@ soe.stacked.axis('Year', expression('Bottom Temperature, '*degree*'C'), rel.y.te
 <!--
 Temperatures measured on surveys in the Mid Atlantic Bight also show clear long term warming trends at both the surface and the bottom. 
 ```{r, fig.cap="Survey measured temperature, A: Surface, B: Bottom \\label{survtemp}",echo = F, fig.height=3.5}
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Surface temp MAB', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
-soe.plot(SOE.data, 'Time', 'Bottom temp MAB', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
+#opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+#soe.plot(SOE.data, 'Time', 'Surface temp MAB', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+#soe.plot(SOE.data, 'Time', 'Bottom temp MAB', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
 
-soe.stacked.axis('Year', expression('Temperature, '*degree*'C'), rel.y.text = 1)
+#soe.stacked.axis('Year', expression('Temperature, '*degree*'C'), rel.y.text = 1)
 ```
 -->
 

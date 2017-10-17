@@ -101,34 +101,52 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
              las = T)
     } else {axis(2, cex.axis = rel.y.num, las = T)}
 
-  #Identify significant trends
-  #Whole time series
-  data2gls <- 
+  ### Identify significant trends
+  
+  ## Whole time series
+  data2gam <- 
   data %>% 
   dplyr::filter(Var == y.var)
 
   # Do not fit GAM if there are less than 10 observations
   gamts_pval <- 1
-  if (nrow(data2gls) >= 10) { 
-  gamts_mod <- mgcv::gamm(Value~s(Time), data = data2gls, na.action = na.omit,
-                              correlation = corAR1(form =~Time))
-  gamts_pval <- summary(gamts_mod$lme)$tTable["Xs(Time)Fx1", "p-value"]
+  if (nrow(data2gam) >= 9) {
+    gamts_mod <- mgcv::gamm(Value~s(Time), data = data2gam, na.action = na.omit,
+                                correlation = corAR1(form =~Time))
+    gamts_pval <- summary(gamts_mod$lme)$tTable["Xs(Time)Fx1", "p-value"]
   }
   
   
   if(gamts_pval < 0.05){
-    lme_s <- summary(gamts_mod$lme)$tTable["Xs(Time)Fx1", "Value"]
+    gam_s <- summary(gamts_mod$lme)$tTable["Xs(Time)Fx1", "Value"]
     
-    if(lme_s > 0){
-      lines(x[, X], predict(gamts_mod$gam, newdata = data.frame(Time = x[, X])),
-            col = trend.pos, lty = 1, lwd = 7)
+    lines(x[, X], predict(gamts_mod$gam, newdata = data.frame(Time = x[, X])),
+          col = trend.pos, lty = 1, lwd = 7)
+  }
+  
+   ## Final portion of time series
+    data2gam_ld <-
+      data2gam %>%
+      dplyr::filter(Time > (end.start - 1))
+    
+    # Do not fit GAM if there are less than 9 observations
+    gamld_pval <- 1
+    if (nrow(data2gam_ld) >= 9) {
+      # Set number of knots to 1 for numerical stability
+      gamld_mod <- mgcv::gamm(Value~s(Time, k = 1), 
+                              data = data2gam_ld, 
+                              na.action = na.omit,
+                              correlation = corAR1(form =~Time))
+      gamld_pval <- summary(gamld_mod$lme)$tTable["Xs(Time)Fx1", "p-value"]
     }
-    if(lme_s < 0){
-      lines(x[, X], predict(gamts_mod$gam, newdata = data.frame(Time = x[, X])),
+    if(gamld_pval < 0.05){
+      gamld_s <- summary(gamld_mod$lme)$tTable["Xs(Time)Fx1", "Value"]
+    
+      lines(x[X > (end.start - 1), X], 
+            predict(gamld_mod$gam, newdata = data.frame(Time = x[X > (end.start - 1), X])),
             col = trend.neg, lty = 1, lwd = 7)
     }
-  }
- 
+  
   #Add axis labels
   if(!is.na(stacked)) text(u[1], u[4], labels = stacked, cex = 2, adj = c(-0.5, 1.5))
   if(is.na(stacked)){

@@ -1,5 +1,5 @@
 ---
-title: "State of the Ecosystem - Georges Bank"
+title: "State of the Ecosystem - Gulf of Maine"
 author: "Ecosystem Dynamics and Assessment Branch, Northeast Fisheries Science Center"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
@@ -18,8 +18,8 @@ output:
 #image.dir <- '/home/slucey/EcoAP/SOE2017/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+# data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+# image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
 # CP:
 data.dir <- 'data/'
 image.dir <- 'images/'
@@ -33,12 +33,12 @@ knitr::opts_chunk$set(echo = FALSE, fig.align='center')
 ```{r Generic Plot Function, echo = F}
 #Plot figure new
 soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
-                     x.start = NA, x.end = NA, end.start = 2007, bg.col = background,
+                     x.start = NA, x.end = NA, end.start = 2006, bg.col = background,
                      end.col = recent, trend.neg = main.neg, trend.pos = main.pos,
                      end.trend.neg = end.neg, end.trend.pos = end.pos,
-                     stacked = NA, stacked.ticks = T, x.line = 2.6, y.line = 3.5, 
-                     scale.axis = 1, rel.y.num = 1.5, rel.y.text = 1.5){
-  
+                     stacked = NA, x.line = 2.5, y.line = 3.5, scale.axis = 1,
+                     rel.y.num = 1.5, rel.y.text = 1.5){
+ 
   #Select Data
   x <- data[Var == y.var, ]
   x <- x[order(x[, get(x.var)]), ]
@@ -50,10 +50,10 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   x <- x[X >= x.start, ]
  
   #Set up plot parameters
-  y.max <- max(x[, Value], na.rm = T) + tol * max(x[, Value], na.rm = T)
-  y.min <- min(x[, Value], na.rm = T) - tol * abs(min(x[, Value], na.rm = T))
-  y.mean <- mean(x[, Value], na.rm = T)
-  y.sd <- sd(x[, Value], na.rm = T)
+  y.max <- max(x[, Value]) + tol * max(x[, Value])
+  y.min <- min(x[, Value]) - tol * abs(min(x[, Value]))
+  y.mean <- mean(x[, Value])
+  y.sd <- sd(x[, Value])
  
   #Plot blank plot
   plot(x[X >= x.start, list(X, Var)], xlim = c(x.start, x.end),
@@ -79,16 +79,14 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   #Add axis
   if(is.na(stacked)) axis(1, cex.axis = 1.5)
   if(!is.na(stacked)){
-    if(stacked.ticks == T) axis(3, cex.axis = 1.5, tck = 0.1, labels = F)
+    if(stacked!= 'A') axis(3, cex.axis = 1.5, tck = 0.1, labels = F)
   }
   #Stacked axes with 0 overlap so need to remove
-  if(scale.axis != 1){
-        labels <- axTicks(2) / scale.axis
-        if(labels[1] == 0) labels[1] <- ''
-        axis(2, at = axTicks(2), labels = as.numeric(labels), cex.axis = rel.y.num,
-             las = T)
-    } else {axis(2, cex.axis = rel.y.num, las = T)}
-
+  labels <- axTicks(2) / scale.axis
+  if(labels[1] == 0) labels[1] <- ''
+  axis(2, at = axTicks(2), labels = labels, cex.axis = rel.y.num,
+       las = T)
+ 
 ### Identify significant trends
   
   ## Whole time series
@@ -169,8 +167,8 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses. An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highighting relationships between focal species groups, managed human activities, environmental drivers, habitats, and key ecological links. The activities link to high level strategic management objectives (described next). The model below is meant primarily to demonstrate the major linkages and extent of ecosystem relationships. Specific key paths through the ecosystem that are relevant to managers will be supplied in later discussions. Many components of the conceptual model are represented by indicators in this report.
 
 ##Conceptual model of ecosystem relationships
-```{r, fig.cap="Georges Bank Ecosystem \\label{conceptual}", echo = F, out.width = "500pt", fig.align='center'}
-knitr::include_graphics(file.path(image.dir, 'GB_2.png'))
+```{r, fig.cap="Gulf of Maine Ecosystem \\label{conceptual}", echo = F, out.width = "600pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'GOM_2.png'))
 
 ```
 
@@ -288,17 +286,17 @@ In these and subsequent time series plots, trends are assessed for both the full
 
 ```{r Commerical Landings, fig.cap="Commercial landings of A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commland}", echo = F, fig.height=6}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GB Benthos Landings',            
+soe.plot(SOE.data, 'Time', 'GOM Benthos Landings',            
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Landings', x.start = 1964,
+soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Landings', x.start = 1964,
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'B')
-soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Landings',   
+soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Landings',   
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'C')
-soe.plot(SOE.data, 'Time', 'GB Macrozoo-piscivore Landings', 
+soe.plot(SOE.data, 'Time', 'GOM Macrozoo-piscivore Landings', 
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'D')
-soe.plot(SOE.data, 'Time', 'GB Benthivore Landings',         
+soe.plot(SOE.data, 'Time', 'GOM Benthivore Landings',         
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'E')
-soe.plot(SOE.data, 'Time', 'GB Piscivore Landings',          
+soe.plot(SOE.data, 'Time', 'GOM Piscivore Landings',          
          scale.axis = 10^3, rel.y.num = 0.9, stacked = 'F')
 
 soe.stacked.axis('Year', expression('Commercial Landings, 10'^3*'mt'))
@@ -312,17 +310,17 @@ This indicator links the human activity commercial fishing to the profits object
 
 ```{r, fig.cap="Commercial revenue from A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{commrev}", echo = F, fig.height=6}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GB Benthos Revenue',            
+soe.plot(SOE.data, 'Time', 'GOM Benthos Revenue',            
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Revenue',  x.start = 1964,
+soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Revenue',  x.start = 1964,
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'B')
-soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Revenue',   
+soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Revenue',   
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'C')
-soe.plot(SOE.data, 'Time', 'GB Macrozoo-piscivore Revenue', 
+soe.plot(SOE.data, 'Time', 'GOM Macrozoo-piscivore Revenue', 
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'D')
-soe.plot(SOE.data, 'Time', 'GB Benthivore Revenue',         
+soe.plot(SOE.data, 'Time', 'GOM Benthivore Revenue',         
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'E')
-soe.plot(SOE.data, 'Time', 'GB Piscivore Revenue',          
+soe.plot(SOE.data, 'Time', 'GOM Piscivore Revenue',          
          scale.axis = 10^6, rel.y.num = 0.9, stacked = 'F')
 
 soe.stacked.axis('Year', 'Commercial Revenue, million $US')
@@ -369,16 +367,20 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 
 ```
 
-##Mariculture  RELEVANT TO GB?
-<!--Aquaculture indicators addresses both seafood production and possibly habitat objectives in that planted bivalves such as oysters may provide both habitat structure and contribute to improved water quality at sufficient numbers (we cannot evaluate that function here yet). Individual states collect and publish aquaculture production differently; at this time only information reported by the state of Maine is available for the Gulf of Maine region. --> 
+##Mariculture  
+Aquaculture indicators addresses both seafood production and possibly habitat objectives in that planted bivalves such as oysters may provide both habitat structure and contribute to improved water quality at sufficient numbers (we cannot evaluate that function here yet). Individual states collect and publish aquaculture production differently; at this time only information reported by the state of Maine is available for the Gulf of Maine region. 
 
-```{r Mariculture, fig.cap="Aquaculture stats from RI: total value (left), oysters sold (right) \\label{mariculture}", echo = F, out.width='.45\\linewidth', fig.show='hold'}
+```{r Mariculture, fig.cap="Aquaculture stats from ME. A - Atlantic salmon, B - trout, C - blue mussels, D - oysters \\label{mariculture}", echo = F, out.width='.45\\linewidth', fig.show='hold'}
 
-opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'aquaculture RI total value value', x.label = 'Year', y.label='Total value $')
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'aquaculture ME Atlantic salmon harvest weight', stacked = 'A')
+soe.plot(SOE.data, 'Time', 'aquaculture ME trout harvest weight', stacked = 'B')
+soe.stacked.axis('Year', 'Amount sold, whole pounds')
 
-opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'aquaculture RI oysters sold', x.label ='Year', y.label='Amount sold, number')
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'aquaculture ME blue mussels harvest weight', stacked = 'C')
+soe.plot(SOE.data, 'Time', 'aquaculture ME oysters harvest weight', stacked = 'D')
+soe.stacked.axis('Year', 'Amount sold, whole pounds')
 
 ```
 
@@ -392,17 +394,17 @@ Patterns for groups of species that feed on similar prey can indicate how overal
 Seasonally divergent aggregate biomass trends require further investigation. They could indicate the trends of different fish communities with seasonal differences that are the result of regular seasonal migrations, or they could indicate movement of new species into/out of the region on a seasonal basis, or both. These trends across trophic levels point to the potentially complex and dynamic trophic structure of the Mid-Atlantic ecosystem. -->
 ```{r, fig.cap="Fall survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{fallsurvB}", echo = F, fig.height = 6}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GB Benthos Fall',            
+soe.plot(SOE.data, 'Time', 'GOM Benthos Fall',            
          rel.y.num = 1.2,  stacked = 'A')
-soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Fall',    
+soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Fall',    
           rel.y.num = 1.2, stacked = 'B')
-soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Fall',   
+soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Fall',   
          rel.y.num = 1.2, stacked = 'C')
-soe.plot(SOE.data, 'Time', 'GB Macrozoo-piscivore Fall', 
+soe.plot(SOE.data, 'Time', 'GOM Macrozoo-piscivore Fall', 
          rel.y.num = 1.2, stacked = 'D')
-soe.plot(SOE.data, 'Time', 'GB Benthivore Fall',         
+soe.plot(SOE.data, 'Time', 'GOM Benthivore Fall',         
          rel.y.num = 1.2, stacked = 'E')
-soe.plot(SOE.data, 'Time', 'GB Piscivore Fall',          
+soe.plot(SOE.data, 'Time', 'GOM Piscivore Fall',          
          rel.y.num = 1.2, stacked = 'F')
 
 soe.stacked.axis('Year', expression('Survey biomass, kg tow'^-1))
@@ -411,17 +413,17 @@ soe.stacked.axis('Year', expression('Survey biomass, kg tow'^-1))
 
 ```{r ,fig.cap="Spring survey trends for A: Benthos, B: Mesoplanktivores, C: Macroplanktivores, D: Macrozoo-piscivores, E: Benthivores, F: Piscivores \\label{springsurvB}", echo = F, fig.height = 6}
 opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GB Benthos Spring',            
+soe.plot(SOE.data, 'Time', 'GOM Benthos Spring',            
          rel.y.num = 1.2, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'GB Mesoplanktivore Spring',    
+soe.plot(SOE.data, 'Time', 'GOM Mesoplanktivore Spring',    
          rel.y.num = 1.2, stacked = 'B')
-soe.plot(SOE.data, 'Time', 'GB Macroplanktivore Spring',   
+soe.plot(SOE.data, 'Time', 'GOM Macroplanktivore Spring',   
          rel.y.num = 1.2, stacked = 'C')
-soe.plot(SOE.data, 'Time', 'GB Macrozoo-piscivore Spring', 
+soe.plot(SOE.data, 'Time', 'GOM Macrozoo-piscivore Spring', 
          rel.y.num = 1.2, stacked = 'D')
-soe.plot(SOE.data, 'Time', 'GB Benthivore Spring',         
+soe.plot(SOE.data, 'Time', 'GOM Benthivore Spring',         
          rel.y.num = 1.2, stacked = 'E')
-soe.plot(SOE.data, 'Time', 'GB Piscivore Spring',          
+soe.plot(SOE.data, 'Time', 'GOM Piscivore Spring',          
          rel.y.num = 1.2, stacked = 'F')
 
 soe.stacked.axis('Year', expression('Survey biomass, kg tow'^-1))
@@ -431,23 +433,23 @@ soe.stacked.axis('Year', expression('Survey biomass, kg tow'^-1))
 Removing this section?-->
 
 ##Species composition 
-Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity (here estimated as the mean number of species found in a random sample of 100 fish at a station for the Georges Bank portion of NEFSC surveys) can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. 
+Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity (here estimated as the mean number of species found in a random sample of 100 fish at a station for the Mid-Atlantic portion of NEFSC surveys) can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. 
 
 <!--Diversity shows a signficant increase for one season in the Mid-Atlantic, suggesting that survey timing may be interacting with changes in the seasonal movement of fish (see above) as well as a potential change in species availability due to distribution shifts (see below). --> 
 ```{r, fig.cap="A-Fall, B-Spring \\label{sppdiv}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'FALL GB ESn',   rel.y.num = 1.1, stacked = "A")
-soe.plot(SOE.data, 'Time', 'SPRING GB ESn', rel.y.num = 1.1, stacked = "B")
+soe.plot(SOE.data, 'Time', 'FALL GOM ESn',   rel.y.num = 1.1, stacked = "A")
+soe.plot(SOE.data, 'Time', 'SPRING GOM ESn', rel.y.num = 1.1, stacked = "B")
 
 soe.stacked.axis('Year', 'Expected n species / 100 fish', rel.y.text = 1)
 ```
 
 ##Species distribution
-Spatial distribution has changed over time for some species more than for others. Yellowtail flounder distributions measured by NEFSC surveys have shifted northward relative to historical distributions. However, haddock distributions on Georges Bank have remained relatively stable. A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
+Spatial distribution has changed over time for some species more than for others. Lobster distributions measured by NEFSC surveys have shifted northward relative to historical distributions. However, Acadian redfish distributions in the Gulf of Maine have remained relatively stable. A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
-knitr::include_graphics(file.path(image.dir, 'yellowtail-flounder-kd.png'))
-knitr::include_graphics(file.path(image.dir, 'haddock-kd.png'))
+knitr::include_graphics(file.path(image.dir, 'american-lobster-kd.png'))
+knitr::include_graphics(file.path(image.dir, 'acadian-redfish-kd.png'))
 
 ```
 
@@ -469,12 +471,12 @@ knitr::include_graphics(file.path(image.dir, 'Fish_Condition.jpg'))
 ##Groundfish productivity
 <!--The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are indications of a decrease in this indicator when aggregated across all species in the Mid-Atlantic.-->  
 ```{r, echo = F, fig.align='default', out.width='.75\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
-knitr::include_graphics(file.path(image.dir, 'GBprod.pdf'))
-knitr::include_graphics(file.path(image.dir, 'ProdLegend.eps'))
+knitr::include_graphics(file.path(image.dir, 'GOMprod.pdf'))
+knitr::include_graphics(file.path(image.dir, 'ProdLegend.pdf'))
 
 ```
 
-```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for X species in the GB. Annual anomalies shown are the average of spring and fall anomalies. \\label{fishprodsurvey}", fig.height=0.05}
+```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for X species in the GOM. Annual anomalies shown are the average of spring and fall anomalies. \\label{fishprodsurvey}", fig.height=0.05}
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
@@ -505,7 +507,7 @@ knitr::include_graphics(file.path(image.dir, 'energycontent.png'))
 <!--Primary production has fluctuated recently with current conditions near average. This suggests that ecosystem production overall is relatively stable, although the trends in higher trophic levels reported above suggest that the uptake of primary production through benthic channels may be increasing over the long term, leading to the steady increase in benthos biomass over time. --> 
 ```{r, fig.cap="Primary production \\label{pp}", echo = F,  fig.height=2.5}
 opar <- par(mar = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GBK PPD', x.label = 'Year', 
+soe.plot(SOE.data, 'Time', 'GOM PPD', x.label = 'Year', 
          y.label = expression('Production, gC m'^-2 * ' d'^1), 
          rel.y.num = 1.1, rel.y.text = 1)
 
@@ -520,9 +522,9 @@ Zooplankton provide a critical link between phytoplankton at the base of the foo
 One simple indicator of overall zooplankton biomass is the volume of material collected in plankton nets, which has been relatively consistent, suggesting large scale coherence in zooplankton throughout much of NES. While the anomalies show no significant long or short term trends, the composition of the zooplankton community shows shifts over time. Specifically, small copepods increased in abundance in the 1990s, but shifted to larger bodied copepod species around 2000. There is evidence of a more recent shift, with both smaller zooplankton and *Calanus finmarchicus* becoming more abundant again over the last several years. The small copeods are most important during the autumn while *Calanus finmarchicus* dominates early in the year following the spring phytoplankton bloom. Adult *Calanus* are the principal prey of North Atlantic right whales; any reduction in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
 ```{r zooplankton anomoly, fig.cap="A: Calanus, B: zooplankton biomass, C: small copepods", echo = F, fig.height=4}
 opar <- par(mfrow = c(3, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'GBK Yearly Calanus Anomaly', stacked = 'A', tol = 0.01)
-soe.plot(SOE.data, 'Time', 'GBK Yearly Zooplankton Biovolume', stacked = 'B', tol = 0.01)
-soe.plot(SOE.data, 'Time', 'GBK Yearly small copeopods anomaly', stacked = 'C', tol = 0.01)
+soe.plot(SOE.data, 'Time', 'GOM Yearly Calanus Anomaly', stacked = 'A', tol = 0.01)
+soe.plot(SOE.data, 'Time', 'GOM Yearly Zooplankton Biovolume', stacked = 'B', tol = 0.01)
+soe.plot(SOE.data, 'Time', 'GOM Yearly small copeopods anomaly', stacked = 'C', tol = 0.01)
 
 soe.stacked.axis('Year', 'Anomaly', rel.y.text = 1)
 ```
@@ -533,7 +535,7 @@ soe.stacked.axis('Year', 'Anomaly', rel.y.text = 1)
 The Middle Atlantic Bight experienced above average sea surface temperatures (SSTs) during 2016. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. SSTs for 2016 that were above the mean are shown in red and below the mean in blue. Spring conditions moderated in the Mid-Atlantic Bight to below average temperature conditions in June and July. The ecoregions warmed dramatically from late summer into fall and remained above average temperatures through the end of the year.
 
 ```{r, fig.cap="Annual sea surface temperature cycle, 2016 \\label{annual cycle}" , echo=F, out.width='300pt'}
-knitr::include_graphics(file.path(image.dir, 'ann_sst_ Georges Bank .jpeg'))
+knitr::include_graphics(file.path(image.dir, 'ann_sst_ Gulf of Maine .jpeg'))
 ```
 
 ##Long-term shelfwide sea surface temperature    
@@ -549,8 +551,8 @@ soe.plot(SOE.data, 'Time', 'Sea Surface Temperature', x.label = 'Year',
 Temperatures measured on surveys in the Mid Atlantic Bight also show clear long term warming trends at both the surface and the bottom. 
 ```{r, fig.cap="Survey measured temperature, A: Surface, B: Bottom \\label{survtemp}",echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Surface temp GB', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
-soe.plot(SOE.data, 'Time', 'Bottom temp GB', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
+soe.plot(SOE.data, 'Time', 'Surface temp GOM', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Bottom temp GOM', stacked = 'B', tol = 0.01, rel.y.num = 1.1)  
 
 soe.stacked.axis('Year', expression('Temperature, '*degree*'C'), rel.y.text = 1)
 ```
@@ -567,15 +569,15 @@ Seasonal sea surface temperature forecasts are made from an ensemble of seven mo
 <!--Stratification shows no clear trend in the Mid Atlantic. Similarly, surface salinity has no clear trend. However, salinity at the bottom has significantly increased over the most recent 10 years.--> 
 ```{r, fig.cap="Stratification \\label{Stratification}", echo = F, fig.height=2.5 }
 opar <- par(mar = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GB core', x.label = 'Year', rel.y.num = 1.2, rel.y.text = 1,
+soe.plot(SOE.data, 'Time', 'Stratification (0-50m) GOM core', x.label = 'Year', rel.y.num = 1.2, rel.y.text = 1,
          y.label = 'Stratification', y.line = 4.7)
 ```
 
 <!--Salinity structures habitat for living resources, however the effects of increased salinity on marine organisms are currently less clear than the effects of increased temperature. This significant increasing trend in bottom salinity warrants further investigation. --> 
 ```{r , fig.cap="Survey measured salinity; A: Surface, B: Bottom \\label{Salinity}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Surface Salinity GB', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
-soe.plot(SOE.data, 'Time', 'Bottom salinity GB',  stacked = 'B', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Surface salinity GOM', stacked = 'A', tol = 0.01, rel.y.num = 1.1)
+soe.plot(SOE.data, 'Time', 'Bottom salinity GOM',  stacked = 'B', tol = 0.01, rel.y.num = 1.1)
 
 soe.stacked.axis('Year', 'Salinity, PSU', y.line = 3.7, rel.y.text = 1)
 ```
