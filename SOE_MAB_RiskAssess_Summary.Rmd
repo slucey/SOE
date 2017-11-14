@@ -1,10 +1,8 @@
 ---
 title: "Mid-Atlantic EAFM risk assessment summary"
-author: "Gaichas and DePiper, Northeast Fisheries Science Center"
+author: "Gaichas, DePiper, Seagraves, Loftus, Sabo, Muffley"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
-  word_document:
-    toc: no
   pdf_document:
     includes:
       in_header: preamble-latex.tex
@@ -13,6 +11,8 @@ output:
     toc: no
   html_document:
     toc: yes
+  word_document:
+    toc: no
 fontsize: 11pt
 geometry: margin=0.8in
 csl: canadian-journal-of-fisheries-and-aquatic-sciences.csl
@@ -21,15 +21,20 @@ bibliography: /Users/sgaichas/Documents/0_Data/EAFM_MAFMC/My_Library.bib
 
 ```{r Directory and Data Set-up, echo = F, message = F}
 library(data.table); library(Kendall); library(rgdal)
+library(knitr)
+library(tidyverse)
 library(condformat) #does the color coded tables
 library(kableExtra) #LaTeX table formatting
 knitr::opts_chunk$set(echo = FALSE, fig.align='center')
 ```
 
 #Introduction
-The purpose of this report is to summarize the Mid-Atlantic Council's Ecosystem Approach to Fisheries Management (EAFM) intial risk assessment. 
+The purpose of this report is to document the use of ecosystem indicators within the Mid-Atlantic Council’s Ecosystem Approach to Fisheries Management (EAFM) initial risk assessment.
 
-The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. An overview of the risk elements with definitions and associated indicators as discussed by the Council's Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below. All risk rankings are summarized at the end of the document.
+A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements may move up or down in priority as conditions change or new information becomes available. Thus, it is important to note that EAFM Risk Assessment will be a dynamic and evolving process that will need to be revisited and updated in future years.
+
+The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). An overview of the risk elements with definitions and associated indicators as discussed by the Council’s Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below. In sections below, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. 
+*highlight the main point is to be on the same page about what risks are of concern* *not set in stone, illustration*
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -39,32 +44,26 @@ tabl <- "
 | *Ecological*         |  |
 | F status             | Risk of not achieving OY due to overfishing      | Current F relative to reference F from assessment |
 | B status             | Risk of not achieving OY due to depleted stock   | Current B relative to reference B from assessment |
-| Assessment type      | Risk of not achieving OY due to analytical limitations   | Current assessment method/data quality |
+| Assessment performance      | Risk of not achieving OY due to analytical limitations   | Current assessment method/data quality |
 | Food web  (1)       | Risk of not achieving OY due to MAFMC managed species interactions   | Food web model outputs, management measures |
 | Food web  (2)       | Risk of not achieving protected species objectives due to species interactions   | Food web model outputs, management measures |
 | Ecosystem productivity  | Risk of not achieving OY due to changing system productivity   | Four indicators, see text |
-| Population diversity  | Risk of not achieving OY due to reduced diversity   | Size composition, sex ratio, genetic diversity |
-| Ecological diveristy  | Risk of not achieving OY due to reduced diversity   | Fishery independent species diversity |
 | Climate              | Risk of not achieving OY due to climate vulnerability   | Northeast Climate Vulnerability Assessment |
-| Distribution shifts  | Risk of not achieving OY due to climate-driven distribution shifts   | Northeast Climate Vulnerability Assessment + 2 indicators (see text) |
+| Distribution shifts  | Risk of not achieving OY due to climate-driven distribution shifts   | Northeast Climate Vulnerability Assessment + 2 indicators  |
 | Estuarine habitat    | Risk of not achieving OY due to threats to estuarine/nursery habitat | Enumerated threats + estuarine dependence |
-| Offshore habitat     | Risk of not achieving OY due to threats to offshore habitat   | Enumerated threats + thermal habitat trends + Friedland's index |
+| Offshore habitat     | Risk of not achieving OY due to threats to offshore habitat   | Integrated habitat model index |
 | *Economic* |  |
 | Commercial Profits   | Risk of not maximizing fishery value             | Revenue by fleet |
 | Recreational Value   | Risk of not maximizing fishery value             | Revenue by fleet, Numbers of anglers and trips in aggregate |    
 | Fishery Resilience (1)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
-| Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
-| Fishery Resilience (3)  | Risk of reduced fishery business resilience due to insurance availabilty  |  No current indicator available |         
 | Fishery Resilience (4)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
-| Fishery Resilience (5)  | Risk of reduced fishery business resilience due to access to emerging markets/opportunities  | Needs clarification  |
 | Commercial Employment   | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | Recreational Employment | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | *Social* |  |
 | Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
 | *Food Production* |  |
 | Commercial     | Risk of not optimizing seafood production             | Seafood landings in aggregate |
-| Recreational   | Risk of not maintaining personal food security      | Recreational landings in aggregate |
-| Seafood safety   | Risk of not maintaining market access, human health    | Number of public advisories by species |
+| Recreational   | Risk of not maintaining personal food production      | Recreational landings in aggregate |
 | *Management* |  |
 | Control     | Risk of not achieving OY due to inadequate control             | Catch compared to allocation |
 | Interactions   | Risk of not achieving OY due to interactions with species managed by other entities    | Number and type of interactions with protected or non-MAFMC managed species, co-management |
@@ -72,6 +71,14 @@ tabl <- "
 | Regulatory complexity   | Risk of not achieving compliance due to complexity    | Number of regulations by species |
 | Discards   | Risk of not minimizing bycatch to extent practicable      | Standardized Bycatch Reporting  |
 | Allocation  | Risk of not achieving OY due to spatial mismatch of stocks and management  | Distribution shifts + number of interests |
+| *Put Aside* |  |
+| Population diversity  | Risk of not achieving OY due to reduced diversity   | Size composition, sex ratio, genetic diversity |
+| Ecological diveristy  | Risk of not achieving OY due to reduced diversity   | Fishery independent species diversity |
+| Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
+| Fishery Resilience (3)  | Risk of reduced fishery business resilience due to insurance availabilty  |  No current indicator available |
+| Fishery Resilience (5)  | Risk of reduced fishery business resilience due to access to emerging markets/opportunities  | Needs clarification  |
+| Seafood safety   | Risk of not maintaining market access, human health    | Number of public advisories by species |
+
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
@@ -81,14 +88,14 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ##Species level
 ```{r sptable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 
-
-color.picker2 <- function(z){
-  if( z == "na"){return("white")}
-  else if( z == "l"){return("green")}
-  else if( z == "lm"){return("yellow")}
-  else if( z == "mh"){return("orange")}
-  else {return("red")}
-}
+# 
+# color.picker2 <- function(z){
+#   if( z == "na"){return("white")}
+#   else if( z == "l"){return("green")}
+#   else if( z == "lm"){return("yellow")}
+#   else if( z == "mh"){return("orange")}
+#   else {return("red")}
+# }
 
 # spplist     oc,  sc,  flk, scp, bsb, mack, but, lsq, ssq, gtile,  btile,  blu, dog, monk
 risk.species<-data.frame(
@@ -99,8 +106,6 @@ risk.species<-data.frame(
   FoodWeb1 = c("l", "l", "lm", "l", "l", "mh", "lm", "mh", "mh", "l", "l", "l", "l", "l"),
   FoodWeb2 = c("l", "l", "l", "l", "l", "mh", "l", "mh", "mh", "l", "l", "l", "l", "l"),
   EcoProd = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm"),
-  PopDiv = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na"),
-  EcoDiv = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm"),
   Climate = c("h", "mh", "lm", "lm", "mh", "lm", "l", "l", "l", "mh", "mh","l", "l", "l"),
   DistShift = c("mh", "mh", "mh", "mh", "mh", "mh", "h", "mh", "h", "l", "l", "mh", "h", "mh"),
   EstHabitat = c("l", "l", "h", "h", "h", "l", "l", "l", "l", "l", "l", "h", "l", "l")#,
@@ -108,16 +113,12 @@ risk.species<-data.frame(
 #  CommProf = c(),
 #  RecVal = c(),
 #  FishRes1 = c(),
-#  FishRes2 = c(),
-#  FishRes3 = c(),
 #  FishRes4 = c(),
-#  FishRes5 = c(),
 #  CommJobs = c(),
 #  RecJobs = c(),
 #  Social = c(),
 #  ComFood = c(),
 #  RecFood = c(),
-# FoodSafe = c(),
 #  MgtControl = c(),
 #  TecInteract = c(),
 #  OceanUse = c(),
@@ -126,28 +127,52 @@ risk.species<-data.frame(
 #  Allocation = c() 
 )
 
-risktab1<- condformat(risk.species) +
-  rule_fill_discrete(Fstatus, expression = sapply(Fstatus,color.picker2),colours=identity) +
-  rule_fill_discrete(Bstatus, expression = sapply(Bstatus,color.picker2),colours=identity) +
-  rule_fill_discrete(Assess, expression = sapply(Assess,color.picker2),colours=identity) +
-  rule_fill_discrete(FoodWeb1, expression = sapply(FoodWeb1,color.picker2),colours=identity) +
-  rule_fill_discrete(FoodWeb2, expression = sapply(FoodWeb2,color.picker2),colours=identity) +
-  rule_fill_discrete(EcoProd, expression = sapply(EcoProd,color.picker2),colours=identity) +
-  rule_fill_discrete(PopDiv, expression = sapply(PopDiv,color.picker2),colours=identity) +
-  rule_fill_discrete(EcoDiv, expression = sapply(EcoDiv,color.picker2),colours=identity) +
-  rule_fill_discrete(Climate, expression = sapply(Climate,color.picker2),colours=identity) +
-  rule_fill_discrete(DistShift, expression = sapply(DistShift,color.picker2),colours=identity) +
-  rule_fill_discrete(EstHabitat, expression = sapply(EstHabitat,color.picker2),colours=identity) #+
-#  rule_fill_discrete(OffHabitat, expression = sapply(OffHabitat,color.picker2),colours=identity) +
-#  rule_fill_discrete(FoodSafe, expression = sapply(FoodSafe,color.picker2),colours=identity) +
-#  rule_fill_discrete(MgtControl, expression = sapply(MgtControl,color.picker2),colours=identity) +
-#  rule_fill_discrete(TecInteract, expression = sapply(TecInteract,color.picker2),colours=identity) +
-#  rule_fill_discrete(OceanUse, expression = sapply(OceanUse,color.picker2),colours=identity) +
-#  rule_fill_discrete(RegComplex, expression = sapply(RegComplex,color.picker2),colours=identity) +
-#  rule_fill_discrete(Discards, expression = sapply(Discards,color.picker2),colours=identity) +
-#  rule_fill_discrete(Allocation, expression = sapply(Allocation,color.picker2),colours=identity) 
-  
-risktab1
+# these elements were removed by the council
+#  PopDiv = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na"),
+#  EcoDiv = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm"),
+#  FishRes2 = c(),
+#  FishRes3 = c(),
+#  FishRes5 = c(),
+#  FoodSafe = c(),
+
+# one column test
+# risk.species %>%
+#   mutate(Fstatus = 
+#     cell_spec(Fstatus, format="latex", color = "black", align = "c", background =factor(Fstatus, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))) %>%
+#   kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "")
+
+#generalize to all
+risk.species %>%
+  mutate_at(vars(-Species), function(x){ 
+    cell_spec(x, format="latex", color = "black", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "") %>%
+  kable_styling(latex_options = "scale_down")
+
+# 
+# risktab1<- condformat(risk.species) +
+#   rule_fill_discrete(Fstatus, expression = sapply(Fstatus,color.picker2),colours=identity) +
+#   rule_fill_discrete(Bstatus, expression = sapply(Bstatus,color.picker2),colours=identity) +
+#   rule_fill_discrete(Assess, expression = sapply(Assess,color.picker2),colours=identity) +
+#   rule_fill_discrete(FoodWeb1, expression = sapply(FoodWeb1,color.picker2),colours=identity) +
+#   rule_fill_discrete(FoodWeb2, expression = sapply(FoodWeb2,color.picker2),colours=identity) +
+#   rule_fill_discrete(EcoProd, expression = sapply(EcoProd,color.picker2),colours=identity) +
+#   rule_fill_discrete(Climate, expression = sapply(Climate,color.picker2),colours=identity) +
+#   rule_fill_discrete(DistShift, expression = sapply(DistShift,color.picker2),colours=identity) +
+#   rule_fill_discrete(EstHabitat, expression = sapply(EstHabitat,color.picker2),colours=identity) #+
+# #  rule_fill_discrete(OffHabitat, expression = sapply(OffHabitat,color.picker2),colours=identity) +
+# #  rule_fill_discrete(MgtControl, expression = sapply(MgtControl,color.picker2),colours=identity) +
+# #  rule_fill_discrete(TecInteract, expression = sapply(TecInteract,color.picker2),colours=identity) +
+# #  rule_fill_discrete(OceanUse, expression = sapply(OceanUse,color.picker2),colours=identity) +
+# #  rule_fill_discrete(RegComplex, expression = sapply(RegComplex,color.picker2),colours=identity) +
+# #  rule_fill_discrete(Discards, expression = sapply(Discards,color.picker2),colours=identity) +
+# #  rule_fill_discrete(Allocation, expression = sapply(Allocation,color.picker2),colours=identity) 
+# 
+# #  rule_fill_discrete(PopDiv, expression = sapply(PopDiv,color.picker2),colours=identity) +
+# #  rule_fill_discrete(EcoDiv, expression = sapply(EcoDiv,color.picker2),colours=identity) +
+# #  rule_fill_discrete(FoodSafe, expression = sapply(FoodSafe,color.picker2),colours=identity) +
+# 
+#   
+# risktab1
 
 ```
 
