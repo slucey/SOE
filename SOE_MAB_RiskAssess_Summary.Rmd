@@ -103,7 +103,7 @@ risk.species<-data.frame(
   Fstatus = c("l", "l", "h", "l", "l", "mh", "l", "lm", "lm", "l", "h", "l", "l", "lm"),
   Bstatus = c("l", "l", "lm", "l", "l", "mh", "l", "lm", "lm", "lm", "mh", "lm", "lm", "lm"),
   Assess  = c("l", "l", "l",  "l", "l", "h",  "l", "lm", "lm", "l", "h", "l", "lm", "h"),
-  FoodWeb1 = c("l", "l", "lm", "l", "l", "mh", "lm", "mh", "mh", "l", "l", "l", "l", "l"),
+  FoodWeb1 = c("l", "l", "lm", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l"),
   FoodWeb2 = c("l", "l", "l", "l", "l", "mh", "l", "mh", "mh", "l", "l", "l", "l", "l"),
   EcoProd = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm"),
   Climate = c("h", "mh", "lm", "lm", "mh", "lm", "l", "l", "l", "mh", "mh","l", "l", "l"),
