@@ -99,16 +99,16 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 # spplist     oc,  sc,  flk, scp, bsb, mack, but, lsq, ssq, gtile,  btile,  blu, dog, monk
 risk.species<-data.frame(
-  Species = c("Ocean Quahog", "Surfclam", "Summer flounder", "Scup", "Black sea bass", "Atl. mackerel", "Butterfish", "Longfin squid", "Shortfin squid", "Golden tilefish", "Blueline tilefish", "Bluefish", "Spiny dogfish", "Monkfish"),
-  Fstatus = c("l", "l", "h", "l", "l", "mh", "l", "lm", "lm", "l", "h", "l", "l", "lm"),
-  Bstatus = c("l", "l", "lm", "l", "l", "mh", "l", "lm", "lm", "lm", "mh", "lm", "lm", "lm"),
-  Assess  = c("l", "l", "l",  "l", "l", "h",  "l", "lm", "lm", "l", "h", "l", "lm", "h"),
-  FoodWeb1 = c("l", "l", "lm", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l"),
-  FoodWeb2 = c("l", "l", "l", "l", "l", "mh", "l", "mh", "mh", "l", "l", "l", "l", "l"),
-  EcoProd = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm"),
-  Climate = c("h", "mh", "lm", "lm", "mh", "lm", "l", "l", "l", "mh", "mh","l", "l", "l"),
-  DistShift = c("mh", "mh", "mh", "mh", "mh", "mh", "h", "mh", "h", "l", "l", "mh", "h", "mh"),
-  EstHabitat = c("l", "l", "h", "h", "h", "l", "l", "l", "l", "l", "l", "h", "l", "l")#,
+  Species = c("Ocean Quahog", "Surfclam", "Summer flounder", "Scup", "Black sea bass", "Atl. mackerel", "Butterfish", "Longfin squid", "Shortfin squid", "Golden tilefish", "Blueline tilefish", "Bluefish", "Spiny dogfish", "Monkfish", "Unmanaged forage", "Deepsea corals"),
+  Fstatus = c("l", "l", "h", "l", "l", "mh", "l", "lm", "lm", "l", "h", "l", "l", "lm", "na", "na"),
+  Bstatus = c("l", "l", "lm", "l", "l", "mh", "l", "lm", "lm", "lm", "mh", "lm", "lm", "lm", "na", "na"),
+  Assess  = c("l", "l", "l",  "l", "l", "h",  "l", "lm", "lm", "l", "h", "l", "lm", "h", "na", "na"),
+  FoodWeb1 = c("l", "l", "lm", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l", "lm", "l"),
+  FoodWeb2 = c("l", "l", "l", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l", "lm", "l"),
+  EcoProd = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm", "lm", "lm"),
+  Climate = c("h", "mh", "lm", "lm", "mh", "lm", "l", "l", "l", "mh", "mh","l", "l", "l", "na", "na"),
+  DistShift = c("mh", "mh", "mh", "mh", "mh", "mh", "h", "mh", "h", "l", "l", "mh", "h", "mh", "na", "na"),
+  EstHabitat = c("l", "l", "h", "h", "h", "l", "l", "l", "l", "l", "l", "h", "l", "l", "na", "na")#,
 #  OffHabitat = c(),
 #  CommProf = c(),
 #  RecVal = c(),
@@ -144,7 +144,7 @@ risk.species<-data.frame(
 #generalize to all
 risk.species %>%
   mutate_at(vars(-Species), function(x){ 
-    cell_spec(x, format="latex", color = "black", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
   kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "") %>%
   kable_styling(latex_options = "scale_down")
 
@@ -177,14 +177,41 @@ risk.species %>%
 ```
 
 
-
 ##Fleet level
-```{r}
+```{r, flttable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}}
+
+```
+
+
+##Species and Sector level
+```{r, spsectable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}}
+
+risk.sppsector<-data.frame(
+  Species = c("Ocean Quahog-C", "Surfclam-C", "Summer flounder-R", "Summer flounder-C","Scup-R", "Scup-C","Black sea bass-R", "Black sea bass-C","Atl. mackerel-R", "Atl. mackerel-C","Butterfish-C", "Longfin squid-C", "Shortfin squid-C", "Golden tilefish-R", "Golden tilefish-C","Blueline tilefish-R","Blueline tilefish-C", "Bluefish-R", "Bluefish-C","Spiny dogfish-R", "Spiny dogfish-C", "Unmanaged forage", "Deepsea corals"),
+  MgtControl = c(1,1,3,2,1,1,4,2,1,1,1,1,1,-9,1,1,1,2,1,1,1,-9,-9),
+  TecInteract = c(1,1,1,3,1,3,1,2,1,2,2,3,2,1,1,1,1,1,1,1,3,-9,-9),
+  OceanUse = c(2,2,2,2,2,2,3,4,1,3,3,4,2,1,1,1,1,1,2,1,3,-9,3),
+  RegComplex = c(1,1,4,3,3,3,4,3,1,4,4,4,2,1,1,1,1,1,2,1,3,-9,-9),
+  Discards = c(1,1,4,2,3,3,3,2,1,2,3,4,1,1,1,1,1,3,2,1,2,-9,2),
+  Allocation = c(1,1,4,4,1,1,4,4,2,2,1,1,1,-9,1,1,1,3,3,1,2,-9,-9) 
+)
+
+#convert to text for consistency
+risk.sppsector %>%
+     mutate_all(replace(., c(1,2,3,4,-9), c("na", "l", "lm", "mh", "h"))) %>%
+     as.data.frame()
+
+#make table
+risk.sppsector %>%
+  mutate_at(vars(-Species), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "") %>%
+  kable_styling(latex_options = "scale_down")
 
 ```
 
 
 ##Ecosystem level
-```{r}
+```{r, ecotable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 
 ```
