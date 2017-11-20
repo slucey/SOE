@@ -175,9 +175,9 @@ The purpose of this report is to document the use of ecosystem indicators within
 
 A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements may move up or down in priority as conditions change or new information becomes available. Thus, it is important to note that EAFM Risk Assessment will be a dynamic and evolving process that will need to be revisited and updated in future years.
 
-The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). An overview of the risk elements with definitions and associated indicators as discussed by the Council’s Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below. In sections below, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. 
+The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented below. In the following sections, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. 
 
-*These elements and definitions are currently in draft form, pending EOP Committee review. The primary goal of presenting this information is to clearly define and reach agreement about risks of concern to the Council. All risk rankings and indicators shown are examples intended for illustration and discussion to be tailored to meet Council needs. This is not a final risk assessment.*
+*These risk definitions are currently in draft form, pending EOP Committee review. The primary goal of presenting this information is to clearly define and reach agreement about risks of concern to the Council. All risk rankings and indicators shown are examples intended for illustration and discussion to be tailored to meet Council needs. This is not a final risk assessment.*
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -198,8 +198,8 @@ tabl <- "
 | *Economic* |  |
 | Commercial Profits   | Risk of not maximizing fishery value             | Revenue by fleet |
 | Recreational Value   | Risk of not maximizing fishery value             | Revenue by fleet, Numbers of anglers and trips in aggregate |    
-| Fishery Resilience (1)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
-| Fishery Resilience (4)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
+| Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
+| Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
 | Commercial Employment   | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | Recreational Employment | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | *Social* |  |
@@ -255,7 +255,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Current assessment results for all MAFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for surfclams, ocean quahogs, scup, black sea bass, and butterfish. Bluefish, golden tilefish, and spiny dogfish F status is in the low risk category, and B risk is in the low-moderate risk category. Summer flounder F status is in the high risk category and B status is in the low-moderate risk category. F and B status for northern and southern goosefish stocks were formerly in the low risk categories, but a recent assessment update was unable to determine status, so we provisionally rank them low-moderate risk (unknown but weight of evidence supports lower risk). Longfin squid B is above the established B threshold, and both squid stocks have unknown F status, but F is difficult to estimate because it is very low relative to natural mortality, so they are also ranked low-moderate risk. Blueline tilefish are high risk for F status and have unknown B status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for B status. Finally, Atlantic mackerel has moderate-high risk for both F and B status due both to failed assessment/unknown status and indications from recent analyses. Atlantic mackerel status will be updated after SAW/SARC review of the new benchmark assessment in late November.
+Current assessment results for all MAFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for surfclams, ocean quahogs, scup, black sea bass, and butterfish. Bluefish, golden tilefish, and spiny dogfish F status is in the low risk category, and B risk is in the low-moderate risk category. Summer flounder F status is in the high risk category and B status is in the low-moderate risk category. F and B status for northern and southern goosefish stocks were formerly in the low risk categories, but a recent assessment update was unable to determine status, so we provisionally rank them low-moderate risk (unknown but weight of evidence supports lower risk). Longfin squid B is above the established B threshold, and both squid stocks have unknown F status, but F is difficult to estimate because it is very low relative to natural mortality, so they are also ranked low-moderate risk. Blueline tilefish are high risk for F status and have unknown B status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for B status. Finally, Atlantic mackerel has moderate-high risk for both F and B status due both to failed assessment/unknown status and indications from recent analyses. *Atlantic mackerel status will be updated after SAW/SARC review of the new benchmark assessment in late November.*
 
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -352,7 +352,6 @@ plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 #if(saveplots) dev.off()
 
 ```
-```
 
 ##Assessment Type
 This element is applied at the species level. The above elements describe risks according to our best understanding of stock status, but assessment methods and data quality vary. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations. 
@@ -361,15 +360,15 @@ This element is applied at the species level. The above elements describe risks 
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | Age or size-structured assessment model(s) passed peer review, high data quality |
-| Low-Moderate | Swept area or index based assessment, reference points may be lacking |
+| Low  | Assessment model(s) passed peer review, high data quality |
+| Low-Moderate | Assessment passed peer review but some key data and/or reference points may be lacking |
 | Moderate-High | *This category not used* |
 | High | Assessment failed peer review or no assessment, data-limited tools applied |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Stocks with low risk due to assessment type include ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because is assessed with the data limited methods (DLM) toolbox. At the time of this writing, Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment is currently undergoing peer review which may change this ranking in late November.
+Stocks with low risk due to assessment type include ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because is assessed with the data limited methods (DLM) toolbox. *At the time of this writing, Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment is currently undergoing peer review which may change this ranking in late November.*
 
 ##Food Web (1)
 This element is applied at the species level. This element ranks the risks of not achieving OY due to species interactions between MAFMC managed species. To rank these risks, the "importance" of each species as predator and or prey must be assessed. There are not clear standardized threshold to define this. Diet information and a food web model were used to develop thresholds: an "important" predator of MAFMC managed species could be defined as causing >20% of individual species mortality. If individual mortality estimates are not available (current food web models are not defined at the species level) then an important predator of MAFMC managed species can be defined as having >30% in aggregate of MAFMC managed species in the diet by weight. An important prey of MAFMC managed species is defined here as individually comprising >30% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual MAFMC managed species. 
@@ -386,7 +385,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This information is gathered from the NEFSC food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008].  Surfclams and ocean quahogs are not predators or prey of other MAFMC managed species, so they rank low risk for this element. Similarly, scup, black sea bass, and golden and blueline tilefish eat primarily benthic invertebrates, and do not show up individually as >10% of prey by weight in any MAFMC managed species diets, so they rank low risk. Summer flounder are potentially important predators of other MAFMC managed species, including longfin and other squid, Atlantic mackerel, scup, and butterfish (not resolved in food web; combined diet >30%), but are not important prey, ranking low-moderate risk. While some MAFMC managed species are prey of other managed species, none meet the defined risk threshold. Atlantic mackerel is a prey of spiny dogfish (~10% of diet with high interannual variability). Butterfish is a prey of bluefish (~12% of diet), but the reference point applied to butterfish considers it's role as a forage fish in general. Cephalopods as a group are important prey of summer flounder (~33% of diet), with approximately half of this attributed to "Loligo species" in the diet data, very little to Illex species, and the rest as squid unidentified. Similarly, Cephalopods as a group are important prey of shortfin squid (>30% of diet), but how much of this is longfin squid is unknown, and some is cannibalism. Therefore, we rank both squid species as low-moderate risk for managed species interactions until specific interactions can be clarified. Unmanaged forage (e.g. anchovies, sandlance) are important prey of bluefish, but MAFMC measures restict fishery development on these species so they rank low-moderate risk under this element. Spiny dogfish, bluefish, and monkfish are predators of MAFMC managed species, but do not meet the threshold of >30% of combined diet. Dogfish have ~20% of total diet from squids and mackerel, bluefish have ~25% of diet from butterfish, squids, bluefish, mackerel, and scup, and monkfish have ~20% of diet from squids, mackerel, summer flounder, scup, and monkfish. Therefore, these three predators rank low risk for food web interactions with other MAFMC managed species. 
+This information is gathered from the NEFSC food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008].  Surfclams and ocean quahogs are not predators or prey of other MAFMC managed species, so they rank low risk for this element. Similarly, scup, black sea bass, and golden and blueline tilefish eat primarily benthic invertebrates, and do not show up individually as >10% of prey by weight in any MAFMC managed species diets, so they rank low risk. Summer flounder are potentially important predators of other MAFMC managed species, including longfin and other squid, Atlantic mackerel, scup, and butterfish (not resolved in food web; combined diet >30%), but are not important prey, ranking low-moderate risk. While some MAFMC managed species are prey of other managed species, none meet the defined risk threshold. Atlantic mackerel is a prey of spiny dogfish (~10% of diet with high interannual variability). Butterfish is a prey of bluefish, but is below the threshold (~12% of diet), and the reference point applied to butterfish considers it's role as a forage fish in general. Cephalopods as a group are important prey of summer flounder (~33% of diet), with approximately half of this attributed to "Loligo species" in the diet data, very little to Illex species, and the rest as squid unidentified. Similarly, Cephalopods as a group are important prey of shortfin squid (>30% of diet), but how much of this is longfin squid is unknown, and some is cannibalism. There are many species of squid in the region; therefore, MAFMC managed individual squid species in the diet may be below the threshold. We rank both squid species as low-moderate risk for managed species interactions until specific interactions can be clarified. Unmanaged forage (e.g. anchovies, sandlance) are important prey of bluefish, but MAFMC measures restict fishery development on these species so they rank low-moderate risk under this element. Spiny dogfish, bluefish, and monkfish are predators of MAFMC managed species, but do not meet the threshold of >30% of combined diet. Dogfish have ~20% of total diet from squids and mackerel, bluefish have ~25% of diet from butterfish, squids, bluefish, mackerel, and scup, and monkfish have ~20% of diet from squids, mackerel, summer flounder, scup, and monkfish. Therefore, these three predators rank low risk for food web interactions with other MAFMC managed species. 
 
 ##Food Web (2)
 This element is applied at the species level. This element ranks the risks of not achieving protected species objectives due to species interactions with MAFMC managed species. As above, a food web model and updated marine mammal diet information can be used to establish thresholds of "importance" for predators and prey. An "important" predator of protected species could be defined as causing >20% of individual species mortality. If individual mortality estimates are not available (current food web models are not defined at the species level) then an important predator of protected species can be defined as having >30% in aggregate of protected species in the diet by weight. An important prey of protected species is defined here as individually comprising >30% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual protected species. 
@@ -405,7 +404,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgeon, all sea turtle species, and 5 baleen whales. MAFMC managed species are not important predators of protected species [@smith_trophic_2010], even though monkfish occasionally ingest seabirds [@perry_predation_2013]. Atlantic salmon, both species of sturgeon, and sea turtles are not major predators of MAFMC managed species, as reviewed in the MAFMC Forage Fish white paper [@savoy_prey_2007; @johnson_food_1997; @burke_diet_1993; @burke_diet_1994; @mcclellan_complexity_2007; @seney_historical_2007; @shoop_seasonal_1992]. Information sources for marine mammal diets in the Northeast US [@smith_consumption_2015], and seabird diets [@powers_pelagic_1983; @powers_energy_1987; @powers_seabirds_1987; @schneider_state_1996; @barrett_diet_2007; @bowser_puffins_2013] were reviewed. 
 
-Diet information for protected species tends to be more uncertain than for fished species, so we consider diet at the family level for these rankings because diet compositions are not reported to the species level. Longfin squids are estimated to comprise >30% of pilot whale diet in the Northeast US [@smith_consumption_2015; @gannon_stomach_1997], therefore we rank this species low-moderate risk for this element. Shortfin squid were identified as important prey for two pelagic seabirds in the Northeast US [@powers_energy_1987], and therefore ranked low-moderate risk. Unmanaged forage fish such as sand lance and saury were identified as important prey for >3 seabird species in the Northeast US [@powers_energy_1987], as well as grey seals [@smith_consumption_2015]. MAFMC has enacted measures to restrict fishing on these species, such that they rank low-moderate risk for this element. Other MAFMC managed species do not meet the threshold of important prey of protected species based on available information, so they rank low risk for this element.
+Diet information for protected species tends to be more uncertain than for fished species, so we consider diet at the family level for these rankings because diet compositions are not reported to the species level. Longfin squids are estimated to comprise >30% of diet for one protectes species, pilot whale, in the Northeast US [@smith_consumption_2015; @gannon_stomach_1997], therefore we rank this species low-moderate risk for this element. Shortfin squid were identified as important prey for two pelagic seabirds in the Northeast US [@powers_energy_1987], and therefore ranked low-moderate risk. Unmanaged forage fish such as sand lance and saury were identified as important prey for >3 seabird species in the Northeast US [@powers_energy_1987], as well as grey seals [@smith_consumption_2015]. MAFMC has enacted measures to restrict fishing on these species, such that they rank low-moderate risk for this element. Other MAFMC managed species do not meet the threshold of important prey of protected species based on available information, so they rank low risk for this element.
 
 ##Ecosystem Productivity
 This element is applied at the ecosystem level, and therefore poses the same risk to each species. This element ranks the risk of not achieving OY due to changes in ecosystem productivity at the base of the food web. Four indicators are used together to assess risk of changing ecosystem productivity. We examine trends in total primary production, zooplankton abundance for a key Mid-Atlantic species, and two aggregate fish productivity measures: condition factor (weight divided by length of individual fish) and a survey based "recruitment" (small fish to large fish) index. Because many MAFMC managed species rely on benthic crustaceans as forage, a benthic production indicator is also desirable, *but not yet available.*
@@ -571,7 +570,7 @@ knitr::include_graphics(file.path(image.dir, 'NEVAshiftmid.png'))
 ```
 
 ###Historical vs. Current Distribution Maps
-Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. *could include all recent maps based on Spring 2017 here*
+Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. 
 
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
@@ -588,7 +587,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
 ###Changes in Along Shelf Position
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from shortfin squid.  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from shortfin squid (an offshore species incompletely sampled by the coastal NEFSC trawl survey).  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 ```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
@@ -635,13 +634,13 @@ soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.t
 
 
 ##Estuarine and Coastal Habitat
-This element is applied at the species level. Risk of not achieving OY due to threats to estuarine and coastal habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Water and habitat quality assessments produced for Chesapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered in the future.
+This element is applied at the species level. Risk of not achieving OY due to threats to estuarine and nearshore coastal habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Here, we include estuarine and nearshore coastal habitat in the term "estuarine" below. Water and habitat quality assessments produced for Chesapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered in the future.
 
 ```{r riskesthab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | Not dependent on estuarine habitat |
+| Low  | Not dependent on nearshore coastal or estuarine habitat |
 | Low-Moderate | Estuarine dependent, estuarine condition stable |
 | Moderate-High | Estuarine dependent, estuarine condition fair |
 | High | Estuarine dependent, estuarine condition poor |
@@ -649,7 +648,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and coastal condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine dependent species (summer flounder, scup, black sea bass, and bluefish, [@able_re-examination_2005]) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to minimal estuarine dependence. 
+As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and coastal condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine and nearshore coastal habitat dependent species (summer flounder, scup, black sea bass, and bluefish, [@able_re-examination_2005]) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to lower dependence on this habitat type. 
 
 ##Offshore Habitat
 This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from experimental species-specific habitat modeling. *In addition, the number of threats from other human uses can be enumerated, but this has yet to be included.*
@@ -736,7 +735,7 @@ soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.tex
 #Economic Elements
 
 ##Commercial Profits
-This element is applied at the ecosystem level. This element addresses the risk of not maximizing fishery value. *fleet level could be calculated*
+This element is applied at the ecosystem level. This element addresses the risk of not maximizing fishery value. 
 
 ```{r riskcomval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -750,7 +749,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This is commercial revenue, aggregated for MAFMC managed species. There is a long term increase in revenue, but a recent significant decrease in revenue, indicating high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
+This is aggregate commercial revenue for MAFMC managed species. There is a long term increase in revenue, but a recent significant decrease in revenue, indicating high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
 
 ```{r ComProfAgg, fig.cap="Aggregate Mid-Atlantic managed species revenue  \\label{comprofagg}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
@@ -774,7 +773,7 @@ tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trends in revenue or angler days/trips |
-| Low-Moderate | Significant long term decrease in revenue or angler days/trips |
+| Low-Moderate | Increasing or high variability in revenue or angler days/trips |
 | Moderate-High | Significant long term decreases in revenue and angler days/trips |
 | High | Significant recent decreases in revenue and angler days/trips |
 "
@@ -797,7 +796,7 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 
 These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value for the species subject to recreational fisheries (summer flounder, scup, black sea bass, bluefish). However, this is a national trend likely due to shifting demographics and general economic dynamics, rather than an issue that can be managed at the MAFMC [@national_marine_fisheries_service_fisheries_2017].
 
-##Fishery Resilience (1)
+##Fishery Resilience (Revenue Diversity)
 This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue. 
 
 ```{r riskfrel1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -805,8 +804,8 @@ tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend in diversity measure |
-| Low-Moderate | Significant long term trend (either direction) in diversity measure |
-| Moderate-High | Significant recent increasing trend in diversity measure |
+| Low-Moderate | Increasing or high variability in diversity measure |
+| Moderate-High | Significant long term downward trend in diversity measure
 | High | Significant recent downward trend in diversity measure |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
@@ -821,7 +820,7 @@ soe.plot(SOE.data, 'Time', 'Mid-Atlantic commercial species diversity',
 
 ```
 
-Because this index show a significant long term decrease, there is low-moderate risk to fishery business resilience based on diversity in species revenue. 
+Because this index show a significant long term decrease, there is moderate-high risk to fishery business resilience based on diversity in species revenue. 
 
 <!--
 ##Fishery Resilience (2)
@@ -859,7 +858,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 There is no current indicator available for this risk element. Ranking based on expert opinion should be explored.
 -->
 
-##Fishery Resilience (4)
+##Fishery Resilience (Shoreside Support)
 This element is applied at the ecosystem level. This element ranks the risk of reduced fishery business resilience due to shoreside support infrastructure by examining the number of shoreside support businesses. 
 
 ```{r riskfrel4, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -905,7 +904,7 @@ soe.plot(allent, 'Time', 'Mid-Atlantic Nonemployer Entities', rel.y.num = 0.8, x
 
 ```
 
-The number of shoreside support companies that include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states shows a long term decrease. However, the number of non-employer entities which include seafood preparation and packaging and seafood markets shows both a long term and short term increase. 
+The number of shoreside support companies that include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states shows a long term decrease, which on its own would represent moderate-high risk to fishery resilience. However, the number of non-employer entities which include seafood preparation and packaging and seafood markets shows both a long term and short term increase. Trends in other shoreside fishery supporting businesses such as gear manufacturers and welding companies are not included here due to aggregation of the statistics. Therefore, until further information is available, we rate this low-moderate risk due to the conflicting trends of declining companies and increasing non-employer entities. 
 
 <!--
 ##Fishery Resilience (5)
@@ -990,24 +989,24 @@ Based on this state-level information, most states show no trend in recreational
 #Social Elements
 
 ##Social-Cultural
-This element is applied at the ecosystem level. This element ranks the risk to maintaining human coastal community resilience and equity in access to fishery resources. Two indicators of commercial fleet diversity, including the number of distinct fleets and diversity of revenue across fleets are used in combination with indicators of social vulnerability to evaluate current community resilience throughout the Mid-Atlantic region. 
+This element is applied at the fleet and ecosystem level. This element ranks the risk to maintaining human coastal community resilience and equity in access to fishery resources. Two indicators of commercial fleet diversity, including the number of distinct fleets and diversity of revenue across fleets are used in combination with indicators of social vulnerability to evaluate current community resilience throughout the Mid-Atlantic region. 
 
 ```{r risksoc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No trend in diversity indices, few vulnerable communities |
-| Low-Moderate | Increasing or high variability in community indices |
-| Moderate-High | Significant long term trend in community indices |
-| High | Significant recent trend in community indices |
+| Low  | No trend in diversity indices, few vulnerable fleets/communities |
+| Low-Moderate | Increasing or high variability in fleet/community indices |
+| Moderate-High | Significant long term trend in fleet/community indices |
+| High | Significant recent trend in fleet/community indices |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-###Fleet Diveristy
+###Fleet Diversity
 Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Below are diversity estimates for fleets landing MAFMC-managed species. This measure identifies the diversity in revenue generated by different fleet segments. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). 
 
-A declining trend in diversity indicates a less diverse fleet is currently active in MAFMC-managed fisheries. However, it cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem. 
+A declining trend in diversity indicates a less diverse fleet is currently active in MAFMC-managed fisheries. However, it cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem, rather merely that the fleet composition is changing, which might warrant additional scrutiny. 
 
 ```{r Fleet Diversity, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -1271,7 +1270,7 @@ soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'Harvest.per.Angler', rel.y.num = 0
 soe.stacked.axis('Year', 'N Recreationally Harvested Fish',rel.y.text = 1)
 ```
 
-This significant long term decrease in both recreational landings and recreational landings per angler represents a moderate-high risk to personal food security.
+This significant long term decrease in both recreational landings and recreational landings per angler represents a moderate-high risk to personal food production.
 
 <!--
 ##Seafood Safety
