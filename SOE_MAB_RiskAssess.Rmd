@@ -665,10 +665,10 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Random forest habitat models using both static and dynamics variables have been developed for many of the resource species on the Northeast Shelf. These models estimate spring and fall habitat for the time series 1992 to 2016 reflecting the use of the ecosystem based on the NEFSC bottom trawl survey. The variables evaluated for use in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. The random forest approach differentiates variables with strong predictive power and was used to reduce the variable set to 11 variables for each species. The models were used to estimate spring and fall habitat scores over the entire shelf over the time series.
+Random forest habitat models using both static and dynamics variables have been developed for many of the resource species on the Northeast Shelf. These models estimate spring and fall habitat for the time series 1992 to 2016 reflecting the use of the ecosystem based on the NEFSC bottom trawl survey. The variables evaluated for use in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. The random forest approach differentiates variables with strong predictive power and was used to reduce the variable set to 11 variables for each species. The models were used to estimate fall habitat scores over the entire shelf over the time series.
 
-<!--Spring and fall habitat trends for Northeast Shelf species over the time period 1992 to 2016 were evaluated using the number square km in a single habitat interval from habitat modeling.  Fall indices for MAFMC species are below, with spring on the following page. *mapping linear model slope estimates for grid locations constrained to the segment of the shelf used by each species. These segments were estimated as a 99% kernel density shapes based on occurrence of each species during the study period.*--> 
-<!--
+<!--Spring and fall habitat trends for Northeast Shelf species over the time period 1992 to 2016 were evaluated using the number square km in a single habitat interval from habitat modeling.  Fall indices for MAFMC species are below, with spring on the following page. *mapping linear model slope estimates for grid locations constrained to the segment of the shelf used by each species. These segments were estimated as a 99% kernel density shapes based on occurrence of each species during the study period.* -->
+
 ```{r, fig.cap="Shifts in modeled species fall habitat area over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid, H: Dogfish, I: Goosefish  \\label{shifts}", fig.height=9, echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
 #out.width='\\linewidth'
@@ -676,30 +676,30 @@ Random forest habitat models using both static and dynamics variables have been 
 #SOE.data[Var %like% "ASDIST"]
 opar <- par(mfrow = c(9, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-soe.plot(SOE.data, 'Time', 'BLACK SEA BASS Habitat Index Fall',    stacked = 'A', scale.axis = 100, 
+soe.plot(SOE.data, 'Time', 'BLACK SEA BASS Max Habitat Index Fall',    stacked = 'A', scale.axis = 100, 
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER Habitat Index Fall',   stacked = 'B', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER Max Habitat Index Fall',   stacked = 'B', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SCUP Habitat Index Fall',              stacked = 'C', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'SCUP Max Habitat Index Fall',              stacked = 'C', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'BUTTERFISH Habitat Index Fall',        stacked = 'D', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'BUTTERFISH Max Habitat Index Fall',        stacked = 'D', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL Habitat Index Fall', stacked = 'E', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL Max Habitat Index Fall', stacked = 'E', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'LONGFIN SQUID Habitat Index Fall',     stacked = 'F', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'LONGFIN SQUID Max Habitat Index Fall',     stacked = 'F', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID Habitat Index Fall', stacked = 'G', 
+soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID Max Habitat Index Fall', stacked = 'G', 
          scale.axis = 100, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SPINY DOGFISH Habitat Index Fall', stacked = 'H', 
+soe.plot(SOE.data, 'Time', 'SPINY DOGFISH Max Habitat Index Fall', stacked = 'H', 
          scale.axis = 100, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'GOOSEFISH Habitat Index Fall', stacked = 'I', 
+soe.plot(SOE.data, 'Time', 'GOOSEFISH Max Habitat Index Fall', stacked = 'I', 
          scale.axis = 100, rel.y.num = 0.9)
 
 soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.text = 1.5)
 
 ```
 
-
+<!--
 ```{r, fig.cap="Shifts in modeled species spring habitat area over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid, H: Dogfish, I: Goosefish  \\label{shifts}", fig.height=9, echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
 #out.width='\\linewidth'
@@ -707,30 +707,31 @@ soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.tex
 #SOE.data[Var %like% "ASDIST"]
 opar <- par(mfrow = c(9, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-soe.plot(SOE.data, 'Time', 'BLACK SEA BASS Habitat Index Spring',    stacked = 'A', scale.axis = 100, 
+soe.plot(SOE.data, 'Time', 'BLACK SEA BASS Max Habitat Index Spring',    stacked = 'A', scale.axis = 100, 
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER Habitat Index Spring',   stacked = 'B', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER Max Habitat Index Spring',   stacked = 'B', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SCUP Habitat Index Spring',              stacked = 'C', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'SCUP Max Habitat Index Spring',              stacked = 'C', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'BUTTERFISH Habitat Index Spring',        stacked = 'D', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'BUTTERFISH Max Habitat Index Spring',        stacked = 'D', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL Habitat Index Spring', stacked = 'E', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL Max Habitat Index Spring', stacked = 'E', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'LONGFIN SQUID Habitat Index Spring',     stacked = 'F', scale.axis = 100,
+soe.plot(SOE.data, 'Time', 'LONGFIN SQUID Max Habitat Index Spring',     stacked = 'F', scale.axis = 100,
          rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID Habitat Index Spring', stacked = 'G', 
+soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID Max Habitat Index Spring', stacked = 'G', 
          scale.axis = 100, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SPINY DOGFISH Habitat Index Spring', stacked = 'H', 
+soe.plot(SOE.data, 'Time', 'SPINY DOGFISH Max Habitat Index Spring', stacked = 'H', 
          scale.axis = 100, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'GOOSEFISH Habitat Index Spring', stacked = 'I', 
+soe.plot(SOE.data, 'Time', 'GOOSEFISH Max Habitat Index Spring', stacked = 'I', 
          scale.axis = 100, rel.y.num = 0.9)
 
 soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.text = 1.5)
 
 ```
 -->
-*This experimental habitat index is still being studied and improved, so no habitat risk rankings will be based on it at this time. This research is ongoing such tnat rankings may be possible in the near future.* 
+
+This experimental habitat index is still being studied and improved, so  habitat risk rankings based on this can be considered preliminary. Overall, black sea bass, summer flounder, scup, and spiny dogfish have long term increasing trends in offshore habitat, and Atlantic mackerel and longfin squid have short term increasing trends. Therefore, these species rank low risk for this element. However, butterfish, shortfin squid, and goosefish have long term decreasing trends in offshore habitat, and shortfin squid have a short term decreasing trend as well. Therefore, thse species rank moderate-high risk (buttefrish, goosefish) and high risk (shortfin squid) for this element. Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by the bottom trawl survey and were not included in this analysis, similar to unmanaged forage and deepsea corals. 
 
 #Economic Elements
 
@@ -813,14 +814,37 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 This diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
  
-```{r, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=2.5}
-opar <- par(mar = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Mid-Atlantic commercial species diversity', 
-         rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
+```{r, fig.cap="Diversity in species revenue: A: all species, B: scallops and clams excluded \\label{fleetsppdiv}", echo = F, fig.height=3.5}
+
+# opar <- par(mar = c(4, 6, 2, 6))
+# soe.plot(SOE.data, 'Time', 'Mid-Atlantic commercial species diversity', 
+#          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
+# 
+# using new diversity data calcualted with 2017 and separating scallops/clams
+load(file.path(data.dir, 'altfleetdiv_data.RData'))
+altfleetdiv.data <- altfleetdiv.data[altfleetdiv.data$Time < 2017,]
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', x.end = 2016,
+          rel.y.num = 0.8, stacked = 'A')
+soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', x.end = 2016,
+          rel.y.num = 0.8, stacked = 'B')
+
+soe.stacked.axis('Year', expression('Shannon index'),
+                 rel.y.text = .8)
+
+# opar <- par(mar = c(4, 6, 2, 6))
+# soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', 
+#          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
+# 
+# opar <- par(mar = c(4, 6, 2, 6))
+# soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', 
+#          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
+
 
 ```
 
-Because this index show a significant long term decrease, there is moderate-high risk to fishery business resilience based on diversity in species revenue. 
+This index shows a significant long term decrease when all species are included in revenue, which would suggest a moderate-high risk to fishery business resilience based on diversity in species revenue. When scallops and clams are removed from species-based revenue, there is no long term trend, suggesting low risk to fishery business resilience. 
 
 <!--
 ##Fishery Resilience (2)
@@ -1009,9 +1033,27 @@ Maintaining diversity can provide the capacity to adapt to change at the ecosyst
 A declining trend in diversity indicates a less diverse fleet is currently active in MAFMC-managed fisheries. However, it cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem, rather merely that the fleet composition is changing, which might warrant additional scrutiny. 
 
 ```{r Fleet Diversity, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
+
+load(file.path(data.dir, 'altfleetdiv_data.RData'))
+altfleetdiv.data <- altfleetdiv.data[altfleetdiv.data$Time < 2017,]
+
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Mid-Atlantic fleet count', rel.y.num = 0.8, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y.num = 0.8, stacked = 'B')
+soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic fleet count', rel.y.num = 0.8, stacked = 'A')
+soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y.num = 0.8, stacked = 'B')
+
+soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
+```
+
+At the request of the EOP and advisors, the diversity metrics were also calculated giving less weight to the scallop and clam fleets. However, the overall trends are very similar. 
+
+```{r Fleet Diversity collapsing the scallop and clam fleets, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
+
+load(file.path(data.dir, 'altfleetdiv_data.RData'))
+altfleetdiv.data <- altfleetdiv.data[altfleetdiv.data$Time < 2017,]
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic fleet count scallop clam collapsed', rel.y.num = 0.8, stacked = 'A')
+soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity scallop clam collapsed', rel.y.num = 0.8, stacked = 'B')
 
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
@@ -1228,7 +1270,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This is commercial seafood landings from MAFMC managed species. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
+This is commercial seafood landings from MAFMC managed species. Because this is total landings, years prior to 1977 do include foreign landings (in particular, of Atlantic mackerel, which account for much of the observed spike). Recent landings are all domestic fisheries. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
 
 ```{r ComFoodAgg, fig.cap="Aggregate Mid-Atlantic managed species landings  \\label{comfoodagg}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))

@@ -33,7 +33,7 @@ The purpose of this report is to document the use of ecosystem indicators within
 
 A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements may move up or down in priority as conditions change or new information becomes available. Thus, it is important to note that EAFM Risk Assessment will be a dynamic and evolving process that will need to be revisited and updated in future years.
 
-The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). An overview of the risk elements with definitions and associated indicators as selected by the Council’s Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below, followed by a summary of risk rankings. A full description of the assessment and indicators is in an accompanying document. 
+The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented below, followed by a summary of risk rankings. A full description of the assessment and indicators is in an accompanying document. 
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -108,7 +108,7 @@ risk.species<-data.frame(
   Climate = c("h", "mh", "lm", "lm", "mh", "lm", "l", "l", "l", "mh", "mh","l", "l", "l", "na", "na"),
   DistShift = c("mh", "mh", "mh", "mh", "mh", "mh", "h", "mh", "h", "l", "l", "mh", "h", "mh", "na", "na"),
   EstHabitat = c("l", "l", "h", "h", "h", "l", "l", "l", "l", "l", "l", "h", "l", "l", "na", "na"),
-  OffHabitat = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na")#,
+  OffHabitat = c("na", "na", "l", "l", "l", "l", "mh", "l", "h", "na", "na", "na", "l", "mh", "na", "na")#,
 #  CommProf = c(),
 #  RecVal = c(),
 #  FishRes1 = c(),
@@ -175,12 +175,12 @@ risk.species %>%
 
 ```
 
-
+<!--
 ##Fleet level
 ```{r, flttable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 
 ```
-
+-->
 
 ##Species and Sector level
 ```{r, spsectable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -210,6 +210,7 @@ risk.sppsector %>%
 
 ```
 
+<!--
 ##State level
 ```{r, sttable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 
@@ -227,7 +228,7 @@ risk.state %>%
   #kable_styling(latex_options = "scale_down")
 
 ```
-
+-->
 
 ##Ecosystem level
 ```{r, ecotable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -239,6 +240,9 @@ risk.eco<-data.frame(
   RecVal = c("h"),
   FishRes1 = c("mh"),
   FishRes4 = c("lm"),
+  CommJobs = c("h"),
+  RecJobs = c("l"),
+  FleetDiv = c("mh"),
   Social = c("na"),
   ComFood = c("h"),
   RecFood = c("mh")
@@ -248,7 +252,7 @@ risk.eco<-data.frame(
 risk.eco %>%
   mutate_at(vars(-System), function(x){ 
     cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
-  kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = "") #%>%
-  #kable_styling(latex_options = "scale_down")
+  kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = "") %>%
+  kable_styling(latex_options = "scale_down")
 
 ```
