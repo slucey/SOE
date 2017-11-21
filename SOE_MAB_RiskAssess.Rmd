@@ -173,11 +173,11 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 #Introduction
 The purpose of this report is to document the use of ecosystem indicators within the Mid-Atlantic Council’s Ecosystem Approach to Fisheries Management (EAFM) initial risk assessment.
 
-A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements may move up or down in priority as conditions change or new information becomes available. Thus, it is important to note that EAFM Risk Assessment will be a dynamic and evolving process that will need to be revisited and updated in future years.
+A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements or risk rankings may change as conditions change or new information becomes available. Thus, the EAFM Risk Assessment will be a dynamic and evolving process that will be revisited and updated in future years.
 
-The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented below. In the following sections, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. 
+The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented below. In the following sections, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. 
 
-*These risk definitions are currently in draft form, pending EOP Committee review. The primary goal of presenting this information is to clearly define and reach agreement about risks of concern to the Council. All risk rankings and indicators shown are examples intended for illustration and discussion to be tailored to meet Council needs. This is not a final risk assessment.*
+*These risk definitions are currently in draft form, pending EOP Committee review. The primary goal of presenting this information is to clearly define and reach agreement about risks of concern to the Council. All risk rankings shown are examples intended for illustration and discussion to be tailored to meet Council needs. This is not a final risk assessment.*
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -197,12 +197,13 @@ tabl <- "
 | Offshore habitat     | Risk of not achieving OY due to threats to offshore habitat   | Integrated habitat model index |
 | *Economic* |  |
 | Commercial Profits   | Risk of not maximizing fishery value             | Revenue by fleet |
-| Recreational Value   | Risk of not maximizing fishery value             | Revenue by fleet, Numbers of anglers and trips in aggregate |    
+| Recreational Value   | Risk of not maximizing fishery value             | Numbers of anglers and trips in aggregate |    
 | Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
 | Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
 | Commercial Employment   | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | Recreational Employment | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | *Social* |  |
+| Fleet Resilience      | Risk of reduced fishery resilience | Number of fleets, fleet diversity |
 | Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
 | *Food Production* |  |
 | Commercial     | Risk of not optimizing seafood production             | Seafood landings in aggregate |
@@ -368,10 +369,10 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Stocks with low risk due to assessment type include ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because is assessed with the data limited methods (DLM) toolbox. *At the time of this writing, Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment is currently undergoing peer review which may change this ranking in late November.*
+Stocks with low risk due to assessment type include ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because it is assessed with the data limited methods (DLM) toolbox. *At the time of this writing, Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment is currently undergoing peer review which may change this ranking in late November.*
 
 ##Food Web (1)
-This element is applied at the species level. This element ranks the risks of not achieving OY due to species interactions between MAFMC managed species. To rank these risks, the "importance" of each species as predator and or prey must be assessed. There are not clear standardized threshold to define this. Diet information and a food web model were used to develop thresholds: an "important" predator of MAFMC managed species could be defined as causing >20% of individual species mortality. If individual mortality estimates are not available (current food web models are not defined at the species level) then an important predator of MAFMC managed species can be defined as having >30% in aggregate of MAFMC managed species in the diet by weight. An important prey of MAFMC managed species is defined here as individually comprising >30% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual MAFMC managed species. 
+This element is applied at the species level. This element ranks the risks of not achieving OY due to species interactions between MAFMC managed species. To rank these risks, the "importance" of each species as predator and/or prey must be assessed. There are not clear standardized threshold to define this. Diet information and a food web model were used to develop thresholds: an "important" predator of MAFMC managed species could be defined as causing >20% of individual species mortality. If individual mortality estimates are not available (current food web models are not defined at the species level) then an important predator of MAFMC managed species can be defined as having >30% in aggregate of MAFMC managed species in the diet by weight. An important prey of MAFMC managed species is defined here as individually comprising >30% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual MAFMC managed species. 
 
 ```{r riskfw1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -424,17 +425,17 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ###Primary production  
 Primary production has fluctuated recently with current conditions near average. 
 
-```{r, fig.cap="Primary production \\label{pp}", echo = F,  fig.height=2.5}
+```{r, fig.cap="Primary production \\label{pp}", echo = F,  fig.height=2}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'MAB PPD', x.label = 'Year', 
          y.label = expression('Production, gC m'^-2 * ' d'^1), 
-         rel.y.num = 1.1, rel.y.text = 1)
+         rel.y.num = 0.8, rel.y.text = 1)
 
 ```
 
 The observed stability in system productivity is in contrast to an apparent shift in the timing of the bloom cycle in the Mid-Atlantic. Comparing remote sensing information from the 1970-80s to recent information suggest that winter productivity was higher in the MAB and that the spring bloom we see today was not as prominent. This change in phytoplankton seasonal biomass may be related to the changes seen in the zooplankton community (see below) suggesting a grazing effect; but, whatever the mechanism associated with these changes, shifts in timing of low trophic level production can affect resource fish species and their early life history stages that feed on zooplankton.
 
-```{r, fig.cap="Comparison of 1970-80s annual primary productivity cycle (black) with 1997-present (orange) \\label{PPcycle}"}
+```{r, fig.cap="Comparison of 1970-80s annual primary productivity cycle (black) with 1997-present (orange) \\label{PPcycle}", out.width='0.7\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'PPbloomtiming.png'))
 
 ```
@@ -444,12 +445,12 @@ knitr::include_graphics(file.path(image.dir, 'PPbloomtiming.png'))
 
 Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume suggest that overall zooplankton production has not changed over time. However, the dominant species of zooplankton in the MAB, *Centropages typicus* shows a seasonal shift in abundance, suggesting a change in timing of zooplankton reproductive cycles, which may be impacting fish species such as mackerel.
 
-```{r , fig.cap="A: Centropages typicus spring, B: Centropages typicus fall \\label{Ctyp}", echo = F, fig.height=3.5}
+```{r , fig.cap="A: Centropages typicus spring, B: Centropages typicus fall \\label{Ctyp}", echo = F, fig.height=3}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Centropages typicus spring', stacked = 'A', tol = 0.03,
-         rel.y.num = 1.1, scale.axis = 10^3)
+         rel.y.num = 0.9, scale.axis = 10^3)
 soe.plot(SOE.data, 'Time', 'Centropages typicus fall', stacked = 'B', tol = 0.03, 
-         rel.y.num = 1.1, scale.axis = 10^3)
+         rel.y.num = 0.9, scale.axis = 10^3)
 
 soe.stacked.axis('Year', expression('thousands per 100 m' ^ 3), rel.y.text = 1.1,
                  y.line = 3)
@@ -458,7 +459,7 @@ soe.stacked.axis('Year', expression('thousands per 100 m' ^ 3), rel.y.text = 1.1
 
 ###Fish condition
 Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while black sea bass remain thinner for their length on average.  
-```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, fig.height=4}
+```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, out.width='0.7\\linewidth'}
 #I will get the actual code here eventually but just don't have time right now
 knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition.jpg'))
 
@@ -467,15 +468,9 @@ knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition.jpg'))
 ###Fish productivity
 The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed and unmanaged species in the Mid-Atlantic. The plot includes black sea bass, butterfish, clearnose skate, fourspot flounder, little skate, scup, spiny dogfish, summer flounder, thorny skate, windowpane, winter flounder, and winter skate.
 
-```{r, echo = F, fig.align='default', out.width='\\linewidth', fig.show='hold', message = FALSE, warning = FALSE}
+```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for species in the MAB. Annual anomalies shown are the average of spring and fall anomalies. \\label{fishprodsurvey}", echo = F, fig.align='center', out.width='0.7\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'FishProdMAB.pdf'))
 #knitr::include_graphics(file.path(image.dir, 'fishprodlegend.pdf'))
-
-```
-
-```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for species in the MAB. Annual anomalies shown are the average of spring and fall anomalies. \\label{fishprodsurvey}", fig.height=0.05}
-opar<-par(mar=c(0,0,0,0))
-plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
 
@@ -731,7 +726,7 @@ soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.tex
 ```
 -->
 
-This experimental habitat index is still being studied and improved, so  habitat risk rankings based on this can be considered preliminary. Overall, black sea bass, summer flounder, scup, and spiny dogfish have long term increasing trends in offshore habitat, and Atlantic mackerel and longfin squid have short term increasing trends. Therefore, these species rank low risk for this element. However, butterfish, shortfin squid, and goosefish have long term decreasing trends in offshore habitat, and shortfin squid have a short term decreasing trend as well. Therefore, thse species rank moderate-high risk (buttefrish, goosefish) and high risk (shortfin squid) for this element. Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by the bottom trawl survey and were not included in this analysis, similar to unmanaged forage and deepsea corals. 
+This experimental habitat index is still being studied and improved, so  habitat risk rankings based on this can be considered preliminary. Overall, black sea bass, summer flounder, scup, and spiny dogfish have long term increasing trends in offshore habitat, and Atlantic mackerel and longfin squid have short term increasing trends. Therefore, these species rank low risk for this element. However, butterfish, shortfin squid, and goosefish have long term decreasing trends in offshore habitat, and shortfin squid have a short term decreasing trend as well. Therefore, thse species rank moderate-high risk (butterfish, goosefish) and high risk (shortfin squid) for this element. Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by the bottom trawl survey and were not included in this analysis, similar to unmanaged forage and deepsea corals. 
 
 #Economic Elements
 
@@ -767,16 +762,16 @@ soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Re
 ```
 
 ##Recreational Value
-This element is applied at both the fleet level and at the ecosystem level where it would apply equally to all recreationally fished species. Risk of not maximizing fishery value is evaluated using revenue by recreational fleet (*yet to be added*) as well as the number of angler-days and number of trips in aggregate.
+This element is applied at both the fleet level and at the ecosystem level where it would apply equally to all recreationally fished species. Risk of not maximizing fishery value is evaluated using the number of angler-days and number of trips in aggregate.
 
 ```{r riskrecval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No trends in revenue or angler days/trips |
-| Low-Moderate | Increasing or high variability in revenue or angler days/trips |
-| Moderate-High | Significant long term decreases in revenue and angler days/trips |
-| High | Significant recent decreases in revenue and angler days/trips |
+| Low  | No trends in angler days/trips |
+| Low-Moderate | Increasing or high variability in angler days/trips |
+| Moderate-High | Significant long term decreases in angler days/trips |
+| High | Significant recent decreases in angler days/trips |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
@@ -795,7 +790,7 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 
 ```
 
-These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value for the species subject to recreational fisheries (summer flounder, scup, black sea bass, bluefish). However, this is a national trend likely due to shifting demographics and general economic dynamics, rather than an issue that can be managed at the MAFMC [@national_marine_fisheries_service_fisheries_2017].
+These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). However, this is a national trend likely due to shifting demographics and general economic dynamics, rather than an issue that can be managed at the MAFMC [@national_marine_fisheries_service_fisheries_2017].
 
 ##Fishery Resilience (Revenue Diversity)
 This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue. 
@@ -891,8 +886,8 @@ tabl <- "
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend in shoreside support businesses |
 | Low-Moderate | Increasing or high variability in shoreside support businesses |
-| Moderate-High | Significant long term decrease in shoreside support businesses |
-| High | Significant recent decrease in shoreside support businesses |
+| Moderate-High | Significant recent decrease in one measure of shoreside support businesses |
+| High | Significant recent decrease in multiple measures of shoreside support businesses |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
@@ -959,15 +954,15 @@ tabl <- "
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend in employment |
 | Low-Moderate | Increasing or high variability in employment |
-| Moderate-High | Significant long term decrease in employment |
-| High | Significant recent decrease in employment |
+| Moderate-High | Significant recent decrease in employment for one state |
+| High | Significant recent decrease in employment for multiple states |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
 This is commercial employment by state.
 
-```{r CommJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{commjobs}", echo = F, fig.height=6.5}
+```{r CommJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{commjobs}", echo = F, fig.height=5.5}
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'New_York Commercial Jobs', rel.y.num = 0.8, stacked = 'A')
 soe.plot(SOE.data, 'Time', 'New Jersey Commercial Jobs', rel.y.num = 0.8, stacked = 'B')
@@ -978,7 +973,7 @@ soe.plot(SOE.data, 'Time', 'Virginia Commercial Jobs', rel.y.num = 0.8, stacked 
 soe.stacked.axis('Year', 'Number of Commercial Jobs',rel.y.text = 1)
 ```
 
-Based on this state-level information, most states show no trend in commercial fishery employment, but there is a significant recent decrease in employment in one state, Virginia. New York and New Jersey went from the hightest to lowest employment numbers within the most recent 2-4 years, suggesting increasing variability. Long term trends (over 10 years) cannot be determined with this dataset. 
+Based on this state-level information, most states show no trend in commercial fishery employment, but there is a significant recent decrease in employment in one state, Virginia. Therefore, this element ranks moderate-high risk. New York and New Jersey went from the hightest to lowest employment numbers within the most recent 2-4 years, suggesting increasing variability. 
 
 ##Recreational Employment
 This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015]. 
@@ -989,15 +984,15 @@ tabl <- "
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend in employment |
 | Low-Moderate | Increasing or high variability in employment |
-| Moderate-High | Significant long term decrease in employment |
-| High | Significant recent decrease in employment |
+| Moderate-High | Significant recent decrease in employment for one state |
+| High | Significant recent decrease in employment for multiple states |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
 This is recreational employment by state.
 
-```{r RecJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{recjobs}", echo = F, fig.height=6.5}
+```{r RecJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{recjobs}", echo = F, fig.height=5.5}
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'New_York Recreational Jobs', rel.y.num = 0.8, stacked = 'A')
 soe.plot(SOE.data, 'Time', 'New Jersey Recreational Jobs', rel.y.num = 0.8, stacked = 'B')
@@ -1008,27 +1003,26 @@ soe.plot(SOE.data, 'Time', 'Virginia Recreational Jobs', rel.y.num = 0.8, stacke
 soe.stacked.axis('Year', 'Number of Recreational Jobs',rel.y.text = 1)
 ```
 
-Based on this state-level information, most states show no trend in recreational fishery employment, but there is a significant recent increase in employment in one state, New Jersey. Long term trends (over 10 years) cannot be determined with this dataset. 
+Based on this state-level information, most states show no trend in recreational fishery employment, but there is a significant recent increase in employment in one state, New Jersey. Therefore, this element ranks low risk. 
 
-#Social Elements
+#Social-Cultural Elements
 
-##Social-Cultural
-This element is applied at the fleet and ecosystem level. This element ranks the risk to maintaining human coastal community resilience and equity in access to fishery resources. Two indicators of commercial fleet diversity, including the number of distinct fleets and diversity of revenue across fleets are used in combination with indicators of social vulnerability to evaluate current community resilience throughout the Mid-Atlantic region. 
+##Fleet Diversity
+This element is applied at the ecosystem level. This element ranks the risk to maintaining equity in access to fishery resources. Two indicators of commercial fleet diversity, including the number of distinct fleets and diversity of revenue across fleets are used in combination to evaluate current fleet resilience throughout the Mid-Atlantic region. 
 
-```{r risksoc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Below are diversity estimates for fleets landing MAFMC-managed species. This measure identifies the diversity in revenue generated by different fleet segments. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). 
+
+```{r riskfltdiv, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No trend in diversity indices, few vulnerable fleets/communities |
-| Low-Moderate | Increasing or high variability in fleet/community indices |
-| Moderate-High | Significant long term trend in fleet/community indices |
-| High | Significant recent trend in fleet/community indices |
+| Low  | No trend in diversity measure |
+| Low-Moderate | Increasing or high variability in diversity measure |
+| Moderate-High | Significant long term downward trend in diversity measure
+| High | Significant recent downward trend in diversity measure |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
-
-###Fleet Diversity
-Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Below are diversity estimates for fleets landing MAFMC-managed species. This measure identifies the diversity in revenue generated by different fleet segments. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). 
 
 A declining trend in diversity indicates a less diverse fleet is currently active in MAFMC-managed fisheries. However, it cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem, rather merely that the fleet composition is changing, which might warrant additional scrutiny. 
 
@@ -1058,16 +1052,32 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity scallop
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
 
-The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
+There is a long term decrease in the fleet diversity metric, no matter how it is measured. Therefore this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
 
-###Community Vulnerability
-The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs; @jepson_development_2013) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing dependence (with dependence being a function of both reliance and engagement), sea level rise risk, species vulnerability to climate change, and catch composition diversity. Below is a brief description for each category based on the NOAA social indicator study [@jepson_development_2013; @colburn_indicators_2016]:
+##Community Vulnerability
+The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs; @jepson_development_2013) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing dependence (with dependence being a function of both reliance and engagement), sea level rise risk, species vulnerability to climate change, and catch composition diversity. We use a combination of these five indicators for the most fishery dependent communities to evaluate overall social risk levels.
+
+```{r risksoc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | Few (<10%) vulnerable fishery dependent communities |
+| Low-Moderate | 10-25% of fishery dependent communities with >3 high vulnerability ratings |
+| Moderate-High | 25-50% of fishery dependent communities with >3 high vulnerability ratings |
+| High | Majority (>50%) of fishery dependent communities with >3 high vulnerability ratings |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+
+Below is a brief description for each category based on the NOAA social indicator study [@jepson_development_2013; @colburn_indicators_2016]:
 
 * **Fishing dependence** indices portray the importance or level of dependence of commercial or recreational fishing to coastal communities. 
 *	**Social vulnerability** indices represent social factors that can shape either an individual or community’s ability to adapt to change. These factors exist within all communities regardless of the importance of fishing. 
 *	**Gentrification pressure** indices characterize those factors that, over time may indicate a threat to commercial or recreational working waterfront, including infrastructure. 
 
 Communities are ranked as high, medium high, moderate, or low relative to the respective indicator (Table \ref{reliance}). Community dependence on commercial and recreational fishing is mixed, with notably more communities in the Mid-Atlantic dependent on recreational fishing. While communities with high to medium high risk for social vulnerability are broadly distributed in suburban and rural areas of the Mid-Atlantic region, communities with high to medium high gentrification pressure are concentrated in beachfront communities near urban areas in New York and New Jersey. 
+
 
 ```{r reltab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 
@@ -1236,6 +1246,8 @@ a <- legend('bottomright',
 
 While the maps provides an overview of the social and climate indicator results for the Mid-Atlantic coastal communities, Table \ref{community} identifies Mid-Atlantic communities that are most highly dependent on both commercial and recreational fishing. The varying vulnerability level to social factors, gentrification pressure, and climate change in these communities provide a more comprehensive profile and should be taken into account in the decision making process for fishery management. 
 
+As a preliminary risk assessment, rankings from Table \ref{community} of MedHigh or High were tallied for social vulnerability and gentrification pressure, along with rankings of High risk from sea level rise, High/Very High species vulnerability, and rankings of Low catch composition diversity. Four of these communities (20%) have three or more of these high risk rankings, so we rank overall social-cultural risk as low-moderate for these Mid-Atlantic communities.
+
 ```{r communitytab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 
 commdat <- read.csv(file.path(data.dir, "communities_table.csv"))
@@ -1288,7 +1300,7 @@ soe.plot(allland, 'Time', 'MAFMC Landings', x.label="Year", y.label="Commercial 
 
 
 ##Recreational/Subsistence Food Provision
-This element is applied at the ecosystem level. This element describes the risk of not maintaining personal food security. Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
+This element is applied at the ecosystem level. This element describes the risk of not maintaining personal food production. Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
 
 ```{r riskrfood, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1312,7 +1324,7 @@ soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'Harvest.per.Angler', rel.y.num = 0
 soe.stacked.axis('Year', 'N Recreationally Harvested Fish',rel.y.text = 1)
 ```
 
-This significant long term decrease in both recreational landings and recreational landings per angler represents a moderate-high risk to personal food production.
+This significant long term decrease in both recreational landings and recreational landings per angler represents a moderate-high risk to food production.
 
 <!--
 ##Seafood Safety
@@ -1336,7 +1348,7 @@ Picture of indicator, reference, or words describing rankings.
 #Management Elements
 
 ##Control
-This element is applied at the species level. This element addresses the level of management control in terms of catch measurement and monitoring. Adequate management control indicates low risk of not achieving OY, while poor management control indicates higher risk of not achieving OY. Actual catch is compared with the specifies ABC over the most recent five years of fishery history. 
+This element is applied at the species level. This element addresses the level of management control in terms of catch measurement and monitoring. Adequate management control indicates low risk of not achieving OY, while poor management control indicates higher risk of not achieving OY. Actual catch is compared with the specified ABC over the most recent five years of fishery history. 
 
 ```{r riskctl, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "

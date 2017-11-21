@@ -1,5 +1,5 @@
 ---
-title: "Mid-Atlantic EAFM risk assessment summary"
+title: "DRAFT Mid-Atlantic EAFM risk assessment summary"
 author: "Gaichas, DePiper, Seagraves, Loftus, Sabo, Muffley"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
@@ -31,9 +31,9 @@ knitr::opts_chunk$set(echo = FALSE, fig.align='center')
 #Introduction
 The purpose of this report is to document the use of ecosystem indicators within the Mid-Atlantic Council’s Ecosystem Approach to Fisheries Management (EAFM) initial risk assessment.
 
-A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements may move up or down in priority as conditions change or new information becomes available. Thus, it is important to note that EAFM Risk Assessment will be a dynamic and evolving process that will need to be revisited and updated in future years.
+A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements or risk rankings may change as conditions change or new information becomes available. Thus, the EAFM Risk Assessment will be a dynamic and evolving process that will be revisited and updated in future years.
 
-The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented below, followed by a summary of risk rankings. A full description of the assessment and indicators is in an accompanying document. 
+The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented below, followed by a summary of risk rankings. A full description of the assessment and indicators is in an accompanying document. *The ranking tables here are preliminary pending EOP review and approval.*
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -53,12 +53,13 @@ tabl <- "
 | Offshore habitat     | Risk of not achieving OY due to threats to offshore habitat   | Integrated habitat model index |
 | *Economic* |  |
 | Commercial Profits   | Risk of not maximizing fishery value             | Revenue by fleet |
-| Recreational Value   | Risk of not maximizing fishery value             | Revenue by fleet, Numbers of anglers and trips in aggregate |    
-| Fishery Resilience (1)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
-| Fishery Resilience (4)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
+| Recreational Value   | Risk of not maximizing fishery value             | Numbers of anglers and trips in aggregate |    
+| Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
+| Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
 | Commercial Employment   | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | Recreational Employment | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | *Social* |  |
+| Fleet Resilience      | Risk of reduced fishery resilience | Number of fleets, fleet diversity |
 | Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
 | *Food Production* |  |
 | Commercial     | Risk of not optimizing seafood production             | Seafood landings in aggregate |
@@ -205,8 +206,8 @@ risk.sppsector <- risk.sppsector %>%
 risk.sppsector %>%
   mutate_at(vars(-Species), function(x){ 
     cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
-  kable(risk.sppsector, format="latex", escape = F, booktabs = T, linesep = "") #%>%
-  #kable_styling(latex_options = "scale_down")
+  kable(risk.sppsector, format="latex", escape = F, booktabs = T, linesep = "") %>%
+  kable_styling(font_size =  9)
 
 ```
 
@@ -240,10 +241,10 @@ risk.eco<-data.frame(
   RecVal = c("h"),
   FishRes1 = c("mh"),
   FishRes4 = c("lm"),
-  CommJobs = c("h"),
+  CommJobs = c("mh"),
   RecJobs = c("l"),
   FleetDiv = c("mh"),
-  Social = c("na"),
+  Social = c("lm"),
   ComFood = c("h"),
   RecFood = c("mh")
 )

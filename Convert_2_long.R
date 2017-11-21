@@ -545,3 +545,29 @@ springhab[, EPU := 'ALL']
 SOE.data <- rbindlist(list(SOE.data,springhab))
 
 save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+# more additions for the Mid Atlantic risk assessment Nov 21 2017
+# alternate dataset for fleet and revenue diversity at request of EOP
+# do not want to replace previous data in the SOE.data right now
+
+altfleetdiv.data <- as.data.table(read.csv(file.path(data.dir, "ConsolidateNewFleetDiversity.csv")))
+save(altfleetdiv.data, file = file.path(data.dir, 'altfleetdiv_data.RData'))
+
+# add updated experimental habitat indices for Mid Atlantic species, see OffshoreHabitat.R
+load(file.path(data.dir, "fall_habmax_mafmc_soe.Rdata"))
+fallhab <- as.data.table(fall_habmax_mafmc_soe)
+fallhab[, Var := paste0(Var, " Max Habitat Index Fall")]
+fallhab[, Units := 'Square Kilometers']
+fallhab[, EPU := 'ALL']
+SOE.data <- rbindlist(list(SOE.data,fallhab))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+load(file.path(data.dir, "spring_habmax_mafmc_soe.Rdata"))
+springhab <- as.data.table(spring_habmax_mafmc_soe)
+springhab[, Var := paste0(Var, " Max Habitat Index Spring")]
+springhab[, Units := 'Square Kilometers']
+springhab[, EPU := 'ALL']
+SOE.data <- rbindlist(list(SOE.data,springhab))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))

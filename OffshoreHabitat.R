@@ -9,6 +9,75 @@ load(file.path(data.dir, 'Species_codes.RData'))
 fall_habdat <- read.csv(file.path(data.dir,"hab_areas_fall.csv"))
                                    
 spring_habdat <- read.csv(file.path(data.dir,"hab_areas_spring.csv"))
+
+# November 21, 2017
+# Kevin's method is to use the habitat interval that is largest for the species
+# logic is that this is the best habitat, seems reasonable
+# from Kevin's plot hab and cpue.R
+
+#bar_dat = aggregate(tdat$hab_area_int_km2_s, list(tdat$hab_int_num), mean, na.rm = T)
+
+#barplot(bar_dat[,2],names.arg = bar_dat[,1])
+
+#bar_dat <- bar_dat[order(bar_dat$x, decreasing = T),] 
+
+#print(c(sps$SVSPP[i],bar_dat$Group.1[1]))
+
+#level_1 = bar_dat[1,1]
+#level_2 = bar_dat[2,1]
+#level_3 = bar_dat[3,1]
+
+#hx1 = year[hab_int_num==level_1]
+
+#hy1 = hab_area_cum_low_km2_s[hab_int_num==level_1]/1000
+#hy1mean = mean(hy1,na.rm=T)
+#hy1sd = sd(hy1,na.rm=T)
+
+# similarly, using tidyverse code find the interval with highest mean habitat
+fall_habmax <- fall_habdat %>%
+  group_by(svspp, hab_int_num) %>%
+  summarise(meanhab = mean(hab_area_int_km2_s, na.rm = T)) %>%
+  arrange(desc(meanhab)) %>%
+  slice(1L) #takes the first row which is highest mean
+
+spring_habmax <- spring_habdat %>%
+  group_by(svspp, hab_int_num) %>%
+  summarise(meanhab = mean(hab_area_int_km2_s, na.rm = T)) %>%
+  arrange(desc(meanhab)) %>%
+  slice(1L) #takes the first row which is highest mean
+
+#now keep only the habmax interval number for plotting
+fall_habmaxall <- left_join(fall_habmax, fall_habdat)
+
+spring_habmaxall <- left_join(spring_habmax, spring_habdat)
+
+# Kevin used hab_area_cum_low_km2_s/1000 as habitat
+
+# MAFMC species svspp codes
+# surfclam, ocean quahog, summerfl, scup, bsb, atlmack, butter, longsq, shrtsq, gtile, bltile, bluef, spdog, monk
+MAFMC<-data.frame(svspp = c( 403, 409, 103, 143, 141, 121, 131, 503, 502, 151, 621, 135, 15, 197))
+MAFMCspp <- merge(spp, MAFMC, by.x="SVSPP", by.y="svspp")
+
+fall_habmax_mafmc <- merge(fall_habmaxall, MAFMCspp, by.x="svspp", by.y="SVSPP")
+fall_habmax_mafmc <- fall_habmax_mafmc %>%
+  select(svspp, year, hab_int_num, hab_inter_low, hab_area_cum_low_km2_s, COMNAME)
+
+spring_habmax_mafmc <- merge(spring_habmaxall, MAFMCspp, by.x="svspp", by.y="SVSPP")
+spring_habmax_mafmc <- spring_habmax_mafmc %>%
+  select(svspp, year, hab_int_num, hab_inter_low, hab_area_cum_low_km2_s, COMNAME)
+
+fall_habmax_mafmc_soe <- fall_habmax_mafmc %>%
+  select(year, hab_area_cum_low_km2_s, COMNAME) %>%
+  rename(Time = year, Value = hab_area_cum_low_km2_s, Var = COMNAME)
+
+spring_habmax_mafmc_soe <- spring_habmax_mafmc %>%
+  select(year, hab_area_cum_low_km2_s, COMNAME) %>%
+  rename(Time = year, Value = hab_area_cum_low_km2_s, Var = COMNAME)
+
+save(fall_habmax_mafmc_soe, file=file.path(data.dir,"fall_habmax_mafmc_soe.RData"))
+save(spring_habmax_mafmc_soe, file=file.path(data.dir, "spring_habmax_mafmc_soe.Rdata"))
+
+# the below was done in Sept 2017 prior to discussion with Kevin and was not used
                           
 #decision, use habitat interval bound closest to 0.4, about the mean for all species in both datasets
 #dont know what this means but should compare apples to apples across spp?
