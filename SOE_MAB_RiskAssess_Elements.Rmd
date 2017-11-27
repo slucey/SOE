@@ -1,0 +1,81 @@
+---
+title: "DRAFT Mid-Atlantic EAFM Risk Assessment Elements"
+author: "S. Gaichas, G. DePiper, R. Seagraves, A. Loftus, M. Sabo, B. Muffley"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  pdf_document:
+    includes:
+      in_header: preamble-latex.tex
+    keep_tex: yes
+    pandoc_args: --latex-engine=xelatex
+    toc: no
+  html_document:
+    toc: yes
+  word_document:
+    toc: no
+fontsize: 11pt
+geometry: margin=0.8in
+csl: canadian-journal-of-fisheries-and-aquatic-sciences.csl
+bibliography: /Users/sgaichas/Documents/0_Data/EAFM_MAFMC/My_Library.bib
+---
+
+```{r Directory and Data Set-up, echo = F, message = F}
+library(data.table); library(Kendall); library(rgdal)
+library(condformat) #does the color coded tables
+library(kableExtra) #LaTeX table formatting
+knitr::opts_chunk$set(echo = FALSE, fig.align='center')
+```
+
+The purpose of this document is to define Risk Elements considered  Mid-Atlantic Council’s Ecosystem Approach to Fisheries Management (EAFM) initial risk assessment.
+
+A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements may move up or down in priority as conditions change or new information becomes available. Thus, it is important to note that EAFM Risk Assessment will be a dynamic and evolving process that will need to be revisited and updated in future years.
+
+The Council selected a range of risk elements to be evaluated at either the managed species level (most), the fleet level (some), or the ecosystem level (few). An overview of the risk elements with definitions and associated indicators as discussed by the Council’s Ecosystem and Ocean Planning (EOP) Committee and Advisors is presented below. 
+
+*These elements and definitions are currently in draft form, pending EOP Committee review. The primary goal of presenting this informaiton is to clearly define and reach agreement about risks of concern to the Council.* 
+
+<!--[TABLE with general objectives and current status and or trend]--> 
+```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Element         | Definition: Risk to what?                        |  Indicators used                                 |
+|:-------------------------|:-------------------------------------------------|:-------------------------------------------------|
+| *Ecological*         |  |
+| F status             | Risk of not achieving OY due to overfishing      | Current F relative to reference F from assessment |
+| B status             | Risk of not achieving OY due to depleted stock   | Current B relative to reference B from assessment |
+| Assessment type      | Risk of not achieving OY due to analytical limitations   | Current assessment method/data quality |
+| Food web  (1)       | Risk of not achieving OY due to MAFMC managed species interactions   | Food web model outputs, management measures |
+| Food web  (2)       | Risk of not achieving protected species objectives due to species interactions   | Food web model outputs, management measures |
+| Ecosystem productivity  | Risk of not achieving OY due to changing system productivity   | Four indicators, see text |
+| Population diversity  | Risk of not achieving OY due to reduced diversity   | Size composition, sex ratio, genetic diversity |
+| Ecological diversity  | Risk of not achieving OY due to reduced diversity   | Fishery independent species diversity |
+| Climate              | Risk of not achieving OY due to climate vulnerability   | Northeast Climate Vulnerability Assessment |
+| Distribution shifts  | Risk of not achieving OY due to climate-driven distribution shifts   | Northeast Climate Vulnerability Assessment + 2 indicators (see text) |
+| Estuarine habitat    | Risk of not achieving OY due to threats to estuarine/nursery habitat | Enumerated threats + estuarine dependence |
+| Offshore habitat     | Risk of not achieving OY due to threats to offshore habitat   | Enumerated threats + thermal habitat trends + Friedland's index |
+| *Economic* |  |
+| Commercial Profits   | Risk of not maximizing fishery value             | Revenue by fleet |
+| Recreational Value   | Risk of not maximizing fishery value             | Revenue by fleet, Numbers of anglers and trips in aggregate |    
+| Fishery Resilience (1)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
+| Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
+| Fishery Resilience (3)  | Risk of reduced fishery business resilience due to insurance availabilty  |  No current indicator available |         
+| Fishery Resilience (4)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
+| Fishery Resilience (5)  | Risk of reduced fishery business resilience due to access to emerging markets/opportunities  | Needs clarification  |
+| Commercial Employment   | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
+| Recreational Employment | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
+| *Social* |  |
+| Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
+| *Food Production* |  |
+| Commercial     | Risk of not optimizing seafood production             | Seafood landings in aggregate |
+| Recreational   | Risk of not maintaining personal food security      | Recreational landings in aggregate |
+| Seafood safety   | Risk of not maintaining market access, human health    | Number of public advisories by species |
+| *Management* |  |
+| Control     | Risk of not achieving OY due to inadequate control             | Catch compared to allocation |
+| Interactions   | Risk of not achieving OY due to interactions with species managed by other entities    | Number and type of interactions with protected or non-MAFMC managed species, co-management |
+| Other ocean uses   | Risk of not achieving OY due to other human uses      | Fishery overlap with energy/mining areas |
+| Regulatory complexity   | Risk of not achieving compliance due to complexity    | Number of regulations by species |
+| Discards   | Risk of not minimizing bycatch to extent practicable      | Standardized Bycatch Reporting  |
+| Allocation  | Risk of not achieving OY due to spatial mismatch of stocks and management  | Distribution shifts + number of interests |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+

@@ -2,6 +2,7 @@
 #Long format for simplified graphs
 if(Sys.info()['sysname'] == "Windows") prefix <- 'Z:'
 if(Sys.info()['sysname'] == "Linux")   prefix <- '/home/slucey/EcoAP'
+if(Sys.info()['sysname'] == "Darwin")  prefix <- '/Users/sgaichas/Documents/0_Data/ESR'
 
 data.dir <- file.path(prefix, 'SOE2017', 'data')
 
@@ -451,3 +452,122 @@ SOE.data <- rbindlist(list(SOE.data, zoopNE))
 save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
 
 #Run Assign_EPU.R to add EPU designations
+
+# September 2017
+# Sarah added data from Geret and Kevin for MAB risk assessment
+# needed the EPU dataset to have 5 columns
+# actual method, done repeatedly when correcting data below here
+#   re-import final NE SOE data from April as starting set (4 columns)
+#   run lines 12-30 in Assign_EPU.R to get 5 columns with EPU
+#   then run the below to tack on new sets
+#   had to do this because I'm not sure I have all original datasets above
+
+load(file.path(data.dir, "Com_Rec_Employment.Rdata"))
+emp <- as.data.table(Total_Employment)
+emp[, Time := as.numeric(levels(Time))[Time]]
+emp[, Value := as.numeric(levels(Value))[Value]]
+emp[, Region := NULL]
+SOE.data <- rbindlist(list(SOE.data,emp))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+load(file.path(data.dir, "Rec_Anglers_and_Fish.Rdata"))
+recval <- as.data.table(REC_CATCH_ANGLER)
+recval[, EPU := factor(NA, levels = c('SS', 'GOM', 'GB', 'MAB', 'ALL'))]
+recval[Region %like% "MID-ATLANTIC", EPU := 'MAB']
+recval[Region %like% "NORTH ATLANTIC", EPU := 'GOM'] #should be both GOM and GB EPUs
+recval[, Time := as.numeric(Year)]
+recval[, Value := as.numeric(Value)]
+recval[, Region := NULL]
+recval[, Year := NULL]
+setcolorder(recval, c("Time", "Value", "Var", "Units", "EPU"))
+SOE.data <- rbindlist(list(SOE.data,recval))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+#Commercial landings and revenue redo with just Mid spp aggregated
+load(file.path(data.dir, 'comland_meatwt_deflated.RData'))
+load(file.path(data.dir, 'Species_codes.RData'))
+
+# MAFMC species NESPP3 codes
+MAFMC<-data.frame(NESPP3 = c(769, 754, 121, 329, 335, 212, 51, 801, 802, 803, 446, 444, 447, 23, 352, 350, 11, 12))
+
+comland.spp <- merge(comland, spp[, list(NESPP3, COMNAME)], by = 'NESPP3')
+comland.mafmc <- merge(comland.spp, MAFMC, by= 'NESPP3')
+#seafood.mafmc <- comland.mafmc[, UTILCD==0] #same n rows, not necessary
+
+setkey(comland.mafmc, YEAR, EPU)
+landings <- comland.mafmc[, sum(SPPLIVMT), by = key(comland.mafmc)]
+setnames(landings, 'V1', 'SPPLIVMT')
+
+landings[, Var := paste('MAFMC Landings')]
+landings[, Units := 'metric tons']
+setnames(landings, c('YEAR', 'SPPLIVMT'), c('Time', 'Value'))
+
+revenue <- comland.mafmc[, sum(SPPVALUE), by = key(comland.mafmc)]
+setnames(revenue, 'V1', 'SPPVALUE')
+
+revenue[, Var := paste('MAFMC Revenue')]
+
+revenue[, Units := 'US Dollars']
+setnames(revenue, c('YEAR', 'SPPVALUE'), c('Time', 'Value'))
+
+soe.com.mafmc <- rbindlist(list(landings, revenue))
+setcolorder(soe.com.mafmc, c("Time", "Value", "Var", "Units", "EPU"))
+
+SOE.data <- rbindlist(list(SOE.data, soe.com.mafmc))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+support <- read.csv(file.path(data.dir,"Commercial_Fishery_Support_Businesses_FINAL.csv"))
+support <- as.data.table(support)
+support[, Time := as.numeric(Time)]
+support[, Value := as.numeric(Value)]
+SOE.data <- rbindlist(list(SOE.data,support))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+# add experimental habitat indices for Mid Atlantic species, see OffshoreHabitat.R
+load(file.path(data.dir, "fall_hab4_mafmc_soe.Rdata"))
+fallhab <- as.data.table(fall_hab4_mafmc_soe)
+fallhab[, Var := paste0(Var, " Habitat Index Fall")]
+fallhab[, Units := 'Square Kilometers']
+fallhab[, EPU := 'ALL']
+SOE.data <- rbindlist(list(SOE.data,fallhab))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+load(file.path(data.dir, "spring_hab4_mafmc_soe.Rdata"))
+springhab <- as.data.table(spring_hab4_mafmc_soe)
+springhab[, Var := paste0(Var, " Habitat Index Spring")]
+springhab[, Units := 'Square Kilometers']
+springhab[, EPU := 'ALL']
+SOE.data <- rbindlist(list(SOE.data,springhab))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+# more additions for the Mid Atlantic risk assessment Nov 21 2017
+# alternate dataset for fleet and revenue diversity at request of EOP
+# do not want to replace previous data in the SOE.data right now
+
+altfleetdiv.data <- as.data.table(read.csv(file.path(data.dir, "ConsolidateNewFleetDiversity.csv")))
+save(altfleetdiv.data, file = file.path(data.dir, 'altfleetdiv_data.RData'))
+
+# add updated experimental habitat indices for Mid Atlantic species, see OffshoreHabitat.R
+load(file.path(data.dir, "fall_habmax_mafmc_soe.Rdata"))
+fallhab <- as.data.table(fall_habmax_mafmc_soe)
+fallhab[, Var := paste0(Var, " Max Habitat Index Fall")]
+fallhab[, Units := 'Square Kilometers']
+fallhab[, EPU := 'ALL']
+SOE.data <- rbindlist(list(SOE.data,fallhab))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
+
+load(file.path(data.dir, "spring_habmax_mafmc_soe.Rdata"))
+springhab <- as.data.table(spring_habmax_mafmc_soe)
+springhab[, Var := paste0(Var, " Max Habitat Index Spring")]
+springhab[, Units := 'Square Kilometers']
+springhab[, EPU := 'ALL']
+SOE.data <- rbindlist(list(SOE.data,springhab))
+
+save(SOE.data, file = file.path(data.dir, 'SOE_data.RData'))
