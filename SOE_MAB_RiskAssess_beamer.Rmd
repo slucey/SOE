@@ -581,7 +581,7 @@ knitr::include_graphics(file.path(image.dir, 'NEVAshiftmid.png'))
 ###Historical vs. Current Distribution Maps
 <!--Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. -->
 
-```{r kerndist,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
+```{r kerndist,  echo = F, fig.show='hold', fig.align='default', out.width='.45\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
 knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
 
