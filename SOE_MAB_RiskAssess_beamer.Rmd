@@ -424,7 +424,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ###Primary production  
 Primary production has fluctuated recently with current conditions near average. 
 
-```{r PP, fig.cap="Primary production \\label{pp}", echo = F, out.width='0.9\\linewidth', fig.height=2}
+```{r PP, fig.cap="Primary production \\label{pp}", echo = F, out.width='0.9\\linewidth', fig.height=2.5}
 #,  fig.height=2
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'MAB PPD', x.label = 'Year', 
@@ -578,22 +578,22 @@ knitr::include_graphics(file.path(image.dir, 'NEVAshiftmid.png'))
 
 ----
 
-###Historical vs. Current Distribution Maps
+###Historical vs. Current Distribution Maps (more available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html)
 <!--Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. -->
 
-```{r kerndist,  echo = F, fig.show='hold', fig.align='default', out.width='.45\\linewidth', message = FALSE, warning = FALSE}
+```{r kerndist, echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
 knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
 
 ```
 
-```{r, fig.cap="Shifts in species distribution, 1970s (blue), recent (red) and overlap (purple) \\label{dists}", fig.height=0.05}
+```{r, fig.cap="Shifts in species distribution, 1970s (blue), recent (red) and overlap (purple) \\label{dists}", fig.height=0.01}
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
-
-A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
+<!--
+A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html.--> 
 
 ----
 
@@ -780,7 +780,7 @@ allrev[, Var := paste('MAFMC Revenue')]
 allrev[, Units := 'USD']
 allrev[, EPU := 'ALL']
 
-soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue USD", rel.y.num = 1.1, rel.y.text = 1)
+soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue USD", x.start = 1986, rel.y.num = 0.8, rel.y.text = 1.1)
 ```
 
 ##Recreational Value
@@ -911,7 +911,7 @@ tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | No trend in shoreside support businesses |
-| Low-Moderate | Increasing or high variability in shoreside support businesses |
+| Low-Moderate | Increasing or high variability in shoreside support businesses, or long-term decrease in at least one shoreside support businesses |
 | Moderate-High | Significant recent decrease in one measure of shoreside support businesses |
 | High | Significant recent decrease in multiple measures of shoreside support businesses |
 "
@@ -1074,7 +1074,7 @@ soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 
 ----
 
-At the request of the EOP and advisors, the diversity metrics were also calculated giving less weight to the scallop and clam fleets. However, the overall trends are very similar. 
+At the request of the EOP and advisors, the diversity metrics were also calculated defining scallop landings as a single fleet and clam/quahog dredges as a single fleet. However, the overall trends are very similar. 
 
 ```{r FleetDiversitycollapsingthescallopandclamfleets, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, out.width='0.9\\linewidth', fig.height=3.5}
 #, fig.height=3.5
@@ -1432,7 +1432,7 @@ tabl <- "
 | Low  | No overlap |
 | Low-Moderate | Low-moderate overlap; minor habitat impacts but transient |
 | Moderate-High | Moderate-high overlap; minor habitat impacts but persistent |
-| High | High overlap; energy development could seriously disrupt fishery prosecution; major permanent habitat impacts |
+| High | High overlap; other ocean uses could seriously disrupt fishery prosecution; major permanent habitat impacts |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
@@ -1466,7 +1466,7 @@ tabl <- "
 | Low  | No significant discards |
 | Low-Moderate | Low or episodic discard |
 | Moderate-High | Regular discard but managed |
-| High | High discard, difficult ot manage |
+| High | High discard, difficult to manage |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
