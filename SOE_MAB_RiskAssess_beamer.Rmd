@@ -21,12 +21,12 @@ bibliography: My_Library.bib
 #gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
-gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
-#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
-#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
-#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+#gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
 library(data.table); library(Kendall); library(rgdal); library(knitr)
 library(kableExtra)
 load(file.path(data.dir, 'SOE_data.RData'))
