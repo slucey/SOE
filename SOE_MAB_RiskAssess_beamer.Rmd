@@ -244,8 +244,8 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | B < Bmsy |
-| Low-Moderate | Bmsy > B > 0.5 Bmsy, or weight of evidence indicates low risk |
+| Low  | B > Bmsy |
+| Low-Moderate | Bmsy > B > 0.5 Bmsy, or unknown, but weight of evidence indicates low risk |
 | Moderate-High | Unknown status |
 | High | B < 0.5 Bmsy |
 "
