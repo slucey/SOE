@@ -177,7 +177,7 @@ A **Risk Element** is an aspect that may threaten achieving the biological, econ
 
 The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented below. In the following sections, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. 
 
-*These risk definitions are currently in draft form, pending EOP Committee review. The primary goal of presenting this information is to clearly define and reach agreement about risks of concern to the Council. All risk rankings shown are examples intended for illustration and discussion to be tailored to meet Council needs. This is not a final risk assessment.*
+*These risk definitions are currently in draft form, pending Council review. The primary goal of presenting this information is to clearly define and reach agreement about risks of concern to the Council. All risk rankings shown can be further adjusted to meet Council needs. This is not a final risk assessment.*
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -185,9 +185,9 @@ tabl <- "
 | Risk Element         | Definition: Risk to what?                        |  Indicators used                                 |
 |:-------------------------|:-------------------------------------------------|:-------------------------------------------------|
 | *Ecological*         |  |
+| Assessment performance      | Risk of not achieving OY due to analytical limitations   | Current assessment method/data quality |
 | F status             | Risk of not achieving OY due to overfishing      | Current F relative to reference F from assessment |
 | B status             | Risk of not achieving OY due to depleted stock   | Current B relative to reference B from assessment |
-| Assessment performance      | Risk of not achieving OY due to analytical limitations   | Current assessment method/data quality |
 | Food web  (1)       | Risk of not achieving OY due to MAFMC managed species interactions   | Food web model outputs, management measures |
 | Food web  (2)       | Risk of not achieving protected species objectives due to species interactions   | Food web model outputs, management measures |
 | Ecosystem productivity  | Risk of not achieving OY due to changing system productivity   | Four indicators, see text |
@@ -229,6 +229,23 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 # Ecological Elements
 
+##Assessment Performance
+This element is applied at the species level. The elements below describe risks according to our best understanding of stock status, but assessment methods and data quality shape our understanding. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations. The MAFMC risk policy accounts for scientific uncertainty in assessments, with methods for determining scientific uncertainty currently being refined by the Scientific and Statistical Committee. Ranking for this risk element will be adjusted if necessary to ensure consistency with SSC methods in the future. 
+
+```{r riskass, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | Assessment model(s) passed peer review, high data quality |
+| Low-Moderate | Assessment passed peer review but some key data and/or reference points may be lacking |
+| Moderate-High | *This category not used* |
+| High | Assessment failed peer review or no assessment, data-limited tools applied |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+Stocks with low risk due to assessment performance include ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because it is assessed with the data limited methods (DLM) toolbox. *At the time of this writing, Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment is currently undergoing peer review which may change this ranking in late November.*
+
 ##F status and B status
 These elements are applied at the species level. Fishing mortality (F) rates and biomass (B) levels relative to established reference points from assessments indicate the level of risk to achieving OY. Risk level definitions for F and B are below.
 
@@ -248,8 +265,8 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | B < Bmsy |
-| Low-Moderate | Bmsy > B > 0.5 Bmsy, or weight of evidence indicates low risk |
+| Low  | B > Bmsy |
+| Low-Moderate | Bmsy > B > 0.5 Bmsy, or unknown, but weight of evidence indicates low risk |
 | Moderate-High | Unknown status |
 | High | B < 0.5 Bmsy |
 "
@@ -354,51 +371,56 @@ plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 
 ```
 
-##Assessment Type
-This element is applied at the species level. The above elements describe risks according to our best understanding of stock status, but assessment methods and data quality vary. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations. 
 
-```{r riskass, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-tabl <- "
-| Risk Level         | Definition                                                          |  
-|:-------------------|:--------------------------------------------------------------------|
-| Low  | Assessment model(s) passed peer review, high data quality |
-| Low-Moderate | Assessment passed peer review but some key data and/or reference points may be lacking |
-| Moderate-High | *This category not used* |
-| High | Assessment failed peer review or no assessment, data-limited tools applied |
-"
-cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
-```
+##Food Web (MAFMC Predators)
+This element is applied at the species level. This element ranks the risks of not achieving OY due to predator interactions between MAFMC managed species. To rank these risks, the "importance" of each species as predator must be assessed. There are not clear standardized threshold to define this. Diet information can be used to develop thresholds: an important predator of MAFMC managed species can be defined as having more than a threshold level of MAFMC managed species in the diet by weight. "Dependent" predators warranting a high risk ranking would have a majority (>50%) of diet from an individual MAFMC managed species. 
 
-Stocks with low risk due to assessment type include ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because it is assessed with the data limited methods (DLM) toolbox. *At the time of this writing, Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment is currently undergoing peer review which may change this ranking in late November.*
-
-##Food Web (1)
-This element is applied at the species level. This element ranks the risks of not achieving OY due to species interactions between MAFMC managed species. To rank these risks, the "importance" of each species as predator and/or prey must be assessed. There are not clear standardized threshold to define this. Diet information and a food web model were used to develop thresholds: an "important" predator of MAFMC managed species could be defined as causing >20% of individual species mortality. If individual mortality estimates are not available (current food web models are not defined at the species level) then an important predator of MAFMC managed species can be defined as having >30% in aggregate of MAFMC managed species in the diet by weight. An important prey of MAFMC managed species is defined here as individually comprising >30% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual MAFMC managed species. 
+The EOP Committee agreed that high dependence on a single prey represented high risk to a predator, but could not come to agreement on thresholds for intermediate risk levels, so this risk ranking uses only low and high levels.
 
 ```{r riskfw1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | Few interactions with other MAFMC managed species |
-| Low-Moderate | Important predator of other managed species, or important prey with management consideration of interaction |
-| Moderate-High | Important prey of other managed species |
-| High | Managed species either exclusively dependent on other MAFMC managed species as prey or is sole prey for other MAFMC managed species |
+| Low  | Few interactions as predators of other MAFMC managed species, or predator of other managed species in aggregate but below 50% of diet |
+| Low-Moderate | *This category not used* |
+| Moderate-High | *This category not used* |
+| High | Managed species highly dependent on other MAFMC managed species as prey |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This information is gathered from the NEFSC food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008].  Surfclams and ocean quahogs are not predators or prey of other MAFMC managed species, so they rank low risk for this element. Similarly, scup, black sea bass, and golden and blueline tilefish eat primarily benthic invertebrates, and do not show up individually as >10% of prey by weight in any MAFMC managed species diets, so they rank low risk. Summer flounder are potentially important predators of other MAFMC managed species, including longfin and other squid, Atlantic mackerel, scup, and butterfish (not resolved in food web; combined diet >30%), but are not important prey, ranking low-moderate risk. While some MAFMC managed species are prey of other managed species, none meet the defined risk threshold. Atlantic mackerel is a prey of spiny dogfish (~10% of diet with high interannual variability). Butterfish is a prey of bluefish, but is below the threshold (~12% of diet), and the reference point applied to butterfish considers it's role as a forage fish in general. Cephalopods as a group are important prey of summer flounder (~33% of diet), with approximately half of this attributed to "Loligo species" in the diet data, very little to Illex species, and the rest as squid unidentified. Similarly, Cephalopods as a group are important prey of shortfin squid (>30% of diet), but how much of this is longfin squid is unknown, and some is cannibalism. There are many species of squid in the region; therefore, MAFMC managed individual squid species in the diet may be below the threshold. We rank both squid species as low-moderate risk for managed species interactions until specific interactions can be clarified. Unmanaged forage (e.g. anchovies, sandlance) are important prey of bluefish, but MAFMC measures restict fishery development on these species so they rank low-moderate risk under this element. Spiny dogfish, bluefish, and monkfish are predators of MAFMC managed species, but do not meet the threshold of >30% of combined diet. Dogfish have ~20% of total diet from squids and mackerel, bluefish have ~25% of diet from butterfish, squids, bluefish, mackerel, and scup, and monkfish have ~20% of diet from squids, mackerel, summer flounder, scup, and monkfish. Therefore, these three predators rank low risk for food web interactions with other MAFMC managed species. 
+This information is gathered from the NEFSC food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008].  Surfclams and ocean quahogs are not predators of other MAFMC managed species, so they rank low risk for this element. Similarly, scup, black sea bass, and golden and blueline tilefish eat primarily benthic invertebrates. Summer flounder, spiny dogfish, bluefish, and monkfish are predators of MAFMC managed species, but do not meet the threshold of >50% of diet. Summer flounder prey on other MAFMC managed species, including longfin and other squid, Atlantic mackerel, scup, and butterfish (not resolved in food web; combined diet >30%). Dogfish have ~20% of total diet from squids and mackerel, bluefish have ~25% of diet from butterfish, squids, bluefish, mackerel, and scup, and monkfish have ~20% of diet from squids, mackerel, summer flounder, scup, and monkfish. Therefore, these three predators rank low risk for food web interactions with other MAFMC managed species. 
 
-##Food Web (2)
-This element is applied at the species level. This element ranks the risks of not achieving protected species objectives due to species interactions with MAFMC managed species. As above, a food web model and updated marine mammal diet information can be used to establish thresholds of "importance" for predators and prey. An "important" predator of protected species could be defined as causing >20% of individual species mortality. If individual mortality estimates are not available (current food web models are not defined at the species level) then an important predator of protected species can be defined as having >30% in aggregate of protected species in the diet by weight. An important prey of protected species is defined here as individually comprising >30% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual protected species. 
+##Food Web (MAFMC Prey)
+This element is applied at the species level. This element ranks the risks of not achieving OY due to prey interactions between MAFMC managed species. To rank these risks, the "importance" of each species as prey must be assessed. There are not clear standardized threshold to define this. Diet information and a food web model can be used to develop thresholds. An important prey of MAFMC managed species can be defined as individually comprising above a certain threshold of the predator's diet by weight. "Vulnerable" prey warranting a high risk ranking would comprise a majority (>50%) of diet or have a majority of mortality caused by an individual MAFMC managed species. 
+
+The EOP Committee agreed that a high proportion in diet represented high risk as a prey (and also to the predator), but could not come to agreement on thresholds for intermediate risk levels, so this risk ranking uses only low and high levels.
+
+```{r riskfw1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | Few interactions as prey of other MAFMC managed species, or prey of other managed species but below 50% of diet |
+| Low-Moderate | Important prey with management consideration of interaction |
+| Moderate-High | *This category not used* |
+| High | Managed species is sole prey and/or subject to high mortality due to other MAFMC managed species |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+This information is gathered from the NEFSC food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008].  Surfclams and ocean quahogs are not prey of other MAFMC managed species, so they rank low risk for this element. Similarly, spiny dogfish, bluefish, monkfish, summer flounder, scup, black sea bass, and golden and blueline tilefish do not show up individually as >10% of prey by weight in any MAFMC managed species diets, so they rank low risk. While some MAFMC managed species are prey of other managed species, none meet the defined risk threshold. Atlantic mackerel is a prey of spiny dogfish (~10% of diet with high interannual variability). Butterfish is a prey of bluefish, but is below the threshold (~12% of diet), and the reference point applied to butterfish considers it's role as a forage fish in general. Cephalopods as a group are prey of summer flounder (~33% of diet), with approximately half of this attributed to "Loligo species" in the diet data, very little to Illex species, and the rest as squid unidentified. Similarly, Cephalopods as a group are important prey of shortfin squid (>30% of diet), but how much of this is longfin squid is unknown, and some is cannibalism. Unmanaged forage (e.g. anchovies, sandlance, >50% of inshore diet) are important prey of bluefish, but MAFMC measures restict fishery development on these species so they rank low-moderate risk under this element. 
+
+##Food Web (Protected Species Prey)
+This element is applied at the species level. This element ranks the risks of not achieving protected species objectives due to species interactions with MAFMC managed species. As above, a food web model and updated marine mammal diet information can be used to establish thresholds of "importance" for predators and prey. There are no MAFMC managed species that are important predators of protected species, so here we rank only risks where MAFMC managed species represent prey of protected species. An important prey of protected species is defined here as individually comprising >30% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual protected species. 
 
 ```{r riskfw2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
 | Low  | Few interactions with any protected species |
-| Low-Moderate | Important predator of protected species, important prey of 1-2 protected species, or important prey of 3 or more protected species with management consideration of interaction |
+| Low-Moderate | Important prey of 1-2 protected species, or important prey of 3 or more protected species with management consideration of interaction |
 | Moderate-High | Important prey of 3 or more protected species |
-| High | Managed species either exclusively dependent on a protected species as prey or is sole prey for a protected species |
+| High | Managed species is sole prey for a protected species |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
