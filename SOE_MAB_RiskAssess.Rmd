@@ -196,10 +196,10 @@ tabl <- "
 | Estuarine habitat    | Risk of not achieving OY due to threats to estuarine/nursery habitat | Enumerated threats + estuarine dependence |
 | Offshore habitat     | Risk of not achieving OY due to threats to offshore habitat   | Integrated habitat model index |
 | *Economic* |  |
-| Commercial Profits   | Risk of not maximizing fishery value             | Revenue by fleet |
-| Recreational Value   | Risk of not maximizing fishery value             | Numbers of anglers and trips in aggregate |    
-| Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
-| Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
+| Commercial Revenue   | Risk of not maximizing fishery value             | Revenue by fleet |
+| Recreational Angler Days/Trips   | Risk of not maximizing fishery value             | Numbers of anglers and trips in aggregate |    
+| Commercial Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
+| Commercial Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
 | *Social* |  |
 | Fleet Resilience      | Risk of reduced fishery resilience | Number of fleets, fleet diversity |
 | Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
@@ -814,7 +814,7 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 
 These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). This is a national trend likely due to shifting demographics and general economic dynamics, among other issues.
 
-##Fishery Resilience (Revenue Diversity)
+##Commercial Fishery Resilience (Revenue Diversity)
 This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue at the permit level. 
 
 ```{r riskfrel1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -896,7 +896,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 There is no current indicator available for this risk element. Ranking based on expert opinion should be explored.
 -->
 
-##Fishery Resilience (Shoreside Support)
+##Commercial Fishery Resilience (Shoreside Support)
 This element is applied at the ecosystem level. This element ranks the risk of reduced fishery business resilience due to shoreside support infrastructure by examining the number of shoreside support businesses. 
 
 ```{r riskfrel4, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
