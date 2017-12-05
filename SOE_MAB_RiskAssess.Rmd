@@ -177,7 +177,7 @@ A **Risk Element** is an aspect that may threaten achieving the biological, econ
 
 The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented below. In the following sections, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. 
 
-*These risk definitions are currently in draft form, pending Council review. The primary goal of presenting this information is to clearly define and reach agreement about risks of concern to the Council. All risk rankings shown can be further adjusted to meet Council needs. This is not a final risk assessment.*
+*These risk definitions are currently in draft form, pending Council review. The primary goal of presenting this information is to clearly define and reach agreement about risks of concern to the Council. All risk rankings shown can be further adjusted to meet Council needs. This is not a final risk assessment. A Mann-Kendall test for monotonic trends is used to test significance of both long term and recent trends.*
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
