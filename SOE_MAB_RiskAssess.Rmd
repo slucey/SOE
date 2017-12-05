@@ -200,8 +200,6 @@ tabl <- "
 | Recreational Value   | Risk of not maximizing fishery value             | Numbers of anglers and trips in aggregate |    
 | Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
 | Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
-| Commercial Employment   | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
-| Recreational Employment | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | *Social* |  |
 | Fleet Resilience      | Risk of reduced fishery resilience | Number of fleets, fleet diversity |
 | Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
@@ -221,6 +219,8 @@ tabl <- "
 | Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
 | Fishery Resilience (3)  | Risk of reduced fishery business resilience due to insurance availabilty  |  No current indicator available |
 | Fishery Resilience (5)  | Risk of reduced fishery business resilience due to access to emerging markets/opportunities  | Needs clarification  |
+| Commercial Employment   | Risk of not optimizing employment opportunities | EOP Committee unconfident in Fisheries of US employment inicator |
+| Recreational Employment | Risk of not optimizing employment opportunities | EOP Committee unconfident in Fisheries of US employment indicator |
 | Seafood safety   | Risk of not maintaining market access, human health    | Number of public advisories by species |
 
 "
