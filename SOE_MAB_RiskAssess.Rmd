@@ -762,7 +762,7 @@ soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Re
 ```
 
 ##Recreational Value
-This element is applied at both the fleet level and at the ecosystem level where it would apply equally to all recreationally fished species. Risk of not maximizing fishery value is evaluated using the number of angler-days and number of trips in aggregate.
+This element is applied at both the fleet level and at the ecosystem level where it would apply equally to all recreationally fished species. Risk of not maximizing fishery value is evaluated using the number of marine recreational fishing angler-days and number of marine recreational trips, in aggregate.
 
 ```{r riskrecval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -790,7 +790,7 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 
 ```
 
-These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). However, this is a national trend likely due to shifting demographics and general economic dynamics, rather than an issue that can be managed at the MAFMC [@national_marine_fisheries_service_fisheries_2017].
+These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). This is a national trend likely due to shifting demographics and general economic dynamics, among other issues.
 
 ##Fishery Resilience (Revenue Diversity)
 This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue. 
