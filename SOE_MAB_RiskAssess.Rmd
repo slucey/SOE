@@ -1037,7 +1037,7 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y
 
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
-
+<!--
 At the request of the EOP and advisors, the diversity metrics were also calculated giving less weight to the scallop and clam fleets. However, the overall trends are very similar. 
 
 ```{r Fleet Diversity collapsing the scallop and clam fleets, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
@@ -1051,8 +1051,8 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity scallop
 
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
-
-There is a long term decrease in the fleet diversity metric, no matter how it is measured. Therefore this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
+-->
+There is a long term decrease in the fleet diversity metric. Therefore this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
 
 ##Community Vulnerability
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs; @jepson_development_2013) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing dependence (with dependence being a function of both reliance and engagement), sea level rise risk, species vulnerability to climate change, and catch composition diversity. We use a combination of these five indicators for the most fishery dependent communities to evaluate overall social risk levels.
