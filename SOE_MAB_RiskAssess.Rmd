@@ -396,7 +396,7 @@ This element is applied at the species level. This element ranks the risks of no
 
 The EOP Committee agreed that a high proportion in diet represented high risk as a prey (and also to the predator), but could not come to agreement on thresholds for intermediate risk levels, so this risk ranking uses only low and high levels.
 
-```{r riskfw1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r riskfw11, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
@@ -831,7 +831,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 This diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
  
-```{r, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=3.5}
+```{r, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=2.5}
 
 # opar <- par(mar = c(4, 6, 2, 6))
 # soe.plot(SOE.data, 'Time', 'Mid-Atlantic commercial species diversity', 
@@ -842,21 +842,18 @@ load(file.path(data.dir, 'altfleetdiv_data.RData'))
 altfleetdiv.data <- altfleetdiv.data[altfleetdiv.data$Time < 2017,]
 
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', x.end = 2016,
-          rel.y.num = 0.8, stacked = 'A')
-<!--soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', x.end = 2016,
-          rel.y.num = 0.8, stacked = 'B')-->
+soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', x.end = 2016, rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
+#soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', x.end = 2016, rel.y.num = 0.8, stacked = 'B')
 
-<!--soe.stacked.axis('Year', expression('Shannon index'),
-                 rel.y.text = .8) -->
+#soe.stacked.axis('Year', expression('Shannon index'),rel.y.text = .8) 
 
 # opar <- par(mar = c(4, 6, 2, 6))
 # soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', 
 #          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
 # 
-<!--opar <- par(mar = c(4, 6, 2, 6))
+#opar <- par(mar = c(4, 6, 2, 6))
 # soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', 
-#          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1) -->
+#          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1) 
 
 
 ```
