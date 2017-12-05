@@ -730,8 +730,8 @@ This experimental habitat index is still being studied and improved, so  habitat
 
 #Economic Elements
 
-##Commercial Profits
-This element is applied at the ecosystem level. This element addresses the risk of not maximizing fishery value. 
+##Commercial Revenue
+This element is applied at the ecosystem level, and addresses the risk of not maximizing fishery value. Revenue serves as a proxy for commercial profits, which is the component of a fishery's value that this element is ultimately attempting to assess risk towards. 
 
 ```{r riskcomval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
