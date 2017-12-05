@@ -758,7 +758,7 @@ allrev[, Var := paste('MAFMC Revenue')]
 allrev[, Units := 'USD']
 allrev[, EPU := 'ALL']
 
-soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue USD", rel.y.num = 1.1, rel.y.text = 1)
+soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", rel.y.num = 1.1, rel.y.text = 1)
 ```
 
 ##Recreational Value
@@ -793,7 +793,7 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). This is a national trend likely due to shifting demographics and general economic dynamics, among other issues.
 
 ##Fishery Resilience (Revenue Diversity)
-This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue. 
+This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue at the permit level. 
 
 ```{r riskfrel1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -809,7 +809,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 This diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
  
-```{r, fig.cap="Diversity in species revenue: A: all species, B: scallops and clams excluded \\label{fleetsppdiv}", echo = F, fig.height=3.5}
+```{r, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=3.5}
 
 # opar <- par(mar = c(4, 6, 2, 6))
 # soe.plot(SOE.data, 'Time', 'Mid-Atlantic commercial species diversity', 
@@ -819,27 +819,27 @@ This diversity index is the average effective Shannon index for species revenue 
 load(file.path(data.dir, 'altfleetdiv_data.RData'))
 altfleetdiv.data <- altfleetdiv.data[altfleetdiv.data$Time < 2017,]
 
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', x.end = 2016,
           rel.y.num = 0.8, stacked = 'A')
-soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', x.end = 2016,
-          rel.y.num = 0.8, stacked = 'B')
+<!--soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', x.end = 2016,
+          rel.y.num = 0.8, stacked = 'B')-->
 
-soe.stacked.axis('Year', expression('Shannon index'),
-                 rel.y.text = .8)
+<!--soe.stacked.axis('Year', expression('Shannon index'),
+                 rel.y.text = .8) -->
 
 # opar <- par(mar = c(4, 6, 2, 6))
 # soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', 
 #          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
 # 
-# opar <- par(mar = c(4, 6, 2, 6))
+<!--opar <- par(mar = c(4, 6, 2, 6))
 # soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', 
-#          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
+#          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1) -->
 
 
 ```
 
-This index shows a significant long term decrease when all species are included in revenue, which would suggest a moderate-high risk to fishery business resilience based on diversity in species revenue. When scallops and clams are removed from species-based revenue, there is no long term trend, suggesting low risk to fishery business resilience. 
+This index shows a significant long term decrease, which would suggest a moderate-high risk to fishery business resilience based on diversity in species revenue. 
 
 <!--
 ##Fishery Resilience (2)
