@@ -200,8 +200,6 @@ tabl <- "
 | Recreational Value   | Risk of not maximizing fishery value             | Numbers of anglers and trips in aggregate |    
 | Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
 | Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
-| Commercial Employment   | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
-| Recreational Employment | Risk of not optimizing employment opportunities | Fisheries of US employment in aggregate |
 | *Social* |  |
 | Fleet Resilience      | Risk of reduced fishery resilience | Number of fleets, fleet diversity |
 | Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
@@ -221,6 +219,8 @@ tabl <- "
 | Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
 | Fishery Resilience (3)  | Risk of reduced fishery business resilience due to insurance availabilty  |  No current indicator available |
 | Fishery Resilience (5)  | Risk of reduced fishery business resilience due to access to emerging markets/opportunities  | Needs clarification  |
+| Commercial Employment   | Risk of not optimizing employment opportunities | EOP Committee unconfident in Fisheries of US employment inicator |
+| Recreational Employment | Risk of not optimizing employment opportunities | EOP Committee unconfident in Fisheries of US employment indicator |
 | Seafood safety   | Risk of not maintaining market access, human health    | Number of public advisories by species |
 
 "
@@ -752,8 +752,8 @@ This experimental habitat index is still being studied and improved, so  habitat
 
 #Economic Elements
 
-##Commercial Profits
-This element is applied at the ecosystem level. This element addresses the risk of not maximizing fishery value. 
+##Commercial Revenue
+This element is applied at the ecosystem level, and addresses the risk of not maximizing fishery value. Revenue serves as a proxy for commercial profits, which is the component of a fishery's value that this element is ultimately attempting to assess risk towards. 
 
 ```{r riskcomval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -780,11 +780,11 @@ allrev[, Var := paste('MAFMC Revenue')]
 allrev[, Units := 'USD']
 allrev[, EPU := 'ALL']
 
-soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue USD", rel.y.num = 1.1, rel.y.text = 1)
+soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", rel.y.num = 1.1, rel.y.text = 1)
 ```
 
 ##Recreational Value
-This element is applied at both the fleet level and at the ecosystem level where it would apply equally to all recreationally fished species. Risk of not maximizing fishery value is evaluated using the number of angler-days and number of trips in aggregate.
+This element is applied at both the fleet level and at the ecosystem level where it would apply equally to all recreationally fished species. Risk of not maximizing fishery value is evaluated using the number of marine recreational fishing angler-days and number of marine recreational trips, in aggregate.
 
 ```{r riskrecval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -812,10 +812,10 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 
 ```
 
-These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). However, this is a national trend likely due to shifting demographics and general economic dynamics, rather than an issue that can be managed at the MAFMC [@national_marine_fisheries_service_fisheries_2017].
+These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). This is a national trend likely due to shifting demographics and general economic dynamics, among other issues.
 
 ##Fishery Resilience (Revenue Diversity)
-This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue. 
+This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue at the permit level. 
 
 ```{r riskfrel1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -831,7 +831,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 This diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
  
-```{r, fig.cap="Diversity in species revenue: A: all species, B: scallops and clams excluded \\label{fleetsppdiv}", echo = F, fig.height=3.5}
+```{r, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=3.5}
 
 # opar <- par(mar = c(4, 6, 2, 6))
 # soe.plot(SOE.data, 'Time', 'Mid-Atlantic commercial species diversity', 
@@ -841,27 +841,27 @@ This diversity index is the average effective Shannon index for species revenue 
 load(file.path(data.dir, 'altfleetdiv_data.RData'))
 altfleetdiv.data <- altfleetdiv.data[altfleetdiv.data$Time < 2017,]
 
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', x.end = 2016,
           rel.y.num = 0.8, stacked = 'A')
-soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', x.end = 2016,
-          rel.y.num = 0.8, stacked = 'B')
+<!--soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', x.end = 2016,
+          rel.y.num = 0.8, stacked = 'B')-->
 
-soe.stacked.axis('Year', expression('Shannon index'),
-                 rel.y.text = .8)
+<!--soe.stacked.axis('Year', expression('Shannon index'),
+                 rel.y.text = .8) -->
 
 # opar <- par(mar = c(4, 6, 2, 6))
 # soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', 
 #          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
 # 
-# opar <- par(mar = c(4, 6, 2, 6))
+<!--opar <- par(mar = c(4, 6, 2, 6))
 # soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity no scallop clam', 
-#          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
+#          rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1) -->
 
 
 ```
 
-This index shows a significant long term decrease when all species are included in revenue, which would suggest a moderate-high risk to fishery business resilience based on diversity in species revenue. When scallops and clams are removed from species-based revenue, there is no long term trend, suggesting low risk to fishery business resilience. 
+This index shows a significant long term decrease, which would suggest a moderate-high risk to fishery business resilience based on diversity in species revenue. 
 
 <!--
 ##Fishery Resilience (2)
@@ -1059,7 +1059,7 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y
 
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
-
+<!--
 At the request of the EOP and advisors, the diversity metrics were also calculated giving less weight to the scallop and clam fleets. However, the overall trends are very similar. 
 
 ```{r Fleet Diversity collapsing the scallop and clam fleets, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
@@ -1073,8 +1073,8 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity scallop
 
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
-
-There is a long term decrease in the fleet diversity metric, no matter how it is measured. Therefore this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
+-->
+There is a long term decrease in the fleet diversity metric. Therefore this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
 
 ##Community Vulnerability
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs; @jepson_development_2013) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing dependence (with dependence being a function of both reliance and engagement), sea level rise risk, species vulnerability to climate change, and catch composition diversity. We use a combination of these five indicators for the most fishery dependent communities to evaluate overall social risk levels.
