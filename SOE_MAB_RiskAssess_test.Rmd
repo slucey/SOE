@@ -31,8 +31,12 @@ gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
 #image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
 #gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
-library(data.table); library(Kendall); library(rgdal); library(knitr)
-library(kableExtra)
+PKG <- c("data.table","Kendall","rgdal","dplyr","nlme","knitr",'kableExtra','zyp')
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {  
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
 load(file.path(data.dir, 'SOE_data.RData'))
 load(file.path(data.dir, 'Comm_Climate_Vul.RData'))
 load(file.path(data.dir, 'Fisheries_Eng_Rel.RData'))
@@ -101,8 +105,8 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
 
   #Identify significant trends
   #Whole time series
-  mksts <- MannKendall(x[, Value])
-  mkstsp <- round(unlist(mksts[2]), 3)
+  mksts <- zyp.trend.vector(x[, Value])
+  mkstsp <- round(unlist(mksts[6]), 3)
  
   if(mkstsp < 0.05){
     lmod <- lm(x[, Value] ~ x[, X])
@@ -120,8 +124,8 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   }
  
   #Final portion of time series
-  mksld <- MannKendall(x[X > (end.start - 1), Value])
-  mksldp <- round(unlist(mksld[2]), 3)
+  mksld <- zyp.trend.vector(x[X > (end.start - 1), Value])
+  mksldp <- round(unlist(mksld[6]), 3)
   if(mksldp < 0.05){
     l10_x <- x[X > (end.start - 1), X]
     l10_y <- x[X > (end.start - 1), Value]
