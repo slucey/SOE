@@ -720,37 +720,6 @@ soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.tex
 
 ```
 
-<!--
-```{r, fig.cap="Shifts in modeled species spring habitat area over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid, H: Dogfish, I: Goosefish  \\label{shifts}", fig.height=9, echo = F, message = FALSE, warning = FALSE}
-#knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
-#out.width='\\linewidth'
-
-#SOE.data[Var %like% "ASDIST"]
-opar <- par(mfrow = c(9, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-
-soe.plot(SOE.data, 'Time', 'BLACK SEA BASS Max Habitat Index Spring',    stacked = 'A', scale.axis = 100, 
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER Max Habitat Index Spring',   stacked = 'B', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SCUP Max Habitat Index Spring',              stacked = 'C', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'BUTTERFISH Max Habitat Index Spring',        stacked = 'D', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL Max Habitat Index Spring', stacked = 'E', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'LONGFIN SQUID Max Habitat Index Spring',     stacked = 'F', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID Max Habitat Index Spring', stacked = 'G', 
-         scale.axis = 100, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SPINY DOGFISH Max Habitat Index Spring', stacked = 'H', 
-         scale.axis = 100, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'GOOSEFISH Max Habitat Index Spring', stacked = 'I', 
-         scale.axis = 100, rel.y.num = 0.9)
-
-soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.text = 1.5)
-
-```
--->
 
 This experimental habitat index is still being studied and improved, so  habitat risk rankings based on this can be considered preliminary. Overall, black sea bass, summer flounder, scup, and spiny dogfish have long term increasing trends in offshore habitat, and Atlantic mackerel and longfin squid have short term increasing trends. Therefore, these species rank low risk for this element. However, butterfish, shortfin squid, and goosefish have long term decreasing trends in offshore habitat, and shortfin squid have a short term decreasing trend as well. Therefore, thse species rank moderate-high risk (butterfish, goosefish) and high risk (shortfin squid) for this element. Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by the bottom trawl survey and were not included in this analysis, similar to unmanaged forage and deepsea corals. 
 
@@ -784,7 +753,7 @@ allrev[, Var := paste('MAFMC Revenue')]
 allrev[, Units := 'USD']
 allrev[, EPU := 'ALL']
 
-soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", rel.y.num = 1.1, rel.y.text = 1)
+soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", x.start = 1986, rel.y.num = 0.8, rel.y.text = 1)
 ```
 
 ##Marine Recreational Angler Days/Trips
