@@ -185,43 +185,46 @@ In the following sections, we describe each risk element in more detail along wi
 
 At the end of the document, we summarize risk ranking results across elements in three tables.
 
-*These risk definitions are currently in draft form, pending Council review. The primary goal of presenting this information is to clearly define and reach agreement about risks of concern to the Council. All risk rankings shown can be further adjusted to meet Council needs. This is not a final risk assessment.*
+*This risk assessment is currently in draft form, pending Council review.*
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Element         | Definition: Risk to what?                        |  Indicators used                                 |
-|:-------------------------|:-------------------------------------------------|:-------------------------------------------------|
-| *Ecological*         |  |
+|:-------------------------------------|:-------------------------------------------------|:-------------------------------------------------|
+| **Ecological**         |  |
 | Assessment performance      | Risk of not achieving OY due to analytical limitations   | Current assessment method/data quality |
 | F status             | Risk of not achieving OY due to overfishing      | Current F relative to reference F from assessment |
 | B status             | Risk of not achieving OY due to depleted stock   | Current B relative to reference B from assessment |
-| Food web  (1)       | Risk of not achieving OY due to MAFMC managed species interactions   | Food web model outputs, management measures |
-| Food web  (2)       | Risk of not achieving protected species objectives due to species interactions   | Food web model outputs, management measures |
+| Food web  (MAFMC Predator)       | Risk of not achieving OY due to MAFMC managed species interactions   | Diet composition, management measures |
+| Food web  (MAFMC Prey)       | Risk of not achieving OY due to MAFMC managed species interactions   | Diet composition, management measures |
+| Food web  (Protected Species Prey)       | Risk of not achieving protected species objectives due to species interactions   | Diet composition, management measures |
 | Ecosystem productivity  | Risk of not achieving OY due to changing system productivity   | Four indicators, see text |
 | Climate              | Risk of not achieving OY due to climate vulnerability   | Northeast Climate Vulnerability Assessment |
 | Distribution shifts  | Risk of not achieving OY due to climate-driven distribution shifts   | Northeast Climate Vulnerability Assessment + 2 indicators  |
 | Estuarine habitat    | Risk of not achieving OY due to threats to estuarine/nursery habitat | Enumerated threats + estuarine dependence |
-| Offshore habitat     | Risk of not achieving OY due to threats to offshore habitat   | Integrated habitat model index |
-| *Economic* |  |
-| Commercial Revenue   | Risk of not maximizing fishery value             | Revenue by fleet |
+| Offshore habitat     | Risk of not achieving OY due to changing offshore habitat   | Integrated habitat model index |
+| **Economic** |  |
+| Commercial Revenue   | Risk of not maximizing fishery value             | Revenue in aggregate |
 | Recreational Angler Days/Trips   | Risk of not maximizing fishery value             | Numbers of anglers and trips in aggregate |    
 | Commercial Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
-| Commercial Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
-| *Social* |  |
+| Commercial Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |  
+|  |  | 
+| **Social** |  |
 | Fleet Resilience      | Risk of reduced fishery resilience | Number of fleets, fleet diversity |
 | Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
-| *Food Production* |  |
+| **Food Production** |  |
 | Commercial     | Risk of not optimizing seafood production             | Seafood landings in aggregate |
 | Recreational   | Risk of not maintaining personal food production      | Recreational landings in aggregate |
-| *Management* |  |
+| **Management** |  |
 | Control     | Risk of not achieving OY due to inadequate control             | Catch compared to allocation |
 | Interactions   | Risk of not achieving OY due to interactions with species managed by other entities    | Number and type of interactions with protected or non-MAFMC managed species, co-management |
 | Other ocean uses   | Risk of not achieving OY due to other human uses      | Fishery overlap with energy/mining areas |
 | Regulatory complexity   | Risk of not achieving compliance due to complexity    | Number of regulations by species |
 | Discards   | Risk of not minimizing bycatch to extent practicable      | Standardized Bycatch Reporting  |
 | Allocation  | Risk of not achieving OY due to spatial mismatch of stocks and management  | Distribution shifts + number of interests |
-| *Put Aside* |  |
+|  |  |
+| **Put Aside** |  |
 | Population diversity  | Risk of not achieving OY due to reduced diversity   | Size composition, sex ratio, genetic diversity |
 | Ecological diveristy  | Risk of not achieving OY due to reduced diversity   | Fishery independent species diversity |
 | Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
@@ -600,7 +603,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 All Mid-Atlantic species with the exception of golden tilefish had either high or very high risk of distribution shifts in the Northeast US. 
 
-```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species distribution shift risk \\label{NEVAshift}", out.width='\\linewidth'}
+```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species distribution shift risk \\label{NEVAshift}", out.width='0.8\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'NEVAshiftmid.png'))
 
 ```
@@ -667,7 +670,6 @@ soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.t
 #soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
 
 ```
-
 
 ##Estuarine and Coastal Habitat
 This element is applied at the species level. Risk of not achieving OY due to threats to estuarine and nearshore coastal habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Here, we include estuarine and nearshore coastal habitat in the term "estuarine" below. Water and habitat quality assessments produced for Chesapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered in the future.
@@ -758,7 +760,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This is aggregate commercial revenue for MAFMC managed species. There is a long term increase in revenue, but a recent significant decrease in revenue, indicating high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
+This is aggregate commercial revenue for MAFMC managed species. There is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
 
 ```{r ComProfAgg, fig.cap="Aggregate Mid-Atlantic managed species revenue  \\label{comprofagg}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
@@ -849,7 +851,7 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', 
 
 ```
 
-This index shows a significant long term decrease, which would suggest a moderate-high risk to fishery business resilience based on diversity in species revenue. 
+This index shows no significant trend, which would suggest a low risk to fishery business resilience based on diversity in species revenue. 
 
 <!--
 ##Fishery Resilience (2)
@@ -933,7 +935,7 @@ soe.plot(allent, 'Time', 'Mid-Atlantic Nonemployer Entities', rel.y.num = 0.8, x
 
 ```
 
-The number of shoreside support companies that include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states shows a long term decrease, which on its own would represent moderate-high risk to fishery resilience. However, the number of non-employer entities which include seafood preparation and packaging and seafood markets shows both a long term and short term increase. Trends in other shoreside fishery supporting businesses such as gear manufacturers and welding companies are not included here due to aggregation of the statistics. Therefore, until further information is available, we rate this low-moderate risk due to the conflicting trends of declining companies and increasing non-employer entities. 
+The number of shoreside support companies that include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states shows a significant long term and short term decrease, which on its own represents moderate-high risk to fishery resilience. However, the number of non-employer entities which include seafood preparation and packaging and seafood markets shows a long term increase. Trends in other shoreside fishery supporting businesses such as gear manufacturers and welding companies are not included here due to aggregation of the statistics.  
 
 <!--
 ##Fishery Resilience (5)
@@ -1069,7 +1071,7 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity scallop
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
 -->
-There is a long term decrease in the fleet diversity metric. Therefore this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
+There is a long term decrease in the fleet count metric. Therefore this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
 
 ##Community Vulnerability
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs; @jepson_development_2013) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing dependence (with dependence being a function of both reliance and engagement), sea level rise risk, species vulnerability to climate change, and catch composition diversity. We use a combination of these five indicators for the most fishery dependent communities to evaluate overall social risk levels.
