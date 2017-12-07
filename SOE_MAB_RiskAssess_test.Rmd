@@ -1366,8 +1366,8 @@ Picture of indicator, reference, or words describing rankings.
 
 #Management Elements
 
-##Control
-This element is applied at the species and sector (commercial/recreational) level. This element addresses the level of management control in terms of catch measurement and monitoring. Adequate management control indicates low risk of not achieving OY, while poor management control indicates higher risk of not achieving OY. Actual catch is compared with the specified ABC over the most recent five years of fishery history. 
+##Fishing Mortality Control
+This element is applied at the species and sector level. This element addresses the level of management control in terms of catch estimation (measurement) and monitoring to prevent overfishing. Adequate management control indicates a low risk of overfishing, while poor management control indicates a higher risk of overfishing and hence not achieving OY.  Actual catch is compared with the specified ABC over the most recent five years of fishery history.
 
 ```{r riskctl, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1381,16 +1381,16 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-The ability to control total annual catch is necessary to prevent overfishing (i.e., defined to occur when total catch exceeds the overfishing level defined in the FMP), which is a fundamental requirement of MSA. Chronic or persistent overfishing can lead to stock depletion and ultimately to a stock being declared as overfished (thus requiring a stock rebuilding plan).  The ability to constrain catch is a function of the efficacy of the catch monitoring program for each species which relies on both proactive (in -season closure) and reactive (pay backs for overages in subsequent years) accountability measures which were implemented post-MSA Reauthorization. NMFS dealer data in conjunction with estimates of discards are used to compare actual to realized annual catch.  Small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%.    
+The ability to control total annual catch is necessary to prevent overfishing (i.e., defined to occur when total catch exceeds the overfishing level defined in the FMP), which is a fundamental requirement of MSA. Chronic or persistent overfishing can lead to stock depletion and ultimately to a stock being declared as overfished (thus requiring a stock rebuilding plan).  The ability to constrain catch is a function of the efficacy of the catch monitoring program for each species which relies on both proactive (in -season closure) and reactive (pay backs for overages in subsequent years) accountability measures which were implemented post-MSA Reauthorization. Under certain circumstances, specification of management measures which are too strict could lead to “underfishing” (not achieving the desired quota) and hence not achieving OY. This element will be evaluated by fishery sector (commercial and recreational). For the commercial fishery, NMFS dealer data in conjunction with estimates of discards are used to compare target to actual annual catch.  For the commercial sector, small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%.  For the recreational sector, MRIP estimates of recreational catch are used to compare target to actual annual catch estimates. 
 
 ##Technical Interactions
-This element is applied at the species and sector (commercial/recreational) level. This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species, including protected species. Here the risk is caused by negative consequences from fishing activity regulated under MAFMC FMPs which interacts with species managed by other agencies, including bycatch of protected species. For example, windowpane flounder accountability measures (AM) implemented by the New England Council have the potential to negatively impact a number MAFMC managed fisheries if they are triggered. Similarly, interactions with marine mammals protected under the MMPA could result in greater restrictions in MAFMC managed fisheries increasing the risk that OY would not be achieved in those fisheries. For example, the measures necessary for recovery of the critically endangered North Atlantic right whale population have the potential to seriously impact numerous fisheries in the NE US.  
+This element is applied at the species and sector level. This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species, including protected species. Here the risk is caused by negative consequences from fishing activity regulated under MAFMC FMPs which interacts with species managed by other agencies, including bycatch of protected species. For example, windowpane flounder accountability measures implemented by the New England Council have the potential to negatively impact a number MAFMC managed fisheries if they are triggered. Similarly, interactions with marine mammals protected under the MMPA could result in greater restrictions in MAFMC managed fisheries increasing the risk that OY would not be achieved in those fisheries. For example, the measures necessary for recovery of the critically endangered North Atlantic right whale population have the potential to seriously impact numerous fisheries in the NE US.  
 
 ```{r riskmint, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | Few interactions with non-MAFMC managed species |
+| Low  | No interactions with non-MAFMC managed species |
 | Low-Moderate | Interactions with non-MAFMC managed species but infrequent, Category II fishery under MMPA; or AMs not likely triggered |
 | Moderate-High | AMs in non-MAFMC managed species may be triggered; or Category I fishery under MMPA (but takes less than PBR) |
 | High | AMs in non-MAFMC managed species triggered; or Category I fishery under MMPA and takes above PBR   |
@@ -1401,24 +1401,24 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Evaluation of this risk element requires quantification of the likelihood that AMs under other non-MAFMC FMPs would be triggered (thus impacting fishing activities for MAFMC managed species). In addition, NMFS manages marine mammal interactions with commercial fishing activity through take reductions plans. In cases where an MAMFC fishery interacts with marine mammals, conservation measures implemented through a take reduction plan could negatively impact that fishery. 
 
 ##Other Ocean Uses
-This element is applied at the species and sector (commercial/recreational) level. This element addresses the risk of fishery displacement or damage of a fishery resource and/or habitat that supports it as a result of non-fishing activities in the ocean.  
+This element is applied at the species and sector level. This element addresses the risk of fishery displacement or damage of a fishery resource and/or habitat that supports it as a result of non-fishing activities in the ocean.  It also includes evaluation of risk to MAFMC fisheries from area based measures outside of the control of the Council including area closures implemented by other Councils to protect sensitive habitats, spawning areas, etc. and/or through marine monument or other types of area based management designations.       
 
 ```{r riskoou, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No overlap |
+| Low  | No overlap; no impact on habitat |
 | Low-Moderate | Low-moderate overlap; minor habitat impacts but transient |
 | Moderate-High | Moderate-high overlap; minor habitat impacts but persistent |
-| High | High overlap; energy development could seriously disrupt fishery prosecution; major permanent habitat impacts |
+| High | High overlap; other uses could seriously disrupt fishery prosecution; major permanent habitat impacts |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Non-fishing ocean activities (e.g., energy development/sand mining/other industrial, etc.)  could potentially impact MAFMC fisheries because they overlap with historical fishing grounds (physical displacement) and/or through negative impacts on important habitats. This element can be evaluated through GIS analyses which quantify the degree of overlap and/or expert opinion relative impacts on habitat quality and function. 
+Non-fishing ocean activities (e.g., energy development/sand mining/other industrial, etc.) and/or designation of areas where fishing is prohibited (i.e., marine monument designations or establishment of habitat protected areas by other Councils) could potentially impact MAFMC fisheries because they overlap with historical fishing grounds (physical displacement) and/or through negative impacts on important habitats.  This element can be evaluated through GIS analyses which quantify the degree of overlap and/or expert opinion relative impacts on habitat quality and function. 
 
 ##Regulatory Complexity and Stability
-This element is applied at the species and sector (commercial/recreational) level. Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries. 
+This element is applied at the species and sector level. Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.   
 
 ```{r riskcomplex, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1432,10 +1432,10 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified.  
+This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified. 
 
 ##Discards
-This element is applied at the species and sector (commercial/recreational) level. Stakeholders have identified the reduction of discards as a high priority in the Council management program, especially those caused by regulations since they represent biological and economic waste.  Discards of either the target or non-target species in the fishery would be taken into consideration. 
+This element is applied at the species and sector level. Stakeholders have identified the reduction of discards as a high priority in the Council management program, especially those caused by regulations since they represent biological and economic waste.  Discards of either the target or non-target species in the fishery would be taken into consideration. 
 
 ```{r riskdisc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1444,29 +1444,29 @@ tabl <- "
 | Low  | No significant discards |
 | Low-Moderate | Low or episodic discard |
 | Moderate-High | Regular discard but managed |
-| High | High discard, difficult ot manage |
+| High | High discard, difficult to manage |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-NMFS provides estimates of discards by species based on at-sea observations collected in the Northeast Fisheries Observer Program for stock assessment purposes and quota monitoring. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards will be evaluated for each species and fishery with focus on identification of discards caused by regulations for each fishery sector.  
+NMFS provides estimates of discards by species based on at-sea observations collected in the Northeast Fisheries Observer Program for stock assessment purposes and quota monitoring. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards will be evaluated for each species and fishery with focus on identification of discards caused by regulations for each fishery sector (commercial and recreational).  
 
 ##Allocation
-This element is applied at the species and sector (commercial/recreational) level. This element addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations. Indicators for difficulty of allocation include a combination of distribution shifts (see above) and the number of interests (sectors, states, etc.) requiring allocation.
+This element is applied at the species and sector level. This element addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations or because of sub-optimal allocation by sector and/or area.  Indicators for difficulty of allocation include a combination of distribution shifts (see above) and the number of interests (sectors, states, etc.) requiring allocation. 
 
 ```{r riskalloc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No allocation or not difficult |
-| Low-Moderate | Low difficulty |
-| Moderate-High | Moderate difficulty |
-| High | Very difficult/controversial |
+| Low  | No recent or ongoing Council discussion about allocation |
+| Low-Moderate | *This category not used* |
+| Moderate-High | *This category not used* |
+| High | Recent or ongoing Council discussion about allocation |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Each species will be evaluated relative to the degree of spatial or sector allocation currently specified within the FMP. Expert judgement will be used to evaluate the level of risk of not achieving OY posed by existing allocation relative to current states of nature. This would include an evaluation of the degree of economic inefficiency resulting from increased costs incurred by fishermen caused by inconsistencies between historical allocation of quota and current or recent geographical distribution of stocks.  
+Each species and sector will be evaluated relative to risk based on whether or not there is ongoing or recent (last three years) discussion by the Council concerning allocation.    
 
 #References
 
