@@ -560,7 +560,7 @@ soe.stacked.axis('Year', 'Expected n species / 100 fish', rel.y.text = 1)
 -->
 
 ##Climate
-This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. This assessment is intended to be conducted iteratively, so these results can be updated in the future. 
+This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were evaluated in a comprehensive assessment [@hare_vulnerability_2016]. This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity (*not extinction risk*) of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. This assessment is intended to be conducted iteratively, so these results can be updated in the future. 
 
 ```{r riskclim, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -581,8 +581,10 @@ knitr::include_graphics(file.path(image.dir, 'NEVAvulmid.png'))
 
 ```
 
+While this risk assessment focuses on overall vulnerability to impacts of climate, not all impacts will be negative. Some MAFMC managed species may benefit from projected future climate conditions, including black sea bass, bluefish, butterfish, longfin squid, and shortfin squid [@hare_vulnerability_2016]. 
+
 ##Distribution Shifts
-This element is applied at the species level. Risks of species distribution change (and therefore risks to achieving OY as well as straightforward allocation) due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly here. In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
+This element is applied at the species level. Species distribution shifts can increase risks of ineffective spatial catch allocation; if catch distribution is greatly mismatched with species distribution OY may not be achieved. Risks of species distribution shifts due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly here. In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
 
 ```{r riskdist, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -621,7 +623,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
 ###Changes in Along Shelf Position
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from shortfin squid (an offshore species incompletely sampled by the coastal NEFSC trawl survey).  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from squids.  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 ```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
@@ -685,7 +687,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and coastal condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine and nearshore coastal habitat dependent species (summer flounder, scup, black sea bass, and bluefish, [@able_re-examination_2005]) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to lower dependence on this habitat type. 
 
 ##Offshore Habitat
-This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from experimental species-specific habitat modeling. *In addition, the number of threats from other human uses can be enumerated, but this has yet to be included.*
+This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from experimental species-specific habitat modeling. *In addition, the number of threats from other human uses can be enumerated; at present this is addressed under "Other Ocean Uses" in the Management section below.*
 
 ```{r riskoffhab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -699,7 +701,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Random forest habitat models using both static and dynamics variables have been developed for many of the resource species on the Northeast Shelf. These models estimate spring and fall habitat for the time series 1992 to 2016 reflecting the use of the ecosystem based on the NEFSC bottom trawl survey. The variables evaluated for use in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. The random forest approach differentiates variables with strong predictive power and was used to reduce the variable set to 11 variables for each species. The models were used to estimate fall habitat scores over the entire shelf over the time series.
+Habitat models using both static and dynamics variables have been developed for many of the resource species on the Northeast Shelf. These models estimate spring and fall habitat for the time series 1992 to 2016 reflecting the use of the ecosystem based on the NEFSC bottom trawl survey. The variables evaluated for use in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. The random forest approach differentiates variables with strong predictive power and was used to reduce the variable set to 11 variables for each species. The models were used to estimate fall habitat scores over the entire shelf over the time series.
 
 <!--Spring and fall habitat trends for Northeast Shelf species over the time period 1992 to 2016 were evaluated using the number square km in a single habitat interval from habitat modeling.  Fall indices for MAFMC species are below, with spring on the following page. *mapping linear model slope estimates for grid locations constrained to the segment of the shelf used by each species. These segments were estimated as a 99% kernel density shapes based on occurrence of each species during the study period.* -->
 
@@ -733,8 +735,11 @@ soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.tex
 
 ```
 
+*This experimental habitat index is still being studied and improved, so  habitat risk rankings based on this are considered preliminary by the EOP.* 
 
-This experimental habitat index is still being studied and improved, so  habitat risk rankings based on this can be considered preliminary. Overall, black sea bass, summer flounder, scup, and spiny dogfish have long term increasing trends in offshore habitat, and Atlantic mackerel and longfin squid have short term increasing trends. Therefore, these species rank low risk for this element. However, butterfish, shortfin squid, and goosefish have long term decreasing trends in offshore habitat, and shortfin squid have a short term decreasing trend as well. Therefore, thse species rank moderate-high risk (butterfish, goosefish) and high risk (shortfin squid) for this element. Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by the bottom trawl survey and were not included in this analysis, similar to unmanaged forage and deepsea corals. 
+Overall, black sea bass, summer flounder, and scup have long term increasing trends in fall offshore habitat, and dogfish, butterfish, Atlantic mackerel and longfin squid have short term increasing trends. Goosefish has no significant trend in fall offshore habitat. Therefore, these species rank low risk for this element. However, shortfin squid has a long term and a short term decreasing trend in offshore habitat. Therefore, shortfin squid ranks high risk for this element. 
+
+Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by the bottom trawl survey and were not included in this analysis, similar to unmanaged forage and deepsea corals. Sessile species in particular may be highly vulnerable to habitat changes, so assessments of their habitat are particularly important to develop.
 
 #Economic Elements
 
@@ -965,6 +970,9 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+The EOP Committee lacked confidence in the available employment indicator data, so this element remains unranked at this time.
+
+<!--
 This is commercial employment by state.
 
 ```{r CommJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{commjobs}", echo = F, fig.height=5.5}
@@ -979,6 +987,7 @@ soe.stacked.axis('Year', 'Number of Commercial Jobs',rel.y.text = 1)
 ```
 
 Based on this state-level information, most states show no trend in commercial fishery employment, but there is a significant recent decrease in employment in one state, Virginia. Therefore, this element ranks moderate-high risk. New York and New Jersey went from the hightest to lowest employment numbers within the most recent 2-4 years, suggesting increasing variability. 
+-->
 
 ##Recreational Employment
 This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015]. 
@@ -995,6 +1004,8 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+The EOP Committee lacked confidence in the available employment indicator data, so this element remains unranked at this time.
+<!--
 This is recreational employment by state.
 
 ```{r RecJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{recjobs}", echo = F, fig.height=5.5}
@@ -1009,6 +1020,7 @@ soe.stacked.axis('Year', 'Number of Recreational Jobs',rel.y.text = 1)
 ```
 
 Based on this state-level information, most states show no trend in recreational fishery employment, but there is a significant recent increase in employment in one state, New Jersey. Therefore, this element ranks low risk. 
+-->
 
 #Social-Cultural Elements
 
