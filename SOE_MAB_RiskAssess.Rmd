@@ -31,8 +31,12 @@ gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
 #image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
 #gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
-library(data.table); library(Kendall); library(rgdal); library(knitr)
-library(kableExtra)
+PKG <- c("data.table","Kendall","rgdal","dplyr","nlme", 'magick',"knitr",'kableExtra','zyp')
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {  
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
 load(file.path(data.dir, 'SOE_data.RData'))
 load(file.path(data.dir, 'Comm_Climate_Vul.RData'))
 load(file.path(data.dir, 'Fisheries_Eng_Rel.RData'))
@@ -101,8 +105,8 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
 
   #Identify significant trends
   #Whole time series
-  mksts <- MannKendall(x[, Value])
-  mkstsp <- round(unlist(mksts[2]), 3)
+  mksts <- zyp.trend.vector(x[, Value])
+  mkstsp <- round(unlist(mksts[6]), 3)
  
   if(mkstsp < 0.05){
     lmod <- lm(x[, Value] ~ x[, X])
@@ -120,8 +124,8 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   }
  
   #Final portion of time series
-  mksld <- MannKendall(x[X > (end.start - 1), Value])
-  mksldp <- round(unlist(mksld[2]), 3)
+  mksld <- zyp.trend.vector(x[X > (end.start - 1), Value])
+  mksldp <- round(unlist(mksld[6]), 3)
   if(mksldp < 0.05){
     l10_x <- x[X > (end.start - 1), X]
     l10_y <- x[X > (end.start - 1), Value]
@@ -175,45 +179,52 @@ The purpose of this report is to document the use of ecosystem indicators within
 
 A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements or risk rankings may change as conditions change or new information becomes available. Thus, the EAFM Risk Assessment will be a dynamic and evolving process that will be revisited and updated in future years.
 
-The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented below. In the following sections, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. 
+The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented in the table below. 
 
-*These risk definitions are currently in draft form, pending Council review. The primary goal of presenting this information is to clearly define and reach agreement about risks of concern to the Council. All risk rankings shown can be further adjusted to meet Council needs. This is not a final risk assessment. A Mann-Kendall test for monotonic trends is used to test significance of both long term and recent trends.*
+In the following sections, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. For trend-based risk definitions, a Mann-Kendall test for monotonic trends is used to test significance of both long term and recent trends. Autocorrelation in the time series was addressed by prewhitening the data as suggested by [@yue_influence_2002]. 
+
+At the end of the document, we summarize risk ranking results across elements in three tables.
+
+*This risk assessment is currently in draft form, pending Council review.*
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Element         | Definition: Risk to what?                        |  Indicators used                                 |
-|:-------------------------|:-------------------------------------------------|:-------------------------------------------------|
-| *Ecological*         |  |
+|:-------------------------------------|:-------------------------------------------------|:-------------------------------------------------|
+| **Ecological**         |  |
 | Assessment performance      | Risk of not achieving OY due to analytical limitations   | Current assessment method/data quality |
 | F status             | Risk of not achieving OY due to overfishing      | Current F relative to reference F from assessment |
 | B status             | Risk of not achieving OY due to depleted stock   | Current B relative to reference B from assessment |
-| Food web  (1)       | Risk of not achieving OY due to MAFMC managed species interactions   | Food web model outputs, management measures |
-| Food web  (2)       | Risk of not achieving protected species objectives due to species interactions   | Food web model outputs, management measures |
+| Food web  (MAFMC Predator)       | Risk of not achieving OY due to MAFMC managed species interactions   | Diet composition, management measures |
+| Food web  (MAFMC Prey)       | Risk of not achieving OY due to MAFMC managed species interactions   | Diet composition, management measures |
+| Food web  (Protected Species Prey)       | Risk of not achieving protected species objectives due to species interactions   | Diet composition, management measures |
 | Ecosystem productivity  | Risk of not achieving OY due to changing system productivity   | Four indicators, see text |
 | Climate              | Risk of not achieving OY due to climate vulnerability   | Northeast Climate Vulnerability Assessment |
 | Distribution shifts  | Risk of not achieving OY due to climate-driven distribution shifts   | Northeast Climate Vulnerability Assessment + 2 indicators  |
 | Estuarine habitat    | Risk of not achieving OY due to threats to estuarine/nursery habitat | Enumerated threats + estuarine dependence |
-| Offshore habitat     | Risk of not achieving OY due to threats to offshore habitat   | Integrated habitat model index |
-| *Economic* |  |
-| Commercial Revenue   | Risk of not maximizing fishery value             | Revenue by fleet |
+| Offshore habitat     | Risk of not achieving OY due to changing offshore habitat   | Integrated habitat model index |
+| **Economic** |  |
+| Commercial Revenue   | Risk of not maximizing fishery value             | Revenue in aggregate |
 | Recreational Angler Days/Trips   | Risk of not maximizing fishery value             | Numbers of anglers and trips in aggregate |    
 | Commercial Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
-| Commercial Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |         
-| *Social* |  |
+| Commercial Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |  
+|  |  | 
+| **Social** |  |
 | Fleet Resilience      | Risk of reduced fishery resilience | Number of fleets, fleet diversity |
 | Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
-| *Food Production* |  |
+| **Food Production** |  |
 | Commercial     | Risk of not optimizing seafood production             | Seafood landings in aggregate |
 | Recreational   | Risk of not maintaining personal food production      | Recreational landings in aggregate |
-| *Management* |  |
+| **Management** |  |
 | Control     | Risk of not achieving OY due to inadequate control             | Catch compared to allocation |
 | Interactions   | Risk of not achieving OY due to interactions with species managed by other entities    | Number and type of interactions with protected or non-MAFMC managed species, co-management |
 | Other ocean uses   | Risk of not achieving OY due to other human uses      | Fishery overlap with energy/mining areas |
 | Regulatory complexity   | Risk of not achieving compliance due to complexity    | Number of regulations by species |
 | Discards   | Risk of not minimizing bycatch to extent practicable      | Standardized Bycatch Reporting  |
 | Allocation  | Risk of not achieving OY due to spatial mismatch of stocks and management  | Distribution shifts + number of interests |
-| *Put Aside* |  |
+|  |  |
+| **Put Aside** |  |
 | Population diversity  | Risk of not achieving OY due to reduced diversity   | Size composition, sex ratio, genetic diversity |
 | Ecological diveristy  | Risk of not achieving OY due to reduced diversity   | Fishery independent species diversity |
 | Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
@@ -244,7 +255,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Stocks with low risk due to assessment performance include ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because it is assessed with the data limited methods (DLM) toolbox. *At the time of this writing, Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment is currently undergoing peer review which may change this ranking in late November.*
+Stocks with low risk due to assessment performance include ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because it is assessed with the data limited methods (DLM) toolbox. *Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment was peer-reviewed in November 2017 which may change this ranking.*
 
 ##F status and B status
 These elements are applied at the species level. Fishing mortality (F) rates and biomass (B) levels relative to established reference points from assessments indicate the level of risk to achieving OY. Risk level definitions for F and B are below.
@@ -273,7 +284,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Current assessment results for all MAFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for surfclams, ocean quahogs, scup, black sea bass, and butterfish. Bluefish, golden tilefish, and spiny dogfish F status is in the low risk category, and B risk is in the low-moderate risk category. Summer flounder F status is in the high risk category and B status is in the low-moderate risk category. F and B status for northern and southern goosefish stocks were formerly in the low risk categories, but a recent assessment update was unable to determine status, so we provisionally rank them low-moderate risk (unknown but weight of evidence supports lower risk). Longfin squid B is above the established B threshold, and both squid stocks have unknown F status, but F is difficult to estimate because it is very low relative to natural mortality, so they are also ranked low-moderate risk. Blueline tilefish are high risk for F status and have unknown B status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for B status. Finally, Atlantic mackerel has moderate-high risk for both F and B status due both to failed assessment/unknown status and indications from recent analyses. *Atlantic mackerel status will be updated after SAW/SARC review of the new benchmark assessment in late November.*
+Current assessment results for all MAFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for surfclams, ocean quahogs, scup, black sea bass, and butterfish. Bluefish, golden tilefish, and spiny dogfish F status is in the low risk category, and B risk is in the low-moderate risk category. Summer flounder F status is in the high risk category and B status is in the low-moderate risk category. F and B status for northern and southern goosefish stocks were formerly in the low risk categories, but a recent assessment update was unable to determine status, so we provisionally rank them low-moderate risk (unknown but weight of evidence supports lower risk). Longfin squid B is above the established B threshold, and both squid stocks have unknown F status, but F is difficult to estimate because it is very low relative to natural mortality, so they are also ranked low-moderate risk. Blueline tilefish are high risk for F status and have unknown B status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for B status. Finally, Atlantic mackerel has moderate-high risk for both F and B status due both to failed assessment/unknown status and indications from recent analyses. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
 
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -408,7 +419,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This information is gathered from the NEFSC food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008].  Surfclams and ocean quahogs are not prey of other MAFMC managed species, so they rank low risk for this element. Similarly, spiny dogfish, bluefish, monkfish, summer flounder, scup, black sea bass, and golden and blueline tilefish do not show up individually as >10% of prey by weight in any MAFMC managed species diets, so they rank low risk. While some MAFMC managed species are prey of other managed species, none meet the defined risk threshold. Atlantic mackerel is a prey of spiny dogfish (~10% of diet with high interannual variability). Butterfish is a prey of bluefish, but is below the threshold (~12% of diet), and the reference point applied to butterfish considers it's role as a forage fish in general. Cephalopods as a group are prey of summer flounder (~33% of diet), with approximately half of this attributed to "Loligo species" in the diet data, very little to Illex species, and the rest as squid unidentified. Similarly, Cephalopods as a group are important prey of shortfin squid (>30% of diet), but how much of this is longfin squid is unknown, and some is cannibalism. Unmanaged forage (e.g. anchovies, sandlance, >50% of inshore diet) are important prey of bluefish, but MAFMC measures restict fishery development on these species so they rank low-moderate risk under this element. 
+This information is gathered from the NEFSC food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008].  Surfclams and ocean quahogs are not prey of other MAFMC managed species, so they rank low risk for this element. Similarly, spiny dogfish, bluefish, monkfish, summer flounder, scup, black sea bass, and golden and blueline tilefish do not show up individually as >10% of prey by weight in any MAFMC managed species diets, so they rank low risk. While some MAFMC managed species are prey of other managed species, none meet the defined risk threshold, so all are ranked low risk. Atlantic mackerel is a prey of spiny dogfish (~10% of diet with high interannual variability). Butterfish is a prey of bluefish, but is below the threshold (~12% of diet), and the reference point applied to butterfish considers it's role as a forage fish in general. Cephalopods as a group are prey of summer flounder (~33% of diet), with approximately half of this attributed to "Loligo species" in the diet data, very little to Illex species, and the rest as squid unidentified. Similarly, Cephalopods as a group are important prey of shortfin squid (>30% of diet), but how much of this is longfin squid is unknown, and some is cannibalism. Unmanaged forage (e.g. anchovies, sandlance, >50% of inshore diet) are important prey of bluefish, but MAFMC measures restict fishery development on these species so they rank low-moderate risk under this element. 
 
 ##Food Web (Protected Species Prey)
 This element is applied at the species level. This element ranks the risks of not achieving protected species objectives due to species interactions with MAFMC managed species. As above, a food web model and updated marine mammal diet information can be used to establish thresholds of "importance" for predators and prey. There are no MAFMC managed species that are important predators of protected species, so here we rank only risks where MAFMC managed species represent prey of protected species. An important prey of protected species is defined here as individually comprising >30% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual protected species. 
@@ -430,7 +441,7 @@ Protected species include marine mammals (under the Marine Mammal Protection Act
 Diet information for protected species tends to be more uncertain than for fished species, so we consider diet at the family level for these rankings because diet compositions are not reported to the species level. Longfin squids are estimated to comprise >30% of diet for one protectes species, pilot whale, in the Northeast US [@smith_consumption_2015; @gannon_stomach_1997], therefore we rank this species low-moderate risk for this element. Shortfin squid were identified as important prey for two pelagic seabirds in the Northeast US [@powers_energy_1987], and therefore ranked low-moderate risk. Unmanaged forage fish such as sand lance and saury were identified as important prey for >3 seabird species in the Northeast US [@powers_energy_1987], as well as grey seals [@smith_consumption_2015]. MAFMC has enacted measures to restrict fishing on these species, such that they rank low-moderate risk for this element. Other MAFMC managed species do not meet the threshold of important prey of protected species based on available information, so they rank low risk for this element.
 
 ##Ecosystem Productivity
-This element is applied at the ecosystem level, and therefore poses the same risk to each species. This element ranks the risk of not achieving OY due to changes in ecosystem productivity at the base of the food web. Four indicators are used together to assess risk of changing ecosystem productivity. We examine trends in total primary production, zooplankton abundance for a key Mid-Atlantic species, and two aggregate fish productivity measures: condition factor (weight divided by length of individual fish) and a survey based "recruitment" (small fish to large fish) index. Because many MAFMC managed species rely on benthic crustaceans as forage, a benthic production indicator is also desirable, *but not yet available.*
+This element is applied at the ecosystem level. This element ranks the risk of not achieving OY due to changes in ecosystem productivity at the base of the food web. Four indicators are used together to assess risk of changing ecosystem productivity. We examine trends in total primary production, zooplankton abundance for a key Mid-Atlantic species, and two aggregate fish productivity measures: condition factor (weight divided by length of individual fish) and a survey based "recruitment" (small fish to large fish) index. Because many MAFMC managed species rely on benthic crustaceans as forage, a benthic production indicator is also desirable, *but not yet available.*
 
 ```{r riskecop, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -444,10 +455,19 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+For primary production and fish productivity, the spatial scale of analysis is the Mid-Atlantic Ecosystem Production Unit, as indicated in Figure \ref{EPUmap}. 
+
+```{r, fig.cap="Northeast US Ecosystem Production units. \\label{EPUmap}", echo = F, out.width='0.9\\linewidth'}
+image_read(file.path(image.dir,"NEshelfEcoRegionsALL.png")) %>%
+image_trim()
+
+```
+
 ###Primary production  
 Primary production has fluctuated recently with current conditions near average. 
 
-```{r, fig.cap="Primary production \\label{pp}", echo = F,  fig.height=2}
+```{r, fig.cap="Primary production \\label{pp}", echo = F, fig.height=2}
+
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'MAB PPD', x.label = 'Year', 
          y.label = expression('Production, gC m'^-2 * ' d'^1), 
@@ -543,7 +563,7 @@ soe.stacked.axis('Year', 'Expected n species / 100 fish', rel.y.text = 1)
 -->
 
 ##Climate
-This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. This assessment is intended to be conducted iteratively, so these results can be updated in the future. 
+This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were evaluated in a comprehensive assessment [@hare_vulnerability_2016]. This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity (*not extinction risk*) of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. This assessment is intended to be conducted iteratively, so these results can be updated in the future. 
 
 ```{r riskclim, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -564,8 +584,10 @@ knitr::include_graphics(file.path(image.dir, 'NEVAvulmid.png'))
 
 ```
 
+While this risk assessment focuses on overall vulnerability to impacts of climate, not all impacts will be negative. Some MAFMC managed species may benefit from projected future climate conditions, including black sea bass, bluefish, butterfish, longfin squid, and shortfin squid [@hare_vulnerability_2016]. 
+
 ##Distribution Shifts
-This element is applied at the species level. Risks of species distribution change (and therefore risks to achieving OY as well as straightforward allocation) due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly here. In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
+This element is applied at the species level. Species distribution shifts can increase risks of ineffective spatial catch allocation; if catch distribution is greatly mismatched with species distribution OY may not be achieved. Risks of species distribution shifts due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly here. In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
 
 ```{r riskdist, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -581,7 +603,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 All Mid-Atlantic species with the exception of golden tilefish had either high or very high risk of distribution shifts in the Northeast US. 
 
-```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species distribution shift risk \\label{NEVAshift}", out.width='\\linewidth'}
+```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species distribution shift risk \\label{NEVAshift}", out.width='0.8\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'NEVAshiftmid.png'))
 
 ```
@@ -604,7 +626,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
 ###Changes in Along Shelf Position
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from shortfin squid (an offshore species incompletely sampled by the coastal NEFSC trawl survey).  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from squids.  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 ```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
@@ -649,7 +671,6 @@ soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.t
 
 ```
 
-
 ##Estuarine and Coastal Habitat
 This element is applied at the species level. Risk of not achieving OY due to threats to estuarine and nearshore coastal habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Here, we include estuarine and nearshore coastal habitat in the term "estuarine" below. Water and habitat quality assessments produced for Chesapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered in the future.
 
@@ -668,7 +689,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and coastal condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine and nearshore coastal habitat dependent species (summer flounder, scup, black sea bass, and bluefish, [@able_re-examination_2005]) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to lower dependence on this habitat type. 
 
 ##Offshore Habitat
-This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from experimental species-specific habitat modeling. *In addition, the number of threats from other human uses can be enumerated, but this has yet to be included.*
+This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from experimental species-specific habitat modeling. *In addition, the number of threats from other human uses can be enumerated; at present this is addressed under "Other Ocean Uses" in the Management section below.*
 
 ```{r riskoffhab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -682,7 +703,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Random forest habitat models using both static and dynamics variables have been developed for many of the resource species on the Northeast Shelf. These models estimate spring and fall habitat for the time series 1992 to 2016 reflecting the use of the ecosystem based on the NEFSC bottom trawl survey. The variables evaluated for use in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. The random forest approach differentiates variables with strong predictive power and was used to reduce the variable set to 11 variables for each species. The models were used to estimate fall habitat scores over the entire shelf over the time series.
+Habitat models using both static and dynamics variables have been developed for many of the resource species on the Northeast Shelf. These models estimate spring and fall habitat for the time series 1992 to 2016 reflecting the use of the ecosystem based on the NEFSC bottom trawl survey. The variables evaluated for use in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. The random forest approach differentiates variables with strong predictive power and was used to reduce the variable set to 11 variables for each species. The models were used to estimate fall habitat scores over the entire shelf over the time series.
 
 <!--Spring and fall habitat trends for Northeast Shelf species over the time period 1992 to 2016 were evaluated using the number square km in a single habitat interval from habitat modeling.  Fall indices for MAFMC species are below, with spring on the following page. *mapping linear model slope estimates for grid locations constrained to the segment of the shelf used by each species. These segments were estimated as a 99% kernel density shapes based on occurrence of each species during the study period.* -->
 
@@ -716,39 +737,11 @@ soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.tex
 
 ```
 
-<!--
-```{r, fig.cap="Shifts in modeled species spring habitat area over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid, H: Dogfish, I: Goosefish  \\label{shifts}", fig.height=9, echo = F, message = FALSE, warning = FALSE}
-#knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
-#out.width='\\linewidth'
+*This experimental habitat index is still being studied and improved, so  habitat risk rankings based on this are considered preliminary by the EOP.* 
 
-#SOE.data[Var %like% "ASDIST"]
-opar <- par(mfrow = c(9, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+Overall, black sea bass, summer flounder, and scup have long term increasing trends in fall offshore habitat, and dogfish, butterfish, Atlantic mackerel and longfin squid have short term increasing trends. Goosefish has no significant trend in fall offshore habitat. Therefore, these species rank low risk for this element. However, shortfin squid has a long term and a short term decreasing trend in offshore habitat. Therefore, shortfin squid ranks high risk for this element. 
 
-soe.plot(SOE.data, 'Time', 'BLACK SEA BASS Max Habitat Index Spring',    stacked = 'A', scale.axis = 100, 
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER Max Habitat Index Spring',   stacked = 'B', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SCUP Max Habitat Index Spring',              stacked = 'C', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'BUTTERFISH Max Habitat Index Spring',        stacked = 'D', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL Max Habitat Index Spring', stacked = 'E', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'LONGFIN SQUID Max Habitat Index Spring',     stacked = 'F', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID Max Habitat Index Spring', stacked = 'G', 
-         scale.axis = 100, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SPINY DOGFISH Max Habitat Index Spring', stacked = 'H', 
-         scale.axis = 100, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'GOOSEFISH Max Habitat Index Spring', stacked = 'I', 
-         scale.axis = 100, rel.y.num = 0.9)
-
-soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.text = 1.5)
-
-```
--->
-
-This experimental habitat index is still being studied and improved, so  habitat risk rankings based on this can be considered preliminary. Overall, black sea bass, summer flounder, scup, and spiny dogfish have long term increasing trends in offshore habitat, and Atlantic mackerel and longfin squid have short term increasing trends. Therefore, these species rank low risk for this element. However, butterfish, shortfin squid, and goosefish have long term decreasing trends in offshore habitat, and shortfin squid have a short term decreasing trend as well. Therefore, thse species rank moderate-high risk (butterfish, goosefish) and high risk (shortfin squid) for this element. Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by the bottom trawl survey and were not included in this analysis, similar to unmanaged forage and deepsea corals. 
+Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by the bottom trawl survey and were not included in this analysis, similar to unmanaged forage and deepsea corals. Sessile species in particular may be highly vulnerable to habitat changes, so assessments of their habitat are particularly important to develop.
 
 #Economic Elements
 
@@ -767,7 +760,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This is aggregate commercial revenue for MAFMC managed species. There is a long term increase in revenue, but a recent significant decrease in revenue, indicating high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
+This is aggregate commercial revenue for MAFMC managed species. There is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
 
 ```{r ComProfAgg, fig.cap="Aggregate Mid-Atlantic managed species revenue  \\label{comprofagg}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
@@ -780,7 +773,7 @@ allrev[, Var := paste('MAFMC Revenue')]
 allrev[, Units := 'USD']
 allrev[, EPU := 'ALL']
 
-soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", rel.y.num = 1.1, rel.y.text = 1)
+soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", x.start = 1986, rel.y.num = 0.8, rel.y.text = 1)
 ```
 
 ##Marine Recreational Angler Days/Trips
@@ -858,7 +851,7 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', 
 
 ```
 
-This index shows a significant long term decrease, which would suggest a moderate-high risk to fishery business resilience based on diversity in species revenue. 
+This index shows no significant trend, which would suggest a low risk to fishery business resilience based on diversity in species revenue. 
 
 <!--
 ##Fishery Resilience (2)
@@ -942,7 +935,7 @@ soe.plot(allent, 'Time', 'Mid-Atlantic Nonemployer Entities', rel.y.num = 0.8, x
 
 ```
 
-The number of shoreside support companies that include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states shows a long term decrease, which on its own would represent moderate-high risk to fishery resilience. However, the number of non-employer entities which include seafood preparation and packaging and seafood markets shows both a long term and short term increase. Trends in other shoreside fishery supporting businesses such as gear manufacturers and welding companies are not included here due to aggregation of the statistics. Therefore, until further information is available, we rate this low-moderate risk due to the conflicting trends of declining companies and increasing non-employer entities. 
+The number of shoreside support companies that include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states shows a significant long term and short term decrease, which on its own represents moderate-high risk to fishery resilience. However, the number of non-employer entities which include seafood preparation and packaging and seafood markets shows a long term increase. Trends in other shoreside fishery supporting businesses such as gear manufacturers and welding companies are not included here due to aggregation of the statistics.  
 
 <!--
 ##Fishery Resilience (5)
@@ -979,6 +972,9 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+The EOP Committee lacked confidence in the available employment indicator data, so this element remains unranked at this time.
+
+<!--
 This is commercial employment by state.
 
 ```{r CommJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{commjobs}", echo = F, fig.height=5.5}
@@ -993,6 +989,7 @@ soe.stacked.axis('Year', 'Number of Commercial Jobs',rel.y.text = 1)
 ```
 
 Based on this state-level information, most states show no trend in commercial fishery employment, but there is a significant recent decrease in employment in one state, Virginia. Therefore, this element ranks moderate-high risk. New York and New Jersey went from the hightest to lowest employment numbers within the most recent 2-4 years, suggesting increasing variability. 
+-->
 
 ##Recreational Employment
 This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015]. 
@@ -1009,6 +1006,8 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+The EOP Committee lacked confidence in the available employment indicator data, so this element remains unranked at this time.
+<!--
 This is recreational employment by state.
 
 ```{r RecJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{recjobs}", echo = F, fig.height=5.5}
@@ -1023,6 +1022,7 @@ soe.stacked.axis('Year', 'Number of Recreational Jobs',rel.y.text = 1)
 ```
 
 Based on this state-level information, most states show no trend in recreational fishery employment, but there is a significant recent increase in employment in one state, New Jersey. Therefore, this element ranks low risk. 
+-->
 
 #Social-Cultural Elements
 
@@ -1071,7 +1071,7 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity scallop
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
 -->
-There is a long term decrease in the fleet diversity metric. Therefore this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
+There is a long term decrease in the fleet count metric. Therefore this element ranks moderate-high risk. The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
 
 ##Community Vulnerability
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs; @jepson_development_2013) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing dependence (with dependence being a function of both reliance and engagement), sea level rise risk, species vulnerability to climate change, and catch composition diversity. We use a combination of these five indicators for the most fishery dependent communities to evaluate overall social risk levels.
@@ -1366,8 +1366,8 @@ Picture of indicator, reference, or words describing rankings.
 
 #Management Elements
 
-##Control
-This element is applied at the species and sector (commercial/recreational) level. This element addresses the level of management control in terms of catch measurement and monitoring. Adequate management control indicates low risk of not achieving OY, while poor management control indicates higher risk of not achieving OY. Actual catch is compared with the specified ABC over the most recent five years of fishery history. 
+##Fishing Mortality Control
+This element is applied at the species and sector level. This element addresses the level of management control in terms of catch estimation (measurement) and monitoring to prevent overfishing. Adequate management control indicates a low risk of overfishing, while poor management control indicates a higher risk of overfishing and hence not achieving OY.  Actual catch is compared with the specified ABC over the most recent five years of fishery history.
 
 ```{r riskctl, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1381,16 +1381,16 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-The ability to control total annual catch is necessary to prevent overfishing (i.e., defined to occur when total catch exceeds the overfishing level defined in the FMP), which is a fundamental requirement of MSA. Chronic or persistent overfishing can lead to stock depletion and ultimately to a stock being declared as overfished (thus requiring a stock rebuilding plan).  The ability to constrain catch is a function of the efficacy of the catch monitoring program for each species which relies on both proactive (in -season closure) and reactive (pay backs for overages in subsequent years) accountability measures which were implemented post-MSA Reauthorization. NMFS dealer data in conjunction with estimates of discards are used to compare actual to realized annual catch.  Small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%.    
+The ability to control total annual catch is necessary to prevent overfishing (i.e., defined to occur when total catch exceeds the overfishing level defined in the FMP), which is a fundamental requirement of MSA. Chronic or persistent overfishing can lead to stock depletion and ultimately to a stock being declared as overfished (thus requiring a stock rebuilding plan).  The ability to constrain catch is a function of the efficacy of the catch monitoring program for each species which relies on both proactive (in -season closure) and reactive (pay backs for overages in subsequent years) accountability measures which were implemented post-MSA Reauthorization. Under certain circumstances, specification of management measures which are too strict could lead to “underfishing” (not achieving the desired quota) and hence not achieving OY. This element will be evaluated by fishery sector (commercial and recreational). For the commercial fishery, NMFS dealer data in conjunction with estimates of discards are used to compare target to actual annual catch.  For the commercial sector, small overages are defined as <5%, moderate as 5-10%, and significant overages as >10%.  For the recreational sector, MRIP estimates of recreational catch are used to compare target to actual annual catch estimates. 
 
 ##Technical Interactions
-This element is applied at the species and sector (commercial/recreational) level. This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species, including protected species. Here the risk is caused by negative consequences from fishing activity regulated under MAFMC FMPs which interacts with species managed by other agencies, including bycatch of protected species. For example, windowpane flounder accountability measures (AM) implemented by the New England Council have the potential to negatively impact a number MAFMC managed fisheries if they are triggered. Similarly, interactions with marine mammals protected under the MMPA could result in greater restrictions in MAFMC managed fisheries increasing the risk that OY would not be achieved in those fisheries. For example, the measures necessary for recovery of the critically endangered North Atlantic right whale population have the potential to seriously impact numerous fisheries in the NE US.  
+This element is applied at the species and sector level. This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species, including protected species. Here the risk is caused by negative consequences from fishing activity regulated under MAFMC FMPs which interacts with species managed by other agencies, including bycatch of protected species. For example, windowpane flounder accountability measures implemented by the New England Council have the potential to negatively impact a number MAFMC managed fisheries if they are triggered. Similarly, interactions with marine mammals protected under the MMPA could result in greater restrictions in MAFMC managed fisheries increasing the risk that OY would not be achieved in those fisheries. For example, the measures necessary for recovery of the critically endangered North Atlantic right whale population have the potential to seriously impact numerous fisheries in the NE US.  
 
 ```{r riskmint, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | Few interactions with non-MAFMC managed species |
+| Low  | No interactions with non-MAFMC managed species |
 | Low-Moderate | Interactions with non-MAFMC managed species but infrequent, Category II fishery under MMPA; or AMs not likely triggered |
 | Moderate-High | AMs in non-MAFMC managed species may be triggered; or Category I fishery under MMPA (but takes less than PBR) |
 | High | AMs in non-MAFMC managed species triggered; or Category I fishery under MMPA and takes above PBR   |
@@ -1401,24 +1401,24 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Evaluation of this risk element requires quantification of the likelihood that AMs under other non-MAFMC FMPs would be triggered (thus impacting fishing activities for MAFMC managed species). In addition, NMFS manages marine mammal interactions with commercial fishing activity through take reductions plans. In cases where an MAMFC fishery interacts with marine mammals, conservation measures implemented through a take reduction plan could negatively impact that fishery. 
 
 ##Other Ocean Uses
-This element is applied at the species and sector (commercial/recreational) level. This element addresses the risk of fishery displacement or damage of a fishery resource and/or habitat that supports it as a result of non-fishing activities in the ocean.  
+This element is applied at the species and sector level. This element addresses the risk of fishery displacement or damage of a fishery resource and/or habitat that supports it as a result of non-fishing activities in the ocean.  It also includes evaluation of risk to MAFMC fisheries from area based measures outside of the control of the Council including area closures implemented by other Councils to protect sensitive habitats, spawning areas, etc. and/or through marine monument or other types of area based management designations.       
 
 ```{r riskoou, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No overlap |
+| Low  | No overlap; no impact on habitat |
 | Low-Moderate | Low-moderate overlap; minor habitat impacts but transient |
 | Moderate-High | Moderate-high overlap; minor habitat impacts but persistent |
-| High | High overlap; energy development could seriously disrupt fishery prosecution; major permanent habitat impacts |
+| High | High overlap; other uses could seriously disrupt fishery prosecution; major permanent habitat impacts |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Non-fishing ocean activities (e.g., energy development/sand mining/other industrial, etc.)  could potentially impact MAFMC fisheries because they overlap with historical fishing grounds (physical displacement) and/or through negative impacts on important habitats. This element can be evaluated through GIS analyses which quantify the degree of overlap and/or expert opinion relative impacts on habitat quality and function. 
+Non-fishing ocean activities (e.g., energy development/sand mining/other industrial, etc.) and/or designation of areas where fishing is prohibited (i.e., marine monument designations or establishment of habitat protected areas by other Councils) could potentially impact MAFMC fisheries because they overlap with historical fishing grounds (physical displacement) and/or through negative impacts on important habitats.  This element can be evaluated through GIS analyses which quantify the degree of overlap and/or expert opinion relative impacts on habitat quality and function. 
 
 ##Regulatory Complexity and Stability
-This element is applied at the species and sector (commercial/recreational) level. Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries. 
+This element is applied at the species and sector level. Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.   
 
 ```{r riskcomplex, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1432,10 +1432,10 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified.  
+This element could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified. 
 
 ##Discards
-This element is applied at the species and sector (commercial/recreational) level. Stakeholders have identified the reduction of discards as a high priority in the Council management program, especially those caused by regulations since they represent biological and economic waste.  Discards of either the target or non-target species in the fishery would be taken into consideration. 
+This element is applied at the species and sector level. Stakeholders have identified the reduction of discards as a high priority in the Council management program, especially those caused by regulations since they represent biological and economic waste.  Discards of either the target or non-target species in the fishery would be taken into consideration. 
 
 ```{r riskdisc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1444,29 +1444,29 @@ tabl <- "
 | Low  | No significant discards |
 | Low-Moderate | Low or episodic discard |
 | Moderate-High | Regular discard but managed |
-| High | High discard, difficult ot manage |
+| High | High discard, difficult to manage |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-NMFS provides estimates of discards by species based on at-sea observations collected in the Northeast Fisheries Observer Program for stock assessment purposes and quota monitoring. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards will be evaluated for each species and fishery with focus on identification of discards caused by regulations for each fishery sector.  
+NMFS provides estimates of discards by species based on at-sea observations collected in the Northeast Fisheries Observer Program for stock assessment purposes and quota monitoring. In addition, the MRIP provides estimate of discards by species for the recreational fisheries. Discards will be evaluated for each species and fishery with focus on identification of discards caused by regulations for each fishery sector (commercial and recreational).  
 
 ##Allocation
-This element is applied at the species and sector (commercial/recreational) level. This element addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations. Indicators for difficulty of allocation include a combination of distribution shifts (see above) and the number of interests (sectors, states, etc.) requiring allocation.
+This element is applied at the species and sector level. This element addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations or because of sub-optimal allocation by sector and/or area.  Indicators for difficulty of allocation include a combination of distribution shifts (see above) and the number of interests (sectors, states, etc.) requiring allocation. 
 
 ```{r riskalloc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | No allocation or not difficult |
-| Low-Moderate | Low difficulty |
-| Moderate-High | Moderate difficulty |
-| High | Very difficult/controversial |
+| Low  | No recent or ongoing Council discussion about allocation |
+| Low-Moderate | *This category not used* |
+| Moderate-High | *This category not used* |
+| High | Recent or ongoing Council discussion about allocation |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Each species will be evaluated relative to the degree of spatial or sector allocation currently specified within the FMP. Expert judgement will be used to evaluate the level of risk of not achieving OY posed by existing allocation relative to current states of nature. This would include an evaluation of the degree of economic inefficiency resulting from increased costs incurred by fishermen caused by inconsistencies between historical allocation of quota and current or recent geographical distribution of stocks.  
+Each species and sector will be evaluated relative to risk based on whether or not there is ongoing or recent (last three years) discussion by the Council concerning allocation.    
 
 #References
 
