@@ -958,7 +958,7 @@ Picture of indicator, reference, or words describing rankings.
 -->
 
 ##Commercial Employment
-This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015]. A full description of the model generating employment estimates can be found here:  http://www.st.nmfs.noaa.gov/documents/commercial_seafood_impacts_2007-2009.pdf
+This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. A full description of the model generating employment estimates can be found here:  http://www.st.nmfs.noaa.gov/documents/commercial_seafood_impacts_2007-2009.pdf
 
 ```{r riskcemp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -992,7 +992,7 @@ Based on this state-level information, most states show no trend in commercial f
 -->
 
 ##Recreational Employment
-This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries of the U.S. [@lowther_fisheries_2015]. 
+This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. 
 
 ```{r riskremp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
