@@ -1,0 +1,139 @@
+---
+title: "**Short title:** Prioritizing MSEs for EAFM"
+output: 
+  postr::flex_dashboard_poster:
+    render_print: true
+---
+
+
+## Header row {data-height=15}
+
+###
+
+<table style="width:100%">
+<tr>
+  <td rowspan="2">
+  <img src="MAFMClogo.png" style="width:128px"></img>
+  </td>
+  <td><center><h3>
+  **Which MSE should you do first? Prioritizing MSE investments using risk assessment under an Ecosystem Approach to Fishery Management**
+  </h3></center></td>
+  <td rowspan="2">
+  <img src="NOAA-1.png" style="width:128px"></img>
+  </td>
+</tr>
+<tr><td><center>
+  **S. Gaichas, G. DePiper, R. Seagraves, L. Colburn, A. Loftus, M. Sabo, B. Muffley**
+  </center></td>
+</tr>
+</table> 
+
+<hr>
+
+**Abstract** Ecosystem approaches to fisheries management (EAFM) potentially expand the scope of interactions and uncertainties to consider in evaluating harvest control rules and other fishery management procedures. Management strategy evaluation (MSE) is generally recognized as a core component of EAFM, but can be a resource-intensive process when applied even to relatively simple single species harvest control rules. How can managers ensure that the most important MSE gets done first? Risk assessment provides a systematic framework to ensure that limited MSE resources address the highest priority ecosystem interactions and risks.   
+
+## Body row {data-height=75}
+
+### **Risk Elements**
+
+The Mid-Atlantic Fishery Management Council recently adopted EAFM policy guidance that outlines a framework involving risk assessment as the first step towards addressing species, climate, habitat and fishery interactions [@gaichas_framework_2016]. Over the past year, the Council has defined a range of ecological, economic, social, and management related elements that track risk to achieving Council management goals and objectives.
+
+```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Element         | Definition: Risk to what?                        |  Indicators used                                 |
+|:-------------------------------------|:-------------------------------------------------|:-------------------------------------------------|
+| **Ecological**         |  |
+| Assessment performance      | Risk of not achieving OY due to analytical limitations   | Current assessment method/data quality |
+| F status             | Risk of not achieving OY due to overfishing      | Current F relative to reference F from assessment |
+| B status             | Risk of not achieving OY due to depleted stock   | Current B relative to reference B from assessment |
+| Food web  (MAFMC Predator)       | Risk of not achieving OY due to MAFMC managed species interactions   | Diet composition, management measures |
+| Food web  (MAFMC Prey)       | Risk of not achieving OY due to MAFMC managed species interactions   | Diet composition, management measures |
+| Food web  (Protected Species Prey)       | Risk of not achieving protected species objectives due to species interactions   | Diet composition, management measures |
+| Ecosystem productivity  | Risk of not achieving OY due to changing system productivity   | Four indicators, see text |
+| Climate              | Risk of not achieving OY due to climate vulnerability   | Northeast Climate Vulnerability Assessment |
+| Distribution shifts  | Risk of not achieving OY due to climate-driven distribution shifts   | Northeast Climate Vulnerability Assessment + 2 indicators  |
+| Estuarine habitat    | Risk of not achieving OY due to threats to estuarine/nursery habitat | Enumerated threats + estuarine dependence |
+| Offshore habitat     | Risk of not achieving OY due to changing offshore habitat   | Integrated habitat model index |
+| **Economic** |  |
+| Commercial Revenue   | Risk of not maximizing fishery value             | Revenue in aggregate |
+| Recreational Angler Days/Trips   | Risk of not maximizing fishery value             | Numbers of anglers and trips in aggregate |    
+| Commercial Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
+| Commercial Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |  
+|  |  | 
+| **Social** |  |
+| Fleet Resilience      | Risk of reduced fishery resilience | Number of fleets, fleet diversity |
+| Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
+| **Food Production** |  |
+| Commercial     | Risk of not optimizing seafood production             | Seafood landings in aggregate |
+| Recreational   | Risk of not maintaining personal food production      | Recreational landings in aggregate |
+| **Management** |  |
+| Control     | Risk of not achieving OY due to inadequate control             | Catch compared to allocation |
+| Interactions   | Risk of not achieving OY due to interactions with species managed by other entities    | Number and type of interactions with protected or non-MAFMC managed species, co-management |
+| Other ocean uses   | Risk of not achieving OY due to other human uses      | Fishery overlap with energy/mining areas |
+| Regulatory complexity   | Risk of not achieving compliance due to complexity    | Number of regulations by species |
+| Discards   | Risk of not minimizing bycatch to extent practicable      | Standardized Bycatch Reporting  |
+| Allocation  | Risk of not achieving OY due to spatial mismatch of stocks and management  | Distribution shifts + number of interests |
+|  |  |
+| **Put Aside** |  |
+| Population diversity  | Risk of not achieving OY due to reduced diversity   | Size composition, sex ratio, genetic diversity |
+| Ecological diveristy  | Risk of not achieving OY due to reduced diversity   | Fishery independent species diversity |
+| Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
+| Fishery Resilience (3)  | Risk of reduced fishery business resilience due to insurance availabilty  |  No current indicator available |
+| Fishery Resilience (5)  | Risk of reduced fishery business resilience due to access to emerging markets/opportunities  | Needs clarification  |
+| Commercial Employment   | Risk of not optimizing employment opportunities | EOP Committee unconfident in Fisheries of US employment inicator |
+| Recreational Employment | Risk of not optimizing employment opportunities | EOP Committee unconfident in Fisheries of US employment indicator |
+| Seafood safety   | Risk of not maintaining market access, human health    | Number of public advisories by species |
+
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+
+### **Risk Definitions and Indicators**
+
+The risk was then evaluated as low, moderate, or high according to defined ranking criteria and measured by one or more ecosystem indicators assessed at multiple levels; ranging from single-species to system-wide. 
+
+#### F status and B status
+
+These elements are applied at the species level. Fishing mortality (F) rates and biomass (B) levels relative to established reference points from assessments indicate the level of risk to achieving OY. <!--Risk level definitions for F and B are below.-->
+
+```{r riskF, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | F < Fmsy |
+| Low-Moderate | Unknown, but weight of evidence indicates low overfishing risk |
+| Moderate-High | Unknown status |
+| High | F > Fmsy |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+```{r riskB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | B > Bmsy |
+| Low-Moderate | Bmsy > B > 0.5 Bmsy, or unknown, but weight of evidence indicates low risk |
+| Moderate-High | Unknown status |
+| High | B < 0.5 Bmsy |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+
+
+### **Results: Summary Tables**
+
+The resulting risk matrix can be used to quickly evaluate where further integrated analysis and MSE should be focused--which fishery management plans, which species, and which risk elements need to be included in the analysis. The ecosystem indicators are updated and reviewed regularly, so that the Council can update the EAFM risk assessment as needed. 
+
+
+
+
+## Footer row {data-height=10} 
+
+### {data-width=50}
+
+
+### {data-width=50 .small}
+
