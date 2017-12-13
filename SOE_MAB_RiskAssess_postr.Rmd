@@ -3,7 +3,164 @@ title: "**Short title:** Prioritizing MSEs for EAFM"
 output: 
   postr::flex_dashboard_poster:
     render_print: true
+bibliography: My_Library.bib
 ---
+
+```{r Directory and Data Set-up, echo = F, message = F}
+#data.dir  <- '/home/slucey/EcoAP/SOE2017/data'
+#image.dir <- '/home/slucey/EcoAP/SOE2017/images'
+#gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
+#data.dir <- 'Z:\\SOE2017\\data'
+#image.dir <- 'Z:\\SOE2017\\images'
+#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+#gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {  
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
+load(file.path(data.dir, 'SOE_data.RData'))
+load(file.path(data.dir, 'Comm_Climate_Vul.RData'))
+load(file.path(data.dir, 'Fisheries_Eng_Rel.RData'))
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE,
+                     fig.align='center')
+```
+
+```{r Generic Plot Function, echo = F}
+#Plot figure new
+soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
+                     x.start = NA, x.end = NA, end.start = 2006, bg.col = background,
+                     end.col = recent, trend.neg = main.neg, trend.pos = main.pos,
+                     end.trend.neg = end.neg, end.trend.pos = end.pos,
+
+                     stacked = NA, x.line = 2.6, y.line = 3.5, scale.axis = 1,
+                     rel.y.num = 1.5, rel.y.text = 1.5){
+ 
+  #Select Data
+  x <- data[Var == y.var, ]
+  x <- x[order(x[, get(x.var)]), ]
+  setnames(x, x.var, 'X')
+ 
+  #Set common time step if necessary
+  if(is.na(x.start)) x.start <- min(x[, X])
+  if(is.na(x.end))   x.end   <- max(x[, X])
+  x <- x[X >= x.start, ]
+ 
+  #Set up plot parameters
+  y.max <- max(x[, Value], na.rm = T) + tol * max(x[, Value], na.rm = T)
+  y.min <- min(x[, Value], na.rm = T) - tol * abs(min(x[, Value], na.rm = T))
+  y.mean <- mean(x[, Value], na.rm = T)
+  y.sd <- sd(x[, Value], na.rm = T)
+ 
+  #Plot blank plot
+  plot(x[X >= x.start, list(X, Var)], xlim = c(x.start, x.end),
+       ylim = c(y.min,y.max), xlab = '', ylab = '', axes = F, ty = 'n')
+ 
+  #Add background
+  u <- par('usr')
+  rect(u[1], u[3], u[2], u[4], border = NA, col = bg.col)
+ 
+  #Add end period shading
+  rect(end.start - 0.5, u[3], u[2], u[4], border = NA, col = end.col)
+  abline(h = u[3], lwd=3)
+  abline(v = u[1], lwd=3)
+ 
+  #Add grides
+  abline(h = y.mean + y.sd, col = 'white', lwd = 3, lty = 2)
+  abline(h = y.mean - y.sd, col = 'white', lwd = 3, lty = 2)
+ 
+  #Add data points/lines
+  points(x[, list(X, Value)], pch = 16, cex = 1.5)
+  lines( x[, list(X, Value)], lwd = 2)
+ 
+  #Add axis
+  if(is.na(stacked)) axis(1, cex.axis = 1.5)
+  if(!is.na(stacked)){
+    if(stacked!= 'A') axis(3, cex.axis = 1.5, tck = 0.1, labels = F)
+  }
+  #Stacked axes with 0 overlap so need to remove
+  if(scale.axis != 1){
+        labels <- axTicks(2) / scale.axis
+        if(labels[1] == 0) labels[1] <- ''
+        axis(2, at = axTicks(2), labels = as.numeric(labels), cex.axis = rel.y.num,
+             las = T)
+    } else {axis(2, cex.axis = rel.y.num, las = T)}
+
+  #Identify significant trends
+  #Whole time series
+  mksts <- zyp.trend.vector(x[, Value])
+  mkstsp <- round(unlist(mksts[6]), 3)
+ 
+  if(mkstsp < 0.05){
+    lmod <- lm(x[, Value] ~ x[, X])
+    lmod_c <- unlist(lmod[1])
+    lmod_i <- lmod_c[1]
+    lmod_s <- lmod_c[2]
+    if(lmod_s > 0){
+      lines(x[, X], lmod_s * x[, X] + lmod_i,
+            col = trend.pos, lty = 1, lwd = 7)
+    }
+    if(lmod_s < 0){
+      lines(x[, X], lmod_s * x[, X] + lmod_i,
+            col = trend.neg, lty = 1, lwd = 7)
+    }
+  }
+ 
+  #Final portion of time series
+  mksld <- zyp.trend.vector(x[X > (end.start - 1), Value])
+  mksldp <- round(unlist(mksld[6]), 3)
+  if(mksldp < 0.05){
+    l10_x <- x[X > (end.start - 1), X]
+    l10_y <- x[X > (end.start - 1), Value]
+    lmod <- lm(l10_y ~ l10_x)
+    lmod_c <- unlist(lmod[1])
+    lmod_i <- lmod_c[1]
+    lmod_s <- lmod_c[2]
+    if(lmod_s > 0){
+      lines(l10_x, lmod_s * l10_x + lmod_i,
+            col = end.trend.pos, lwd=7)
+    }
+    if(lmod_s < 0){
+      lines(l10_x, lmod_s * l10_x + lmod_i,
+            col = end.trend.neg, lwd=7)
+    }
+  }
+ 
+  #Add axis labels
+  if(!is.na(stacked)) text(u[1], u[4], labels = stacked, cex = 2, adj = c(-0.5, 1.5))
+  if(is.na(stacked)){
+    mtext(1, text = x.label, line = x.line, cex = 1.5)
+    mtext(2, text = y.label, line = y.line, cex = rel.y.text)
+  }
+}
+
+#Add axis labels for stacked plots
+soe.stacked.axis <- function(x.label, y.label, x.line = 2.6,
+                             y.line = 3.5, rel.y.text = 1.5){
+  axis(1, cex.axis = 1.5)
+  mtext(1, text = x.label, line = x.line, cex = 1.5, outer = T)
+  mtext(2, text = y.label, line = y.line, cex = rel.y.text, outer = T)
+}
+
+```
+
+
+```{r Plot options, echo = F}
+#Background colors
+background   <- '#F4F7F2'
+recent       <- '#E6E6E6'
+#trend lines
+main.pos <- rgb(253/255, 184/255, 99/255,  alpha = 0.8)
+main.neg <- rgb(178/255, 171/255, 210/255, alpha = 0.8)
+end.pos  <- rgb(230/255, 97/255,  1/255,   alpha = 0.8)
+end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
+
+```
 
 
 ## Header row {data-height=15}
@@ -36,7 +193,12 @@ output:
 
 ### **Risk Elements**
 
-The Mid-Atlantic Fishery Management Council recently adopted EAFM policy guidance that outlines a framework involving risk assessment as the first step towards addressing species, climate, habitat and fishery interactions [@gaichas_framework_2016]. Over the past year, the Council has defined a range of ecological, economic, social, and management related elements that track risk to achieving Council management goals and objectives.
+The Mid-Atlantic Fishery Management Council recently adopted EAFM policy guidance that outlines a framework involving risk assessment as the first step towards addressing species, climate, habitat and fishery interactions [@gaichas_framework_2016]. 
+
+<img src="Framework.png" style="width:100%"></img>
+<hr>
+
+Over the past year, the Council has defined a range of ecological, economic, social, and management related elements that track risk to achieving Council management goals and objectives.
 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -92,48 +254,255 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ### **Risk Definitions and Indicators**
 
 The risk was then evaluated as low, moderate, or high according to defined ranking criteria and measured by one or more ecosystem indicators assessed at multiple levels; ranging from single-species to system-wide. 
-
-#### F status and B status
-
-These elements are applied at the species level. Fishing mortality (F) rates and biomass (B) levels relative to established reference points from assessments indicate the level of risk to achieving OY. <!--Risk level definitions for F and B are below.-->
-
-```{r riskF, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+<!--
+####Climate
+This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were evaluated in a comprehensive assessment [@hare_vulnerability_2016]. This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity (*not extinction risk*) of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. <!--This assessment is intended to be conducted iteratively, so these results can be updated in the future. -->
+<!--
+```{r riskclim, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
 |:-------------------|:--------------------------------------------------------------------|
-| Low  | F < Fmsy |
-| Low-Moderate | Unknown, but weight of evidence indicates low overfishing risk |
-| Moderate-High | Unknown status |
-| High | F > Fmsy |
+| Low  | Low climate vulnerability ranking |
+| Low-Moderate | Moderate climate vulnerability ranking |
+| Moderate-High | High climate vulnerability ranking |
+| High | Very high climate vulnerability ranking |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+-->
+<!--Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here (Fig. \ref{NEVAvul}). -->
+<!--
+
+```{r NEVAvul, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species \\label{NEVAvul}", out.width='\\linewidth'}
+knitr::include_graphics(file.path(image.dir, 'NEVAvulmid.png'))
+
+```
+-->
+
+####Commercial Revenue
+This element is applied at the ecosystem level, and addresses the risk of not maximizing fishery value. Revenue serves as a proxy for commercial profits, which is the component of a fishery's value that this element is ultimately attempting to assess risk towards. 
+
+```{r riskcomval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No trend and low variability in revenue |
+| Low-Moderate | Increasing or high variability in revenue |
+| Moderate-High | Significant long term revenue decrease |
+| High | Significant recent decrease in revenue |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-```{r riskB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-tabl <- "
-| Risk Level         | Definition                                                          |  
-|:-------------------|:--------------------------------------------------------------------|
-| Low  | B > Bmsy |
-| Low-Moderate | Bmsy > B > 0.5 Bmsy, or unknown, but weight of evidence indicates low risk |
-| Moderate-High | Unknown status |
-| High | B < 0.5 Bmsy |
-"
-cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+<!--This is aggregate commercial revenue for MAFMC managed species. There is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).-->
+
+```{r ComProfAgg}
+#, fig.cap="Aggregate Mid-Atlantic managed species revenue  \\label{comprofagg}", echo = F, fig.height=2.5, out.width='0.9\\linewidth', message = FALSE, warning = FALSE}
+opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
+
+aggrev <- SOE.data[Var %like% "MAFMC Revenue"]
+setkey(aggrev, Time)
+allrev <- aggrev[, sum(Value, na.rm = T), by = key(aggrev)]
+setnames(allrev, 'V1', 'Value')
+allrev[, Var := paste('MAFMC Revenue')]
+allrev[, Units := 'USD']
+allrev[, EPU := 'ALL']
+
+soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", x.start = 1986, rel.y.num = 0.8, rel.y.text = 1)
 ```
 
-
+<!--
+<img src="SOE_MAB_RiskAssess_postr/ComProfAgg.png"><img>-->
 
 ### **Results: Summary Tables**
 
 The resulting risk matrix can be used to quickly evaluate where further integrated analysis and MSE should be focused--which fishery management plans, which species, and which risk elements need to be included in the analysis. The ecosystem indicators are updated and reviewed regularly, so that the Council can update the EAFM risk assessment as needed. 
 
 
+####Species level
+```{r sptable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+# 
+# color.picker2 <- function(z){
+#   if( z == "na"){return("white")}
+#   else if( z == "l"){return("green")}
+#   else if( z == "lm"){return("yellow")}
+#   else if( z == "mh"){return("orange")}
+#   else {return("red")}
+# }
+
+# spplist     oc,  sc,  flk, scp, bsb, mack, but, lsq, ssq, gtile,  btile,  blu, dog, monk
+risk.species<-data.frame(
+  Species = c("Ocean Quahog", "Surfclam", "Summer flounder", "Scup", "Black sea bass", "Atl. mackerel", "Butterfish", "Longfin squid", "Shortfin squid", "Golden tilefish", "Blueline tilefish", "Bluefish", "Spiny dogfish", "Monkfish", "Unmanaged forage", "Deepsea corals"),
+  Assess  = c("l", "l", "l",  "l", "l", "h",  "l", "lm", "lm", "l", "h", "l", "lm", "h", "na", "na"),
+  Fstatus = c("l", "l", "h", "l", "l", "mh", "l", "lm", "lm", "l", "h", "l", "l", "lm", "na", "na"),
+  Bstatus = c("l", "l", "lm", "l", "l", "mh", "l", "lm", "lm", "lm", "mh", "lm", "lm", "lm", "na", "na"),
+  FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
+  FW1Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "lm", "l"),
+  FW2Prey = c("l", "l", "l", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l", "lm", "l"),
+#  EcoProd = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm", "lm", "lm"),
+  Climate = c("h", "mh", "lm", "lm", "mh", "lm", "l", "l", "l", "mh", "mh","l", "l", "l", "na", "na"),
+  DistShift = c("mh", "mh", "mh", "mh", "mh", "mh", "h", "mh", "h", "l", "l", "mh", "h", "mh", "na", "na"),
+  EstHabitat = c("l", "l", "h", "h", "h", "l", "l", "l", "l", "l", "l", "h", "l", "l", "na", "na")#,
+#  OffHabitat = c("na", "na", "l", "l", "l", "l", "l", "l", "h", "na", "na", "na", "l", "l", "na", "na")#,
+#  CommProf = c(),
+#  RecVal = c(),
+#  FishRes1 = c(),
+#  FishRes4 = c(),
+#  CommJobs = c(),
+#  RecJobs = c(),
+#  Social = c(),
+#  ComFood = c(),
+#  RecFood = c(),
+#  MgtControl = c(),
+#  TecInteract = c(),
+#  OceanUse = c(),
+#  RegComplex = c(),
+#  Discards = c(),
+#  Allocation = c() 
+)
+
+# these elements were removed by the council
+#  PopDiv = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na"),
+#  EcoDiv = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm"),
+#  FishRes2 = c(),
+#  FishRes3 = c(),
+#  FishRes5 = c(),
+#  FoodSafe = c(),
+
+# one column test
+# risk.species %>%
+#   mutate(Fstatus = 
+#     cell_spec(Fstatus, format="latex", color = "black", align = "c", background =factor(Fstatus, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))) %>%
+#   kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "")
+
+#generalize to all
+risk.species %>%
+  mutate_at(vars(-Species), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "") %>%
+  kable_styling(latex_options = "scale_down")
+
+# 
+# risktab1<- condformat(risk.species) +
+#   rule_fill_discrete(Fstatus, expression = sapply(Fstatus,color.picker2),colours=identity) +
+#   rule_fill_discrete(Bstatus, expression = sapply(Bstatus,color.picker2),colours=identity) +
+#   rule_fill_discrete(Assess, expression = sapply(Assess,color.picker2),colours=identity) +
+#   rule_fill_discrete(FoodWeb1, expression = sapply(FoodWeb1,color.picker2),colours=identity) +
+#   rule_fill_discrete(FoodWeb2, expression = sapply(FoodWeb2,color.picker2),colours=identity) +
+#   rule_fill_discrete(EcoProd, expression = sapply(EcoProd,color.picker2),colours=identity) +
+#   rule_fill_discrete(Climate, expression = sapply(Climate,color.picker2),colours=identity) +
+#   rule_fill_discrete(DistShift, expression = sapply(DistShift,color.picker2),colours=identity) +
+#   rule_fill_discrete(EstHabitat, expression = sapply(EstHabitat,color.picker2),colours=identity) #+
+# #  rule_fill_discrete(OffHabitat, expression = sapply(OffHabitat,color.picker2),colours=identity) +
+# #  rule_fill_discrete(MgtControl, expression = sapply(MgtControl,color.picker2),colours=identity) +
+# #  rule_fill_discrete(TecInteract, expression = sapply(TecInteract,color.picker2),colours=identity) +
+# #  rule_fill_discrete(OceanUse, expression = sapply(OceanUse,color.picker2),colours=identity) +
+# #  rule_fill_discrete(RegComplex, expression = sapply(RegComplex,color.picker2),colours=identity) +
+# #  rule_fill_discrete(Discards, expression = sapply(Discards,color.picker2),colours=identity) +
+# #  rule_fill_discrete(Allocation, expression = sapply(Allocation,color.picker2),colours=identity) 
+# 
+# #  rule_fill_discrete(PopDiv, expression = sapply(PopDiv,color.picker2),colours=identity) +
+# #  rule_fill_discrete(EcoDiv, expression = sapply(EcoDiv,color.picker2),colours=identity) +
+# #  rule_fill_discrete(FoodSafe, expression = sapply(FoodSafe,color.picker2),colours=identity) +
+# 
+#   
+# risktab1
+
+```
+
+<!--
+##Fleet level
+```{r, flttable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+```
+-->
+
+####Species and Sector level
+```{r, spsectable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+#
+risk.sppsector<-data.frame(
+  Species = c("Ocean Quahog-C", "Surfclam-C", "Summer flounder-R", "Summer flounder-C","Scup-R", "Scup-C","Black sea bass-R", "Black sea bass-C","Atl. mackerel-R", "Atl. mackerel-C","Butterfish-C", "Longfin squid-C", "Shortfin squid-C", "Golden tilefish-R", "Golden tilefish-C","Blueline tilefish-R","Blueline tilefish-C", "Bluefish-R", "Bluefish-C","Spiny dogfish-R", "Spiny dogfish-C", "Unmanaged forage", "Deepsea corals"),
+  MgtControl = c(1,1,3,2,1,1,4,2,1,1,1,1,1,9,1,1,1,2,1,1,1,9,9),
+  TecInteract = c(1,1,1,3,1,3,1,2,1,2,2,3,2,1,1,1,1,1,1,1,3,9,9),
+  OceanUse = c(2,2,2,2,2,2,3,4,1,3,3,4,2,1,1,1,1,1,2,1,3,9,3),
+  RegComplex = c(1,1,4,3,3,3,4,3,1,4,4,4,2,1,1,3,3,1,2,1,3,9,9),
+  Discards = c(1,1,4,2,3,3,3,2,1,2,3,4,1,1,1,1,1,3,2,1,2,9,9),
+  Allocation = c(1,1,4,4,1,1,4,4,4,4,1,4,1,1,1,4,4,4,4,1,4,9,9) 
+)
+
+#convert to text for consistency
+risk.sppsector <- risk.sppsector %>%
+     mutate_at(vars(-Species), function(x){
+       recode(x,'1'="l",'2'="lm",'3'="mh",'4'="h",'9'="na")}) %>%
+     as.data.frame()
+
+#make table
+risk.sppsector %>%
+  mutate_at(vars(-Species), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.sppsector, format="latex", escape = F, booktabs = T, linesep = "") %>%
+  #kable_styling(font_size =  9)
+  kable_styling(latex_options = "scale_down")
+
+```
+
+<!--
+##State level
+```{r, sttable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+risk.state<-data.frame(
+  State = c("New York", "New Jersey", "Delaware", "Maryland", "Virginia"),
+  CommJobs = c("lm", "lm", "l", "l", "h"),
+  RecJobs = c("lm", "l", "lm", "l", "l")
+)
+
+#make table
+risk.state %>%
+  mutate_at(vars(-State), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.state, format="latex", escape = F, booktabs = T, linesep = "") #%>%
+  #kable_styling(latex_options = "scale_down")
+
+```
+-->
+
+####Ecosystem level
+```{r, ecotable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+  
+risk.eco<-data.frame(
+  System = c("Mid-Atlantic"),
+  EcoProd = c("lm"),
+  CommProf = c("mh"),
+  RecVal = c("h"),
+  FishRes1 = c("l"),
+  FishRes4 = c("mh"),
+  #CommJobs = c("mh"),
+  #RecJobs = c("l"),
+  FleetDiv = c("mh"),
+  Social = c("lm"),
+  ComFood = c("h"),
+  RecFood = c("mh")
+)
+
+#make table
+risk.eco %>%
+  mutate_at(vars(-System), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = "") %>%
+  kable_styling(latex_options = "scale_down")
+
+```
 
 
 ## Footer row {data-height=10} 
 
-### {data-width=50}
+### **Next Steps** {data-width=50}
+
+Use it for stuff.
 
 
-### {data-width=50 .small}
+
+
+### **References** {data-width=50 .small}
 
