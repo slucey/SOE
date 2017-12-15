@@ -4,6 +4,7 @@ output:
   postr::flex_dashboard_poster:
     render_print: true
 bibliography: My_Library.bib
+csl: canadian-journal-of-fisheries-and-aquatic-sciences.csl
 ---
 
 ```{r Directory and Data Set-up, echo = F, message = F}
@@ -12,13 +13,13 @@ bibliography: My_Library.bib
 #gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
-#gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
-data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
-image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
-gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
-PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", "condformat", 'magick',"knitr",'kableExtra','zyp')
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {  
     install.packages(p)
@@ -163,7 +164,7 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 ```
 
 
-## Header row {data-height=15}
+## Header row {data-height=10}
 
 ###
 
@@ -189,75 +190,49 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 
 **Abstract** Ecosystem approaches to fisheries management (EAFM) potentially expand the scope of interactions and uncertainties to consider in evaluating harvest control rules and other fishery management procedures. Management strategy evaluation (MSE) is generally recognized as a core component of EAFM, but can be a resource-intensive process when applied even to relatively simple single species harvest control rules. How can managers ensure that the most important MSE gets done first? Risk assessment provides a systematic framework to ensure that limited MSE resources address the highest priority ecosystem interactions and risks.   
 
-## Body row {data-height=75}
+## Body row {data-height=90}
 
-### **Risk Elements**
+### **EAFM Framework and Risk Elements**
 
-The Mid-Atlantic Fishery Management Council recently adopted EAFM policy guidance that outlines a framework involving risk assessment as the first step towards addressing species, climate, habitat and fishery interactions [@gaichas_framework_2016]. 
+The Mid-Atlantic Fishery Management Council adopted EAFM policy guidance that outlines a framework where risk assessment is the first step in addressing species, climate, habitat and fishery interactions [@gaichas_framework_2016]. 
 
 <img src="Framework.png" style="width:100%"></img>
 <hr>
 
-Over the past year, the Council has defined a range of ecological, economic, social, and management related elements that track risk to achieving Council management goals and objectives.
+The Council has defined a range of risk elements.
 
-```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-tabl <- "
-| Risk Element         | Definition: Risk to what?                        |  Indicators used                                 |
-|:-------------------------------------|:-------------------------------------------------|:-------------------------------------------------|
-| **Ecological**         |  |
-| Assessment performance      | Risk of not achieving OY due to analytical limitations   | Current assessment method/data quality |
-| F status             | Risk of not achieving OY due to overfishing      | Current F relative to reference F from assessment |
-| B status             | Risk of not achieving OY due to depleted stock   | Current B relative to reference B from assessment |
-| Food web  (MAFMC Predator)       | Risk of not achieving OY due to MAFMC managed species interactions   | Diet composition, management measures |
-| Food web  (MAFMC Prey)       | Risk of not achieving OY due to MAFMC managed species interactions   | Diet composition, management measures |
-| Food web  (Protected Species Prey)       | Risk of not achieving protected species objectives due to species interactions   | Diet composition, management measures |
-| Ecosystem productivity  | Risk of not achieving OY due to changing system productivity   | Four indicators, see text |
-| Climate              | Risk of not achieving OY due to climate vulnerability   | Northeast Climate Vulnerability Assessment |
-| Distribution shifts  | Risk of not achieving OY due to climate-driven distribution shifts   | Northeast Climate Vulnerability Assessment + 2 indicators  |
-| Estuarine habitat    | Risk of not achieving OY due to threats to estuarine/nursery habitat | Enumerated threats + estuarine dependence |
-| Offshore habitat     | Risk of not achieving OY due to changing offshore habitat   | Integrated habitat model index |
-| **Economic** |  |
-| Commercial Revenue   | Risk of not maximizing fishery value             | Revenue in aggregate |
-| Recreational Angler Days/Trips   | Risk of not maximizing fishery value             | Numbers of anglers and trips in aggregate |    
-| Commercial Fishery Resilience (Revenue Diversity)  | Risk of reduced fishery business resilience   | Species diversity of revenue |         
-| Commercial Fishery Resilience (Shoreside Support)  | Risk of reduced fishery business resilience due to shoreside support infrastructure   | Number of shoreside support businesses |  
-|  |  | 
-| **Social** |  |
-| Fleet Resilience      | Risk of reduced fishery resilience | Number of fleets, fleet diversity |
-| Social-Cultural      | Risk of reduced community resilience | Community vulnerability, fishery engagement and reliance |
-| **Food Production** |  |
-| Commercial     | Risk of not optimizing seafood production             | Seafood landings in aggregate |
-| Recreational   | Risk of not maintaining personal food production      | Recreational landings in aggregate |
-| **Management** |  |
-| Control     | Risk of not achieving OY due to inadequate control             | Catch compared to allocation |
-| Interactions   | Risk of not achieving OY due to interactions with species managed by other entities    | Number and type of interactions with protected or non-MAFMC managed species, co-management |
-| Other ocean uses   | Risk of not achieving OY due to other human uses      | Fishery overlap with energy/mining areas |
-| Regulatory complexity   | Risk of not achieving compliance due to complexity    | Number of regulations by species |
-| Discards   | Risk of not minimizing bycatch to extent practicable      | Standardized Bycatch Reporting  |
-| Allocation  | Risk of not achieving OY due to spatial mismatch of stocks and management  | Distribution shifts + number of interests |
-|  |  |
-| **Put Aside** |  |
-| Population diversity  | Risk of not achieving OY due to reduced diversity   | Size composition, sex ratio, genetic diversity |
-| Ecological diveristy  | Risk of not achieving OY due to reduced diversity   | Fishery independent species diversity |
-| Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
-| Fishery Resilience (3)  | Risk of reduced fishery business resilience due to insurance availabilty  |  No current indicator available |
-| Fishery Resilience (5)  | Risk of reduced fishery business resilience due to access to emerging markets/opportunities  | Needs clarification  |
-| Commercial Employment   | Risk of not optimizing employment opportunities | EOP Committee unconfident in Fisheries of US employment inicator |
-| Recreational Employment | Risk of not optimizing employment opportunities | EOP Committee unconfident in Fisheries of US employment indicator |
-| Seafood safety   | Risk of not maintaining market access, human health    | Number of public advisories by species |
+```{r riskel2}
 
-"
-cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+elements<-data.frame(
+  Category = c("Ecological","Ecological","Ecological","Ecological","Ecological","Ecological","Ecological","Ecological","Ecological","Ecological","Ecological","Economic","Economic","Economic","Economic","Social","Social","Food Production","Food Production","Management","Management","Management","Management","Management","Management","Put Aside","Put Aside","Put Aside","Put Aside","Put Aside","Put Aside","Put Aside","Put Aside"),
+#  Category = c("Ecological","","","","","","","","","","","Economic","","","","Social","","Food Production","","Management","","","","","","Put Aside","","","","","","",""),
+  Element = c("Assessment performance","F status","B status","Food web (MAFMC Predator)","Food web  (MAFMC Prey)","Food web  (Protected Species Prey)","Ecosystem productivity", "Climate","Distribution shifts", "Estuarine habitat","Offshore habitat", "Commercial Revenue", "Recreational Angler Days/Trips", "Commercial Fishery Resilience (Revenue Diversity)", "Commercial Fishery Resilience (Shoreside Support)", "Fleet Resilience", "Social-Cultural","Commercial","Recreational", "Control", "Interactions", "Other ocean uses", "Regulatory complexity", "Discards", "Allocation", "Population diversity", "Ecological diveristy", "Fishery Resilience (2)", "Fishery Resilience (3)", "Fishery Resilience (5)", "Commercial Employment", "Recreational Employment", "Seafood safety"), 
+  Definition = c("Risk of not achieving OY due to analytical limitations", "Risk of not achieving OY due to overfishing", "Risk of not achieving OY due to depleted stock", "Risk of not achieving OY due to MAFMC managed species interactions", "Risk of not achieving OY due to MAFMC managed species interactions", "Risk of not achieving protected species objectives due to species interactions", "Risk of not achieving OY due to changing system productivity", "Risk of not achieving OY due to climate vulnerability", "Risk of not achieving OY due to climate-driven distribution shifts", "Risk of not achieving OY due to threats to estuarine/nursery habitat", "Risk of not achieving OY due to changing offshore habitat", "Risk of not maximizing fishery value", "Risk of not maximizing fishery value" , "Risk of reduced fishery business resilience", "Risk of reduced fishery business resilience due to shoreside support infrastructure", "Risk of reduced fishery resilience", "Risk of reduced community resilience ", "Risk of not optimizing seafood production" , "Risk of not maintaining personal food production" , "Risk of not achieving OY due to inadequate control", "Risk of not achieving OY due to interactions with species managed by other entities", "Risk of not achieving OY due to other human uses", "Risk of not achieving compliance due to complexity", "Risk of not minimizing bycatch to extent practicable", "Risk of not achieving OY due to spatial mismatch of stocks and management", "Risk of not achieving OY due to reduced diversity", "Risk of not achieving OY due to reduced diversity", "Risk of reduced fishery business resilience due to access to capital", "Risk of reduced fishery business resilience due to insurance availabilty", "Risk of reduced fishery business resilience due to access to emerging markets/opportunities", "Risk of not optimizing employment opportunities", "Risk of not optimizing employment opportunities","Risk of not maintaining market access, human health"),
+  Indicators = c("Current assessment method/data quality", "Current F relative to reference F from assessment", "Current B relative to reference B from assessment","Diet composition, management measures","Diet composition, management measures","Diet composition, management measures","Four indicators, see text", "Northeast Climate Vulnerability Assessment", "Northeast Climate Vulnerability Assessment + 2 indicators", "Enumerated threats + estuarine dependence", "Integrated habitat model index", "Revenue in aggregate", "Numbers of anglers and trips in aggregate", "Species diversity of revenue", "Number of shoreside support businesses","Number of fleets, fleet diversity","Community vulnerability, fishery engagement and reliance", "Seafood landings in aggregate", "Recreational landings in aggregate", "Catch compared to allocation","Number and type of interactions with protected or non-MAFMC managed species, co-management", "Fishery overlap with energy/mining areas", "Number of regulations by species", "Standardized Bycatch Reporting", "Distribution shifts + number of interests","Size composition, sex ratio, genetic diversity", "Fishery independent species diversity",  "No current indicator available", "No current indicator available", "Needs clarification","EOP Committee unconfident in Fisheries of US employment inicator","EOP Committee unconfident in Fisheries of US employment indicator", "Number of public advisories by species") 
+)
+
+elements<-elements %>%
+  filter(Category != "Put Aside") %>%
+  select(Element, Definition, Indicators)
+
+kable(elements, "html") %>%
+  kable_styling(bootstrap_options = c("striped", "condensed"), font_size = 7) %>%
+  group_rows("Ecological", 1,11) %>%
+  group_rows("Economic", 12,15) %>%
+  group_rows("Social", 16,17) %>%
+  group_rows("Food Production", 18,19) %>%
+  group_rows("Management", 20,25) #%>%
+  #group_rows("Put Aside", 26,33) 
+  
 ```
 
-
-### **Risk Definitions and Indicators**
+### **Risk Definitions and Indicators: Examples**
 
 The risk was then evaluated as low, moderate, or high according to defined ranking criteria and measured by one or more ecosystem indicators assessed at multiple levels; ranging from single-species to system-wide. 
-<!--
-####Climate
-This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were evaluated in a comprehensive assessment [@hare_vulnerability_2016]. This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity (*not extinction risk*) of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. <!--This assessment is intended to be conducted iteratively, so these results can be updated in the future. -->
-<!--
+
+####Climate {.small}
+This element is applied at the species level. Risks to species productivity (and therefore to achieving OY) due to projected climate change in the Northeast US were evaluated in a comprehensive assessment [@hare_vulnerability_2016]. <!--This assessment evaluated exposure of each species to multiple climate threats, including ocean and air temperature, ocean acidification, ocean salinity, ocean currents, precipitation, and sea level rise. The assessment also evaluated the sensitivity (*not extinction risk*) of each species based on habitat and prey specificity, sensitivity to temperature and ocean acidification, multiple life history factors, and number of non-climate stressors. <!--This assessment is intended to be conducted iteratively, so these results can be updated in the future. -->
+
 ```{r riskclim, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Level         | Definition                                                          |  
@@ -269,18 +244,20 @@ tabl <- "
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
--->
+
 <!--Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here (Fig. \ref{NEVAvul}). -->
 <!--
-
-```{r NEVAvul, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species \\label{NEVAvul}", out.width='\\linewidth'}
+<img src="NEVAvulmid.png" style="width:100%"></img>
+<hr>
+-->
+```{r NEVAvul, out.width="100%"}
+#fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species \\label{NEVAvul}", out.width='\\linewidth'
 knitr::include_graphics(file.path(image.dir, 'NEVAvulmid.png'))
 
 ```
--->
 
-####Commercial Revenue
-This element is applied at the ecosystem level, and addresses the risk of not maximizing fishery value. Revenue serves as a proxy for commercial profits, which is the component of a fishery's value that this element is ultimately attempting to assess risk towards. 
+####Commercial Revenue {.small}
+This element is applied at the ecosystem level<!--, and addresses the risk of not maximizing fishery value-->. Revenue serves as a proxy for commercial profits<!--, which is the component of a fishery's value that this element is ultimately attempting to assess risk towards-->. 
 
 ```{r riskcomval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -296,7 +273,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 <!--This is aggregate commercial revenue for MAFMC managed species. There is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).-->
 
-```{r ComProfAgg}
+```{r ComProfAgg, fig.height=2.5, out.width="100%"}
 #, fig.cap="Aggregate Mid-Atlantic managed species revenue  \\label{comprofagg}", echo = F, fig.height=2.5, out.width='0.9\\linewidth', message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
 
@@ -308,11 +285,24 @@ allrev[, Var := paste('MAFMC Revenue')]
 allrev[, Units := 'USD']
 allrev[, EPU := 'ALL']
 
-soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", x.start = 1986, rel.y.num = 0.8, rel.y.text = 1)
+soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue \n 2015 Adjusted USD", x.start = 1986, rel.y.num = 0.8, rel.y.text = 0.8)
 ```
 
-<!--
-<img src="SOE_MAB_RiskAssess_postr/ComProfAgg.png"><img>-->
+####Fishing Mortality Control {.small}
+This element is applied at the species and sector level. <!--This element addresses the level of management control in terms of catch estimation (measurement) and monitoring to prevent overfishing. <!--Adequate management control indicates a low risk of overfishing, while poor management control indicates a higher risk of overfishing and hence not achieving OY.-->  Actual catch is compared with the specified ABC over the most recent five years of fishery history.
+
+```{r riskctl, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No history of overages |
+| Low-Moderate | Small overages, but infrequent |
+| Moderate-High | Routine overages, but small to moderate |
+| High | Routine significant overages |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
 
 ### **Results: Summary Tables**
 
@@ -320,16 +310,16 @@ The resulting risk matrix can be used to quickly evaluate where further integrat
 
 
 ####Species level
-```{r sptable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r sptable, out.width="100%"}
 
 # 
-# color.picker2 <- function(z){
-#   if( z == "na"){return("white")}
-#   else if( z == "l"){return("green")}
-#   else if( z == "lm"){return("yellow")}
-#   else if( z == "mh"){return("orange")}
-#   else {return("red")}
-# }
+ # color.picker2 <- function(z){
+ #   if( z == "na"){return("white")}
+ #   else if( z == "l"){return("green")}
+ #   else if( z == "lm"){return("yellow")}
+ #   else if( z == "mh"){return("orange")}
+ #   else {return("red")}
+ # }
 
 # spplist     oc,  sc,  flk, scp, bsb, mack, but, lsq, ssq, gtile,  btile,  blu, dog, monk
 risk.species<-data.frame(
@@ -376,38 +366,40 @@ risk.species<-data.frame(
 #     cell_spec(Fstatus, format="latex", color = "black", align = "c", background =factor(Fstatus, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))) %>%
 #   kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "")
 
-#generalize to all
+#generalize to all--works but ugly in html
 risk.species %>%
   mutate_at(vars(-Species), function(x){ 
     cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
   kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "") %>%
-  kable_styling(latex_options = "scale_down")
+  kable_styling(latex_options = "scale_down" ) %>%
+  kable_as_image()
 
 # 
-# risktab1<- condformat(risk.species) +
-#   rule_fill_discrete(Fstatus, expression = sapply(Fstatus,color.picker2),colours=identity) +
-#   rule_fill_discrete(Bstatus, expression = sapply(Bstatus,color.picker2),colours=identity) +
-#   rule_fill_discrete(Assess, expression = sapply(Assess,color.picker2),colours=identity) +
-#   rule_fill_discrete(FoodWeb1, expression = sapply(FoodWeb1,color.picker2),colours=identity) +
-#   rule_fill_discrete(FoodWeb2, expression = sapply(FoodWeb2,color.picker2),colours=identity) +
-#   rule_fill_discrete(EcoProd, expression = sapply(EcoProd,color.picker2),colours=identity) +
-#   rule_fill_discrete(Climate, expression = sapply(Climate,color.picker2),colours=identity) +
-#   rule_fill_discrete(DistShift, expression = sapply(DistShift,color.picker2),colours=identity) +
-#   rule_fill_discrete(EstHabitat, expression = sapply(EstHabitat,color.picker2),colours=identity) #+
-# #  rule_fill_discrete(OffHabitat, expression = sapply(OffHabitat,color.picker2),colours=identity) +
-# #  rule_fill_discrete(MgtControl, expression = sapply(MgtControl,color.picker2),colours=identity) +
-# #  rule_fill_discrete(TecInteract, expression = sapply(TecInteract,color.picker2),colours=identity) +
-# #  rule_fill_discrete(OceanUse, expression = sapply(OceanUse,color.picker2),colours=identity) +
-# #  rule_fill_discrete(RegComplex, expression = sapply(RegComplex,color.picker2),colours=identity) +
-# #  rule_fill_discrete(Discards, expression = sapply(Discards,color.picker2),colours=identity) +
-# #  rule_fill_discrete(Allocation, expression = sapply(Allocation,color.picker2),colours=identity) 
-# 
-# #  rule_fill_discrete(PopDiv, expression = sapply(PopDiv,color.picker2),colours=identity) +
-# #  rule_fill_discrete(EcoDiv, expression = sapply(EcoDiv,color.picker2),colours=identity) +
-# #  rule_fill_discrete(FoodSafe, expression = sapply(FoodSafe,color.picker2),colours=identity) +
-# 
-#   
-# risktab1
+#  risktab1<- condformat(risk.species) +
+#    rule_fill_discrete(Assess, expression = sapply(Assess,color.picker2),colours=identity) +
+#    rule_fill_discrete(Fstatus, expression = sapply(Fstatus,color.picker2),colours=identity) +
+#    rule_fill_discrete(Bstatus, expression = sapply(Bstatus,color.picker2),colours=identity) +
+#    rule_fill_discrete(FW1Pred, expression = sapply(FW1Pred,color.picker2),colours=identity) +
+#    rule_fill_discrete(FW1Prey, expression = sapply(FW1Prey,color.picker2),colours=identity) +
+#    rule_fill_discrete(FW2Prey, expression = sapply(FW2Prey,color.picker2),colours=identity) +
+#    rule_fill_discrete(EcoProd, expression = sapply(EcoProd,color.picker2),colours=identity) +
+#    rule_fill_discrete(Climate, expression = sapply(Climate,color.picker2),colours=identity) +
+#    rule_fill_discrete(DistShift, expression = sapply(DistShift,color.picker2),colours=identity) +
+#    rule_fill_discrete(EstHabitat, expression = sapply(EstHabitat,color.picker2),colours=identity) #+
+# # #  rule_fill_discrete(OffHabitat, expression = sapply(OffHabitat,color.picker2),colours=identity) +
+# # #  rule_fill_discrete(MgtControl, expression = sapply(MgtControl,color.picker2),colours=identity) +
+# # #  rule_fill_discrete(TecInteract, expression = sapply(TecInteract,color.picker2),colours=identity) +
+# # #  rule_fill_discrete(OceanUse, expression = sapply(OceanUse,color.picker2),colours=identity) +
+# # #  rule_fill_discrete(RegComplex, expression = sapply(RegComplex,color.picker2),colours=identity) +
+# # #  rule_fill_discrete(Discards, expression = sapply(Discards,color.picker2),colours=identity) +
+# # #  rule_fill_discrete(Allocation, expression = sapply(Allocation,color.picker2),colours=identity) 
+# # 
+# # #  rule_fill_discrete(PopDiv, expression = sapply(PopDiv,color.picker2),colours=identity) +
+# # #  rule_fill_discrete(EcoDiv, expression = sapply(EcoDiv,color.picker2),colours=identity) +
+# # #  rule_fill_discrete(FoodSafe, expression = sapply(FoodSafe,color.picker2),colours=identity) +
+# # 
+# #   
+#  risktab1
 
 ```
 
@@ -419,7 +411,7 @@ risk.species %>%
 -->
 
 ####Species and Sector level
-```{r, spsectable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r, spsectable, out.width="100%"}
 #
 risk.sppsector<-data.frame(
   Species = c("Ocean Quahog-C", "Surfclam-C", "Summer flounder-R", "Summer flounder-C","Scup-R", "Scup-C","Black sea bass-R", "Black sea bass-C","Atl. mackerel-R", "Atl. mackerel-C","Butterfish-C", "Longfin squid-C", "Shortfin squid-C", "Golden tilefish-R", "Golden tilefish-C","Blueline tilefish-R","Blueline tilefish-C", "Bluefish-R", "Bluefish-C","Spiny dogfish-R", "Spiny dogfish-C", "Unmanaged forage", "Deepsea corals"),
@@ -443,7 +435,8 @@ risk.sppsector %>%
     cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
   kable(risk.sppsector, format="latex", escape = F, booktabs = T, linesep = "") %>%
   #kable_styling(font_size =  9)
-  kable_styling(latex_options = "scale_down")
+  kable_styling(latex_options = "scale_down")%>%
+  kable_as_image()
 
 ```
 
@@ -468,7 +461,7 @@ risk.state %>%
 -->
 
 ####Ecosystem level
-```{r, ecotable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r, ecotable, out.width="100%"}
   
 risk.eco<-data.frame(
   System = c("Mid-Atlantic"),
@@ -490,19 +483,24 @@ risk.eco %>%
   mutate_at(vars(-System), function(x){ 
     cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
   kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = "") %>%
-  kable_styling(latex_options = "scale_down")
+  kable_styling(latex_options = "scale_down")%>%
+  kable_as_image()
 
 ```
 
-
-## Footer row {data-height=10} 
+<!--
+## Footer row {data-height=5} 
 
 ### **Next Steps** {data-width=50}
 
 Use it for stuff.
+-->
+<hr>
+####Discussion
+Next steps for the Counicl include FILL THIS IN WITH A BRIEF DISCUSSION
 
+The complete document is available at http://www.mafmc.org/s/SOE_MAB_RiskAssess-lzyt.pdf
 
-
-
-### **References** {data-width=50 .small}
+<hr>
+####References {.small}
 
