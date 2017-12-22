@@ -13,12 +13,12 @@ csl: canadian-journal-of-fisheries-and-aquatic-sciences.csl
 #gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
-#gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
-data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
-image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
-gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
 PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", "condformat", 'magick',"knitr",'kableExtra','zyp')
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {  
@@ -174,7 +174,7 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
   <img src="MAFMClogo.png" style="width:128px"></img>
   </td>
   <td><center><h3>
-  **Which MSE should you do first? Prioritizing MSE investments using risk assessment under an Ecosystem Approach to Fishery Management**
+  **Which MSE should you do first? Prioritizing MSE investments using risk assessment under an Ecosystem Approach to Fisheries Management**
   </h3></center></td>
   <td rowspan="2">
   <img src="NOAA-1.png" style="width:128px"></img>
