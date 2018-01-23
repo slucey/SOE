@@ -134,10 +134,10 @@ fit_lm <- function(dat) {
 #Plot new figure - Set end.start to 10 years before end of time series
 
 soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
-                     x.start = NA, x.end = NA, end.start = 2008, bg.col = background,
+                     x.start = NA, x.end = NA, end.start = 2008, bg.col = background, mean = T,
                      end.col = recent, stacked = NA, x.line = 2.5, y.line = 3.5, scale.axis = 1,
-                     rel.y.num = 1.5, rel.y.text = 1.5, suppressAxis = FALSE,
-                     endshade = TRUE, full.trend = TRUE, point.cex = 1.5, lwd = 2, ymax = TRUE){
+                     rel.y.num = 1.5, rel.y.text = 1.5, suppressAxis = FALSE,status = T,
+                     endshade = TRUE, full.trend = TRUE, point.cex = 1.5, lwd = 2, ymax = TRUE, y.upper = y.upper){
   
   #print("You'll need to remove or interpolate NA values before this function will work")
   
@@ -155,8 +155,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   if (ymax == TRUE){
     y.max <- max(x[, Value]) + tol * max(x[, Value])
   } else {
-    y.max <- readline("Insert ylim: ")
-    y.max <- as.numeric(y.max)
+    y.max <- as.numeric(y.upper)
   }
 
   y.min <- min(x[, Value]) - tol * abs(min(x[, Value]))
@@ -182,7 +181,10 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   }
     
   #Add grides
-  abline(h = y.mean, col = 'grey80', lwd = 3, lty = 2)
+  if (mean == TRUE){
+    abline(h = y.mean, col = 'grey80', lwd = 3, lty = 2)
+  }
+  
   
   #Add data points/lines
   points(x[, list(X, Value)], pch = 16, cex = point.cex)
@@ -203,7 +205,8 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
        las = T)
   
   #Final portion of time series
-    l10_x <- x[X > (end.start - 1), X]
+  if (status == T){
+        l10_x <- x[X > (end.start - 1), X]
     l10_y <- x[X > (end.start - 1), Value]
     lmod <- lm(l10_y ~ l10_x)
     lmod_c <- unlist(lmod[1])
@@ -211,7 +214,8 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
     lmod_s <- lmod_c[2]
     lines(l10_x, lmod_s * l10_x + lmod_i,
           col = "darkgrey", lwd=4, lty = 1)
-    
+  }
+
     #Add axis labels
     if(!is.na(stacked)) text(u[1], u[4], labels = stacked, cex = 2, adj = c(-0.5, 1.5))
     if(is.na(stacked)){
@@ -626,6 +630,30 @@ text(.25,3250, "B", cex = 1.5)
 
 ```
 
+## Long-term distribution shifts (MAB)
+
+```{r 'species_dist_kde_MAB' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
+knitr::include_graphics(file.path(image.dir, 'sea_scallop_kde.png'))
+knitr::include_graphics(file.path(image.dir, 'summer_flounder_kde.png'))
+knitr::include_graphics(file.path(image.dir, 'black_sea_bass_kde.png'))
+
+```
+
+## Long-term distribution shifts (NE)
+
+```{r 'species_dist_kde_NE' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
+knitr::include_graphics(file.path(image.dir, 'yellowtail_flounder_kde.png'))
+knitr::include_graphics(file.path(image.dir, 'atlantic_cod_kde.png'))
+
+```
+
+## Thermal habitat
+
+Vince's figures here
+
+## Condition factor
+
+Laurel's new figures here
 
 ## Groundfish productivity - aggregated
 
@@ -804,8 +832,84 @@ plot_stackbarcpts(YEAR = dat2plot$Time,
                   bot_lab = "Mid. Atlantic Bight",
                   xlab = "",
                   ylab = "Small fish per Large fish anomaly")
+```
 
-
+## Species of concern
+###Right whale
+```{r rw_abundance, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
+opar<-par(mar=c(5,6,4,1))
+soe.plot(SOE.data.2018, 'Time', "right whale total",            
+         scale.axis = 1, rel.y.num = 1.2, stacked = NA, endshade = F,status = F,
+         suppressAxis = F, full.trend = F, lwd = 1.5, point.cex = 1, end.start = 2005)
+soe.stacked.axis('Year', expression('Total Right Whale Abundance, n'), outer = F)
+lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'right whale total lower 95',]$Value
+up_CI <- SOE.data.2018[SOE.data.2018$Var == 'right whale total upper 95',]$Value
+year <- SOE.data.2018[SOE.data.2018$Var == 'right whale total upper 95',]$Time
+points(year, lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
+points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
 
 ```
+
+## Right whale abundance (A: male, B: female)
+
+```{r rw_abundance_mf, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+#Male figure
+soe.plot(SOE.data.2018, 'Time', "right whale total males",            
+         scale.axis = 1, rel.y.num = 1.2, stacked = "A", status = F, endshade = F,
+         suppressAxis = T, full.trend = F, lwd = 1.5, point.cex = 1)
+
+#Male credible intervals
+lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'right whale males lower 95',]$Value
+up_CI <- SOE.data.2018[SOE.data.2018$Var == 'right whale males upper 95',]$Value
+year <- SOE.data.2018[SOE.data.2018$Var == 'right whale males upper 95',]$Time
+points(year, lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
+points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
+
+#Female figure
+soe.plot(SOE.data.2018, 'Time', "right whale total female",            
+         scale.axis = 1, rel.y.num = 1.2, stacked = "B", status = F, endshade = F,
+         suppressAxis = T, full.trend = F, lwd = 1.5, point.cex = 1,ymax = T)
+
+#Female credible intervals
+lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'right whale female lower 95',]$Value
+up_CI <- SOE.data.2018[SOE.data.2018$Var == 'right whale female upper 95',]$Value
+year <- SOE.data.2018[SOE.data.2018$Var == 'right whale female upper 95',]$Time
+points(year, lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
+points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
+
+soe.stacked.axis("Time","Right Whale Abundance, n",outer = T)
+```
+
+### Harbor porpoise
+
+```{r harbor_porpoise, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
+opar<-par(mar=c(5,6,4,1))
+#Harbor porpoise bycatch - Dropped mean line for clarity
+soe.plot(SOE.data.2018, 'Time', "Harbor porpoise bycatch estimates",            
+         scale.axis = 1, rel.y.num = 1.2, stacked = NA, status = F, endshade = F,
+         suppressAxis = F, full.trend = F, point.cex = 1,ymax = F, y.upper = 2500, mean = F)
+soe.stacked.axis('Year', expression('Harbor Porpoise Bycatch, n'), outer = F)
+
+
+legend(2005, 2250, legend = "Potential Biological Removal", col = adjustcolor("red", .5), lwd = 3,
+       bty = "n")
+
+#credible intervals and PBI
+lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise bycatch 2.5 CI',]$Value
+up_CI <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise bycatch 97.5 CI',]$Value
+pbi <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise potential biological removal',]$Value
+year <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise bycatch 97.5 CI',]$Time
+
+points(year, pbi, type  = "l", lty = 1, col = adjustcolor("red", .5), lwd = 3)
+points(year, lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
+points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
+```
+
+## Primary production
+
+Kim's figures here
+
+## Zooplankton
 
