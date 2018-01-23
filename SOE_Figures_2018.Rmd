@@ -1,0 +1,362 @@
+---
+title: "SOE_Figures"
+author: "Sean Hardison"
+date: "January 21, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "F:/SOE/SOE_data")
+image.dir <- getwd()
+library(dplyr);library(Hmisc)
+load("SOE_data_2018.RData")
+source("SOE_source.R")
+```
+## Ecosystem Objectives (MAB)
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lll}
+  \hline
+ & Objective Categories & Indicators reported here \\ 
+  \hline
+ & Seafood production & Landings by feeding guild, mariculture \\ 
+   & Profits & Revenue by feeding guild \\ 
+   & Recreation & Number of anglers and trips \\ 
+   & Stability & Diversity indices (fishery and species) \\ 
+   & Social-Cultural & Community vulnerability, fishery engagement and reliance \\ 
+   & Biomass & Biomass or abundance by feeding guild from surveys \\ 
+   & Productivity & Condition and recruitment of MAFMC managed species \\ 
+   & Trophic structure & Relative biomass of feeding guilds, primary productivity \\ 
+   & Habitat & Thermal habitat projections, estimated habitat occurrence \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+## Ecosystem Objectives (NE)
+\begin{table}[ht]
+\centering
+\begin{tabular}{lll}
+  \hline
+ & Objective Categories & Indicators reported here \\ 
+  \hline
+ & Seafood production & Landings by feeding guild \\ 
+   & Profits & Revenue by feeding guild \\ 
+   & Recreation & Number of anglers and trips \\ 
+   & Stability & Diversity indices (fishery and species) \\ 
+   & Social-Cultural & Community vulnerability, fishery engagement and reliance \\ 
+   & Biomass & Biomass or abundance by feeding guild from surveys \\ 
+   & Productivity & Condition and recruitment of NEFMC managed species \\ 
+   & Trophic structure & Relative biomass of feeding guilds, primary productivity \\ 
+   & Habitat & Thermal habitat projections, estimated habitat occurrence \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+# Human Dimensions 
+
+## Community engagement and vulnerability (MAB)
+
+```{r 'community_engagement_and_vulnerability MAB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Comm_Engagement_and_Social_Vuln_MAB.jpg'))
+```
+
+## Community engagement and vulnerability (NE)
+
+```{r 'community_engagement_and_vulnerability NE' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Comm_Engagement_and_Social_Vuln_NE.jpg'))
+```
+
+## Community reliance and social vulnerability (MAB)
+```{r 'community_reliance_and_social_vulnerability MAB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Comm_Reliance_and_Social_Vuln_MAB.jpg'))
+```
+
+## Community reliance and social vulnerability (NE)
+```{r 'community_reliance_and_social_vulnerability NE' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Comm_Reliance_and_Social_Vuln_NE.jpg'))
+```
+
+## Species vulnerability (MAB)
+
+```{r 'species_vulnerability_MAB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_MAB.jpg'))
+```
+
+## Species vulnerability (NE)
+
+```{r 'species_vulnerability_NE' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_NE.jpg'))
+```
+
+## Seafood production
+
+Landings data go here
+
+
+\large{\textbf{Species groupings (MAB)}}
+
+\begin{table}[ht]
+\centering
+\newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
+\begin{tabular}{lp{2.75in}p{.75in}p{2.5in}}
+  \hline
+ & Feeding group & N species & Major species in group \\ 
+  \hline
+\splat & \textbf{A: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\ 
+
+\splat & \textbf{B: Planktivore} (Eat plankton) & 16 & Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid \\ 
+
+\splat & \textbf{C: Benthivore} (Eat bottom dwellers) & 25 & black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail, winter, and witch flounders, barndoor skate, American plaice, other crabs \\ 
+
+\splat & \textbf{D: Piscivore} (Eat fish) & 23 & spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder \\ 
+
+\splat & \textbf{E: Apex Predator} (Highest trophic level) & 4 & shark, swordfish, yellowfin and bluefin tuna \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\large{\textbf{Species groupings (NE)}}
+
+\begin{table}[h!]
+\centering
+\newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
+\begin{tabular}{lp{2.75in}p{.75in}p{2.5in}}
+  \hline
+ & Feeding group & N species & Major species in group \\ 
+  \hline
+\splat & \textbf{A: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\ 
+
+\splat & \textbf{B: Planktivore} (Eat plankton) & 16 & Atlantic herring, butterfish, Atlantic mackerel, menhaden, river herrings, shad, white hake, longfin and shortfin squids, searobins, sculpin, lumpfish \\ 
+
+\splat & \textbf{C: Benthivore} (Eat bottom dwellers) & 25 & lobster, haddock, yellowtail, winter, and witch flounders,barnoor skate, ocean pout, black sea bass, scup, tilefish,
+tautog, cunner, blue crab, red crab, other crabs \\ 
+
+\splat & \textbf{D: Piscivore} (Eat fish) & 23 & monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod, halibut, fourspot flounder, spiny
+dogfish, summer flounder, bluefish, striped bass, weakfishs \\ 
+
+\splat & \textbf{E: Apex Predator} (Highest trophic level) & 4 & shark, swordfish, yellowfin and bluefin tuna \\ 
+
+   \hline
+\end{tabular}
+\end{table}
+
+## Proportion of feeding guilds managed by Fisheries management councils
+
+Table 3 goes here
+
+## Commercial landings by feeding guild
+
+Landings data goes here. Two side-by-side figures for GOM/GB; one for MAB
+
+## Commercial revenue by feeding guild
+
+Revenue data goes here. Two side-by-side figures for GOM/GB; one for MAB
+
+
+## Fleet diversity and fleet count (MAB)
+```{r fleet diversity MAB, echo=F, message=FALSE, warning=FALSE, include=T, fig.width=8, fig.height=6}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data.2018, "Time","Mid-Atlantic average fleet diversity", stacked = "A",
+         endshade = F, rel.y.num = 1.1, full.trend = F)
+soe.plot(SOE.data.2018,"Time","Mid-Atlantic fleet count", stacked = "B",
+         endshade = F, rel.y.num = 1.1, full.trend = F)
+soe.stacked.axis('Year', 'Commercial fleet diversity')
+```
+
+
+## Fleet diversity and fleet count (NE)
+```{r fleet diversity NE, echo=F, message=FALSE, warning=FALSE, include=T, fig.width=8, fig.height=6}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data.2018, "Time","New England average fleet diversity", stacked = "A",
+         endshade = F, rel.y.num = 1.1, full.trend = F)
+soe.plot(SOE.data.2018,"Time","New England fleet count", stacked = "B",
+         endshade = F, rel.y.num = 1.1, full.trend = F)
+soe.stacked.axis('Year', 'Commercial fleet diversity')
+```
+
+## Mid-Atlantic commercial species diversity
+
+```{r revenue diversity MAB, echo = F, message=F, include=T, warning=F, fig.width=8, fig.height=4}
+opar <- par(mar = c(4, 6, 2, 6))
+soe.plot(SOE.data.2018, 'Time', "Mid-Atlantic commercial species diversity",stacked = NA, 
+         endshade = F, full.trend = F)
+soe.stacked.axis("Year","Shannon Index", outer = F)
+```
+
+
+## New England commercial species diversity
+
+```{r revenue diversity NE, echo = F, message=F, include=T, warning=F, fig.width=8, fig.height=4}
+opar <- par(mar = c(4, 6, 2, 6))
+soe.plot(SOE.data.2018, 'Time', "New England commercial species diversity",stacked = NA, 
+         endshade = F, full.trend = F)
+soe.stacked.axis("Year","Shannon Index", outer = F)
+```
+
+## Recreational opportunities (MAB) (A: Rec participation, B: Angler trips)
+```{r recreation MAB, echo=F, message=FALSE, warning=FALSE, include=T, fig.width=8, fig.height=6}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data.2018, "Time","Mid-Atlantic Rec participation", stacked = "A",
+         endshade = F, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6)
+soe.plot(SOE.data.2018,"Time","Mid-Atlantic angler trips", stacked = "B",
+         endshade = F, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6)
+soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'))
+```
+
+## Recreational opportunities (NE) (A: Rec participation, B: Angler trips)
+```{r recreation NE, echo=F, message=FALSE, warning=FALSE, include=T, fig.width=8, fig.height=6}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data.2018, "Time","North Atlantic Rec participation", stacked = "A",
+         endshade = F, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6)
+soe.plot(SOE.data.2018,"Time","North Atlantic angler trips", stacked = "B",
+         endshade = F, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6)
+soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'))
+```
+
+
+## Mariculture (MAB)
+
+```{r, mariculture MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=5}
+library(RColorBrewer)
+topo <- c('black', "indianred", "darkorange", "purple")
+
+oyst_vars <- list("aquaculture NJ gear raised oysters sold",
+                 # "aquaculture NH oyster harvest N",
+                  "aquaculture MD oyster harvest N",
+                  "aquaculture RI oyster harvest N",
+                  "aquaculture VA oyster harvest N")
+y.min <- 1
+y.max <- 40000000
+opar <- par(mar = c(4, 6, 2, 6))
+plot(NULL, xlim = c(1995, 2017),
+     ylim = c(y.min,y.max), xlab = 'Year', ylab = '', yaxt = "n",ty = 'n',
+     cex.lab=1.5, las = 1, cex.axis = 1.5)
+for (i in 1:length(oyst_vars)){
+
+  ts <- SOE.data.2018[SOE.data.2018$Var == oyst_vars[[i]],]$Value
+  years <- SOE.data.2018[SOE.data.2018$Var == oyst_vars[[i]],]$Time
+  
+  ts_oyster <- zoo(ts, years)
+  points(ts_oyster, type = "o", lwd = 3, col = topo[i])
+  axis(2, at = c(1*10^6,5*10^6,10*10^6,15*10^6,
+                 20*10^6,25*10^6,30*10^6,35*10^6,40*10^6), 
+       labels = c("1","5","10","15","20",
+                  "25","30","35","40"),
+       las = 1, cex.axis = 1.5)
+  mtext(2, text = expression("Oysters Harvested, 10"^6*'n'),
+        line = 3.5, cex = 1.5, outer = F)
+   
+}
+
+legend(1998, 30000000, legend = c("New Jersey",
+                            "Maryland",
+                            "Rhode Island",
+                            "Virginia"), col = topo, bty = "n",lwd = 2)
+
+```
+
+## Biomass 
+
+Biomass data goes here
+
+## Ichthyoplankton diversity (A: Fall, B: Spring)
+
+```{r larval diversity , echo = F, warning = F, include = T, fig.width=8, fig.height=6}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data.2018, "Time","Fall_Ich_Shannon Diversity Index", stacked = "A",
+         endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 1)
+soe.plot(SOE.data.2018, "Time","Spring_Ich_Shannon Diversity Index", stacked = "B",
+         endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 1)
+soe.stacked.axis('Year', expression('Shannon Index'), outer = T)
+
+```
+
+
+## Along-shelf distance and depth changes for aggregated species
+```{r depth and distance shifts, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=10, fig.height=5, fig.align='center'}
+opar <- par(mfrow = c(1, 2), mar = c(4,6,3,0.2))
+soe.plot(SOE.data.2018, "Time","mean along-shelf distance", stacked = "A",
+         endshade = F, rel.y.num = 1.1, full.trend = T, scale.axis = 1)
+soe.stacked.axis('Year', expression('Along-shelf Distance, km'^2*''), outer = F)
+soe.plot(SOE.data.2018, "Time","mean depth", stacked = "B",
+         endshade = F, rel.y.num = 1.1, full.trend = T, scale.axis = 1, suppressAxis = T)
+soe.stacked.axis('Year', expression('Depth, m'), outer = F)
+```
+
+## Modeled shelf-occupancy for haddock (A: spring, B: fall) and cod (C: spring, D: fall) in New England
+
+
+```{r, occupancy trends NE, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=7, fig.height=8, fig.align='center'}
+opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
+soe.plot(SOE.data.2018, "Time","spring haddock occupancy", stacked = "A",
+         endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
+soe.stacked.axis('Year', expression('Habitat Area, 10'^3*' km'^2*''), outer = T)
+soe.plot(SOE.data.2018, "Time","fall haddock occupancy", stacked = "B",
+         endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3, suppressAxis = F)
+soe.stacked.axis('Year', expression('Habitat Area, 10'^3*' km'^2*''), outer = T)
+
+soe.plot(SOE.data.2018, "Time","spring atlantic cod occupancy", stacked = "C",
+         endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3, suppressAxis = F)
+soe.stacked.axis('Year', expression('Habitat Area, 10'^3*' km'^2*''), outer = T)
+soe.plot(SOE.data.2018, "Time","fall atlantic cod occupancy", stacked = "D",
+         endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3, suppressAxis = F)
+soe.stacked.axis('Year', expression('Habitat Area, 10'^3*' km'^2*''), outer = T)
+```
+
+## Spring and fall occupancy trends for species in the MAB. 
+
+"Recently developed habitat models are being applied to estimate occurrence probability for species on the Northeast Shelf. The models utilize a range of static and dynamic variables and based on a decision tree algorithm provide habitat estimates over the years 1992-2016. The occupancy maps can be analyzed to determine the amount of habitat likely to support a species. In the Middle Atlantic Bight, most principal species are showing an increasing trend in habitat in both spring (A) and fall (B) surveys. In spring, of the nine species considered, only spiny dogfish has a negative habitat trend over the study period. Likewise in fall, only one species, shortfin squid, has a negative habitat trend. The largest trends were found with spring monkfish and fall butterfish, which were increase by 2,800 km 2 year -1 and over 3,500 km 2 year -1 , respectively."
+
+
+```{r occupancy trends MAB, echo=F, fig.align='center', fig.height=9.5, fig.width=10, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
+opar <- par(mfrow = c(2, 1), mar = c(7, 5, 1, 0), oma = c(4, 8, 1, 6))
+
+
+spring_list <- finder(SOE.data.2018, "spring occupancy")
+
+spring_val <- NULL
+for (i in 1:length(spring_list)){
+  spring_val[i] <- SOE.data.2018[SOE.data.2018$Var == spring_list[i],]$Value
+}
+spring_data <- data.frame(species = capitalize(as.character(spring_list)), 
+                          value = spring_val)
+spring_data$species <- gsub("spring occupancy","",spring_data$species)
+
+z <- barplot(spring_data$value, names.arg = spring_data$species, 
+             xlab = "", axisnames = F,las = 1,
+             ylab = expression("Habitat Change km"^2*" year"^-1*""),
+             col = c(rep(rgb(253/255, 184/255, 99/255,  alpha = .9),7),
+                     "purple",rgb(253/255, 184/255, 99/255,  alpha = .9)),
+             ylim = c(-500,3000))
+text(z+.3, par("usr")[3]-.5, 
+     srt = 60, adj= 1.2, xpd = TRUE,
+     labels = spring_data$species, cex= 1)
+text(.25,2500, "A", cex = 1.5)
+
+fall_list <- finder(SOE.data.2018, "fall occupancy")
+
+fall_val <- NULL
+for (i in 1:length(fall_list)){
+  fall_val[i] <- SOE.data.2018[SOE.data.2018$Var == fall_list[i],]$Value
+}
+fall_data <- data.frame(species = capitalize(as.character(fall_list)), 
+                          value = fall_val)
+fall_data$species <- gsub("fall occupancy","",fall_data$species)
+
+z <- barplot(fall_data$value, names.arg = fall_data$species, 
+             xlab = "", axisnames = F,las = 1,
+             ylab = expression("Habitat Change km"^2*" year"^-1*""),
+             col = c(rep(rgb(253/255, 184/255, 99/255,  alpha = .9),6),
+                     "purple",rep(rgb(253/255, 184/255, 99/255,  alpha = .9),2)),
+             cex.names = 1.5, ylim = c(-1000,3500))
+
+text(z+.3, par("usr")[3]-.5, 
+     srt = 60, adj= 1.2, xpd = TRUE,
+     labels = fall_data$species, cex=1)
+text(.25,3250, "B", cex = 1.5)
+
+
+```
+
