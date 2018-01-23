@@ -5,11 +5,11 @@ date: "January 21, 2018"
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=F}
 knitr::opts_knit$set(root.dir = "F:/SOE/SOE_data")
 image.dir <- getwd()
 library(dplyr);library(Hmisc)
-load("SOE_data_2018.RData")
+load("SOE_data_2018.Rdata")
 PKG <-c("Kendall","data.table","zoo","dplyr","nlme","AICcmodavg")
 
 for (p in PKG) {
@@ -277,7 +277,7 @@ finder <- function(data, match = match){
 
 ```
 
-```
+
 ## Ecosystem Objectives (MAB)
 
 \begin{table}[ht]
@@ -622,6 +622,189 @@ text(z+.3, par("usr")[3]-.5,
      srt = 60, adj= 1.2, xpd = TRUE,
      labels = fall_data$species, cex=1)
 text(.25,3250, "B", cex = 1.5)
+
+
+```
+
+
+## Groundfish productivity - aggregated
+
+```{r groundfish productivity, echo=F, fig.align='center', fig.height=7, fig.width=10, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
+## Functions for plotting
+library(ggplot2)
+library(rpart)
+
+#### Adjust plot properties -------------------------------
+adjustAxes <- 
+  ggplot2::theme(axis.title   = element_text(size = 18),
+                 axis.text    = element_text(size = 15),
+                 plot.title   = element_text(size = 20))
+
+ggplot <- function(...) { ggplot2::ggplot(...)  + 
+    ggplot2::theme_bw() + 
+    adjustAxes}
+
+
+#### Plot stacked bar with cpts for single var ------------
+plot_stackbarcpts_single <- function(YEAR, var2bar,
+                                     x, xlab, ylab,
+                                     titl,
+                                     file_suffix,
+                                     leg_font_size = 10,
+                                     remove_leg = FALSE,
+                                     leg_ncol = 1,
+                                     wcpts = TRUE,
+                                     wdashed = TRUE,
+                                     height = 5.5,
+                                     width = 8) {
+  
+  dat2bar <- data.frame(YEAR, var2bar,
+                        x)
+  
+  dat2plot <-
+    dat2bar %>%
+    tidyr::gather(variable, value, -YEAR, -var2bar) %>%
+    dplyr::mutate(var2bar = gsub(pattern      = "_", 
+                                 replacement  = " ", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = "Atl.", 
+                                 replacement  = "", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = "Atl", 
+                                 replacement  = "", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = "NS and combined", 
+                                 replacement  = "", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = "YT", 
+                                 replacement  = "Yellowtail", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = " GoM", 
+                                 replacement  = " GOM", 
+                                 x            = var2bar))
+  
+  
+  p <-   
+    ggplot(dat2plot,
+           aes(x = YEAR)) +
+    geom_bar(data = dat2plot %>% filter(value > 0),
+             aes(y = value, fill = var2bar),
+             stat = "identity") +
+    geom_bar(data = dat2plot %>% filter(value < 0),
+             aes(y = value, fill = var2bar),
+             stat = "identity") +
+    geom_hline(size = 0.3, aes(yintercept = 0)) +
+    xlab(xlab) +
+    ylab(ylab) +
+    ggtitle(titl) +
+    guides(fill = guide_legend(ncol = leg_ncol)) +
+    theme(axis.title   = element_text(size = 16),
+          axis.text    = element_text(size = 15),
+          plot.title   = element_text(size = 20),
+          legend.text  = element_text(size = leg_font_size),
+          legend.title = element_blank())
+  
+  if(remove_leg) p <- p + theme(legend.position = "none")
+  
+  print(p)
+  
+  #ggsave(plot = p,
+  #       filename = "./productivity_all.eps",
+  #       width = width,
+  #       height = height)
+}
+
+bar_dat <- SOE.data.2018[grepl("all EPU",SOE.data.2018$Var),]
+plot_stackbarcpts_single(YEAR = bar_dat$Time,
+                         var2bar = bar_dat$Var,
+                         x = bar_dat$Value,
+                         titl = "",
+                         xlab = "",
+                         ylab = "Small fish per large fish biomass (anomaly)",
+                         height = 5.5,
+                         width = 9)
+```
+
+## Stacked bar groundfish productivity figures
+
+```{r stacked bar groundfish productivity, echo=F, fig.align='center', fig.height=9.5, fig.width=10, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
+
+#### Plot stacked bars -------------------
+plot_stackbarcpts <- function(YEAR, var2bar,
+                              top, mid, bot,
+                              top_lab, 
+                              mid_lab, 
+                              bot_lab,
+                              xlab = "", 
+                              ylab = "",
+                              titl = "") {
+  
+  dat2bar <- data.frame(YEAR, var2bar,
+                        top, mid, 
+                        bot)
+  
+  dat2plot <-
+    dat2bar %>%
+    tidyr::gather(variable, value, -YEAR, -var2bar) %>%
+    dplyr::mutate(variable = ifelse(variable == "top", 
+                                    top_lab, 
+                                    ifelse(variable == "mid",
+                                           mid_lab, bot_lab)))
+  
+  
+  dat2plot$variable <- 
+    factor(dat2plot$variable,
+           levels = c(top_lab, mid_lab, bot_lab))
+  
+  p <-   
+    ggplot(dat2plot,
+           aes(x = YEAR)) +
+    geom_bar(data = dat2plot %>% filter(value > 0),
+             aes(y = value, fill = var2bar),
+             stat = "identity") +
+    geom_bar(data = dat2plot %>% filter(value < 0),
+             aes(y = value, fill = var2bar),
+             stat = "identity") +
+    facet_wrap(~ variable, ncol = 1) +
+    geom_hline(size = 0.3, aes(yintercept = 0)) +
+    xlab(xlab) +
+    ylab(ylab) +
+    ggtitle(titl) +
+    guides(fill = guide_legend(ncol = 1)) +
+    theme(axis.title   = element_text(size = 16),
+          axis.text    = element_text(size = 15),
+          plot.title   = element_text(size = 20),
+          strip.text   = element_text(size = 15),
+          legend.title = element_blank())
+  
+  print(p)
+  
+  #ggsave(plot = p,
+  #       filename = "./productivity_epu.eps",
+  #       width = 7,
+  #       height = 9)
+}
+
+
+## Recruit per spawner (by EPU) ----
+stacked_bar_dat <- SOE.data.2018[grepl("by EPU",SOE.data.2018$Var),]
+
+dat2plot <-
+  stacked_bar_dat %>%
+  tidyr::spread(EPU, Value)
+
+
+plot_stackbarcpts(YEAR = dat2plot$Time,
+                  var2bar = dat2plot$Var,
+                  top = dat2plot$GOM, 
+                  mid = dat2plot$GB,
+                  bot = dat2plot$MAB,
+                  top_lab = "Gulf of Maine",
+                  mid_lab = "Georges Bank",
+                  bot_lab = "Mid. Atlantic Bight",
+                  xlab = "",
+                  ylab = "Small fish per Large fish anomaly")
+
 
 
 ```
