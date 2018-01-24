@@ -368,7 +368,28 @@ knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_MAB.jpg'))
 knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_NE.jpg'))
 ```
 
-## Seafood production
+## Bennet Indicators
+```{r 'Rev_Price_Vol_MAB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
+```
+
+```{r 'Rev_Price_Vol_GOM' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_GOM.png'))
+```
+
+```{r 'Rev_Price_Vol_GB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_GB.png'))
+```
+
+```{r 'Vol_Ind_GB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Vol_Ind_GB.png'))
+```
+
+```{r 'Prince_Ind_GB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Price_Ind_GB.png'))
+```
+
+# Seafood production
 
 Landings data go here
 
@@ -419,7 +440,7 @@ dogfish, summer flounder, bluefish, striped bass, weakfishs \\
    \hline
 \end{tabular}
 \end{table}
-
+\newpage
 ## Proportion of feeding guilds managed by Fisheries management councils
 
 Table 3 goes here
@@ -432,9 +453,8 @@ Landings data goes here. Two side-by-side figures for GOM/GB; one for MAB
 
 Revenue data goes here. Two side-by-side figures for GOM/GB; one for MAB
 
-
 ## Fleet diversity and fleet count (MAB)
-```{r fleet diversity MAB, echo=F, message=FALSE, warning=FALSE, include=T, fig.width=8, fig.height=6}
+```{r fleet diversity MAB, echo=F, message=FALSE, warning=FALSE, include=T, fig.width=7, fig.height=4}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","Mid-Atlantic average fleet diversity", stacked = "A",
          endshade = F, rel.y.num = 1.1, full.trend = F)
@@ -535,7 +555,7 @@ legend(1998, 30000000, legend = c("New Jersey",
 
 ```
 
-## Biomass 
+# Biomass 
 
 Biomass data goes here
 
@@ -551,6 +571,7 @@ soe.stacked.axis('Year', expression('Shannon Index'), outer = T)
 
 ```
 
+# Species distributions
 
 ## Along-shelf distance and depth changes for aggregated species
 ```{r depth and distance shifts, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=10, fig.height=5, fig.align='center'}
@@ -564,7 +585,6 @@ soe.stacked.axis('Year', expression('Depth, m'), outer = F)
 ```
 
 ## Modeled shelf-occupancy for haddock (A: spring, B: fall) and cod (C: spring, D: fall) in New England
-
 
 ```{r, occupancy trends NE, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=7, fig.height=8, fig.align='center'}
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
@@ -659,9 +679,19 @@ knitr::include_graphics(file.path(image.dir, 'atlantic_cod_kde.png'))
 
 Vince's figures here
 
-## Condition factor
+# Ecosystem productivity
 
-Laurel's new figures here
+## Condition factor (MAB)
+
+```{r 'condition factor MAB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition_2018.jpg'))
+```
+
+## Condition factor (NE)
+
+```{r 'condition factor NE' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition_2018.jpg'))
+```
 
 ## Groundfish productivity - aggregated
 
@@ -842,25 +872,31 @@ plot_stackbarcpts(YEAR = dat2plot$Time,
                   ylab = "Small fish per Large fish anomaly")
 ```
 
-## Species of concern
-###Right whale
+# Species of concern
+
+## Right whale 
+Includes 2016 data
 ```{r rw_abundance, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
 opar<-par(mar=c(5,6,4,1))
-soe.plot(SOE.data.2018, 'Time', "right whale total",            
+soe.plot(SOE.data.2018, 'Time', "right_whale_median",            
          scale.axis = 1, rel.y.num = 1.2, stacked = NA, endshade = F,status = F,
          suppressAxis = F, full.trend = F, lwd = 1.5, point.cex = 1, end.start = 2005)
-soe.stacked.axis('Year', expression('Total Right Whale Abundance, n'), outer = F)
-lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'right whale total lower 95',]$Value
-up_CI <- SOE.data.2018[SOE.data.2018$Var == 'right whale total upper 95',]$Value
-year <- SOE.data.2018[SOE.data.2018$Var == 'right whale total upper 95',]$Time
+soe.stacked.axis('Year', expression('Median Right Whale Abundance, n'), outer = F)
+lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_lower_95',]$Value
+up_CI <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_upper_95',]$Value
+year <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_upper_95',]$Time
 points(year, lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
 points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
 
 ```
 
 ## Right whale abundance (A: male, B: female)
+Data only from 2015
 
-```{r rw_abundance_mf, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
+```{r rw_abundance_mf, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth', eval = FALSE}
+
+## Does not include 2016 data
+
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
 #Male figure
@@ -890,7 +926,7 @@ points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), l
 soe.stacked.axis("Time","Right Whale Abundance, n",outer = T)
 ```
 
-### Harbor porpoise
+## Harbor porpoise
 
 ```{r harbor_porpoise, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
 opar<-par(mar=c(5,6,4,1))
@@ -915,7 +951,7 @@ points(year, lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), l
 points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
 ```
 
-## Primary production
+# Primary production & Zooplankton
 
 Kim's figures here
 
@@ -956,7 +992,7 @@ legend("topright",
 ```
 
 
-
+## Zooplankton (A: Geroges Bank, B: Gulf of Maine)
 
 ```{r, NE zooplankton, echo=F, fig.align='center', fig.height=8, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0) , oma = c(4, 6, 2, 6))
