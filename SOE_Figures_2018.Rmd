@@ -3,6 +3,7 @@ title: "SOE_Figures"
 author: "Sean Hardison"
 date: "January 21, 2018"
 output: pdf_document
+geometry: margin=1cm
 ---
 
 ```{r setup, include=F}
@@ -658,36 +659,56 @@ text(.25,3250, "B", cex = 1.5)
 
 ```
 
-## Long-term distribution shifts (MAB)
+## Species distributions (MAB)
 
-```{r 'species_dist_kde_MAB' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
+### Sea scallop (KDE, contemporary, 20-40 year thermal habitat projection)
+
+```{r 'species_dist_scallop_MAB' , echo = F, out.width='7cm', out.height='7cm', fig.show='hold'}
 knitr::include_graphics(file.path(image.dir, 'sea_scallop_kde.png'))
+knitr::include_graphics(file.path(image.dir, 'scallop_contemp_TH.png'))
+knitr::include_graphics(file.path(image.dir, 'scallop_20_40_TH.png'))
+
+```
+
+### Summer flounder (KDE, contemporary, 20-40 year thermal habitat projection)
+
+```{r 'species_dist_summer_flounder_MAB' , echo = F, out.width='7cm', out.height='7cm', fig.show='hold'}
 knitr::include_graphics(file.path(image.dir, 'summer_flounder_kde.png'))
-knitr::include_graphics(file.path(image.dir, 'black_sea_bass_kde.png'))
-
+knitr::include_graphics(file.path(image.dir, 'summer_flounder_contemp_TH.png'))
+knitr::include_graphics(file.path(image.dir, 'summer_flounder_20_40_TH.png'))
 ```
 
-## Long-term distribution shifts (NE)
+## Species distributions (NE)
 
-```{r 'species_dist_kde_NE' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
-knitr::include_graphics(file.path(image.dir, 'yellowtail_flounder_kde.png'))
+### Atlantic cod (KDE, contemporary, 20-40 year thermal habitat projection)
+```{r 'species_dist_cod_NE' , echo = F, out.width='7cm', out.height='7cm', fig.show='hold'}
 knitr::include_graphics(file.path(image.dir, 'atlantic_cod_kde.png'))
+knitr::include_graphics(file.path(image.dir, 'atlantic_cod_contemp_TH.png'))
+knitr::include_graphics(file.path(image.dir, 'atlantic_cod_20_40_TH.png'))
 
 ```
 
-## Thermal habitat
+### Yellowtail flounder (KDE, contemporary, 20-40 year thermal habitat projection)
 
-Vince's figures here
+```{r 'species_dist_yellowtail_NE' , echo = F, out.width='7cm', out.height='7cm', fig.show='hold'}
+knitr::include_graphics(file.path(image.dir, 'yellowtail_flounder_kde.png'))
+knitr::include_graphics(file.path(image.dir, 'yellowtail_flounder_contemp_TH.png'))
+knitr::include_graphics(file.path(image.dir, 'yellowtail_flounder_20_40_TH.png'))
+```
 
 # Ecosystem productivity
 
 ## Condition factor (MAB)
+
+Fish condition is measured as the weight per length - a measure of "fatness". This information is from the NEFSC bottom trawl surveys and shows a change in condition across most species at around 2000. Around 2009-2013 many species started to have better condition, although on average male spiny dogfish, goosefish and black sea bass remain thin for their length. These changes in condition may be linked to changes in copepod abundance and regime shifts in fish recruitment (Perretti et al. 2017). In 2017 the autumn bottom trawl survey sampling was reduced, resulting in missing data (white squares) for many stocks. Even for stocks where condition could be analyzed in 2017, it may be less reliable due to smaller sample sizes.
 
 ```{r 'condition factor MAB' , echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition_2018.jpg'))
 ```
 
 ## Condition factor (NE)
+
+Fish condition is measured as the weight per length - a measure of "fatness". This information is from the NEFSC bottom trawl surveys and shows a change in condition across most species at around 2000. Around 2010-2013 many species started to have better condition, although on average yellowtail, goosefish and Atlantic herring remain at their thinnest for their length. Additionally, some winter flounder, thorny skate, spiny dogfish, silver hake, pollock, and Acadian redfish stocks are currently thinner than average. These changes in condition may be linked to changes in copepod abundance and regime shifts in fish recruitment (Perretti et al. 2017). In 2017 the autumn bottom trawl survey sampling was reduced, resulting in missing data (white squares) for many stocks. Even for stocks where condition could be analyzed in 2017, it may be less reliable due to smaller sample sizes.
 
 ```{r 'condition factor NE' , echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition_2018.jpg'))
@@ -953,7 +974,7 @@ points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), l
 
 # Primary production & Zooplankton
 
-Kim's figures here
+Kim's figures and text here
 
 ## Zooplankton (MAB)
 
@@ -992,7 +1013,7 @@ legend("topright",
 ```
 
 
-## Zooplankton (A: Geroges Bank, B: Gulf of Maine)
+## Zooplankton (A: Georges Bank, B: Gulf of Maine)
 
 ```{r, NE zooplankton, echo=F, fig.align='center', fig.height=8, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0) , oma = c(4, 6, 2, 6))
@@ -1053,3 +1074,13 @@ legend(1996.5,1.6, legend = "B", bty = "n", cex = 1.5)
 
 ```
 
+## SST
+
+```{r '2017_SST_Anomaly_Maps' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
+knitr::include_graphics(file.path(image.dir, 'Winter_2017_SST_Anomaly.png'))
+knitr::include_graphics(file.path(image.dir, 'Spring_2017_SST_Anomaly.png'))
+```
+```{r '2017_SST_Anomaly_Maps_2' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
+knitr::include_graphics(file.path(image.dir, 'Summer_2017_SST_Anomaly.png'))
+knitr::include_graphics(file.path(image.dir, 'Fall_2017_SST_Anomaly.png'))
+```
