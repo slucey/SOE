@@ -8,7 +8,8 @@ output: pdf_document
 ```{r setup, include=F}
 knitr::opts_knit$set(root.dir = "F:/SOE/SOE_data")
 image.dir <- getwd()
-library(dplyr);library(Hmisc)
+library(dplyr)
+library(Hmisc)
 load("SOE_data_2018.Rdata")
 PKG <-c("Kendall","data.table","zoo","dplyr","nlme","AICcmodavg")
 
@@ -206,7 +207,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   
   #Final portion of time series
   if (status == T){
-        l10_x <- x[X > (end.start - 1), X]
+    l10_x <- x[X > (end.start - 1), X]
     l10_y <- x[X > (end.start - 1), Value]
     lmod <- lm(l10_y ~ l10_x)
     lmod_c <- unlist(lmod[1])
@@ -226,21 +227,24 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   if (full.trend == T){
     #Split data into past decade and full time series
     dat <- as.data.frame(x[, list(X, Value)])
-    dat <- dat %>% dplyr::rename(time = X, series = Value) %>%
+    
+    dat <- dat %>% dplyr::rename(series = Value) %>%
       mutate(time = seq(1,nrow(dat),1))
+    
+    # Fit linear model
     lm_out <- fit_lm(dat = dat)
-    lm_out_last10 <- fit_lm(dat = dat %>% filter(time >= max(time)-9))
-    
-    
-    #Model fitting - Full time series
+    lm_out_last10 <- fit_lm(dat = dat %>% filter(time >= 20))
+
     newtime <- seq(min(dat$time), max(dat$time), length.out=100)
     newdata <- data.frame(time = newtime,
-                          time2 = newtime^2)
+                      time2 = newtime^2)
     lm_pred <- AICcmodavg::predictSE(lm_out$model, 
-                                     newdata = newdata,
-                                     se.fit = TRUE)
-    pred_ts <- zoo(lm_pred$fit, x$X)
-    lines(pred_ts, lwd = 7, col = main.pos)
+                                 newdata = newdata,
+                                 se.fit = TRUE)
+
+    year <- seq(x$X[1],x$X[length(x$X)],length.out = 100)
+    # Make plot
+    lines(year, lm_pred$fit, col = main.pos, lwd = 7)
   }
 
 }
@@ -263,12 +267,16 @@ background   <- 'white'
 recent       <- '#E6E6E6'
 main.pos <- rgb(253/255, 184/255, 99/255,  alpha = .9)
 
-par(mar = c(5,7,4,1))
 
 #Finder function for quickly finding variables based on partial match
-finder <- function(data, match = match){
+finder <- function(data, match = match, factor = T){
   found <- unique(data[grepl(match,data$Var),]$Var)
-  return(found)
+  if (factor == T){
+    return(found)
+  } else {
+    return(as.character(found))
+  }
+  
 }
 
 ### Example
@@ -582,9 +590,9 @@ soe.stacked.axis('Year', expression('Habitat Area, 10'^3*' km'^2*''), outer = T)
 
 ```{r occupancy trends MAB, echo=F, fig.align='center', fig.height=9.5, fig.width=10, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
 opar <- par(mfrow = c(2, 1), mar = c(7, 5, 1, 0), oma = c(4, 8, 1, 6))
+library(Hmisc)
 
-
-spring_list <- finder(SOE.data.2018, "spring occupancy")
+spring_list <- finder(SOE.data.2018, "spring occupancy", factor = T)
 
 spring_val <- NULL
 for (i in 1:length(spring_list)){
@@ -605,7 +613,7 @@ text(z+.3, par("usr")[3]-.5,
      labels = spring_data$species, cex= 1)
 text(.25,2500, "A", cex = 1.5)
 
-fall_list <- finder(SOE.data.2018, "fall occupancy")
+fall_list <- finder(SOE.data.2018, "fall occupancy", factor = T)
 
 fall_val <- NULL
 for (i in 1:length(fall_list)){
@@ -911,5 +919,101 @@ points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), l
 
 Kim's figures here
 
-## Zooplankton
+## Zooplankton (MAB)
+
+```{r, MAB zooplankton, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=8, fig.height=6, fig.align='center'}
+opar<-par(mar=c(5,6,4,1))
+
+prim_prod <- finder(SOE.data.2018, "Primary")
+copepod_anom <- finder(SOE.data.2018, "copepod")
+
+mab_prim_prod <- prim_prod[3]
+mab_copepod_anom <- copepod_anom[3]
+
+usr <- par("usr")
+opar <- par(mar = c(5,4.75,4,4.75))
+with(SOE.data.2018[SOE.data.2018$Var == mab_prim_prod[1],], plot(Time, Value,
+       type = "o", col = "springgreen2", ylim = c(.5,1.5), pch = 16, lwd = 3,
+       cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = ""))
+
+mtext(side = 2, line = 3, "Mean Primary Production Ratio", cex = 1.2)
+  
+par(new = T)
+  
+with(SOE.data.2018[SOE.data.2018$Var == mab_copepod_anom[1],], plot(Time, Value,
+       type = "o", col = "black", ylim = c(-1.5,1.5), ylab = "", axes = F,
+       yaxt = "n", pch = 16, lwd = 3, cex = 1.2, las = 1, xaxt = "n",xlab = ""))
+  
+axis(side = 4, las = 1, cex.axis = 1.2)
+axis(side = 1, cex.axis = 1.2)
+mtext(side = 4, line = 3, "Small-Lg Copepod Anomaly", cex = 1.2)
+mtext(side = 1, line = 3, "Time", cex = 1.2)
+legend("topright",
+         legend = c("Prim. Prod. Ratio", "Copepod Anomaly"), col = c("springgreen2","black"),
+         bty = "n", lwd = 3)
+  
+
+```
+
+
+
+
+```{r, NE zooplankton, echo=F, fig.align='center', fig.height=8, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0) , oma = c(4, 6, 2, 6))
+
+prim_prod <- finder(SOE.data.2018, "Primary")
+copepod_anom <- finder(SOE.data.2018, "copepod")
+
+gom_prim_prod <- prim_prod[c(1,2)]
+
+gom_copepod_anom <- copepod_anom[c(1,2)]
+
+let <- list("A","B")
+## GB
+
+usr <- par("usr")
+with(SOE.data.2018[SOE.data.2018$Var == gom_prim_prod[1],], plot(Time, Value,
+     type = "o", col = "springgreen2", ylim = c(.5,1.5), pch = 16, lwd = 3,
+     cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = ""))
+axis(side = 1, cex.axis = 1.2, labels = F)
+
+#Overlay second plot
+par(new = T)
+
+with(SOE.data.2018[SOE.data.2018$Var == gom_copepod_anom[1],], plot(Time, Value,
+     type = "o", col = "black", ylim = c(-1.5,1.5), ylab = "", axes = F,
+     yaxt = "n", pch = 16, lwd = 3, cex = 1.2, las = 1, xaxt = "n",xlab = ""))
+
+axis(side = 4, las = 1, cex.axis = 1.2)
+legend("bottomright",
+       legend = c("Prim. Prod. Ratio", "Copepod Anomaly"), col = c("springgreen2","black"),
+       bty = "n", lwd = 3)
+legend(1996.5,1.6, legend = "A", bty = "n", cex = 1.5)
+
+## GOM
+
+with(SOE.data.2018[SOE.data.2018$Var == gom_prim_prod[2],], plot(Time, Value,
+     type = "o", col = "springgreen2", ylim = c(.5,1.5), pch = 16, lwd = 3,
+     cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = ""))
+axis(side = 1, cex.axis = 1.2, labels = F)
+mtext(side = 2, line = 3.5, "Mean Primary Production Ratio", cex = 1.5, outer = T)
+
+#Overlay second plot
+par(new = T)
+
+with(SOE.data.2018[SOE.data.2018$Var == gom_copepod_anom[2],], plot(Time, Value,
+     type = "o", col = "black", ylim = c(-1.5,1.5), ylab = "", axes = F,
+     yaxt = "n", pch = 16, lwd = 3, cex = 1.2, las = 1, xaxt = "n",xlab = ""))
+
+#Axes
+axis(side = 4, las = 1, cex.axis = 1.2)
+axis(side = 1, cex.axis = 1.2)
+mtext(side = 4, line = 3.5, "Small-Lg Copepod Anomaly", cex = 1.5, outer = T)
+mtext(side = 1, line = 3, "Time", cex = 1.5)
+legend("bottomright",
+       legend = c("Prim. Prod. Ratio", "Copepod Anomaly"), col = c("springgreen2","black"),
+       bty = "n", lwd = 3)
+legend(1996.5,1.6, legend = "B", bty = "n", cex = 1.5)
+
+```
 
