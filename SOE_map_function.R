@@ -90,7 +90,7 @@ soe.map <- function(data, clipping.data = NULL, color = color,
   return(map)
 }
 
-soe.map.legend <- function(data, color = color){
+soe.map.legend <- function(data, color = color){ 
   data <- nc_open(data)
   lon <- ncvar_get(data, "xi", verbose = F)
   nlon <- dim(lon)
