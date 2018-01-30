@@ -416,7 +416,7 @@ soe.stacked.axis("Time",expression("Revenue 10"^3*" metric tons"), outer = T)
 \begin{table}[ht]
 \centering
 \newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
-\begin{tabular}{lp{2.75in}p{.75in}p{2.5in}}
+\begin{tabular}{lp{2.75in}cp{2.5in}}
   \hline
  & Feeding group & N species & Major species in group \\ 
   \hline
@@ -436,7 +436,42 @@ soe.stacked.axis("Time",expression("Revenue 10"^3*" metric tons"), outer = T)
 
 ## Proportion of feeding guilds managed by MAFMC
 
-Table 3 goes here
+
+```{r prop_table,echo = F, results = 'asis', fig.width=5, eval=F}
+library(stargazer)
+landings <- SOE.data.2018[grepl("Landings MAB 2016 prop", SOE.data.2018$Var),]$Value[1:5]
+joint_landings <- SOE.data.2018[grepl("Landings MAB 2016 prop", SOE.data.2018$Var),]$Value[6:10]
+
+revenue <- SOE.data.2018[grepl("Revenue MAB 2016 prop", SOE.data.2018$Var),]$Value[1:5]
+joint_revenue <- SOE.data.2018[grepl("Revenue MAB 2016 prop", SOE.data.2018$Var),]$Value[6:10]
+
+df <- data.frame(Groups = c("Piscivore","Planktivore","Benthivore","Other","Benthos"),
+                 landings = landings,
+                 joint_landings = c(joint_landings[1],rep("-",4)),
+                 revenue = revenue,
+                 joint_revenue = c(joint_revenue[1],rep("-",4)))
+df <- df %>% filter(Groups != Other)
+
+names(df) <- c("Groups", "MAB Landings", "MAB Joint Landings", "MAB Revenue",
+               "MAB Joint Revenue")
+stargazer(df, summary = F, rownames = T, title = "Recruitment Data", header = F)
+```
+
+\begin{table}[ht]
+\centering
+\newcommand{\splat}{\vrule width 0 pt height 15pt depth 2pt\relax}
+\begin{tabular}{lp{1.25in}ccccc} 
+\hline 
+ & Groups & MAB Landings & MAB Joint Landings & MAB Revenue & MAB Joint Revenue \\ 
+\hline  
+\splat & Piscivore & $0.158$ & 0.356 & $0.498$ & 0.241 \\ 
+\splat & Planktivore & $0.639$ & - & $0.925$ & - \\ 
+\splat & Benthivore & $0.146$ & - & $0.122$ & - \\ 
+\splat & Other & $0$ & - & $0$ & - \\ 
+\splat & Benthos & $0.618$ & - & $0.096$ & - \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
 
 ## Mid-Atlantic fleet diversity and fleet count 
 ```{r fleet diversity MAB, echo=F, message=FALSE, warning=FALSE, include=T, fig.width=7, fig.height=4}

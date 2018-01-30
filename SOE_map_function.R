@@ -1,6 +1,6 @@
 ## SOE Mapping Function
 
-setwd("F:/soe/soe_data")
+setwd("F:/soe/soe_data/soe_maps")
 ## Libraries
 
 PKG <-c("dplyr","ncdf4","rgdal","tmap","raster","tmaptools",
@@ -32,7 +32,6 @@ colo <- matlab.like2(100)
 # Leave file type OFF of clipping.data variable
 soe.map <- function(data, clipping.data = NULL, color = color,
                     clipping.loc = NULL, map.crs = map.crs, lat = lat, lon = lon, z = z){
-  
   ## Get and filter data
   data <- nc_open(data)
   lon <- ncvar_get(data, "xi", verbose = F)
@@ -64,11 +63,11 @@ soe.map <- function(data, clipping.data = NULL, color = color,
   
   #set bbox to match kde figures
   proj1@bbox <- matrix(data = c(-77,35,-65,45),ncol = 2)
-  
-
+  z.max <- max(proj1@data$z)
   #Mapping
+  #par(new=F)
   print("Mapping data...")
-  tm_shape(usa, bbox = proj1@bbox, projection = map.crs) +
+  map <- tm_shape(usa, bbox = proj1@bbox, projection = map.crs) +
     tm_borders(col = "grey", lwd = 1) +
     tm_fill(palette = "grey") +
     tm_grid(x = c(-76,-74,-72,-70,-68,-66),
@@ -80,14 +79,15 @@ soe.map <- function(data, clipping.data = NULL, color = color,
               outer.bg.color = "grey80")+
     tm_shape(proj1,axes = T) +
     tm_dots("z", palette = colo,
-            breaks = seq(min(proj1@data$z),max(proj1@data$z),length.out = 100),legend.show = F) +
+            breaks = seq(0,2,length.out = 1000),legend.show = F) +
     tm_shape(usa2, bbox = proj1@bbox, projection = map.crs) +
     tm_borders(col = "grey", lwd = 1) +
     tm_fill(palette = "grey") +
     tm_shape(can0, bbox = proj1@bbox, projection = map.crs)+
     tm_borders(col = "grey", lwd = 1) +
     tm_fill(palette = "grey")
-
+  print(max(proj1@data$z))
+  return(map)
 }
 
 soe.map.legend <- function(data, color = color){
@@ -105,8 +105,9 @@ soe.map.legend <- function(data, color = color){
                      lat = lat,
                      z = z)
   proj <- proj %>% filter(z != "NA",z>0)
-  par(new=F)
-  image.plot(-70,40, z = as.matrix(seq(0,max(proj$z),length.out = 100)),
+ 
+  par(new = F)
+  image.plot(-70.5,40, z = as.matrix(seq(0,2,length.out = 1000)),
              add = T, col = colo, legend.only = T)
 }
 
@@ -114,6 +115,20 @@ soe.map(data = "Black Sea Bassfall_2.nc", color = colo,
         clipping.loc = "data",clipping.data = "strata",
                map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
 soe.map.legend("Black Sea Bassfall_2.nc", color = colo)
+
+soe.map(data = "Black Sea Bassfall_4.nc", color = colo,
+        clipping.loc = "data",clipping.data = "strata",
+        map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
+soe.map.legend("Black Sea Bassfall_4.nc", color = colo)
+soe.map(data = "Sea Scallopfall_2.nc", color = colo,
+        clipping.loc = "data",clipping.data = "strata",
+        map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
+soe.map.legend("Sea Scallopfall_2.nc", color = colo)
+
+soe.map(data = "Black Sea Bassfall_4.nc", color = colo,
+        clipping.loc = "data",clipping.data = "strata",
+        map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
+soe.map.legend("Black Sea Bassfall_4.nc", color = colo)
 
 
 
