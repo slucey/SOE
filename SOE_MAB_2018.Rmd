@@ -590,22 +590,31 @@ soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 
 Dropping aggregate in favor of single-species time series
 
-### Black Sea Bass (KDE, contemporary, 40-60 year thermal habitat projection)
-```{r 'species_dist_scallop_MAB' , echo = F, out.width='7cm', out.height='7cm', fig.show='hold'}
+```{r black_sea_bass_MAB , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
 #will update asap
 knitr::include_graphics(file.path(image.dir, 'black_sea_bass_kde.png'))
-#knitr::include_graphics(file.path(image.dir, 'scallop_contemp_TH.png'))
-#knitr::include_graphics(file.path(image.dir, 'scallop_20_40_TH.png'))
+knitr::include_graphics(file.path(image.dir, 'bsb_contemp.png'))
+knitr::include_graphics(file.path(image.dir, 'bsb_20_40.png'))
 
 ```
 
-### Summer flounder (KDE, contemporary, 40-60 year thermal habitat projection)
 
-```{r 'species_dist_summer_flounder_MAB' , echo = F, out.width='7cm', out.height='7cm', fig.show='hold'}
+### Summer flounder (KDE, contemporary, 20-40 year thermal habitat projection)
+```{r 'summer_flounder_MAB' , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
 knitr::include_graphics(file.path(image.dir, 'summer_flounder_kde.png'))
-knitr::include_graphics(file.path(image.dir, 'summer_flounder_contemp_TH.png'))
-knitr::include_graphics(file.path(image.dir, 'summer_flounder_20_40_TH.png'))
+knitr::include_graphics(file.path(image.dir, 'summer_flounder_contemp.png'))
+knitr::include_graphics(file.path(image.dir, 'summer_flounder_20_40.png'))
 ```
+
+### Sea Scallop (KDE, contemporary, 20-40 year thermal habitat projection)
+
+```{r 'sea_scallop_MAB' , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
+knitr::include_graphics(file.path(image.dir, 'Sea_scallop_kde.png'))
+knitr::include_graphics(file.path(image.dir, 'Sea_scallop_contemp.png'))
+knitr::include_graphics(file.path(image.dir, 'Sea_scallop_20_40.png'))
+```
+
+
 
 ## Ichthyoplankton diversity (A: Fall, B: Spring)
 
