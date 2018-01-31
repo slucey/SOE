@@ -1,6 +1,12 @@
 ## SOE Mapping Function
 
-setwd("F:/soe/soe_data/soe_maps")
+# Instructions - The colors in the thermal habitat projections are 
+# scaled to the max values from the 1969-1993 hindcasts. I put the hindcast data
+# into a separate folder and looped through those files to find max values, then changed the wd
+# to where I stored the projections. Shapefiles for clipping the projections needs to be stored in 
+# a folder (e.g. /soe_maps/data) within the folder where the projection files
+# are located (e.g. /soe_maps/).
+
 ## Libraries
 
 PKG <-c("dplyr","ncdf4","rgdal","tmap","raster","tmaptools",
@@ -11,6 +17,25 @@ for (p in PKG) {
     install.packages(p)
     library(p)  }
 }
+
+## Find max values of historic projection for calibrating color scale of future projections
+setwd("F:/soe/soe_data/Max_TH")
+
+list.files()
+
+for (i in list.files()){
+  data <- nc_open(i)
+  z <- ncvar_get(data, "zi")
+  ndat <- dim(z)
+  
+  proj <- data.frame(z = z)
+  proj <- proj %>% filter(z != "NA",z>0)
+  assign(i,max(proj$z))
+  rm(data)
+}
+
+
+setwd("F:/soe/soe_data/soe_maps")
 
 ## Set constants (crs)
 map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
@@ -30,8 +55,9 @@ colo <- matlab.like2(100)
 ## Function
 
 # Leave file type OFF of clipping.data variable
-soe.map <- function(data, clipping.data = NULL, color = color,
+soe.map <- function(data, clipping.data = NULL, color = color,max.z = max.z,
                     clipping.loc = NULL, map.crs = map.crs, lat = lat, lon = lon, z = z){
+  
   ## Get and filter data
   data <- nc_open(data)
   lon <- ncvar_get(data, "xi", verbose = F)
@@ -63,11 +89,11 @@ soe.map <- function(data, clipping.data = NULL, color = color,
   
   #set bbox to match kde figures
   proj1@bbox <- matrix(data = c(-77,35,-65,45),ncol = 2)
-  z.max <- max(proj1@data$z)
+  
+
   #Mapping
-  #par(new=F)
   print("Mapping data...")
-  map <- tm_shape(usa, bbox = proj1@bbox, projection = map.crs) +
+  tm_shape(usa, bbox = proj1@bbox, projection = map.crs) +
     tm_borders(col = "grey", lwd = 1) +
     tm_fill(palette = "grey") +
     tm_grid(x = c(-76,-74,-72,-70,-68,-66),
@@ -79,18 +105,17 @@ soe.map <- function(data, clipping.data = NULL, color = color,
               outer.bg.color = "grey80")+
     tm_shape(proj1,axes = T) +
     tm_dots("z", palette = colo,
-            breaks = seq(0,2,length.out = 1000),legend.show = F) +
+            breaks = seq(0,max.z,length.out = 100),legend.show = F) +
     tm_shape(usa2, bbox = proj1@bbox, projection = map.crs) +
     tm_borders(col = "grey", lwd = 1) +
     tm_fill(palette = "grey") +
     tm_shape(can0, bbox = proj1@bbox, projection = map.crs)+
     tm_borders(col = "grey", lwd = 1) +
     tm_fill(palette = "grey")
-  print(max(proj1@data$z))
-  return(map)
+
 }
 
-soe.map.legend <- function(data, color = color){ 
+soe.map.legend <- function(data, color = color, max.z = max.z){
   data <- nc_open(data)
   lon <- ncvar_get(data, "xi", verbose = F)
   nlon <- dim(lon)
@@ -105,30 +130,60 @@ soe.map.legend <- function(data, color = color){
                      lat = lat,
                      z = z)
   proj <- proj %>% filter(z != "NA",z>0)
- 
-  par(new = F)
-  image.plot(-70.5,40, z = as.matrix(seq(0,2,length.out = 1000)),
+ # par(new=F)
+  image.plot(-70,40, z = as.matrix(seq(0,max.z,length.out = 100)),
              add = T, col = colo, legend.only = T)
 }
 
-soe.map(data = "Black Sea Bassfall_2.nc", color = colo,
+## MAB
+soe.map(data = "Black Sea Bassfall_2.nc", color = colo,max.z = `Black Sea Bassfall_1.nc`,
         clipping.loc = "data",clipping.data = "strata",
                map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
-soe.map.legend("Black Sea Bassfall_2.nc", color = colo)
+soe.map.legend("Black Sea Bassfall_2.nc", color = colo, max.z = `Black Sea Bassfall_1.nc`)
 
-soe.map(data = "Black Sea Bassfall_4.nc", color = colo,
+soe.map(data = "Black Sea Bassfall_4.nc", color = colo,max.z = `Black Sea Bassfall_1.nc`,
         clipping.loc = "data",clipping.data = "strata",
         map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
-soe.map.legend("Black Sea Bassfall_4.nc", color = colo)
-soe.map(data = "Sea Scallopfall_2.nc", color = colo,
+soe.map.legend("Black Sea Bassfall_4.nc", color = colo, max.z = `Black Sea Bassfall_1.nc`)
+
+soe.map(data = "Sea Scallopfall_2.nc", color = colo,max.z = `Sea Scallopfall_1.nc`,
         clipping.loc = "data",clipping.data = "strata",
         map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
-soe.map.legend("Sea Scallopfall_2.nc", color = colo)
+soe.map.legend("Sea Scallopfall_2.nc", color = colo, max.z = `Sea Scallopfall_1.nc`)
 
-soe.map(data = "Black Sea Bassfall_4.nc", color = colo,
+soe.map(data = "Sea Scallopfall_4.nc", color = colo,max.z = `Sea Scallopfall_1.nc`,
         clipping.loc = "data",clipping.data = "strata",
         map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
-soe.map.legend("Black Sea Bassfall_4.nc", color = colo)
+soe.map.legend("Sea Scallopfall_4.nc", color = colo, max.z = `Sea Scallopfall_1.nc`)
 
+soe.map(data = "Summer Flounderfall_2.nc", color = colo,max.z = `Summer Flounderfall_1.nc`,
+        clipping.loc = "data",clipping.data = "strata",
+        map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
+soe.map.legend("Summer Flounderfall_2.nc", color = colo, max.z =`Summer Flounderfall_1.nc`)
 
+soe.map(data = "Summer Flounderfall_4.nc", color = colo,max.z = `Summer Flounderfall_1.nc`,
+        clipping.loc = "data",clipping.data = "strata",
+        map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
+soe.map.legend("Summer Flounderfall_4.nc", color = colo, max.z =`Summer Flounderfall_1.nc`)
 
+### New England
+
+soe.map(data = "Atlantic Codfall_2.nc", color = colo,max.z = `Atlantic Codfall_1.nc`,
+        clipping.loc = "data",clipping.data = "strata",
+        map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
+soe.map.legend("Atlantic Codfall_2.nc", color = colo, max.z =`Atlantic Codfall_1.nc`)
+
+soe.map(data = "Atlantic Codfall_4.nc", color = colo,max.z = `Atlantic Codfall_1.nc`,
+        clipping.loc = "data",clipping.data = "strata",
+        map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
+soe.map.legend("Atlantic Codfall_4.nc", color = colo, max.z =`Atlantic Codfall_1.nc`)
+
+soe.map(data = "Haddockfall_2.nc", color = colo,max.z = `Haddockfall_1.nc`,
+        clipping.loc = "data",clipping.data = "strata",
+        map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
+soe.map.legend("Haddockfall_2.nc", color = colo, max.z =`Haddockfall_1.nc`)
+
+soe.map(data = "Haddockfall_4.nc", color = colo,max.z = `Haddockfall_1.nc`,
+        clipping.loc = "data",clipping.data = "strata",
+        map.crs = map.crs, lon = "yi", lat = "xi", z = "zi")
+soe.map.legend("Haddockfall_4.nc", color = colo, max.z =`Haddockfall_1.nc`)
