@@ -4,6 +4,7 @@ author: "Ecosystem Dynamics and Assessment Branch, Northeast Fisheries Science C
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: pdf_document
 geometry: margin=1cm
+always_allow_html: yes
 ---
 
 ```{r Directory and Data Set-up, echo = F, message = F}
@@ -23,7 +24,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 load("SOE_data_2018.Rdata")
 PKG <-c("Kendall","data.table","zoo","dplyr","nlme","AICcmodavg",
-        "Hmisc")
+        "Hmisc", "leaflet", "rgdal", "colorRamps")
 
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {
@@ -629,6 +630,71 @@ soe.plot(SOE.data.2018, "Time","Spring_Ich_Shannon Diversity Index", stacked = "
 soe.stacked.axis('Year', expression('Shannon Index'), outer = T)
 
 ```
+
+## Rare species in observer database
+
+```{r southern kingfish, echo=F, message=FALSE, warning=FALSE ,fig.align='center'}
+PKG <-c("dplyr","ncdf4","rgdal","tmap","raster","tmaptools",
+        "maptools","mapdata","maps","colorRamps","fields")
+
+for (p in PKG) {
+ if(!require(p,character.only = TRUE)) {
+   install.packages(p)
+   library(p)  }
+}
+
+sk.dat <- SOE.data.2018[grepl("Lat",SOE.data.2018$Units) & grepl("Southern Kingfish",SOE.data.2018$Var),]
+decimalLongitude <- sk.dat[as.numeric(sk.dat$Value) < 0,]$Value
+decimalLatitude <- sk.dat[as.numeric(sk.dat$Value) > 0,]$Value
+
+sk.dat <- data.frame(decimalLongitude = decimalLongitude,
+                     decimalLatitude = decimalLatitude,
+                     Year = sk.dat$Time)
+sk.dat <- arrange(sk.dat, Year)
+map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
+                +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
+usa<-getData('GADM', country="USA", level=0)
+
+bbox <- matrix(data = c(-77,35,-72,40),ncol = 2)
+colo <- matlab.like2(8)
+coordinates(sk.dat) <- ~decimalLongitude+decimalLatitude
+sk.dat@proj4string <- map.crs
+sk.dat1 <- spTransform(sk.dat, map.crs)
+
+tm_shape(usa, bbox = bbox, projection = map.crs)+
+  tm_borders(col = "grey", lwd = 1) +
+  tm_fill(palette = "grey") +
+  tm_grid(x = c(-77,-75,-73,-71),
+          y = c(39,37,35),
+          labels.inside.frame = F,
+          labels.size = 1.1,
+          col = "grey") +
+  tm_layout(outer.margins = c(.1,.03,.05,.05),
+            outer.bg.color = "white")+
+  tm_shape(sk.dat1,axes = T) +
+  tm_dots("Year", palette = colo,
+          auto.palette.mapping=FALSE,
+          size = .5,
+          legend.show = T, alpha=.7,style = "cat") + 
+  tm_layout(title = "Southern Kingfish Occurrence",
+            legend.show = T,
+            legend.position = c("right","bottom"),
+            legend.bg.color = "grey90",
+            legend.height = 4,
+            legend.text.size = 1.25,
+            legend.title.size = 1.3) 
+
+   
+
+```
+
+```{r southern kingfish time series, echo=F, message=FALSE, warning=FALSE ,fig.align='center'}
+opar <- par(mar = c(4, 6, 3, 6))
+soe.plot(SOE.data.2018,"Time","Southern Kingfish observer sightings", 
+         full.trend = F, endshade = F)
+soe.stacked.axis("Time","Southern Kingfish Occurrence, n", outer = F)
+```
+
 
 # Ecosystem productivity
 
