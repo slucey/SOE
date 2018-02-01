@@ -315,9 +315,8 @@ finder <- function(data, match = match, factor = T){
 ```
 
 
-## Ecosystem Objectives (MAB)
-
 \begin{table}[ht]
+ \caption{Mid-Atlantic ecosystem objectives}
 \centering
 \begin{tabular}{lll}
   \hline
@@ -385,57 +384,76 @@ soe.stacked.axis("Time",expression("Landings 10"^3*" metric tons"), outer = T)
 
 ```
 
-## Aggregated landings (A: Managed species, B: Ecosystem-wide) figures go here
+## Total landings of managed species (A) and ecosystem-wide landings (B)
+
+```{r managed_landings , echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=6.5, fig.height=6, fig.align='center'}
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(5,6.5,4,1))
+
+soe.plot(SOE.data.2018, "Time", "Total managed landings MAB", stacked = "A",status = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007)
+soe.plot(SOE.data.2018, "Time", "Total Landings MAB", stacked = "B",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007)
+soe.stacked.axis("Time",expression("Landings 10"^3*" metric tons"), outer = T)
+
+```
+
+\newpage
 
 ## Revenue (A: Apex Predator, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
-
-Might drop revenue time series in favor of Bennet indicator
-
 ```{r Revenue_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=5.5, fig.height=8, fig.align='center'}
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Apex Predator Revenue MAB", stacked = "A",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
 soe.plot(SOE.data.2018, "Time", "Piscivore Revenue MAB", stacked = "B",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
 soe.plot(SOE.data.2018, "Time", "Planktivore Revenue MAB", stacked = "C",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
 soe.plot(SOE.data.2018, "Time", "Benthivore Revenue MAB", stacked = "D",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
 soe.plot(SOE.data.2018, "Time", "Benthos Revenue MAB", stacked = "E",status =F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
 #soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", stacked = "F",status  = F,
 #         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3)
-soe.stacked.axis("Time",expression("Revenue 10"^3*" metric tons"), outer = T)
+soe.stacked.axis("Time",expression("Revenue 10"^6*" USD"), outer = T)
 
 ```
 
-## Aggregated revenue (A: Managed species, B: Ecosystem-wide) figures go here
+## Total revenue of managed species (A) and ecosystem-wide landings (B)
 
-\large{\textbf{Species groupings (MAB)}}
+```{r managed_revenue , echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=6.5, fig.height=6, fig.align='center'}
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(5,6.5,4,1))
+
+soe.plot(SOE.data.2018, "Time", "Total managed revenue MAB", stacked = "A",status = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
+soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", stacked = "B",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
+soe.stacked.axis("Time",expression("Revenue 10"^6*" USD"), outer = T)
+
+```
 
 \begin{table}[ht]
+ \caption{Mid-Atlantic Bight Feeding Guilds}
 \centering
 \newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
 \begin{tabular}{lp{2.75in}cp{2.5in}}
   \hline
  & Feeding group & N species & Major species in group \\ 
   \hline
-\splat & \textbf{A: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\ 
-
-\splat & \textbf{B: Planktivore} (Eat plankton) & 16 & Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid \\ 
+\splat & \textbf{A: Apex Predator} (Highest trophic level) & 4 & shark, swordfish, yellowfin and bluefin tuna \\   
+  
+\splat & \textbf{B: Piscivore} (Eat fish) & 23 & spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder \\   
 
 \splat & \textbf{C: Benthivore} (Eat bottom dwellers) & 25 & black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail, winter, and witch flounders, barndoor skate, American plaice, other crabs \\ 
 
-\splat & \textbf{D: Piscivore} (Eat fish) & 23 & spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder \\ 
+\splat & \textbf{D: Planktivore} (Eat plankton) & 16 & Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid \\ 
 
-\splat & \textbf{E: Apex Predator} (Highest trophic level) & 4 & shark, swordfish, yellowfin and bluefin tuna \\ 
+\splat & \textbf{E: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\ 
    \hline
 \end{tabular}
 \end{table}
-
-
-## Proportion of feeding guilds managed by MAFMC
 
 
 ```{r prop_table,echo = F, results = 'asis', fig.width=5, eval=F}
@@ -451,14 +469,15 @@ df <- data.frame(Groups = c("Piscivore","Planktivore","Benthivore","Other","Bent
                  joint_landings = c(joint_landings[1],rep("-",4)),
                  revenue = revenue,
                  joint_revenue = c(joint_revenue[1],rep("-",4)))
-df <- df %>% filter(Groups != Other)
+#df <- df %>% filter(Groups != Other)
 
 names(df) <- c("Groups", "MAB Landings", "MAB Joint Landings", "MAB Revenue",
                "MAB Joint Revenue")
-stargazer(df, summary = F, rownames = T, title = "Recruitment Data", header = F)
+stargazer(df, summary = F, rownames = T, title = "Proportion of catch managed by MAFMC (2016)", header = F)
 ```
 
 \begin{table}[ht]
+  \caption{Proportion of catch managed by MAFMC (2016)}
 \centering
 \newcommand{\splat}{\vrule width 0 pt height 15pt depth 2pt\relax}
 \begin{tabular}{lp{1.25in}ccccc} 
@@ -527,16 +546,17 @@ for (i in 1:length(oyst_vars)){
   
   ts_oyster <- zoo(ts, years)
   points(ts_oyster, type = "o", lwd = 3, col = topo[i])
+
+
+   
+}
+mtext(2, text = expression("Oysters Harvested, 10"^6*'n'),
+        line = 3.5, cex = 1.5, outer = F)
   axis(2, at = c(1*10^6,5*10^6,10*10^6,15*10^6,
                  20*10^6,25*10^6,30*10^6,35*10^6,40*10^6), 
        labels = c("1","5","10","15","20",
                   "25","30","35","40"),
        las = 1, cex.axis = 1.5)
-  mtext(2, text = expression("Oysters Harvested, 10"^6*'n'),
-        line = 3.5, cex = 1.5, outer = F)
-   
-}
-
 legend(1998, 30000000, legend = c("New Jersey",
                             "Maryland",
                             "Rhode Island",
@@ -549,7 +569,7 @@ legend(1998, 30000000, legend = c("New Jersey",
 ```{r hab_MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 1)
+         endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 1)
 soe.stacked.axis("Time","Harmful Algal Bloom Events, n", outer = F)
 ```
 
@@ -913,7 +933,7 @@ legend("topright",
 
 ## Long-term SST 
 
-```{r long_term_sst, echo = F, message=F, include=T, warning=F, fig.width=8, fig.height=4.5}
+```{r long_term_sst, echo = F, message=F, include=T, warning=F, fig.width=7.5, fig.height=4.5}
 opar<-par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time", "long term SST jan-jun",
          endshade = T, status = F,end.start = 2007)
@@ -922,10 +942,7 @@ soe.stacked.axis("Time",expression(paste("Mean SST (",degree,"C)")), outer = F)
 ```
 
 ## 2017 and mean long-term SST
-
-Will adjust shading to reflect last year's figures
-
-```{r mean_sst_MAB, echo = F, message=F, include=T, warning=F, fig.width=7.5, fig.height=5}
+```{r mean_sst_MAB, echo = F, message=F, include=T, warning=F, fig.width=7.5, fig.height=4.5}
 opar<-par(mar = c(4, 6, 2, 6))
 sst_fields <- finder(SOE.data.2018, "sst")
 mab_fields <- sst_fields[grepl("MAB",sst_fields)]
