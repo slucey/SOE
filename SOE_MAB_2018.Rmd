@@ -12,8 +12,10 @@ always_allow_html: yes
 #image.dir <- '/home/slucey/EcoAP/SOE2017/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- "F:/SOE/SOE_data"
-image.dir <- "F:/SOE/SOE_data"
+#data.dir  <- "F:/SOE/SOE_data"
+#image.dir <- "F:/SOE/SOE_data"
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 library(data.table); library(Kendall)
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
 knitr::opts_chunk$set(echo = FALSE)
@@ -339,31 +341,10 @@ finder <- function(data, match = match, factor = T){
 
 We are planning to have figures for recreational and commercial reliance and social vulnerability here
 
-## Community engagement and vulnerability (MAB)
 
-```{r 'community_engagement_and_vulnerability MAB' , echo = F, out.width = "450pt", fig.align='center'}
-knitr::include_graphics(file.path(image.dir, 'Comm_Engagement_and_Social_Vuln_MAB.jpg'))
-```
+## Seafood production 
 
-## Community reliance and social vulnerability (MAB)
-```{r 'community_reliance_and_social_vulnerability MAB' , echo = F, out.width = "450pt", fig.align='center'}
-knitr::include_graphics(file.path(image.dir, 'Comm_Reliance_and_Social_Vuln_MAB.jpg'))
-```
-
-## Species vulnerability (MAB)
-
-```{r 'species_vulnerability_MAB' , echo = F, out.width = "450pt", fig.align='center'}
-knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_MAB.jpg'))
-```
-
-## Bennet Indicators
-```{r 'Rev_Price_Vol_MAB' , echo = F, out.width = "450pt", fig.align='center'}
-knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
-```
-
-# Seafood production 
-
-## Landings (A: Apex Predator, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
+## Commercial Landings (A: Apex Predator, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
 
 ```{r landings_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=5.5, fig.height=8, fig.align='center'}
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
@@ -398,27 +379,37 @@ soe.stacked.axis("Time",expression("Landings 10"^3*" metric tons"), outer = T)
 
 ```
 
+## Recreational landings (from MAB risk assessment)
+
+## Revenue
+
+## Bennet Indicators
+```{r 'Rev_Price_Vol_MAB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
+```
+
+
 \newpage
 
-## Revenue (A: Apex Predator, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
-```{r Revenue_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=5.5, fig.height=8, fig.align='center'}
-opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
+<!-- ## Revenue (A: Apex Predator, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos) -->
+<!-- ```{r Revenue_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=5.5, fig.height=8, fig.align='center'} -->
+<!-- opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6)) -->
 
-soe.plot(SOE.data.2018, "Time", "Apex Predator Revenue MAB", stacked = "A",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
-soe.plot(SOE.data.2018, "Time", "Piscivore Revenue MAB", stacked = "B",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
-soe.plot(SOE.data.2018, "Time", "Planktivore Revenue MAB", stacked = "C",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
-soe.plot(SOE.data.2018, "Time", "Benthivore Revenue MAB", stacked = "D",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
-soe.plot(SOE.data.2018, "Time", "Benthos Revenue MAB", stacked = "E",status =F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007)
-#soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", stacked = "F",status  = F,
-#         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3)
-soe.stacked.axis("Time",expression("Revenue 10"^6*" USD"), outer = T)
+<!-- soe.plot(SOE.data.2018, "Time", "Apex Predator Revenue MAB", stacked = "A",status = F, -->
+<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007) -->
+<!-- soe.plot(SOE.data.2018, "Time", "Piscivore Revenue MAB", stacked = "B",status = F, -->
+<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007) -->
+<!-- soe.plot(SOE.data.2018, "Time", "Planktivore Revenue MAB", stacked = "C",status = F, -->
+<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007) -->
+<!-- soe.plot(SOE.data.2018, "Time", "Benthivore Revenue MAB", stacked = "D",status = F, -->
+<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007) -->
+<!-- soe.plot(SOE.data.2018, "Time", "Benthos Revenue MAB", stacked = "E",status =F, -->
+<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007) -->
+<!-- #soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", stacked = "F",status  = F, -->
+<!-- #         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3) -->
+<!-- soe.stacked.axis("Time",expression("Revenue 10"^6*" USD"), outer = T) -->
 
-```
+<!-- ``` -->
 
 ## Total revenue of managed species (A) and ecosystem-wide landings (B)
 
@@ -522,7 +513,6 @@ soe.plot(SOE.data.2018,"Time","Mid-Atlantic angler trips", stacked = "B",
 soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'))
 ```
 
-
 ## Mariculture
 ```{r, mariculture MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
 library(RColorBrewer)
@@ -571,6 +561,67 @@ opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status  = F,
          endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 1)
 soe.stacked.axis("Time","Harmful Algal Bloom Events, n", outer = F)
+```
+
+## Community engagement and vulnerability (MAB)
+
+```{r 'community_engagement_and_vulnerability MAB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Comm_Engagement_and_Social_Vuln_MAB.jpg'))
+```
+
+## Community reliance and social vulnerability (MAB)
+```{r 'community_reliance_and_social_vulnerability MAB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Comm_Reliance_and_Social_Vuln_MAB.jpg'))
+```
+
+## Species vulnerability (MAB)
+
+```{r 'species_vulnerability_MAB' , echo = F, out.width = "450pt", fig.align='center'}
+knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_MAB.jpg'))
+```
+
+# Species of Concern
+
+## Harbor porpoise
+
+```{r harbor_porpoise, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
+opar<-par(mar=c(5,6,4,1))
+#Harbor porpoise bycatch - Dropped mean line for clarity
+soe.plot(SOE.data.2018, 'Time', "Harbor porpoise bycatch estimates",            
+         scale.axis = 1, rel.y.num = 1.2, stacked = NA, status = F, endshade = T,
+         end.start = 2007, suppressAxis = F, full.trend = F, point.cex = 1,ymax = F, y.upper = 2500, mean = F)
+soe.stacked.axis('Year', expression('Harbor Porpoise Bycatch, n'), outer = F)
+
+
+legend(2005, 2250, legend = "Potential Biological Removal", col = adjustcolor("red", .5), lwd = 3,
+       bty = "n")
+
+#credible intervals and PBI
+lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise bycatch 2.5 CI',]$Value
+up_CI <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise bycatch 97.5 CI',]$Value
+pbi <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise potential biological removal',]$Value
+year <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise bycatch 97.5 CI',]$Time
+
+points(year, pbi, type  = "l", lty = 1, col = adjustcolor("red", .5), lwd = 3)
+points(year, lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
+points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
+```
+
+## Sea Turtles
+
+## Right whale 
+```{r rw_abundance, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
+opar<-par(mar=c(5,6,4,1))
+soe.plot(SOE.data.2018, 'Time', "right_whale_median",            
+         scale.axis = 1, rel.y.num = 1.2, stacked = NA, endshade = T,status = F,
+         suppressAxis = F, full.trend = F, lwd = 1.5, point.cex = 1, end.start = 2007)
+soe.stacked.axis('Year', expression('Median Right Whale Abundance, n'), outer = F)
+lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_lower_95',]$Value
+up_CI <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_upper_95',]$Value
+year <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_upper_95',]$Time
+points(year, lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
+points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
+
 ```
 
 # Resource Species
@@ -846,49 +897,6 @@ plot_stackbarcpts_single(YEAR = bar_dat$Time,
                          width = 9)
 ```
 
-# Species of Concern
-
-## Harbor porpoise
-
-```{r harbor_porpoise, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
-opar<-par(mar=c(5,6,4,1))
-#Harbor porpoise bycatch - Dropped mean line for clarity
-soe.plot(SOE.data.2018, 'Time', "Harbor porpoise bycatch estimates",            
-         scale.axis = 1, rel.y.num = 1.2, stacked = NA, status = F, endshade = T,
-         end.start = 2007, suppressAxis = F, full.trend = F, point.cex = 1,ymax = F, y.upper = 2500, mean = F)
-soe.stacked.axis('Year', expression('Harbor Porpoise Bycatch, n'), outer = F)
-
-
-legend(2005, 2250, legend = "Potential Biological Removal", col = adjustcolor("red", .5), lwd = 3,
-       bty = "n")
-
-#credible intervals and PBI
-lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise bycatch 2.5 CI',]$Value
-up_CI <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise bycatch 97.5 CI',]$Value
-pbi <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise potential biological removal',]$Value
-year <- SOE.data.2018[SOE.data.2018$Var == 'Harbor porpoise bycatch 97.5 CI',]$Time
-
-points(year, pbi, type  = "l", lty = 1, col = adjustcolor("red", .5), lwd = 3)
-points(year, lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
-points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
-```
-
-## Sea Turtles
-
-## Right whale 
-```{r rw_abundance, echo=F, fig.align='center', fig.height=5, fig.width=7, message=FALSE, warning=FALSE, include=T, out.width='1\\linewidth'}
-opar<-par(mar=c(5,6,4,1))
-soe.plot(SOE.data.2018, 'Time', "right_whale_median",            
-         scale.axis = 1, rel.y.num = 1.2, stacked = NA, endshade = T,status = F,
-         suppressAxis = F, full.trend = F, lwd = 1.5, point.cex = 1, end.start = 2007)
-soe.stacked.axis('Year', expression('Median Right Whale Abundance, n'), outer = F)
-lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_lower_95',]$Value
-up_CI <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_upper_95',]$Value
-year <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_upper_95',]$Time
-points(year, lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
-points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2.5)
-
-```
 
 # Primary production & Zooplankton
 
