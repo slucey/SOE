@@ -316,6 +316,7 @@ finder <- function(data, match = match, factor = T){
 
 ```
 
+# Objectives
 
 \begin{table}[ht]
  \caption{Mid-Atlantic ecosystem objectives}
@@ -337,10 +338,31 @@ finder <- function(data, match = match, factor = T){
 \end{tabular}
 \end{table}
 
+# Species Groupings 
+
+\begin{table}[ht]
+ \caption{Mid-Atlantic Bight Feeding Guilds}
+\centering
+\newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
+\begin{tabular}{lp{2.75in}cp{2.5in}}
+  \hline
+ & Feeding group & N species & Major species in group \\ 
+  \hline
+\splat & \textbf{A: Apex Predator} (Highest trophic level) & 4 & shark, swordfish, yellowfin and bluefin tuna \\   
+  
+\splat & \textbf{B: Piscivore} (Eat fish) & 23 & spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder \\   
+
+\splat & \textbf{C: Benthivore} (Eat bottom dwellers) & 25 & black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail, winter, and witch flounders, barndoor skate, American plaice, other crabs \\ 
+
+\splat & \textbf{D: Planktivore} (Eat plankton) & 16 & Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid \\ 
+
+\splat & \textbf{E: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
 # Human Dimensions 
-
-We are planning to have figures for recreational and commercial reliance and social vulnerability here
-
 
 ## Seafood production 
 
@@ -384,8 +406,11 @@ soe.stacked.axis("Time",expression("Landings 10"^3*" metric tons"), outer = T)
 ## Revenue
 
 ## Bennet Indicators
+Need to add the species group breakdowns for a 3 part fig
+
 ```{r 'Rev_Price_Vol_MAB' , echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
+
 ```
 
 
@@ -424,27 +449,6 @@ soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", stacked = "B",status  = F,
 soe.stacked.axis("Time",expression("Revenue 10"^6*" USD"), outer = T)
 
 ```
-
-\begin{table}[ht]
- \caption{Mid-Atlantic Bight Feeding Guilds}
-\centering
-\newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
-\begin{tabular}{lp{2.75in}cp{2.5in}}
-  \hline
- & Feeding group & N species & Major species in group \\ 
-  \hline
-\splat & \textbf{A: Apex Predator} (Highest trophic level) & 4 & shark, swordfish, yellowfin and bluefin tuna \\   
-  
-\splat & \textbf{B: Piscivore} (Eat fish) & 23 & spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder \\   
-
-\splat & \textbf{C: Benthivore} (Eat bottom dwellers) & 25 & black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail, winter, and witch flounders, barndoor skate, American plaice, other crabs \\ 
-
-\splat & \textbf{D: Planktivore} (Eat plankton) & 16 & Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid \\ 
-
-\splat & \textbf{E: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\ 
-   \hline
-\end{tabular}
-\end{table}
 
 
 ```{r prop_table,echo = F, results = 'asis', fig.width=5, eval=F}
@@ -554,7 +558,7 @@ legend(1998, 30000000, legend = c("New Jersey",
 
 ```
 
-## Harmful Algal Bloom
+## Harmful Algal Blooms
 
 ```{r hab_MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -563,13 +567,13 @@ soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status  = F,
 soe.stacked.axis("Time","Harmful Algal Bloom Events, n", outer = F)
 ```
 
-## Community engagement and vulnerability (MAB)
+## Commercial engagement and vulnerability (MAB)
 
 ```{r 'community_engagement_and_vulnerability MAB' , echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'Comm_Engagement_and_Social_Vuln_MAB.jpg'))
 ```
 
-## Community reliance and social vulnerability (MAB)
+## Commercial reliance and social vulnerability (MAB)
 ```{r 'community_reliance_and_social_vulnerability MAB' , echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'Comm_Reliance_and_Social_Vuln_MAB.jpg'))
 ```
@@ -580,7 +584,7 @@ knitr::include_graphics(file.path(image.dir, 'Comm_Reliance_and_Social_Vuln_MAB.
 knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_MAB.jpg'))
 ```
 
-# Species of Concern
+# Protected species-fishery interactions
 
 ## Harbor porpoise
 
@@ -625,7 +629,10 @@ points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), l
 ```
 
 # Resource Species
-## Fall Survey (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)
+
+## Trends in Biomass
+
+## Fall Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)
 ```{r fall_survey_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=5.5, fig.height=8, fig.align='center'}
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
@@ -642,7 +649,7 @@ soe.plot(SOE.data.2018, "Time", "Benthos Fall Biomass Index MAB", stacked = "D",
 soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 ```
 
-## Spring Survey (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)
+## Spring Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)
 ```{r Spring_survey_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=5.5, fig.height=8, fig.align='center'}
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
@@ -659,45 +666,7 @@ soe.plot(SOE.data.2018, "Time", "Benthos Spring Biomass Index MAB", stacked = "D
 soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 ```
 
-## Modeled shelf occupancy for black sea bass (A: Spring, B: Fall) and summer flounder (C: Spring, D: Fall)
-```{r species_distributions_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=5.5, fig.height=8, fig.align='center'}
-opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
-soe.plot(SOE.data.2018, "Time", "black sea bass spring occupancy", stacked = "A",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
-soe.plot(SOE.data.2018, "Time", "black sea bass fall occupancy", stacked = "B",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
-soe.plot(SOE.data.2018, "Time", "summer flounder spring occupancy", stacked = "C",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
-soe.plot(SOE.data.2018, "Time", "summer flounder fall occupancy", stacked = "D",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
-soe.stacked.axis("Time",expression("Habitat Area, 10"^3*" km"^2*''), outer = T)
-```
-
-```{r black_sea_bass_MAB , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
-#will update asap
-knitr::include_graphics(file.path(image.dir, 'black_sea_bass_kde.png'))
-knitr::include_graphics(file.path(image.dir, 'bsb_contemp.png'))
-knitr::include_graphics(file.path(image.dir, 'bsb_20_40.png'))
-
-```
-
-
-### Summer flounder (KDE, contemporary, 20-40 year thermal habitat projection)
-```{r 'summer_flounder_MAB' , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
-knitr::include_graphics(file.path(image.dir, 'summer_flounder_kde.png'))
-knitr::include_graphics(file.path(image.dir, 'summer_flounder_contemp.png'))
-knitr::include_graphics(file.path(image.dir, 'summer_flounder_20_40.png'))
-```
-
-### Sea Scallop (KDE, contemporary, 20-40 year thermal habitat projection)
-
-```{r 'sea_scallop_MAB' , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
-knitr::include_graphics(file.path(image.dir, 'Sea_scallop_kde.png'))
-knitr::include_graphics(file.path(image.dir, 'Sea_scallop_contemp.png'))
-knitr::include_graphics(file.path(image.dir, 'Sea_scallop_20_40.png'))
-```
-
-
+## Species composition
 
 ## Ichthyoplankton diversity (A: Fall, B: Spring)
 
@@ -712,6 +681,54 @@ soe.plot(SOE.data.2018, "Time","Spring_Ich_Shannon Diversity Index", stacked = "
 soe.stacked.axis('Year', expression('Shannon Index'), outer = T)
 
 ```
+
+## Species distribution
+
+## Trends in along shelf distance and depth
+from current conditions, by MAFMC managed species
+
+## Modeled shelf habitat area for black sea bass (A: Spring, B: Fall) and summer flounder (C: Spring, D: Fall)
+```{r species_distributions_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=5.5, fig.height=8, fig.align='center'}
+opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
+soe.plot(SOE.data.2018, "Time", "black sea bass spring occupancy", stacked = "A",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
+soe.plot(SOE.data.2018, "Time", "black sea bass fall occupancy", stacked = "B",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
+soe.plot(SOE.data.2018, "Time", "summer flounder spring occupancy", stacked = "C",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
+soe.plot(SOE.data.2018, "Time", "summer flounder fall occupancy", stacked = "D",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
+soe.stacked.axis("Time",expression("Habitat Area, 10"^3*" km"^2*''), outer = T)
+```
+
+## Historical and current distributions, thermal habitat projections
+
+### Black sea bass (KDE, contemporary, 20-40 year thermal habitat projection)
+```{r black_sea_bass_MAB , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
+#will update asap
+knitr::include_graphics(file.path(image.dir, 'black_sea_bass_kde.png'))
+knitr::include_graphics(file.path(image.dir, 'bsb_contemp.png'))
+knitr::include_graphics(file.path(image.dir, 'bsb_20_40.png'))
+
+```
+
+### Summer flounder (KDE, contemporary, 20-40 year thermal habitat projection)
+```{r 'summer_flounder_MAB' , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
+knitr::include_graphics(file.path(image.dir, 'summer_flounder_kde.png'))
+knitr::include_graphics(file.path(image.dir, 'summer_flounder_contemp.png'))
+knitr::include_graphics(file.path(image.dir, 'summer_flounder_20_40.png'))
+```
+
+<!--
+### Sea Scallop (KDE, contemporary, 20-40 year thermal habitat projection)
+
+```{r 'sea_scallop_MAB' , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
+knitr::include_graphics(file.path(image.dir, 'Sea_scallop_kde.png'))
+knitr::include_graphics(file.path(image.dir, 'Sea_scallop_contemp.png'))
+knitr::include_graphics(file.path(image.dir, 'Sea_scallop_20_40.png'))
+```
+-->
+## Are species shifting in?
 
 ## Rare species in observer database
 
@@ -778,9 +795,159 @@ soe.stacked.axis("Time","Southern Kingfish Occurrence, n", outer = F)
 ```
 
 
-# Ecosystem productivity
+# Ecosystem Conditions and Productivity
 
-## Condition factor (MAB)
+## Observed ocean conditions
+
+## Long-term SST 
+
+```{r long_term_sst, echo = F, message=F, include=T, warning=F, fig.width=7.5, fig.height=4.5}
+opar<-par(mar = c(4, 6, 2, 6))
+soe.plot(SOE.data.2018, "Time", "long term SST jan-jun",
+         endshade = T, status = F,end.start = 2007)
+soe.stacked.axis("Time",expression(paste("Mean SST (",degree,"C)")), outer = F)
+
+```
+
+## 2017 and mean long-term SST
+```{r mean_sst_MAB, echo = F, message=F, include=T, warning=F, fig.width=7.5, fig.height=4.5}
+opar<-par(mar = c(4, 6, 2, 6))
+sst_fields <- finder(SOE.data.2018, "sst")
+mab_fields <- sst_fields[grepl("MAB",sst_fields)]
+
+doy <- as.numeric(SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 MAB",]$Time)
+val_2017 <- SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 MAB",]$Value
+val_LT <- SOE.data.2018[SOE.data.2018$Var == "sst mean long term MAB",]$Value
+val_LT_sd <- SOE.data.2018[SOE.data.2018$Var == "sst sd long term MAB",]$Value
+
+
+val_2017 <- approx(doy,val_2017, xout = seq(doy[1],doy[length(doy)],length.out = 365*1))$y
+val_LT <- approx(doy,val_LT, xout = seq(doy[1],doy[length(doy)],length.out = 365*1))$y
+val_LT_sd <- approx(doy,val_LT_sd, xout = seq(doy[1],doy[length(doy)],length.out = 365*1))$y
+doy <- seq(doy[1],doy[length(doy)],length.out = 365*1)
+
+
+above_mean <- NULL
+for (i in 1:length(val_2017)){
+  if (val_2017[i] >= val_LT[i]){
+    above_mean[i] <- val_2017[i]
+  } else if (val_2017[i] < val_LT [i]){
+    above_mean[i] <- NA
+  }
+}
+
+below_mean <- NULL
+for (i in 1:length(val_2017)){
+  if (val_2017[i] <= val_LT[i]){
+    below_mean[i] <- val_2017[i]
+  } else if (val_2017[i] > val_LT [i]){
+    below_mean[i] <- NA
+  }
+}
+
+above_sd <- NULL
+for (i in 1:length(val_2017)){
+  if (val_2017[i] >= val_LT_sd[i] + val_LT[i]){
+    above_sd[i] <- val_2017[i]
+  } else if (val_2017[i] < val_LT_sd [i] + val_LT[i]){
+    above_sd[i] <- NA
+  }
+}
+
+below_sd <- NULL
+for (i in 1:length(val_2017)){
+  if (val_2017[i] <= val_LT[i] - val_LT_sd[i]){
+    below_sd[i] <- val_2017[i]
+  } else if (val_2017[i] > val_LT[i] - val_LT_sd [i]){
+    below_sd[i] <- NA
+  }
+}
+
+#Lines for polygons
+above_sd[is.na(above_sd)] <- val_LT_sd[which(is.na(above_sd))] + val_LT[which(is.na(above_sd))]
+below_sd[is.na(above_sd)] <- val_LT[which(is.na(below_sd))] - val_LT_sd[which(is.na(below_sd))] 
+above_mean[is.na(above_mean)] <- val_LT[which(is.na(above_mean))]
+below_mean[is.na(below_mean)] <- val_LT[which(is.na(below_mean))]
+
+upper <- val_LT_sd + val_LT
+lower <- val_LT - val_LT_sd
+
+#Null figure
+plot(NULL, xlim = c(doy[1],doy[(length(doy))]), ylim = c(2,26.5), las = 1, 
+     ylab = "", yaxt = "n", xaxt = "n", xlab = "")
+axis(2, cex.axis = 1.25, las = 1)
+axis(1,  labels = c("Jan","Mar","May","July","Sep","Nov","Jan"), 
+     at = c(1,61,122,183,245,306,365), cex.axis= 1.25)
+mtext(2, line = 2.5, text = expression(paste("Mean SST (",degree,"C)")), cex = 1.5)
+mtext(1, line = 2.5, text = "Time", cex = 1.5)
+
+# +/- 1 sd
+polygon(c(doy, rev(doy)),
+        c(upper, rev(lower)),
+        col = "grey95", border = NA)
+
+#Fills plot
+polygon(c(doy, rev(doy)),
+        c(below_mean + (val_LT-below_mean), rev(below_mean)),
+        col = "lightblue", border = NA)
+polygon(c(doy, rev(doy)),
+        c(above_mean - (above_mean-val_LT), rev(above_mean)),
+        col = "orange", border = NA)
+polygon(c(doy, rev(doy)),
+        c(above_sd - (above_sd-(val_LT + val_LT_sd)), rev(above_sd)),
+        col = "red", border = NA)
+polygon(c(doy, rev(doy)),
+        c(below_sd + (below_sd-(val_LT - val_LT_sd)), rev(below_sd)),
+        col = "blue", border = NA)
+points(val_LT, type = "l", lwd = .5)
+
+```
+
+## Sea surface temperature maps
+
+Vince's description
+
+## Primary production
+
+Kim's figures and text here
+
+## Zooplankton (MAB)
+
+```{r, MAB zooplankton, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=8, fig.height=6, fig.align='center'}
+opar<-par(mar=c(5,6,4,1))
+
+prim_prod <- finder(SOE.data.2018, "Primary")
+copepod_anom <- finder(SOE.data.2018, "copepod")
+
+mab_prim_prod <- prim_prod[3]
+mab_copepod_anom <- copepod_anom[3]
+
+usr <- par("usr")
+opar <- par(mar = c(5,4.75,4,4.75))
+with(SOE.data.2018[SOE.data.2018$Var == mab_prim_prod[1],], plot(Time, Value,
+       type = "o", col = "springgreen2", ylim = c(.5,1.5), pch = 16, lwd = 3,
+       cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = ""))
+
+mtext(side = 2, line = 3, "Mean Primary Production Ratio", cex = 1.2)
+  
+par(new = T)
+  
+with(SOE.data.2018[SOE.data.2018$Var == mab_copepod_anom[1],], plot(Time, Value,
+       type = "o", col = "black", ylim = c(-1.5,1.5), ylab = "", axes = F,
+       yaxt = "n", pch = 16, lwd = 3, cex = 1.2, las = 1, xaxt = "n",xlab = ""))
+  
+axis(side = 4, las = 1, cex.axis = 1.2)
+axis(side = 1, cex.axis = 1.2)
+mtext(side = 4, line = 3, "Small-Lg Copepod Anomaly", cex = 1.2)
+mtext(side = 1, line = 3, "Time", cex = 1.2)
+legend("topright",
+         legend = c("Prim. Prod. Ratio", "Copepod Anomaly"), col = c("springgreen2","black"),
+         bty = "n", lwd = 3)
+  
+
+```
+
+## Groundfish condition (MAB)
 
 ```{r 'condition factor MAB' , echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition_2018.jpg'))
@@ -897,148 +1064,3 @@ plot_stackbarcpts_single(YEAR = bar_dat$Time,
                          width = 9)
 ```
 
-
-# Primary production & Zooplankton
-
-Kim's figures and text here
-
-## Zooplankton (MAB)
-
-```{r, MAB zooplankton, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=8, fig.height=6, fig.align='center'}
-opar<-par(mar=c(5,6,4,1))
-
-prim_prod <- finder(SOE.data.2018, "Primary")
-copepod_anom <- finder(SOE.data.2018, "copepod")
-
-mab_prim_prod <- prim_prod[3]
-mab_copepod_anom <- copepod_anom[3]
-
-usr <- par("usr")
-opar <- par(mar = c(5,4.75,4,4.75))
-with(SOE.data.2018[SOE.data.2018$Var == mab_prim_prod[1],], plot(Time, Value,
-       type = "o", col = "springgreen2", ylim = c(.5,1.5), pch = 16, lwd = 3,
-       cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = ""))
-
-mtext(side = 2, line = 3, "Mean Primary Production Ratio", cex = 1.2)
-  
-par(new = T)
-  
-with(SOE.data.2018[SOE.data.2018$Var == mab_copepod_anom[1],], plot(Time, Value,
-       type = "o", col = "black", ylim = c(-1.5,1.5), ylab = "", axes = F,
-       yaxt = "n", pch = 16, lwd = 3, cex = 1.2, las = 1, xaxt = "n",xlab = ""))
-  
-axis(side = 4, las = 1, cex.axis = 1.2)
-axis(side = 1, cex.axis = 1.2)
-mtext(side = 4, line = 3, "Small-Lg Copepod Anomaly", cex = 1.2)
-mtext(side = 1, line = 3, "Time", cex = 1.2)
-legend("topright",
-         legend = c("Prim. Prod. Ratio", "Copepod Anomaly"), col = c("springgreen2","black"),
-         bty = "n", lwd = 3)
-  
-
-```
-
-
-## Long-term SST 
-
-```{r long_term_sst, echo = F, message=F, include=T, warning=F, fig.width=7.5, fig.height=4.5}
-opar<-par(mar = c(4, 6, 2, 6))
-soe.plot(SOE.data.2018, "Time", "long term SST jan-jun",
-         endshade = T, status = F,end.start = 2007)
-soe.stacked.axis("Time",expression(paste("Mean SST (",degree,"C)")), outer = F)
-
-```
-
-## 2017 and mean long-term SST
-```{r mean_sst_MAB, echo = F, message=F, include=T, warning=F, fig.width=7.5, fig.height=4.5}
-opar<-par(mar = c(4, 6, 2, 6))
-sst_fields <- finder(SOE.data.2018, "sst")
-mab_fields <- sst_fields[grepl("MAB",sst_fields)]
-
-doy <- as.numeric(SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 MAB",]$Time)
-val_2017 <- SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 MAB",]$Value
-val_LT <- SOE.data.2018[SOE.data.2018$Var == "sst mean long term MAB",]$Value
-val_LT_sd <- SOE.data.2018[SOE.data.2018$Var == "sst sd long term MAB",]$Value
-
-
-val_2017 <- approx(doy,val_2017, xout = seq(doy[1],doy[length(doy)],length.out = 365*1))$y
-val_LT <- approx(doy,val_LT, xout = seq(doy[1],doy[length(doy)],length.out = 365*1))$y
-val_LT_sd <- approx(doy,val_LT_sd, xout = seq(doy[1],doy[length(doy)],length.out = 365*1))$y
-doy <- seq(doy[1],doy[length(doy)],length.out = 365*1)
-
-
-above_mean <- NULL
-for (i in 1:length(val_2017)){
-  if (val_2017[i] >= val_LT[i]){
-    above_mean[i] <- val_2017[i]
-  } else if (val_2017[i] < val_LT [i]){
-    above_mean[i] <- NA
-  }
-}
-
-below_mean <- NULL
-for (i in 1:length(val_2017)){
-  if (val_2017[i] <= val_LT[i]){
-    below_mean[i] <- val_2017[i]
-  } else if (val_2017[i] > val_LT [i]){
-    below_mean[i] <- NA
-  }
-}
-
-above_sd <- NULL
-for (i in 1:length(val_2017)){
-  if (val_2017[i] >= val_LT_sd[i] + val_LT[i]){
-    above_sd[i] <- val_2017[i]
-  } else if (val_2017[i] < val_LT_sd [i] + val_LT[i]){
-    above_sd[i] <- NA
-  }
-}
-
-below_sd <- NULL
-for (i in 1:length(val_2017)){
-  if (val_2017[i] <= val_LT[i] - val_LT_sd[i]){
-    below_sd[i] <- val_2017[i]
-  } else if (val_2017[i] > val_LT[i] - val_LT_sd [i]){
-    below_sd[i] <- NA
-  }
-}
-
-#Lines for polygons
-above_sd[is.na(above_sd)] <- val_LT_sd[which(is.na(above_sd))] + val_LT[which(is.na(above_sd))]
-below_sd[is.na(above_sd)] <- val_LT[which(is.na(below_sd))] - val_LT_sd[which(is.na(below_sd))] 
-above_mean[is.na(above_mean)] <- val_LT[which(is.na(above_mean))]
-below_mean[is.na(below_mean)] <- val_LT[which(is.na(below_mean))]
-
-upper <- val_LT_sd + val_LT
-lower <- val_LT - val_LT_sd
-
-#Null figure
-plot(NULL, xlim = c(doy[1],doy[(length(doy))]), ylim = c(2,26.5), las = 1, 
-     ylab = "", yaxt = "n", xaxt = "n", xlab = "")
-axis(2, cex.axis = 1.25, las = 1)
-axis(1,  labels = c("Jan","Mar","May","July","Sep","Nov","Jan"), 
-     at = c(1,61,122,183,245,306,365), cex.axis= 1.25)
-mtext(2, line = 2.5, text = expression(paste("Mean SST (",degree,"C)")), cex = 1.5)
-mtext(1, line = 2.5, text = "Time", cex = 1.5)
-
-# +/- 1 sd
-polygon(c(doy, rev(doy)),
-        c(upper, rev(lower)),
-        col = "grey95", border = NA)
-
-#Fills plot
-polygon(c(doy, rev(doy)),
-        c(below_mean + (val_LT-below_mean), rev(below_mean)),
-        col = "lightblue", border = NA)
-polygon(c(doy, rev(doy)),
-        c(above_mean - (above_mean-val_LT), rev(above_mean)),
-        col = "orange", border = NA)
-polygon(c(doy, rev(doy)),
-        c(above_sd - (above_sd-(val_LT + val_LT_sd)), rev(above_sd)),
-        col = "red", border = NA)
-polygon(c(doy, rev(doy)),
-        c(below_sd + (below_sd-(val_LT - val_LT_sd)), rev(below_sd)),
-        col = "blue", border = NA)
-points(val_LT, type = "l", lwd = .5)
-
-```
