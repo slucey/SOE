@@ -385,7 +385,7 @@ finder <- function(data, match = match, factor = T){
 
 # Conceptual model
 
-```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", echo = F, out.width = "450pt", fig.align='center', eval = F}
+```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", echo = F, out.width = "450pt", fig.align='center', eval = T}
 knitr::include_graphics(file.path(image.dir, 'MAB_5.png'))
 
 ```
@@ -441,7 +441,7 @@ knitr::include_graphics(file.path(image.dir, 'MAB_5.png'))
 
 # Executive Summary
 
-```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = F}
+```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
 
 dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
