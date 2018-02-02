@@ -385,7 +385,7 @@ finder <- function(data, match = match, factor = T){
 
 # Conceptual model
 
-```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", echo = F, out.width = "450pt", fig.align='center', eval = T}
+```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", fig.height=6, fig.width=4, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 knitr::include_graphics(file.path(image.dir, 'MAB_5.png'))
 
 ```
@@ -444,7 +444,7 @@ knitr::include_graphics(file.path(image.dir, 'MAB_5.png'))
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
 
-dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
+dat <- read.csv("2017assess.csv")
 
 stocks <- unique(dat$Entity.Name)
 n.stocks <- length(stocks)
@@ -536,6 +536,22 @@ plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 #if(saveplots) dev.off()
 
 ```
+
+\begin{table}[ht]
+  \caption{Proportion of catch managed by MAFMC (2016)}
+\centering
+\newcommand{\splat}{\vrule width 0 pt height 15pt depth 2pt\relax}
+\begin{tabular}{lp{1.25in}cc} 
+\hline 
+ & Groups & MAB Landings &  MAB Revenue \\ 
+\hline  
+\splat & Piscivore & $0.514$ &  $0.739$ \\ 
+\splat & Planktivore & $0.639$ & $0.925$ \\ 
+\splat & Benthivore & $0.146$ &  $0.122$ \\ 
+\splat & Benthos & $0.618$ &  $0.096$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
 
 
 # Human Dimensions 
@@ -639,6 +655,15 @@ add to database then uncomment r plot
 <!-- soe.stacked.axis('Year', 'N Recreationally Harvested Fish',rel.y.text = 1) -->
 <!-- ``` -->
 -->
+## Mid-Atlantic recreational catch
+```{r rec_catch_MAB, echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
+opar <- par(mar = c(4, 6, 2, 6))
+
+soe.plot(SOE.data.2018, "Time", "Recreational Seafood MA", stacked = NA, status = F, full.trend = T,
+         scale.axis = 10^6,end.start = 2007)
+soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F)
+
+```
 
 ## Bennet Indicators & Revenue
 
@@ -709,23 +734,6 @@ names(df) <- c("Groups", "MAB Landings", "MAB Joint Landings", "MAB Revenue",
                "MAB Joint Revenue")
 stargazer(df, summary = F, rownames = T, title = "Proportion of catch managed by MAFMC (2016)", header = F)
 ```
-\newpage
-
-\begin{table}[ht]
-  \caption{Proportion of catch managed by MAFMC (2016)}
-\centering
-\newcommand{\splat}{\vrule width 0 pt height 15pt depth 2pt\relax}
-\begin{tabular}{lp{1.25in}cc} 
-\hline 
- & Groups & MAB Landings &  MAB Revenue \\ 
-\hline  
-\splat & Piscivore & $0.514$ &  $0.739$ \\ 
-\splat & Planktivore & $0.639$ & $0.925$ \\ 
-\splat & Benthivore & $0.146$ &  $0.122$ \\ 
-\splat & Benthos & $0.618$ &  $0.096$ \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table} 
 
 
 
@@ -759,16 +767,7 @@ soe.plot(SOE.data.2018,"Time","Mid-Atlantic angler trips", stacked = "B",
 soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'))
 ```
 
-## Mid-Atlantic recreational catch
-```{r rec_catch_MAB, echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
-opar <- par(mar = c(4, 6, 2, 6))
 
-soe.plot(SOE.data.2018, "Time", "Recreational Seafood MA", stacked = NA, status = F, full.trend = T,
-         scale.axis = 10^6,end.start = 2007)
-soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F)
-
-
-```
 
 ## Mariculture
 ```{r, mariculture MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
