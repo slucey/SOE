@@ -12,17 +12,17 @@ always_allow_html: yes
 #image.dir <- '/home/slucey/EcoAP/SOE2017/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- "F:/SOE/SOE_data"
-#image.dir <- "F:/SOE/SOE_data"
-data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+data.dir  <- "F:/SOE/SOE_data"
+image.dir <- "F:/SOE/SOE_data"
+#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 library(data.table); library(Kendall)
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-```{r libraries and functions, include=F}
+```{r libraries and functions, include=F, echo = F}
 
 #load("SOE_data_2018.Rdata")
 PKG <-c("Kendall","data.table","zoo","dplyr","nlme","AICcmodavg",
@@ -153,8 +153,9 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
                      x.start = NA, x.end = NA, end.start = 2008, bg.col = background, mean = T,
                      end.col = recent, stacked = NA, x.line = 2.5, y.line = 3.5, scale.axis = 1,
                      rel.y.num = 1.5, rel.y.text = 1.5, suppressAxis = FALSE,status  = F,
-                     endshade = TRUE, full.trend = TRUE, point.cex = 1.5, lwd = 2, ymax = TRUE,
-                     y.upper = y.upper) {
+                     endshade = TRUE, full.trend = TRUE, point.cex = 1.5, lwd = 2, ymax = TRUE,ymin = TRUE,
+                     y.upper = y.upper, y.lower = y.lower, extra = FALSE, x.var2 = x.var2, y.var2 = y.var2,
+                     line.forward = FALSE) {
   
   #print("You'll need to remove or interpolate NA values before this function will work")
   
@@ -174,30 +175,37 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   } else {
     y.max <- as.numeric(y.upper)
   }
-
-  y.min <- min(x[, Value]) - tol * abs(min(x[, Value]))
+  
+  if (ymin == TRUE){
+    y.min <- min(x[, Value]) - tol * abs(min(x[, Value]))
+  } else if (ymin == FALSE){
+    y.min <- as.numeric(y.lower)
+  }
+  
   y.mean <- mean(x[, Value])
   y.sd <- sd(x[, Value])
   
   #Plot blank plot
   plot(x[X >= x.start, list(X, Var)], xlim = c(x.start, x.end),
        ylim = c(y.min,y.max), xlab = '', ylab = '', axes = F, ty = 'n')
-  
+    #Add grides
+
   #Add background
   u <- par('usr')
   rect(u[1], u[3], u[2], u[4], border = NA, col = bg.col)
-    #Add grides
-  if (mean == TRUE){
-    abline(h = y.mean, col = 'grey80', lwd = 3, lty = 2)
+    if (mean == TRUE){
+    abline(h = y.mean, col = 'grey', lwd = 3, lty = 2)
   }
   #Add end period shading
   if (endshade == TRUE){
     rect(end.start - 0.5, u[3], u[2], u[4], border = NA, col = end.col)
     abline(h = u[3], lwd=3)
     abline(v = u[1], lwd=3)
+    abline(h = y.mean, col = 'grey', lwd = 3, lty = 2)
   } else {
     abline(h = u[3], lwd=3)
     abline(v = u[1], lwd=3)
+    abline(h = y.mean, col = 'grey', lwd = 3, lty = 2)
   }
     
 
@@ -206,6 +214,15 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   #Add data points/lines
   points(x[, list(X, Value)], pch = 16, cex = point.cex)
   lines( x[, list(X, Value)], lwd = lwd)
+  
+  #extra lines
+  if (extra == TRUE){
+    x2 <- data[Var == y.var2, ]
+    x2 <- x2[order(x2[, get(x.var2)]), ]
+    setnames(x2, x.var2, 'X2')
+    x2 <- x2[X2 >= x.start, ]
+    }
+    
   
   #Add axis
   if (suppressAxis == FALSE){
@@ -257,27 +274,83 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
     lm_out <- fit_lm(dat = dat)
     p <- lm_out$p
     if (p < .05){
-          lm_out_last10 <- fit_lm(dat = dat %>% filter(time >= 20))
-
-    newtime <- seq(min(dat$time), max(dat$time), length.out=100)
-    newdata <- data.frame(time = newtime,
+        
+      newtime <- seq(min(dat$time), max(dat$time), length.out=length(dat$time))
+      newdata <- data.frame(time = newtime,
                       time2 = newtime^2)
-    lm_pred <- AICcmodavg::predictSE(lm_out$model, 
+      lm_pred <- AICcmodavg::predictSE(lm_out$model, 
                                  newdata = newdata,
                                  se.fit = TRUE)
 
-    year <- seq(x$X[1],x$X[length(x$X)],length.out = 100)
-    # Make plot
-    if (lm_pred$fit[1] < lm_pred$fit[length(lm_pred$fit)]){
-      lines(year, lm_pred$fit, col = main.pos, lwd = 7)
-    } else if (lm_pred$fit[1] > lm_pred$fit[length(lm_pred$fit)]){
-      lines(year, lm_pred$fit, col = main.neg, lwd = 7)
+      year <- seq(x$X[1],x$X[length(x$X)],length.out = length(dat$time))
+      # Make plot
+      if (lm_pred$fit[length(lm_pred$fit)] > (lm_pred$fit[1] + lm_pred$fit[1]*.1)){
+        lines(year, lm_pred$fit, col = main.pos, lwd = 7)
+        points(x[, list(X, Value)], pch = 16, cex = point.cex)
+        lines( x[, list(X, Value)], lwd = lwd)
+        if (line.forward == TRUE){
+           lines(year, lm_pred$fit, col = main.pos, lwd = 7)
+        }
+      } else if (lm_pred$fit[length(lm_pred$fit)] < (lm_pred$fit[1] - lm_pred$fit[1]*.1)){
+        lines(year, lm_pred$fit, col = main.neg, lwd = 7)
+        points(x[, list(X, Value)], pch = 16, cex = point.cex)
+        lines( x[, list(X, Value)], lwd = lwd)
+        if (line.forward == TRUE){
+           lines(year, lm_pred$fit, col = main.neg, lwd = 7)
+        }
+      } else {
+        lines(year, lm_pred$fit, col = "#ffffbf", lwd = 7)
+        points(x[, list(X, Value)], pch = 16, cex = point.cex, col = "indianred")
+        lines( x[, list(X, Value)], lwd = lwd, col = "indianred")
+        if (line.forward == TRUE){
+           lines(year, lm_pred$fit, col = main.pos, lwd = 7)
+        }
+        }
     }
-  }
+    
+    if (extra == TRUE){
+      
+      # Second variable
+      dat <- as.data.frame(x2[, list(X2, Value)])
+    
+      dat <- dat %>% dplyr::rename(series = Value) %>%
+      mutate(time = seq(1,nrow(dat),1))
+    
+     # Fit linear model
+      lm_out <- fit_lm(dat = dat)
+      p <- lm_out$p
+      points(x2[, list(X2, Value)], pch = 16, cex = point.cex, col = "indianred")
+      lines( x2[, list(X2, Value)], lwd = lwd, col = "indianred")
+      if (p < .05){
+    
+        newtime <- seq(min(dat$time), max(dat$time), length.out=length(dat$time))
+        newdata <- data.frame(time = newtime,
+                      time2 = newtime^2)
+        lm_pred <- AICcmodavg::predictSE(lm_out$model, 
+                                 newdata = newdata,
+                                 se.fit = TRUE)
 
-}
-}
-  
+        year <- seq(x2$X2[1],x2$X2[length(x2$X2)],length.out =length(dat$time))
+    # Make plot
+        if (lm_pred$fit[length(lm_pred$fit)] > (lm_pred$fit[1] + lm_pred$fit[1]*.1)){
+          lines(year, lm_pred$fit, col = main.pos, lwd = 7)
+          points(x2[, list(X2, Value)], pch = 16, cex = point.cex, col = "indianred")
+          lines( x2[, list(X2, Value)], lwd = lwd, col = "indianred")
+        } else if (lm_pred$fit[length(lm_pred$fit)] < (lm_pred$fit[1] - lm_pred$fit[1]*.1)){
+          lines(year, lm_pred$fit, col = main.neg, lwd = 7)
+          points(x2[, list(X2, Value)], pch = 16, cex = point.cex, col = "indianred")
+          lines( x2[, list(X2, Value)], lwd = lwd, col = "indianred")
+        } else {
+          lines(year, lm_pred$fit, col = "#ffffbf", lwd = 7)
+          points(x2[, list(X2, Value)], pch = 16, cex = point.cex, col = "indianred")
+          lines( x2[, list(X2, Value)], lwd = lwd, col = "indianred")
+        }
+     }
+    }
+
+  }
+ 
+}  
 
 
 #Add axis labels for stacked plots
@@ -307,18 +380,12 @@ finder <- function(data, match = match, factor = T){
   
 }
 
-### Example
-
-#soe.plot(SOE.data.2018, "Time","spring haddock occupancy", stacked = "A",w
-#         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
-#soe.stacked.axis('Year', expression('Habitat Area, 10'^3*' km'^2*''), outer = T)
-
 
 ```
 
 # Conceptual model
 
-```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", echo = F, out.width = "450pt", fig.align='center'}
+```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", echo = F, out.width = "450pt", fig.align='center', eval = F}
 knitr::include_graphics(file.path(image.dir, 'MAB_5.png'))
 
 ```
@@ -374,7 +441,7 @@ knitr::include_graphics(file.path(image.dir, 'MAB_5.png'))
 
 # Executive Summary
 
-```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE}
+```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = F}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
 
 dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
@@ -475,27 +542,34 @@ plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 
 ## Seafood production 
 
-## MAFMC seafood specific landings (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)
+## MAFMC seafood specific landings (red) and total commericial landings (black) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
 
 ```{r seafood_landings_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center'}
-opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
-#soe.plot(SOE.data.2018, "Time", "Apex Predator MAFMC managed species sea food MAB", stacked = "A",status #= #F,
-#         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1,end.start = 2007, x.start = 1986)
-soe.plot(SOE.data.2018, "Time", "Piscivore MAFMC managed species sea food MAB", stacked = "A",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986)
-soe.plot(SOE.data.2018, "Time", "Planktivore MAFMC managed species sea food MAB", stacked = "B",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986)
-soe.plot(SOE.data.2018, "Time", "Benthivore MAFMC managed species sea food MAB", stacked = "C",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986)
-soe.plot(SOE.data.2018, "Time", "Benthos MAFMC managed species sea food MAB", stacked = "D",status =F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986)
-#soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", stacked = "F",status  = F,
-#         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3)
-soe.stacked.axis("Time",expression("Landings 10"^3*"metric tons"), outer = T)
+## Ecosystem-wide and managed species total landings
+opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
+
+soe.plot(SOE.data.2018, "Time","Apex Predator Landings MAB", stacked = "A",status = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1,end.start = 2007, x.start = 1986,
+         ymin = FALSE, y.lower = 0 )
+
+soe.plot(SOE.data.2018, "Time", "Piscivore Landings MAB", stacked = "B",status = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Piscivore MAFMC managed species sea food MAB")
+
+
+soe.plot(SOE.data.2018, "Time", "Planktivore Landings MAB", stacked = "C",status = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Planktivore MAFMC managed species sea food MAB")
+soe.plot(SOE.data.2018, "Time", "Benthivore Landings MAB", stacked = "D",status = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Benthivore MAFMC managed species sea food MAB")
+soe.plot(SOE.data.2018, "Time", "Benthos Landings MAB", stacked = "E",status = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Benthos MAFMC managed species sea food MAB")
+soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
 
 ```
-
 <!--
 ## Total commercial landings by feeding guild (A: Apex Predator, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
 
@@ -528,25 +602,29 @@ soe.stacked.axis("Time",expression("Landings 10"^3*" metric tons"), outer = T)
 
 ```{r managed_landings ,  echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
-managed_land <- SOE.data.2018 %>% filter(Var == "Total managed landings MAB",Time >= 1986)
-total_land <-  SOE.data.2018 %>% filter(Var == "Total Landings MAB",Time >= 1986)
+# managed_land <- SOE.data.2018 %>% filter(Var == "Total managed landings MAB",Time >= 1986)
+# total_land <-  SOE.data.2018 %>% filter(Var == "Total Landings MAB",Time >= 1986)
+# 
+# plot(total_land$Time, total_land$Value, col = "black", type = "o",ylab = "",xlab = "Time",
+#                        lwd = 3, pch = 16,cex.lab=1.5, las = 1, cex.axis = 1.5,
+#      bty = "l",ylim = c(4e4,28e4),yaxt = "n")
+# 
+# points(managed_land$Time, managed_land$Value, col = "indianred", type = "o",
+#                        lwd = 3, pch = 16)
+# 
+# mtext(2, text = expression("Landings, 10"^3*'metric tons'),
+#         line = 3.5, cex = 1.5, outer = F)
+#   axis(2, at = seq(5e4,25e4,5e4), 
+#        labels = c("50","100","150","200","250"),
+#        las = 1, cex.axis = 1.5)
+# 
+# legend(1985,9e4,c("Ecosystem-wide","Managed species"),
+#        col = c("black","indianred"),bty = "n", lwd = 3)
 
-plot(total_land$Time, total_land$Value, col = "black", type = "o",ylab = "",xlab = "Time",
-                       lwd = 3, pch = 16,cex.lab=1.5, las = 1, cex.axis = 1.5,
-     bty = "l",ylim = c(4e4,28e4),yaxt = "n")
-
-points(managed_land$Time, managed_land$Value, col = "indianred", type = "o",
-                       lwd = 3, pch = 16)
-
-mtext(2, text = expression("Landings, 10"^3*'metric tons'),
-        line = 3.5, cex = 1.5, outer = F)
-  axis(2, at = seq(5e4,25e4,5e4), 
-       labels = c("50","100","150","200","250"),
-       las = 1, cex.axis = 1.5)
-
-legend(1985,9e4,c("Ecosystem-wide","Managed species"),
-       col = c("black","indianred"),bty = "n", lwd = 3)
-
+soe.plot(SOE.data.2018, "Time", "Total Landings MAB", stacked = NA,status = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Total managed landings MAB")
+soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = F)
 ```
 
 ## Recreational landings (from MAB risk assessment)
@@ -603,27 +681,12 @@ knitr::include_graphics(file.path(image.dir, 'vol_ind_MAB.png'))
 ```{r managed_revenue , echo = F, message=F, include=T, warning=F , fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
-managed_rev <- SOE.data.2018 %>% filter(Var == "Total managed revenue MAB",Time >= 1986)
-total_rev <-  SOE.data.2018 %>% filter(Var == "Total Revenue MAB",Time >= 1986)
 
-plot(total_rev$Time, total_rev$Value, col = "black", type = "o",ylab = "",yaxt = "n",xlab = "Time",
-                       lwd = 3, pch = 16, ylim = c(8e7,1.2e9),cex.lab=1.5, las = 1, cex.axis = 1.5,
-     bty = "l")
 
-points(managed_rev$Time, managed_rev$Value, col = "indianred", type = "o",
-                       lwd = 3, pch = 16)
-
-mtext(2, text = expression("Revenue, 10"^6*'USD'),
-        line = 3.5, cex = 1.5, outer = F)
-  axis(2, at = c(2e8,4e8,6e8,8e8,
-                 10e8,12e8), 
-       labels = c("200","400","600","800","1000",
-                  "1200"),
-       las = 1, cex.axis = 1.5)
-
-legend(1985,13e8,c("Ecosystem-wide","Managed species"),
-       col = c("black","indianred"),bty = "n", lwd = 3)
-
+soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", stacked = NA,status = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007, x.start = 1986,
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Total managed revenue MAB")
+soe.stacked.axis("Time",expression("Revenue, 10"^6*'USD'), outer = F)
 ```
 
 
@@ -696,20 +759,31 @@ soe.plot(SOE.data.2018,"Time","Mid-Atlantic angler trips", stacked = "B",
 soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'))
 ```
 
+## Mid-Atlantic recreational catch
+```{r rec_catch_MAB, echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
+opar <- par(mar = c(4, 6, 2, 6))
+
+soe.plot(SOE.data.2018, "Time", "Recreational Seafood MA", stacked = NA, status = F, full.trend = T,
+         scale.axis = 10^6,end.start = 2007)
+soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F)
+
+
+```
+
 ## Mariculture
 ```{r, mariculture MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
 library(RColorBrewer)
-topo <- c('black', "indianred", "darkorange", "purple")
+topo <- c('black', "indianred", "darkorange")
 
 oyst_vars <- list("aquaculture NJ gear raised oysters sold",
                  # "aquaculture NH oyster harvest N",
                   "aquaculture MD oyster harvest N",
-                  "aquaculture RI oyster harvest N",
+                 # "aquaculture RI oyster harvest N",
                   "aquaculture VA oyster harvest N")
 y.min <- 1
 y.max <- 40000000
 opar <- par(mar = c(4, 6, 2, 6))
-plot(NULL, xlim = c(1995, 2017),
+plot(NULL, xlim = c(2005, 2017),
      ylim = c(y.min,y.max), xlab = 'Time', ylab = '', yaxt = "n",ty = 'n',
      cex.lab=1.5, las = 1, cex.axis = 1.5)
 for (i in 1:length(oyst_vars)){
@@ -730,9 +804,9 @@ mtext(2, text = expression("Oysters Harvested, 10"^6*'n'),
        labels = c("1","5","10","15","20",
                   "25","30","35","40"),
        las = 1, cex.axis = 1.5)
-legend(1998, 30000000, legend = c("New Jersey",
+legend(2006, 30000000, legend = c("New Jersey",
                             "Maryland",
-                            "Rhode Island",
+                            #"Rhode Island",
                             "Virginia"), col = topo, bty = "n",lwd = 2)
 
 ```
@@ -868,24 +942,6 @@ soe.stacked.axis('Year', expression('Shannon Index'), outer = T)
 
 ## Species distribution
 
-## Trends in along shelf distance and depth
-from current conditions, by MAFMC managed species
-
-## Modeled shelf habitat area for black sea bass (A: Spring, B: Fall) and summer flounder (C: Spring, D: Fall)
-```{r species_distributions_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=5.5, fig.height=8, fig.align='center'}
-
-opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
-soe.plot(SOE.data.2018, "Time", "black sea bass spring occupancy", stacked = "A",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
-soe.plot(SOE.data.2018, "Time", "black sea bass fall occupancy", stacked = "B",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
-soe.plot(SOE.data.2018, "Time", "summer flounder spring occupancy", stacked = "C",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
-soe.plot(SOE.data.2018, "Time", "summer flounder fall occupancy", stacked = "D",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
-soe.stacked.axis("Time",expression("Habitat Area, 10"^3*" km"^2*''), outer = T)
-```
-
 
 ## Historical and current distributions, thermal habitat projections
 
@@ -897,6 +953,27 @@ knitr::include_graphics(file.path(image.dir, 'bsb_20_40.png'))
 
 ```
 
+## Black sea bass habitat distribution trends (Top row: Spring, bottom row: Fall)
+```{r bsb_species_distributions_MAB, out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+
+soe.plot(SOE.data.2018, "Time", "black sea bass spring mean depth", stacked = "A",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1)
+soe.plot(SOE.data.2018, "Time", "black sea bass fall mean depth", stacked = "B",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1, line.forward = T)
+soe.stacked.axis("Time",expression("Mean depth, m"), outer = T)
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+soe.plot(SOE.data.2018, "Time", "black sea bass spring mean along-shelf dist", stacked = "C",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3, suppressAxis = T, line.forward = T)
+soe.plot(SOE.data.2018, "Time", "black sea bass fall mean along-shelf dist", stacked = "D",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3)
+soe.stacked.axis("Time",expression("Mean along-shelf distance, km"), outer = T)
+
+```
+
 ### Summer flounder (KDE, contemporary, 20-40 year thermal habitat projection)
 ```{r 'summer_flounder_MAB' , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
 knitr::include_graphics(file.path(image.dir, 'summer_flounder_kde.png'))
@@ -904,6 +981,46 @@ knitr::include_graphics(file.path(image.dir, 'summer_flounder_contemp.png'))
 knitr::include_graphics(file.path(image.dir, 'summer_flounder_20_40.png'))
 ```
 
+##Summer flounder habitat distribution trends (Top row: Spring, bottom row: Fall)
+```{r sf_species_distributions_MAB, out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+
+soe.plot(SOE.data.2018, "Time", "summer flounder spring mean depth", stacked = "A",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1)
+soe.plot(SOE.data.2018, "Time", "summer flounder fall mean depth", stacked = "B",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1, line.forward = T)
+soe.stacked.axis("Time",expression("Mean depth, m"), outer = T)
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+soe.plot(SOE.data.2018, "Time", "summer flounder spring mean along-shelf dist", stacked = "C",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3, suppressAxis = T, line.forward = T)
+soe.plot(SOE.data.2018, "Time", "summer flounder fall mean along-shelf dist", stacked = "D",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3)
+soe.stacked.axis("Time",expression("Mean along-shelf distance, km"), outer = T)
+
+```
+
+##Summer flounder (left) and black sea bass (right) shelf habitat (Top row: Spring, bottom row: Fall)
+```{r occupancy_MAB, out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+
+soe.plot(SOE.data.2018, "Time", "summer flounder spring occupancy", stacked = "A",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3, suppressAxis = T)
+soe.plot(SOE.data.2018, "Time", "summer flounder fall occupancy", stacked = "B",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
+soe.stacked.axis("Time",expression("Habitat Area, 10"^3*" km"^2*''), outer = T)
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+soe.plot(SOE.data.2018, "Time", "black sea bass spring occupancy", stacked = "C",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3, suppressAxis = T)
+soe.plot(SOE.data.2018, "Time", "black sea bass fall occupancy", stacked = "D",status  = F,
+         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
+soe.stacked.axis("Time",expression("Habitat Area, 10"^3*" km"^2*''), outer = T)
+```
 <!--
 ### Sea Scallop (KDE, contemporary, 20-40 year thermal habitat projection)
 
@@ -988,7 +1105,7 @@ soe.stacked.axis("Time","Southern Kingfish Occurrence, n", outer = F)
 ```{r long_term_sst,  echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time", "long term SST jan-jun",
-         endshade = T, status = F,end.start = 2007)
+         endshade = T, status = F,end.start = 2007, line.forward = TRUE)
 soe.stacked.axis("Time",expression(paste("Mean SST (",degree,"C)")), outer = F)
 
 ```
