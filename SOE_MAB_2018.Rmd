@@ -424,7 +424,7 @@ knitr::include_graphics(file.path(image.dir, 'MAB_5.png'))
   \hline
  & Feeding group & N species & Major species in group \\ 
   \hline
-\splat & \textbf{A: Apex Predator} (Highest trophic level) & 4 & shark, swordfish, yellowfin and bluefin tuna \\   
+\splat & \textbf{A: Apex Predator} (Highest trophic level) & 4 & shark (Unc.), swordfish, yellowfin and bluefin tuna \\   
   
 \splat & \textbf{B: Piscivore} (Eat fish) & 23 & spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder \\   
 
@@ -820,15 +820,244 @@ soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status  = F,
 soe.stacked.axis("Time","Harmful Algal Bloom Events, n", outer = F)
 ```
 
-## Commercial engagement and vulnerability (MAB)
+## Commercial reliance and social vulnerability (MAB)
 
-```{r 'community_engagement_and_vulnerability MAB' , echo = F, out.width = "450pt", fig.align='center'}
-knitr::include_graphics(file.path(image.dir, 'Comm_Engagement_and_Social_Vuln_MAB.jpg'))
+```{r 'commercial_reliance_and_vulnerability MAB' , echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
+library(maps);library(mapdata);library(raster)
+library(grid);library(colorRamps);library(stringr)
+
+cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
+cat2 <- SOE.data.2018[SOE.data.2018$Var == "commercial reliance MAB",]$Value
+
+#group data into categories
+ncat1 <- NULL
+for (i in 1:length(cat1)){
+  if (cat1[i] > 2){
+    ncat1[i] <- "C"
+  } else if ((cat1[i] <= 2) & (cat1[i] > 1)){
+    ncat1[i] <- "B"
+  } else {
+    ncat1[i] <- "A"
+  }
+}
+
+ncat2 <- NULL
+for (i in 1:length(cat1)){
+  if (cat2[i] > 2){
+    ncat2[i] <- 3
+  } else if ((cat2[i] <= 2) & (cat2[i] > 1)){
+    ncat2[i] <- 2
+  } else {
+    ncat2[i] <- 1
+  }
+}
+
+
+cat3 <- paste0(ncat1, ncat2)
+cat3 <- factor(cat3, levels = c("A1","A2","A3",
+                                "B1","B2","B3",
+                                "C1","C2","C3"),
+               ordered = TRUE)
+lon <- SOE.data.2018[SOE.data.2018$Var == "choropleth longitude MAB",]$Value
+lat <- SOE.data.2018[SOE.data.2018$Var == "choropleth latitude MAB",]$Value
+
+#new dataframe to turn into sp object
+mab.dat <- data.frame(lon = lon,
+                     lat = lat,
+                     cat3 = cat3)#,
+                     #Value = mab$col)
+#mab.dat <- mab.dat %>% group_by(Value) %>%
+#  arrange(desc(Value))
+
+#break up into groups for plotting - allows for effective layering
+g1 <- mab.dat %>% filter(cat3 == "A1"|cat3 == "A2"|cat3 == "A3")
+g2 <- mab.dat %>% filter(cat3 == "B1"|cat3 == "B2")
+g3 <- mab.dat %>% filter(cat3 == "C1")
+
+
+g2_big <- mab.dat %>% filter(cat3 == "B3")
+g3_big <- mab.dat %>% filter(cat3 == "C3"|cat3 == "C2")
+
+#projection
+map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
+               +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
+
+#get USA map data
+usa<-getData('GADM', country="USA", level=0)
+
+#turn grouped data into sp objects for overlaying on plot of Mid-Atlantic
+
+coordinates(g1) <- ~lon+lat
+g1@proj4string <- map.crs
+g1 <- spTransform(g1, map.crs)
+colo1 <- c("#FFFFFF","#B8B8FF","#7F7FFF")
+
+
+coordinates(g2) <- ~lon+lat
+g2@proj4string <- map.crs
+g2 <- spTransform(g2, map.crs)
+colo2 <- c("#FFB8B8","#B871B8")
+
+
+coordinates(g3) <- ~lon+lat
+g3@proj4string <- map.crs
+g3 <- spTransform(g3, map.crs)
+colo3 <- c("#FF7F7F")
+
+
+coordinates(g2_big) <- ~lon+lat
+g2_big@proj4string <- map.crs
+g2_big <- spTransform(g2_big, map.crs)
+
+coordinates(g3_big) <- ~lon+lat
+g3_big@proj4string <- map.crs
+g3_big <- spTransform(g3_big, map.crs)
+
+
+#plot map and dots of different size based on category
+
+plot(usa, xlim = c(-77.5,-71), ylim = c(35,41),col = "grey")
+plot(g1, pch = 16, col = colo1,cex = 1, add = T)
+plot(g2, pch = 16, col = colo2,cex = 1, add = T)
+plot(g3, pch = 16, col = colo3,cex = 1,add = T)
+
+
+plot(g2_big, pch = 16, col = "blue",cex = 2, add = T)
+plot(g3_big, pch = 16, col = c("red","black"),cex = 2,add = T)
+
+#colors of bivariate color scheme
+base_col <- c("#7F7FFF","blue","black",
+              "#B8B8FF","#B871B8","red",
+              "#FFFFFF","#FFB8B8","#FF7F7F")
+
+#raster image to display on plot as bivariate legend
+r <- raster(xmn = -73, xmx = -70.9, ymn = 36, ymx = 37.8, nrows = 3, ncols = 3)
+r[] <- 1:9
+plot(r, col = base_col, legend = F, bty = "n", axes = F, yaxt = "n", frame.plot = F,
+     xaxt='n', add = T)
+
+#text
+text(-73.3, 36.9, "Commercial Reliance",srt=90)
+text(-72,35.8, "Social Vulnerability")
 ```
 
-## Commercial reliance and social vulnerability (MAB)
-```{r 'community_reliance_and_social_vulnerability MAB' , echo = F, out.width = "450pt", fig.align='center'}
-knitr::include_graphics(file.path(image.dir, 'Comm_Reliance_and_Social_Vuln_MAB.jpg'))
+## Recreational reliance and social vulnerability (MAB)
+```{r 'community_reliance_and_social_vulnerability MAB' , echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
+
+cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
+cat2 <- SOE.data.2018[SOE.data.2018$Var == "recreational reliance MAB",]$Value
+
+#group data into categories
+ncat1 <- NULL
+for (i in 1:length(cat1)){
+  if (cat1[i] > 2){
+    ncat1[i] <- "C"
+  } else if ((cat1[i] <= 2) & (cat1[i] > 1)){
+    ncat1[i] <- "B"
+  } else {
+    ncat1[i] <- "A"
+  }
+}
+
+ncat2 <- NULL
+for (i in 1:length(cat1)){
+  if (cat2[i] > 2){
+    ncat2[i] <- 3
+  } else if ((cat2[i] <= 2) & (cat2[i] > 1)){
+    ncat2[i] <- 2
+  } else {
+    ncat2[i] <- 1
+  }
+}
+
+
+cat3 <- paste0(ncat1, ncat2)
+cat3 <- factor(cat3, levels = c("A1","A2","A3",
+                                "B1","B2","B3",
+                                "C1","C2","C3"),
+               ordered = TRUE)
+
+lon <- SOE.data.2018[SOE.data.2018$Var == "choropleth longitude MAB",]$Value
+lat <- SOE.data.2018[SOE.data.2018$Var == "choropleth latitude MAB",]$Value
+
+#new dataframe to turn into sp object
+mab.dat <- data.frame(lon = lon,
+                     lat = lat,
+                     cat3 = cat3)#,
+                     #Value = mab$col)
+#mab.dat <- mab.dat %>% group_by(Value) %>%
+#  arrange(desc(Value))
+
+#break up into groups for plotting - allows for effective layering
+g1 <- mab.dat %>% filter(cat3 == "A1"|cat3 == "A2"|cat3 == "A3")
+g2 <- mab.dat %>% filter(cat3 == "B1"|cat3 == "B2")
+g3 <- mab.dat %>% filter(cat3 == "C1")
+
+
+g2_big <- mab.dat %>% filter(cat3 == "B3")
+g3_big <- mab.dat %>% filter(cat3 == "C3"|cat3 == "C2")
+
+#projection
+map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
+               +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
+
+#get USA map data
+usa<-getData('GADM', country="USA", level=0)
+
+#turn grouped data into sp objects for overlaying on plot of Mid-Atlantic
+
+coordinates(g1) <- ~lon+lat
+g1@proj4string <- map.crs
+g1 <- spTransform(g1, map.crs)
+colo1 <- c("#FFFFFF","#B8B8FF","#7F7FFF")
+
+
+coordinates(g2) <- ~lon+lat
+g2@proj4string <- map.crs
+g2 <- spTransform(g2, map.crs)
+colo2 <- c("#FFB8B8","#B871B8")
+
+
+coordinates(g3) <- ~lon+lat
+g3@proj4string <- map.crs
+g3 <- spTransform(g3, map.crs)
+colo3 <- c("#FF7F7F")
+
+
+coordinates(g2_big) <- ~lon+lat
+g2_big@proj4string <- map.crs
+g2_big <- spTransform(g2_big, map.crs)
+
+coordinates(g3_big) <- ~lon+lat
+g3_big@proj4string <- map.crs
+g3_big <- spTransform(g3_big, map.crs)
+
+
+#plot map and dots of different size based on category
+
+plot(usa, xlim = c(-77.5,-71), ylim = c(35,41),col = "grey")
+plot(g1, pch = 16, col = colo1,cex = 1, add = T)
+plot(g2, pch = 16, col = colo2,cex = 1, add = T)
+plot(g3, pch = 16, col = colo3,cex = 1,add = T)
+
+
+plot(g2_big, pch = 16, col = "blue",cex = 2, add = T)
+plot(g3_big, pch = 16, col = c("red","black"),cex = 2,add = T)
+
+#colors of bivariate color scheme
+base_col <- c("#7F7FFF","blue","black",
+              "#B8B8FF","#B871B8","red",
+              "#FFFFFF","#FFB8B8","#FF7F7F")
+
+#raster image to display on plot as bivariate legend
+r <- raster(xmn = -73, xmx = -70.9, ymn = 36, ymx = 37.8, nrows = 3, ncols = 3)
+r[] <- 1:9
+plot(r, col = base_col, legend = F, bty = "n", axes = F, yaxt = "n", frame.plot = F,
+     xaxt='n', add = T)
+
+#text
+text(-73.3, 36.9, "Recreational Reliance",srt=90)
+text(-72,35.8, "Social Vulnerability")
 ```
 
 ## Species vulnerability (MAB)
@@ -850,7 +1079,7 @@ soe.plot(SOE.data.2018, 'Time', "Harbor porpoise bycatch estimates",
 soe.stacked.axis('Year', expression('Harbor Porpoise Bycatch, n'), outer = F)
 
 
-legend(2005, 2250, legend = "Potential Biological Removal", col = adjustcolor("red", .5), lwd = 3,
+legend(2000, 2250, legend = "Potential Biological Removal", col = adjustcolor("red", .5), lwd = 3,
        bty = "n")
 
 #credible intervals and PBI
@@ -1264,7 +1493,7 @@ legend("topright",
 knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition_2018.jpg'))
 ```
 
-## Groundfish productivity 
+## Groundfish productivity (A: MAFMC managed species, B: Commercial MAB Species)
 
 ```{r groundfish productivity,  echo = F, out.width='9.2cm', out.height='9.2cm', fig.show='hold', fig.align = 'center'}
 ## Functions for plotting
@@ -1293,11 +1522,17 @@ plot_stackbarcpts_single <- function(YEAR, var2bar,
                                      wcpts = TRUE,
                                      wdashed = TRUE,
                                      height = 5.5,
-                                     width = 8) {
+                                     width = 8,
+                                     filt = TRUE,
+                                     label = label,
+                                     y.text = y.text) {
   
   dat2bar <- data.frame(YEAR, var2bar,
                         x)
-  
+  if (filt == TRUE){mab_species <-  list("SUMMER FLOUNDER","SCUP","BLACK SEA BASS","BLUEFISH",
+                                         "NORTHERN SHORTFIN SQUID", "LONGFIN SQUID", "ATLANTIC MACKEREL",
+                                         "BUTTERFISH","ATLANTIC SURFCLAM", "OCEAN QUAHOG", "TILEFISH",
+                                         "BLUELINE TILEFISH","SPINY DOGFISH", "GOOSEFISH")
   dat2plot <-
     dat2bar %>%
     tidyr::gather(variable, value, -YEAR, -var2bar) %>%
@@ -1321,9 +1556,34 @@ plot_stackbarcpts_single <- function(YEAR, var2bar,
                                  x            = var2bar),
                   var2bar = gsub(pattern      = " by EPU", 
                                  replacement  = "", 
+                                 x            = var2bar)) %>%
+    filter(var2bar %in% mab_species)
+} else if (filt == FALSE){
+    dat2plot <-
+    dat2bar %>%
+    tidyr::gather(variable, value, -YEAR, -var2bar) %>%
+    dplyr::mutate(var2bar = gsub(pattern      = "_", 
+                                 replacement  = " ", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = "Atl.", 
+                                 replacement  = "", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = "Atl", 
+                                 replacement  = "", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = "NS and combined", 
+                                 replacement  = "", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = "YT", 
+                                 replacement  = "Yellowtail", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = " GoM", 
+                                 replacement  = " GOM", 
+                                 x            = var2bar),
+                  var2bar = gsub(pattern      = " by EPU", 
+                                 replacement  = "", 
                                  x            = var2bar))
-  
-  
+}
   p <-   
     ggplot(dat2plot,
            aes(x = YEAR)) +
@@ -1342,7 +1602,8 @@ plot_stackbarcpts_single <- function(YEAR, var2bar,
           axis.text    = element_text(size = 15),
           plot.title   = element_text(size = 20),
           legend.text  = element_text(size = leg_font_size),
-          legend.title = element_blank())
+          legend.title = element_blank()) +
+    annotate("text", label = label, x = 1980, y = y.text,size = 8, colour = "black")
   
   if(remove_leg) p <- p + theme(legend.position = "none")
   
@@ -1358,20 +1619,26 @@ bar_dat <-SOE.data.2018[grepl("by EPU",SOE.data.2018$Var) & SOE.data.2018$EPU ==
 plot_stackbarcpts_single(YEAR = bar_dat$Time,
                          var2bar = bar_dat$Var,
                          x = bar_dat$Value,
-                         titl = "MAB Groundfish Productivity",
+                         titl = "",
                          xlab = "",
                          ylab = "Small fish per large fish biomass (anomaly)",
                          height = 5.5,
-                         width = 9)
+                         width = 9,
+                         filt = TRUE,
+                         label = "A",
+                         y.text = 4.5)
 
-bar_dat <-SOE.data.2018[grepl("by EPU",SOE.data.2018$Var),]
+bar_dat <-SOE.data.2018[grepl("by EPU",SOE.data.2018$Var) & SOE.data.2018$EPU == "MAB",]
 plot_stackbarcpts_single(YEAR = bar_dat$Time,
                          var2bar = bar_dat$Var,
                          x = bar_dat$Value,
-                         titl = "NES Groundfish Productivity",
+                         titl = "",
                          xlab = "",
                          ylab = "Small fish per large fish biomass (anomaly)",
                          height = 5.5,
-                         width = 9)
+                         width = 9,
+                         filt = FALSE,
+                         label = "B",
+                         y.text = 10)
 ```
 
