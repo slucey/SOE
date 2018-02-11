@@ -221,6 +221,8 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
     x2 <- x2[order(x2[, get(x.var2)]), ]
     setnames(x2, x.var2, 'X2')
     x2 <- x2[X2 >= x.start, ]
+    points(x2[, list(X2, Value)], pch = 16, cex = point.cex, col = "indianred")
+    lines( x2[, list(X2, Value)], lwd = lwd, col = "indianred")
     }
     
   
@@ -354,9 +356,9 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
 
 
 #Add axis labels for stacked plots
-soe.stacked.axis <- function(x.label, y.label, x.line = 2.5,
+soe.stacked.axis <- function(x.label, y.label, x.line = 2.5,rel.x.text = 1.5,
                              y.line = 3.5, rel.y.text = 1.5, outer = TRUE){
-  axis(1, cex.axis = 1.5)
+  axis(1, cex.axis = rel.x.text)
   mtext(1, text = x.label, line = x.line, cex = 1.5, outer = outer)
   mtext(2, text = y.label, line = y.line, cex = rel.y.text, outer = outer)
   
@@ -811,14 +813,18 @@ legend(2006, 30000000, legend = c("New Jersey",
 ```
 
 
-## Occurrence of Harmful Algal Blooms in Chesapeake Bay
+
+## Occurrence of algal blooms in Chesapeake Bay at cell concentrations greater than the NOAA threshold for consideration as a bloom event (black), and occurrence of blooms at concentrations warranting action by the Virginia Department of Health (red)
 
 ```{r hab_MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
 opar <- par(mar = c(4, 6, 2, 6))
-soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status  = F,
-         endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 1)
-soe.stacked.axis("Time","Harmful Algal Bloom Events, n", outer = F)
+
+soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status = F,mean = F,
+         endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 1,end.start = 2007,
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "HAB events at VDH threshold")
+soe.stacked.axis("Time","Algal Bloom Events, n", outer = F)
 ```
+
 
 ## Commercial reliance and social vulnerability (MAB)
 
@@ -870,13 +876,14 @@ mab.dat <- data.frame(lon = lon,
 #  arrange(desc(Value))
 
 #break up into groups for plotting - allows for effective layering
-g1 <- mab.dat %>% filter(cat3 == "A1"|cat3 == "A2"|cat3 == "A3")
-g2 <- mab.dat %>% filter(cat3 == "B1"|cat3 == "B2")
-g3 <- mab.dat %>% filter(cat3 == "C1")
+#break up into groups for plotting - allows for effective layering
+g1 <- mab.dat %>% filter(cat3 == "A1"|cat3 == "A2"|cat3 == "A3") %>% arrange(cat3)
+g2 <- mab.dat %>% filter(cat3 == "B1"|cat3 == "B2") %>% arrange(cat3)
+g3 <- mab.dat %>% filter(cat3 == "C1") %>% arrange(cat3)
 
 
 g2_big <- mab.dat %>% filter(cat3 == "B3")
-g3_big <- mab.dat %>% filter(cat3 == "C3"|cat3 == "C2")
+g3_big <- mab.dat %>% filter(cat3 == "C2"|cat3 == "C3") %>% arrange(cat3)
 
 #projection
 map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
@@ -890,13 +897,15 @@ usa<-getData('GADM', country="USA", level=0)
 coordinates(g1) <- ~lon+lat
 g1@proj4string <- map.crs
 g1 <- spTransform(g1, map.crs)
-colo1 <- c("#FFFFFF","#B8B8FF","#7F7FFF")
+colo1 <- c(rep("#FFFFFF",table(g1$cat3)[1]),
+           rep("#B8B8FF",table(g1$cat3)[2]),
+           rep("#7F7FFF",table(g1$cat3)[3]))
 
 
 coordinates(g2) <- ~lon+lat
 g2@proj4string <- map.crs
 g2 <- spTransform(g2, map.crs)
-colo2 <- c("#FFB8B8","#B871B8")
+colo2 <- c(rep("#FFB8B8",table(g2$cat3)[4]),rep("#B871B8",table(g2$cat3)[5]))
 
 
 coordinates(g3) <- ~lon+lat
@@ -923,7 +932,7 @@ plot(g3, pch = 16, col = colo3,cex = 1,add = T)
 
 
 plot(g2_big, pch = 16, col = "blue",cex = 2, add = T)
-plot(g3_big, pch = 16, col = c("red","black"),cex = 2,add = T)
+plot(g3_big, pch = 16, col = c(rep("red",table(g3_big$cat3)[8]),rep("black",table(g3_big$cat3)[9])),cex = 2,add = T)
 
 #colors of bivariate color scheme
 base_col <- c("#7F7FFF","blue","black",
@@ -989,13 +998,14 @@ mab.dat <- data.frame(lon = lon,
 #  arrange(desc(Value))
 
 #break up into groups for plotting - allows for effective layering
-g1 <- mab.dat %>% filter(cat3 == "A1"|cat3 == "A2"|cat3 == "A3")
-g2 <- mab.dat %>% filter(cat3 == "B1"|cat3 == "B2")
-g3 <- mab.dat %>% filter(cat3 == "C1")
+#break up into groups for plotting - allows for effective layering
+g1 <- mab.dat %>% filter(cat3 == "A1"|cat3 == "A2"|cat3 == "A3") %>% arrange(cat3)
+g2 <- mab.dat %>% filter(cat3 == "B1"|cat3 == "B2") %>% arrange(cat3)
+g3 <- mab.dat %>% filter(cat3 == "C1") %>% arrange(cat3)
 
 
 g2_big <- mab.dat %>% filter(cat3 == "B3")
-g3_big <- mab.dat %>% filter(cat3 == "C3"|cat3 == "C2")
+g3_big <- mab.dat %>% filter(cat3 == "C2"|cat3 == "C3") %>% arrange(cat3)
 
 #projection
 map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
@@ -1009,13 +1019,15 @@ usa<-getData('GADM', country="USA", level=0)
 coordinates(g1) <- ~lon+lat
 g1@proj4string <- map.crs
 g1 <- spTransform(g1, map.crs)
-colo1 <- c("#FFFFFF","#B8B8FF","#7F7FFF")
+colo1 <- c(rep("#FFFFFF",table(g1$cat3)[1]),
+           rep("#B8B8FF",table(g1$cat3)[2]),
+           rep("#7F7FFF",table(g1$cat3)[3]))
 
 
 coordinates(g2) <- ~lon+lat
 g2@proj4string <- map.crs
 g2 <- spTransform(g2, map.crs)
-colo2 <- c("#FFB8B8","#B871B8")
+colo2 <- c(rep("#FFB8B8",table(g2$cat3)[4]),rep("#B871B8",table(g2$cat3)[5]))
 
 
 coordinates(g3) <- ~lon+lat
@@ -1042,8 +1054,7 @@ plot(g3, pch = 16, col = colo3,cex = 1,add = T)
 
 
 plot(g2_big, pch = 16, col = "blue",cex = 2, add = T)
-plot(g3_big, pch = 16, col = c("red","black"),cex = 2,add = T)
-
+plot(g3_big, pch = 16, col = c(rep("red",table(g3_big$cat3)[8]),rep("black",table(g3_big$cat3)[9])),cex = 2,add = T)
 #colors of bivariate color scheme
 base_col <- c("#7F7FFF","blue","black",
               "#B8B8FF","#B871B8","red",
@@ -1156,15 +1167,23 @@ soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 
 ## Species composition
 
-## Ichthyoplankton diversity (A: Fall, B: Spring)
+## Ichthyoplankton Shannon diversity and species counts in the Spring (Top row) and Fall (bottom row)
 
-```{r larval diversity , echo = F, warning = F, include = T, fig.width=8, fig.height=6, fig.align = 'center'}
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data.2018, "Time","Fall_Ich_Shannon Diversity Index", stacked = "A",
+```{r larval_diversity, out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+soe.plot(SOE.data.2018, "Time","Spring_Ich_Shannon Diversity Index", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 1, status=F)
-soe.plot(SOE.data.2018, "Time","Spring_Ich_Shannon Diversity Index", stacked = "B",
+soe.plot(SOE.data.2018, "Time","Fall_Ich_Shannon Diversity Index", stacked = "B",
          endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 1, status=F)
 soe.stacked.axis('Year', expression('Shannon Index'), outer = T)
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+soe.plot(SOE.data.2018, "Time","larval species count spring", stacked = "C",
+         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 1, status=F)
+soe.plot(SOE.data.2018, "Time","larval species count fall", stacked = "D",
+         endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 1, status=F)
+soe.stacked.axis('Year', expression('Species Present, n'), outer = T)
 
 ```
 
@@ -1338,12 +1357,11 @@ soe.stacked.axis("Time",expression(paste("Mean SST (",degree,"C)")), outer = F)
 
 ```
 
-## 2017 and mean long-term SST
-```{r mean_sst_MAB,  echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4,  fig.align = 'center'}
-opar <- par(mar = c(4, 6, 2, 6))
-sst_fields <- finder(SOE.data.2018, "sst")
-mab_fields <- sst_fields[grepl("MAB",sst_fields)]
+### SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon)
 
+```{r SST_PPD_CHL, echo = F, out.width=c('6.5cm','6.5cm','6.5cm'), out.height=c('7cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
+
+## SST
 doy <- as.numeric(SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 MAB",]$Time)
 val_2017 <- SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 MAB",]$Value
 val_LT <- SOE.data.2018[SOE.data.2018$Var == "sst mean long term MAB",]$Value
@@ -1409,7 +1427,7 @@ axis(1,  labels = c("Jan","Mar","May","July","Sep","Nov","Jan"),
      at = c(1,61,122,183,245,306,365), cex.axis= 1.25)
 mtext(2, line = 2.5, text = expression(paste("Mean SST (",degree,"C)")), cex = 1.5)
 mtext(1, line = 2.5, text = "Time", cex = 1.5)
-
+text(15,26.5*.95,"A",cex = 1.5)
 # +/- 1 sd
 polygon(c(doy, rev(doy)),
         c(upper, rev(lower)),
@@ -1432,6 +1450,172 @@ points(doy,val_LT, type = "l", lwd = .25, "grey90")
 points(doy,val_2017, type = "l", lwd = .5, "black")
 
 
+
+## primary production
+doy <- seq(1,52,1)
+ppd_val_2017 <- SOE.data.2018[SOE.data.2018$Var == "geometric mean ppd 2017 MAB",]$Value
+ppd_val_LT <- SOE.data.2018[SOE.data.2018$Var == "geometric mean ppd long term MAB",]$Value
+ppd_val_LT_sd <- SOE.data.2018[SOE.data.2018$Var == "sd ppd long term MAB",]$Value
+
+above_mean <- NULL
+for (i in 1:length(ppd_val_2017)){
+  if (ppd_val_2017[i] >= ppd_val_LT[i]){
+    above_mean[i] <- ppd_val_2017[i]
+  } else if (ppd_val_2017[i] < ppd_val_LT [i]){
+    above_mean[i] <- NA
+  }
+}
+
+below_mean <- NULL
+for (i in 1:length(ppd_val_2017)){
+  if (ppd_val_2017[i] <= ppd_val_LT[i]){
+    below_mean[i] <- ppd_val_2017[i]
+  } else if (ppd_val_2017[i] > ppd_val_LT [i]){
+    below_mean[i] <- NA
+  }
+}
+
+above_sd <- NULL
+for (i in 1:length(ppd_val_2017)){
+  if (ppd_val_2017[i] >= ppd_val_LT_sd[i] + ppd_val_LT[i]){
+    above_sd[i] <- ppd_val_2017[i]
+  } else if (ppd_val_2017[i] < ppd_val_LT_sd [i] + ppd_val_LT[i]){
+    above_sd[i] <- NA
+  }
+}
+
+below_sd <- NULL
+for (i in 1:length(ppd_val_2017)){
+  if (ppd_val_2017[i] <= ppd_val_LT[i] - ppd_val_LT_sd[i]){
+    below_sd[i] <- ppd_val_2017[i]
+  } else if (ppd_val_2017[i] > ppd_val_LT[i] - ppd_val_LT_sd [i]){
+    below_sd[i] <- NA
+  }
+}
+
+
+#Lines for polygons
+above_sd[is.na(above_sd)] <- ppd_val_LT_sd[which(is.na(above_sd))] + ppd_val_LT[which(is.na(above_sd))]
+below_sd[is.na(above_sd)] <- ppd_val_LT[which(is.na(below_sd))] - ppd_val_LT_sd[which(is.na(below_sd))] 
+above_mean[is.na(above_mean)] <- ppd_val_LT[which(is.na(above_mean))]
+below_mean[is.na(below_mean)] <- ppd_val_LT[which(is.na(below_mean))]
+
+upper <- ppd_val_LT_sd + ppd_val_LT
+lower <- ppd_val_LT - ppd_val_LT_sd
+
+#Null figure
+plot(NULL, xlim = c(doy[1],doy[(length(doy))]),ylim = c(0,2.5), las = 1, 
+     ylab = "", yaxt = "n", xaxt = "n", xlab = "")
+axis(2, cex.axis = 1.25, las = 1)
+axis(1,  labels = c("Jan","Mar","May","July","Sep","Nov","Jan"), 
+     at = c(1,8,16,24,32,40,48), cex.axis= 1.25)
+mtext(2, line = 2.5, text = expression(paste("Primary Production (gC m"^-2*"d"^-1*")")), cex = 1.5)
+mtext(1, line = 2.5, text = "Time", cex = 1.5)
+text(2,2.5*.95,"B", cex = 1.5)
+# +/- 1 sd
+polygon(c(doy, rev(doy)),
+        c(upper, rev(lower)),
+        col = "grey95", border = NA)
+
+#Fills plot
+polygon(c(doy, rev(doy)),
+        c(below_mean + (ppd_val_LT-below_mean), rev(below_mean)),
+        col = "lightblue", border = NA)
+polygon(c(doy, rev(doy)),
+        c(above_mean - (above_mean-ppd_val_LT), rev(above_mean)),
+        col = "darkolivegreen1", border = NA)
+polygon(c(doy, rev(doy)),
+        c(above_sd - (above_sd-(ppd_val_LT + ppd_val_LT_sd)), rev(above_sd)),
+        col = "darkolivegreen3", border = NA)
+polygon(c(doy, rev(doy)),
+        c(below_sd + (below_sd-(ppd_val_LT - ppd_val_LT_sd)), rev(below_sd)),
+        col = "blue", border = NA)
+points(doy,ppd_val_LT, type = "l", lwd = .25, "grey90")
+points(doy,ppd_val_2017, type = "l", lwd = .5, "black")
+box(lty = 'solid', col = 'black',lwd = 1.25)
+
+## Chlorophyll a
+chl_val_2017 <- SOE.data.2018[SOE.data.2018$Var == "geometric mean chl 2017 MAB",]$Value
+chl_val_LT <- SOE.data.2018[SOE.data.2018$Var == "geometric mean chl long term MAB",]$Value
+chl_val_LT_sd <- SOE.data.2018[SOE.data.2018$Var == "sd chl long term MAB",]$Value
+
+above_mean <- NULL
+for (i in 1:length(chl_val_2017)){
+  if (chl_val_2017[i] >= chl_val_LT[i]){
+    above_mean[i] <- chl_val_2017[i]
+  } else if (chl_val_2017[i] < chl_val_LT [i]){
+    above_mean[i] <- NA
+  }
+}
+
+below_mean <- NULL
+for (i in 1:length(chl_val_2017)){
+  if (chl_val_2017[i] <= chl_val_LT[i]){
+    below_mean[i] <- chl_val_2017[i]
+  } else if (chl_val_2017[i] > chl_val_LT [i]){
+    below_mean[i] <- NA
+  }
+}
+
+above_sd <- NULL
+for (i in 1:length(chl_val_2017)){
+  if (chl_val_2017[i] >= chl_val_LT_sd[i] + chl_val_LT[i]){
+    above_sd[i] <- chl_val_2017[i]
+  } else if (chl_val_2017[i] < chl_val_LT_sd [i] + chl_val_LT[i]){
+    above_sd[i] <- NA
+  }
+}
+
+below_sd <- NULL
+for (i in 1:length(chl_val_2017)){
+  if (chl_val_2017[i] <= chl_val_LT[i] - chl_val_LT_sd[i]){
+    below_sd[i] <- chl_val_2017[i]
+  } else if (chl_val_2017[i] > chl_val_LT[i] - chl_val_LT_sd [i]){
+    below_sd[i] <- NA
+  }
+}
+
+
+#Lines for polygons
+above_sd[is.na(above_sd)] <- chl_val_LT_sd[which(is.na(above_sd))] + chl_val_LT[which(is.na(above_sd))]
+below_sd[is.na(above_sd)] <- chl_val_LT[which(is.na(below_sd))] - chl_val_LT_sd[which(is.na(below_sd))] 
+above_mean[is.na(above_mean)] <- chl_val_LT[which(is.na(above_mean))]
+below_mean[is.na(below_mean)] <- chl_val_LT[which(is.na(below_mean))]
+
+upper <- chl_val_LT_sd + chl_val_LT
+lower <- chl_val_LT - chl_val_LT_sd
+
+#Null figure
+plot(NULL, xlim = c(doy[1],doy[(length(doy))]),ylim = c(0,2), las = 1, 
+     ylab = "", yaxt = "n", xaxt = "n", xlab = "")
+axis(2, cex.axis = 1.25, las = 1)
+axis(1,  labels = c("Jan","Mar","May","July","Sep","Nov","Jan"), 
+     at = c(1,8,16,24,32,40,48), cex.axis= 1.25)
+mtext(2, line = 2.5, text = expression(paste("Chl ",alpha," mg m"^-3*"")), cex = 1.5)
+mtext(1, line = 2.5, text = "Time", cex = 1.5)
+
+# +/- 1 sd
+polygon(c(doy, rev(doy)),
+        c(upper, rev(lower)),
+        col = "grey95", border = NA)
+
+#Fills plot
+polygon(c(doy, rev(doy)),
+        c(below_mean + (chl_val_LT-below_mean), rev(below_mean)),
+        col = "lightblue", border = NA)
+polygon(c(doy, rev(doy)),
+        c(above_mean - (above_mean-chl_val_LT), rev(above_mean)),
+        col = "darkolivegreen1", border = NA)
+polygon(c(doy, rev(doy)),
+        c(above_sd - (above_sd-(chl_val_LT + chl_val_LT_sd)), rev(above_sd)),
+        col = "darkolivegreen3", border = NA)
+polygon(c(doy, rev(doy)),
+        c(below_sd + (below_sd-(chl_val_LT - chl_val_LT_sd)), rev(below_sd)),
+        col = "blue", border = NA)
+points(doy,chl_val_LT, type = "l", lwd = .25, "grey90")
+points(doy,chl_val_2017, type = "l", lwd = .5, "black")
+box(lty = 'solid', col = 'black',lwd = 1.25)
+text(2,2*.95,"C", cex = 1.5)
 ```
 
 ## Sea surface temperature maps
@@ -1447,29 +1631,24 @@ knitr::include_graphics(file.path(image.dir, 'Summer_2017_SST_Anomaly.png'))
 knitr::include_graphics(file.path(image.dir, 'Fall_2017_SST_Anomaly.png'))
 ```
 
-## Primary production
 
-Kim's figures and text here
 
 ## Zooplankton (MAB)
 
-```{r, MAB zooplankton, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=8, fig.height=6, fig.align='center'}
-opar<-par(mar=c(5,6,4,1))
+```{r, MAB zooplankton, echo = F, warning = F, include = T, fig.width=7, fig.height=9, fig.align='center', warning=F}
+opar<-par(mar=c(1,1,1,4),mfrow = c(2,1))
 
-prim_prod <- finder(SOE.data.2018, "Primary")
-copepod_anom <- finder(SOE.data.2018, "copepod")
-
-mab_prim_prod <- prim_prod[3]
-mab_copepod_anom <- copepod_anom[3]
+mab_prim_prod <- finder(SOE.data.2018, "Primary Production ratio anomaly MAB")
+mab_copepod_anom <- finder(SOE.data.2018, "mean small-large index ALL")
 
 usr <- par("usr")
 opar <- par(mar = c(5,4.75,4,4.75))
-with(SOE.data.2018[SOE.data.2018$Var == mab_copepod_anom[1],], plot(Time, Value,
+with(SOE.data.2018[SOE.data.2018$Var == mab_copepod_anom,], plot(Time[10:39], Value[10:39],
        type = "o", col = "black", ylim = c(-1.5,1.5), pch = 16, lwd = 3,
        cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = ""))
 
 mtext(side = 2, line = 3, "Small-Lg Copepod Index", cex = 1.2)
- 
+text(1986,1.4,"A",cex = 1.75)
 par(new = T)
  
 with(SOE.data.2018[SOE.data.2018$Var ==  mab_prim_prod[1],], plot(Time, Value,
@@ -1479,13 +1658,23 @@ with(SOE.data.2018[SOE.data.2018$Var ==  mab_prim_prod[1],], plot(Time, Value,
 axis(side = 4, las = 1, cex.axis = 1.2)
 axis(side = 1, cex.axis = 1.2)
 mtext(side = 4, line = 3, "Mean Primary Production Ratio", cex = 1.2)
-mtext(side = 1, line = 3, "Time", cex = 1.2)
+mtext(side = 1, line = 3, "", cex = 1.2)
 legend("topright",
          legend = c("Copepod Index", "Prim. Prod. Ratio"), col = c("black","springgreen2"),
          bty = "n", lwd = 3)
-  
 
+soe.plot(SOE.data.2018, "Time", "Centropages typicus abundance anomaly MAB", 
+         full.trend = T, endshade = T, stacked = "B", suppressAxis = T, x.start = 1986)
+soe.stacked.axis("Time","Abundance anomaly", outer = F, rel.x.text = 1.2,
+                 rel.y.text = 1.2, y.line = 3.1)
 ```
+
+#Primary production and chlorophyll anomaly maps
+```{r 'PPD_maps_MAB' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
+knitr::include_graphics(file.path(image.dir, 'PPD_anom_MAB.png'))
+knitr::include_graphics(file.path(image.dir, 'CHL_anom_MAB.png'))
+```
+
 
 ## Groundfish condition (MAB)
 
