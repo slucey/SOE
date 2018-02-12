@@ -1,6 +1,6 @@
 ---
 title: "State of the Ecosystem - Mid-Atlantic Bight"
-author: "Ecosystem Dynamics and Assessment Branch, Northeast Fisheries Science Center"
+author: "Northeast Fisheries Science Center"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   pdf_document:
@@ -644,7 +644,6 @@ soe.plot(SOE.data.2018, "Time", "Total Landings MAB", stacked = NA,status = F,
 soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = F)
 ```
 
-
 Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
 
 ```{r rec_catch_MAB, fig.cap="Total recreational harvest  \\label{recfood}", echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
@@ -659,7 +658,6 @@ soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F)
 ## Commercial Fishery Revenue
 
 This indicator links the human activity of commercial fishing to the profits objective. This year we present the “Bennet Indicator” which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}A). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennet}B). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups. Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennet}C).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain.  
-
 
 ```{r 'Rev_Price_Vol_MAB', fig.cap="(A) Bennet indicator, (B) volume by group, and (C) price by group\\label{Bennet}", echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
@@ -718,7 +716,7 @@ A declining trend in diversity indicates reliance on either a smaller number of 
 
 The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
 
-```{r fleet diversity MAB, fig.cap="(A) Fleet diversity and (B) fleet count\\label{commdiv}"", echo=F, message=FALSE, warning=FALSE, include=T, fig.width=7, fig.height=4, fig.align = 'center'}
+```{r fleet diversity MAB, fig.cap="(A) Fleet diversity and (B) fleet count\\label{commdiv}", echo=F, message=FALSE, warning=FALSE, include=T, fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","Mid-Atlantic average fleet diversity", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007)
@@ -1074,7 +1072,7 @@ Protected species include marine mammals (under the Marine Mammal Protection Act
 ## Harbor porpoise
 Harbor porpoise bycatch has resulted in fisheries closures in the past, but current bycatch levels demonstrate that management measures have been effective, reducing this fishery interaction. The 5-year mean bycatch has been below the maximum permitted level (Potential Biological Removal, PBR) since 2011 (Fig. \ref{harbporp}), and the most recent annual bycatch estimate is one of the lowest in the time series. Increased compliance and reduced fishing effort are thought to contribute to low bycatch estimates. There should be an updated harbor porpoise abundance estimate this year. Recent analyses have examined regional harbor porpoise diet, however, the impact of ecosystem changes on bycatch, population, or distribution remain unclear.
 
-```{r harbor_porpoise, fig.cap="Harbor porpoise bycatch estimated compared with PBR \label{harbporp}", echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
+```{r harbor_porpoise, fig.cap="Harbor porpoise bycatch estimated compared with PBR \\label{harbporp}", echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 #Harbor porpoise bycatch - Dropped mean line for clarity
 soe.plot(SOE.data.2018, 'Time', "Harbor porpoise bycatch estimates",            
