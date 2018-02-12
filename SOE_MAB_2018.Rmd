@@ -2,9 +2,19 @@
 title: "State of the Ecosystem - Mid-Atlantic Bight"
 author: "Ecosystem Dynamics and Assessment Branch, Northeast Fisheries Science Center"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
-output: pdf_document
+output:
+  pdf_document:
+    includes:
+      in_header: preamble-latex.tex
+    keep_tex: yes
+    pandoc_args: --latex-engine=xelatex
+    toc: no
+  html_document:
+    toc: yes
+  word_document:
+    toc: no
+fontsize: 11pt
 geometry: margin=1cm
-always_allow_html: yes
 ---
 
 ```{r Directory and Data Set-up, echo=F, message=F, warning=FALSE, paged.print=TRUE}
@@ -12,10 +22,10 @@ always_allow_html: yes
 #image.dir <- '/home/slucey/EcoAP/SOE2017/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- "F:/SOE/SOE_data"
-image.dir <- "F:/SOE/SOE_data"
-#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+#data.dir  <- "F:/SOE/SOE_data"
+#image.dir <- "F:/SOE/SOE_data"
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 library(data.table); library(Kendall)
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
 knitr::opts_chunk$set(echo = FALSE)
@@ -383,16 +393,19 @@ finder <- function(data, match = match, factor = T){
 
 ```
 
-# Conceptual model
+#Introduction
+
+The purpose of this report is to provide ecosystem-scale information for fishery managers to consider along with existing species-scale analyses.  An overview of ecosystem relationships as represented by a conceptual model helps place more detailed species-level management in context by highlighting relationships between focal species groups organized by Mid Atlantic Fishery Management Council (MAFMC) Fishery Management Plan (FMP), managed human activities, environmental drivers, habitats, and key ecological links (Fig. \ref{conceptual}. The activities link to high level strategic management objectives (described next). Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
 
 ```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", fig.height=6, fig.width=4, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
-knitr::include_graphics(file.path(image.dir, 'MAB_5.png'))
+knitr::include_graphics(file.path(image.dir, 'SOE_MAB_ConceptMod.png'))
 
 ```
 
-\clearpage
+<!--\clearpage-->
+# Executive Summary
 
-# Objectives
+We have organized this report using a proposed set of ecosystem-scale objectives derived from US legislation and current management practices. ***We also report single-species status relative to established objectives and reference points***.
 
 \begin{table}[ht]
  \caption{Mid-Atlantic ecosystem objectives}
@@ -414,32 +427,7 @@ knitr::include_graphics(file.path(image.dir, 'MAB_5.png'))
 \end{tabular}
 \end{table}
 
-# Species Groupings 
-
-\begin{table}[ht]
- \caption{Mid-Atlantic Bight Feeding Guilds}
-\centering
-\newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
-\begin{tabular}{lp{2.75in}cp{2.5in}}
-  \hline
- & Feeding group & N species & Major species in group \\ 
-  \hline
-\splat & \textbf{A: Apex Predator} (Highest trophic level) & 4 & shark (Unc.), swordfish, yellowfin and bluefin tuna \\   
-  
-\splat & \textbf{B: Piscivore} (Eat fish) & 23 & spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder \\   
-
-\splat & \textbf{C: Benthivore} (Eat bottom dwellers) & 25 & black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail, winter, and witch flounders, barndoor skate, American plaice, other crabs \\ 
-
-\splat & \textbf{D: Planktivore} (Eat plankton) & 16 & Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid \\ 
-
-\splat & \textbf{E: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-\clearpage
-
-# Executive Summary
+The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for 11 of 14 stocks and biomass (B) levels for 13 of 14 stocks relative to established reference points (Fig. \ref{KOBE}. The exceptions include high F rates for summer flounder, likely high F rates for Atlantic mackerel and blueline tilefish, and likely low B status for Atlantic mackerel. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
 
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -537,6 +525,51 @@ plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 
 ```
 
+Performance against human dimensions objectives is mixed, with declines in seafood production and recreational opportunities but stabilization of fleet numbers and revenue diversity.  Revenue has seen substantial interannual variability in recent years, driven primarily by increases in prices of benthos (i.e. scallops & clams). Total volume of landings have decreased since at least 2010, with seafood production by both commercial and recreational fisheries declining overall. This corresponds to a stark decrease in recreational fishing effort and participation since 2008, although the number of commercial fleets, and the diversity of revenue generated from those fleets, have been relatively stable in the last few years. The diversity of species revenue, measured at the individual permit level, has also been relatively stable over the past 10 years. However, many communities in the Mid-Atlantic Bight (MAB) that are highly engaged and/or reliant on commercial fishing are socially vulnerable, and 5 of the 6 largest commercial fishing ports in the MAB (in terms of revenue) are heavily dependent on benthic species which are in turn highly vulnerable to climate change.
+
+Fisheries are currently meeting objectives with respect to protected species bycatch reduction, but climate and ecosystem changes may upset this balance. Fisheries interactions with harbor porpoise have decreased due to management measures, but climate driven distribution changes for sea turtles may lead to future fishery interactions and potential regulations. In addition, the most endangered species in the system (North Atlantic right whale) may be declining over the most recent few years after a slow but steady increase. Ecosystem conditions combined with changing distributions may be contributing to the decline and observed unusual mortality event for right whales in 2017.
+
+Biomass of resource species changes seasonally in this dynamic system.  Survey biomass trends for aggregated trophic groups of resource species differ in the fall and spring. Larval survey data indicates species diversity has increased in the spring, but no similar shift has been witnessed in the fall. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in both seasons. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled. Seasonally divergent aggregate trends require further investigation.
+
+Additional indicators in this report suggest a note of caution for the aggregate productivity of fish species in the region (fish condition declined and recovered for some species while survey based aggregate “recruitment” has declined overall). These changes in fish productivity may be linked to observed patterns in plankton communities, to changes in habitat, or both.  While there are some long-term productivity trends at the bottom of the food web in the Mid Atlantic, changes in species composition and shifts in seasonal timing may have a greater impact on upper trophic levels. Temperature is increasing in long term sea surface records as well as surface and bottom measurements from surveys. The seasonal temperature signal also shows sustained warming. Warming waters have impacts on the ecosystem that can be complex due to differential impacts at the species level, including observed shifts in species distribution and changes in productivity as thermal habitats shift. 
+
+#Changes for 2018
+
+Indicators throughout the report have been updated with the most recent data, and in some cases replaced with more management-relevant indicators based on Council feedback from the 2017 report. In particular, new sections on species-specific habitat status and trends and climate projections of thermal habitat for key species have replaced last year’s more general physical environment and climate sections. This report draws on a wider range of expertise and attempts to further link information across indicators to give an integrated overview of ecosystem status relevant to fishery management decision making.
+
+Many metrics aggregate species by similar functional groups.  Species that comprise the functional groups are listed below. Relative to the 2017 report, these categories have been aggregated into fewer groups for simplification and clarity.
+
+\begin{table}[ht]
+ \caption{Mid-Atlantic Bight Feeding Guilds}
+\centering
+\newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
+\begin{tabular}{lp{2.75in}cp{2.5in}}
+  \hline
+ & Feeding group & N species & Major species in group \\ 
+  \hline
+\splat & \textbf{A: Apex Predator} (Highest trophic level) & 4 & shark (Unc.), swordfish, yellowfin and bluefin tuna \\   
+  
+\splat & \textbf{B: Piscivore} (Eat fish) & 23 & spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder \\   
+
+\splat & \textbf{C: Benthivore} (Eat bottom dwellers) & 25 & black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail, winter, and witch flounders, barndoor skate, American plaice, other crabs \\ 
+
+\splat & \textbf{D: Planktivore} (Eat plankton) & 16 & Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid \\ 
+
+\splat & \textbf{E: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+Our assessment of indicator trends has changed this year.  In the 2017 time series plots, monotonic (but not necessarily linear) trends were assessed for both the full time series and the most recent 10 years (shaded dark grey background). Recent simulation analysis suggest that statistical significance tests are unreliable for short time series, but reliable for longer ones. Therefore, similar to 2017, we indicate significant increasing long term trends with orange lines, while significant decreasing long term trends have purple lines.  However, we no longer indicate significant trends for the most recent period but rather discuss recent/current status and trend of each indicator relative to the full time series.  Time series mean is indicated with a dashed line and the final ten years of the time series are highlighted through a grey background. 
+
+# Human Dimensions 
+
+## Seafood production 
+
+Seafood production is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Both commercial and recreational fishing contributes to seafood production, the latter for personal consumption, and indicators for each of these human activities track management performance against this objective. 
+
+The MAFMC only manages a portion of the total commercial landings that occur in the region.  For example, blue crabs represent a substantial portion of category D (Benthivores) landings. Therefore in 2016, MAFMC accounted for 15% of the Benthivore landings and 12% of the revenue generated from those landings. 
+
 \begin{table}[ht]
   \caption{Proportion of catch managed by MAFMC (2016)}
 \centering
@@ -553,14 +586,9 @@ plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 \end{tabular} 
 \end{table} 
 
+Figure \ref{landings} shows the removals for human consumption both at the entire EPU level as well as those removals managed by the MAFMC.  Landings for managed species are all trending up in recent years, but only Benthivore landings are above the long term-mean. There is a significant decline in MAFMC-managed landings of benthos. We note that time series at the Mid-Atlantic regional scale may not include all state landings prior to 1994. 
 
-# Human Dimensions 
-
-## Seafood production 
-
-## MAFMC seafood specific landings (red) and total commericial landings (black) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
-
-```{r seafood_landings_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center'}
+```{r seafood_landings_MAB, fig.cap="MAFMC seafood specific landings (red) and total commericial landings (black). A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos \\label{landings}",echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center'}
 
 ## Ecosystem-wide and managed species total landings
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
@@ -586,33 +614,6 @@ soe.plot(SOE.data.2018, "Time", "Benthos Landings MAB", stacked = "E",status = F
 soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
 
 ```
-<!--
-## Total commercial landings by feeding guild (A: Apex Predator, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
-
-```{r landings_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center'}
-opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
-
-soe.plot(SOE.data.2018, "Time", "Apex Predator Landings MAB", stacked = "A",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007,
-         x.start = 1986)
-soe.plot(SOE.data.2018, "Time", "Piscivore Landings MAB", stacked = "B",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007,
-         x.start = 1986)
-soe.plot(SOE.data.2018, "Time", "Planktivore Landings MAB", stacked = "C",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007,
-         x.start = 1986)
-soe.plot(SOE.data.2018, "Time", "Benthivore Landings MAB", stacked = "D",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007,
-         x.start = 1986)
-soe.plot(SOE.data.2018, "Time", "Benthos Landings MAB", stacked = "E",status =F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007,
-         x.start = 1986)
-#soe.plot(SOE.data.2018, "Time", "Total Landings MAB", stacked = "F",status  = F,
-#         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3)
-soe.stacked.axis("Time",expression("Landings 10"^3*" metric tons"), outer = T)
-
-```
--->
 
 ## Ecosystem-wide and managed species total landings
 
