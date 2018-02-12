@@ -393,9 +393,8 @@ finder <- function(data, match = match, factor = T){
 
 ```
 
-#Introduction
-
-The purpose of this report is to provide ecosystem-scale information for fishery managers to consider along with existing species-scale analyses.  An overview of ecosystem relationships as represented by a conceptual model helps place more detailed species-level management in context by highlighting relationships between focal species groups organized by Mid Atlantic Fishery Management Council (MAFMC) Fishery Management Plan (FMP), managed human activities, environmental drivers, habitats, and key ecological links (Fig. \ref{conceptual}. The activities link to high level strategic management objectives (described next). Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
+<!--#Introduction-->
+The purpose of this report is to provide ecosystem-scale information for fishery managers to consider along with existing species-scale analyses.  An overview of ecosystem relationships as represented by a conceptual model helps place more detailed species-level management in context by highlighting relationships between focal species groups organized by Mid Atlantic Fishery Management Council (MAFMC) Fishery Management Plan (FMP), managed human activities, environmental drivers, habitats, and key ecological links (Fig. \ref{conceptual}). The activities link to high level strategic management objectives. Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
 
 ```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", fig.height=6, fig.width=4, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 knitr::include_graphics(file.path(image.dir, 'SOE_MAB_ConceptMod.png'))
@@ -427,7 +426,7 @@ We have organized this report using a proposed set of ecosystem-scale objectives
 \end{tabular}
 \end{table}
 
-The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for 11 of 14 stocks and biomass (B) levels for 13 of 14 stocks relative to established reference points (Fig. \ref{KOBE}. The exceptions include high F rates for summer flounder, likely high F rates for Atlantic mackerel and blueline tilefish, and likely low B status for Atlantic mackerel. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
+The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for 11 of 14 stocks and biomass (B) levels for 13 of 14 stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for summer flounder, likely high F rates for Atlantic mackerel and blueline tilefish, and likely low B status for Atlantic mackerel. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
 
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
