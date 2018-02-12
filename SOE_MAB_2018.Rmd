@@ -22,10 +22,10 @@ geometry: margin=1cm
 #image.dir <- '/home/slucey/EcoAP/SOE2017/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- "F:/SOE/SOE_data"
-#image.dir <- "F:/SOE/SOE_data"
-data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+data.dir  <- "F:/SOE/SOE_data"
+image.dir <- "F:/SOE/SOE_data"
+#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 library(data.table); library(Kendall)
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
 knitr::opts_chunk$set(echo = FALSE)
@@ -166,7 +166,7 @@ fit_lm <- function(dat) {
 soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
                      x.start = NA, x.end = NA, end.start = 2008, bg.col = background, mean_line = T,
                      end.col = recent, stacked = NA, x.line = 2.5, y.line = 3.5, scale.axis = 1,
-                     rel.y.num = 1.5, rel.y.text = 1.5, suppressAxis = FALSE,status  = F,
+                     rel.y.num = 1.5, rel.y.text = 1.5, suppressAxis = FALSE,status  = F,anomaly = F,
                      endshade = TRUE, full.trend = TRUE, point.cex = 1.5, lwd = 2, ymax = TRUE,ymin = TRUE,
                      y.upper = y.upper, y.lower = y.lower, extra = FALSE, x.var2 = x.var2, y.var2 = y.var2,
                      line.forward = FALSE) {
@@ -218,9 +218,13 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
     abline(v = u[1], lwd=3)
   }
   
-  if (mean_line == TRUE){
-    abline(h = y.mean, col = 'grey', lwd = 3, lty = 2)
-  }
+  if (anomaly == F){
+      if (mean_line == TRUE){
+      abline(h = y.mean, col = 'grey', lwd = 3, lty = 2)
+      } 
+  } else if (anomaly == TRUE){
+      abline(h = 0, col = 'grey', lwd = 3, lty = 2)
+    }
   
   #Add data points/lines
   points(x[, list(X, Value)], pch = 16, cex = point.cex)
@@ -820,11 +824,13 @@ soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status = F,me
 soe.stacked.axis("Time","Algal Bloom Events, n", outer = F)
 ```
 
-## Community social vulnerability, engagement and dependence on commercial fisheries
+##Community social vulnerability, engagement and dependence on commercial fisheries
 
-The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing reliance and engagement, sea level rise risk, species vulnerability to climate change, and catch composition diversity. 
 
-Here, we look at the extent to which commercial fishery engagement and reliance overlap with community vulnerability in the Mid-Atlantic region. Commercial engagement is a combined measure of  total landings pounds and value, commercial permits and dealers amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. Social vulnerability indices represent social factors that can shape either an individual or community’s ability to adapt to change. There are many socially vulnerable communities in the Mid-Atlantic region, but varying degrees of engagement in and reliance on commercial fishing. Overall, communities that are both highly socially vulnerable and highly engaged or reliant on commercial fishing are found in coastal Virginia and North Carolina, with more highly reliant and moderately socially vulnerable communities in coastal New Jersey and New York (Fig.\ref{commvulmap}). Highly engaged and/or reliant fishing communities were found to be statistically more socially vulnerable which can affect a communities’ ability to respond and adapt to regulatory change and the effects of climate change. Of the 29 highly engaged and/or highly reliant communities, 24 scored moderate to high for social vulnerability.
+The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing reliance and engagement, sea level rise risk, species vulnerability to climate change, and catch composition diversity.
+
+Here, we look at the extent to which commercial and recreational fishing reliance intersect with community social vulnerability in the Mid-Atlantic region. Commercial fishing reliance is a measure of per capita pounds landed, value landed, commercial permits and commercial dealers in a community.  Recreational reliance is a per capita measure of shore, private vessel and for-hire recreational fishing in a community. Social vulnerability represents social factors that can shape either an individual or community's ability to adapt to change. There are many socially vulnerable communities in the Mid-Atlantic region, but with varying degrees of commercial and/or recreational fishing reliance. While there are some communities that are both moderate to highly socially vulnerable and moderate to highly reliant on commercial fishing  (Fig.\ref{commvulmap}) there are many more communities that are both moderate to highly vulnerable and moderate to highly reliant on recreational fishing (Fig. \ref{recvulmap}) primarily in New Jersey and New York.  
+
 
 ```{r 'commercial_reliance_and_vulnerability MAB' , fig.cap="Commercial reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
 
@@ -1073,10 +1079,11 @@ text(-73.3, 36.9, "Recreational Reliance",srt=90)
 text(-72,35.8, "Social Vulnerability")
 }
 ```
+##Climate Vulnerability of Coastal Fishing Communities
 
-## Climate Vulnerability of Coastal Fishing Communities
 
-Six key Mid-Atlantic fishing communities were evaluated for their dependence on species vulnerable to climate change and catch composition diversity (Fig \ref{sppvul}). Five of the six communities had a majority of revenue from climate-vulnerable species.
+Six key Mid-Atlantic fishing communities were evaluated for their dependence on species vulnerable to climate change and catch composition diversity (Fig 4\ref{sppvul}). Five of the six communities had a majority of revenue from species highly vulnerable to climate change.
+
 
 ```{r 'species_vulnerability_MAB' , fig.cap="Species vulnerability in Mid-Atlantic fishing communities \\label{sppvul}", echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_MAB.jpg'))
@@ -1672,21 +1679,24 @@ knitr::include_graphics(file.path(image.dir, 'CHL_anom_MAB.png'))
 ```{r, MAB zooplankton, echo = F, warning = F, include = T, fig.width=7, fig.height=9, fig.align='center', warning=F}
 opar<-par(mar=c(1,1,1,4),mfrow = c(2,1))
 
-mab_prim_prod <- finder(SOE.data.2018, "Primary Production ratio anomaly MAB")
+mab_prim_prod <- finder(SOE.data.2018, "annual ppd ratio anomaly MAB")
 mab_copepod_anom <- finder(SOE.data.2018, "Small-Large copepod Index MAB")
 
 usr <- par("usr")
 opar <- par(mar = c(5,4.75,4,4.75))
-with(SOE.data.2018[SOE.data.2018$Var == mab_copepod_anom,], plot(Time[22:39], Value[22:39],
-       type = "o", col = "black", ylim = c(-1.5,1.5), pch = 16, lwd = 3,
-       cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = ""))
+plot(NULL,ylim = c(-1.5,1.5), pch = 16, lwd = 3,xlim = c(1998,2017),
+       cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = "")
+abline(h = 0, col  = "grey", lwd = 3, lty = 2) 
+with(SOE.data.2018[SOE.data.2018$Var == mab_copepod_anom,], points(Time[22:39], Value[22:39],
+       type = "o", col = "black", ylim = c(-1.5,1.5), pch = 16, lwd = 3,las = 1))
 
 mtext(side = 2, line = 3, "Small-Lg Copepod Index", cex = 1.2)
 text(1998,1.4,"A",cex = 1.75)
 par(new = T)
- 
+
+
 with(SOE.data.2018[SOE.data.2018$Var ==  mab_prim_prod[1],], plot(Time, Value,
-       type = "o", col =  "springgreen2", ylim = c(.75,1.25), ylab = "", axes = F,log = "y",
+       type = "o", col =  "springgreen2", ylim = c(.8,1.25), ylab = "", axes = F,log = "y",
        yaxt = "n", pch = 16, lwd = 3, cex = 1.2, las = 1, xaxt = "n",xlab = ""))
   
 axis(side = 4, las = 1, cex.axis = 1.2)
@@ -1697,8 +1707,8 @@ legend("bottomright",
          legend = c("Copepod Index", "Prim. Prod. Ratio"), col = c("black","springgreen2"),
          bty = "n", lwd = 3)
 
-soe.plot(SOE.data.2018, "Time", "Centropages typicus abundance anomaly MAB", 
-         full.trend = T, endshade = T, stacked = "B", suppressAxis = T, x.start = 1998)
+soe.plot(SOE.data.2018, "Time", "Centropages typicus abundance anomaly MAB", anomaly = T,
+         full.trend = T, endshade = T, stacked = "B", suppressAxis = T, x.start = 1986)
 soe.stacked.axis("Time","Abundance anomaly", outer = F, rel.x.text = 1.2,
                  rel.y.text = 1.2, y.line = 3.1)
 ```
