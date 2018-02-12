@@ -150,7 +150,7 @@ fit_lm <- function(dat) {
 #Plot new figure - Set end.start to 10 years before end of time series
 
 soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
-                     x.start = NA, x.end = NA, end.start = 2008, bg.col = background, mean = T,
+                     x.start = NA, x.end = NA, end.start = 2008, bg.col = background, mean_line = T,
                      end.col = recent, stacked = NA, x.line = 2.5, y.line = 3.5, scale.axis = 1,
                      rel.y.num = 1.5, rel.y.text = 1.5, suppressAxis = FALSE,status  = F,
                      endshade = TRUE, full.trend = TRUE, point.cex = 1.5, lwd = 2, ymax = TRUE,ymin = TRUE,
@@ -193,23 +193,20 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   #Add background
   u <- par('usr')
   rect(u[1], u[3], u[2], u[4], border = NA, col = bg.col)
-    if (mean == TRUE){
-    abline(h = y.mean, col = 'grey', lwd = 3, lty = 2)
-  }
+
   #Add end period shading
   if (endshade == TRUE){
     rect(end.start - 0.5, u[3], u[2], u[4], border = NA, col = end.col)
     abline(h = u[3], lwd=3)
     abline(v = u[1], lwd=3)
-    abline(h = y.mean, col = 'grey', lwd = 3, lty = 2)
   } else {
     abline(h = u[3], lwd=3)
     abline(v = u[1], lwd=3)
+  }
+  
+  if (mean_line == TRUE){
     abline(h = y.mean, col = 'grey', lwd = 3, lty = 2)
   }
-    
-
-  
   
   #Add data points/lines
   points(x[, list(X, Value)], pch = 16, cex = point.cex)
@@ -819,7 +816,7 @@ legend(2006, 30000000, legend = c("New Jersey",
 ```{r hab_MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
-soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status = F,mean = F,
+soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status = F,mean_line = F,
          endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 1,end.start = 2007,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "HAB events at VDH threshold")
 soe.stacked.axis("Time","Algal Bloom Events, n", outer = F)
@@ -1277,71 +1274,71 @@ knitr::include_graphics(file.path(image.dir, 'Sea_scallop_contemp.png'))
 knitr::include_graphics(file.path(image.dir, 'Sea_scallop_20_40.png'))
 ```
 -->
-## Are species shifting in?
 
-## Rare species in observer database
+## Southern kingfish occurrences in the observer database
 
-```{r southern kingfish, echo=F, message=FALSE, warning=FALSE ,fig.align='center'}
+```{r southern kingfish, echo=F, message=FALSE, warning=FALSE ,fig.align='center', fig.height=7, fig.width=6}
 PKG <-c("dplyr","ncdf4","rgdal","tmap","raster","tmaptools",
-        "maptools","mapdata","maps","colorRamps","fields")
+        "maptools","mapdata","maps","colorRamps","fields","RColorBrewer")
 
 for (p in PKG) {
- if(!require(p,character.only = TRUE)) {
-   install.packages(p)
-   library(p)  }
+  if(!require(p,character.only = TRUE)) {
+    install.packages(p)
+    library(p)  }
 }
 
 sk.dat <- SOE.data.2018[grepl("Lat",SOE.data.2018$Units) & grepl("Southern Kingfish",SOE.data.2018$Var),]
-decimalLongitude <- sk.dat[as.numeric(sk.dat$Value) < 0,]$Value
-decimalLatitude <- sk.dat[as.numeric(sk.dat$Value) > 0,]$Value
+lon <- sk.dat[as.numeric(sk.dat$Value) < 0,]$Value
+lat <- sk.dat[as.numeric(sk.dat$Value) > 0,]$Value
 
-sk.dat <- data.frame(decimalLongitude = decimalLongitude,
-                     decimalLatitude = decimalLatitude,
-                     Year = sk.dat$Time)
-sk.dat <- arrange(sk.dat, Year)
+#create data.frame
+df <- data.frame(year = sk.dat$Time,
+                 lon = lon,
+                 lat = lat)
+
+#set color palette
+colors1 <- adjustcolor(matlab.like2(8),.5)
+colors2 <- adjustcolor(matlab.like2(8),.5)
+colors3 <- adjustcolor(matlab.like2(8),.5)
+colors4 <- adjustcolor(matlab.like2(8),1)
+colors <- c(colors1[1:2], colors2[3:4], colors3[5:6],colors4[7:8])
+
+#map values to colors
+df <- df %>% arrange(year) %>% mutate(colors = plyr::mapvalues(year, from = c("2010","2011","2012","2013",
+                                                                              "2014","2015","2016","2017"),
+                                                               to = c(colors)))
+colors <- df$colors
+
+
+#projection
 map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
-                +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
+               +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
+
+#get USA map data
 usa<-getData('GADM', country="USA", level=0)
 
-bbox <- matrix(data = c(-77,35,-70,40),ncol = 2)
-colo <- matlab.like2(8)
-coordinates(sk.dat) <- ~decimalLongitude+decimalLatitude
-sk.dat@proj4string <- map.crs
-sk.dat1 <- spTransform(sk.dat, map.crs)
+#data.frame to sp object
+coordinates(df) <- ~lon+lat
+df@proj4string <- map.crs
+df <- spTransform(df, map.crs)
 
-tm_shape(usa, bbox = bbox, projection = map.crs)+
-  tm_borders(col = "grey", lwd = 1) +
-  tm_fill(palette = "grey") +
-  tm_grid(x = c(-77,-75,-73,-71),
-          y = c(39,37,35),
-          labels.inside.frame = F,
-          labels.size = 1.1,
-          col = "grey") +
-  tm_layout(outer.margins = c(.1,.03,.1,.1),
-            outer.bg.color = "white")+
-  tm_shape(sk.dat1,axes = T) +
-  tm_dots("Year", palette = colo,size = 1,
-          auto.palette.mapping=FALSE,
-          alpha=.7,style = "cat") + 
-  tm_layout(title = "",
-            legend.show = T,
-            legend.position = c("right","bottom"),
-            legend.bg.color = "grey90",
-            legend.height = 4,
-            legend.text.size = 1,
-            legend.title.size = 1) 
+#plot
+par(fig = c(0,1,0,1))
+plot(usa, xlim = c(-76,-73), ylim = c(35,40.5),col = "grey")
+plot(df, pch = 16, col = colors, add = T, cex = 2.5)
 
-   
+
+occur <- SOE.data.2018[SOE.data.2018$Var == "Southern Kingfish observer sightings",]$Value
+time <- SOE.data.2018[SOE.data.2018$Var == "Southern Kingfish observer sightings",]$Time
+
+ts <- zoo(occur,time)
+par(fig = c(0.5,1, 0.1, .5), new = T, bty = "l",mar = c(5,6,3,1)) 
+barplot(occur,time, col = matlab.like2(8), xlab = c("Time"),ylab = "S. Kingfish Occurrence, n",
+        cex.lab = 1, las = 1, cex.axis = 1.1)
+axis(1,at = seq(1250,18500,length.out = 8),labels = c("2010","2011","2012","2013",
+                                            "2014","2015","2016","2017"), cex.axis=1)
 
 ```
-
-```{r southern kingfish time series,  echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4, fig.align = 'center'}
-opar <- par(mar = c(4, 6, 2, 6))
-soe.plot(SOE.data.2018,"Time","Southern Kingfish observer sightings", 
-         full.trend = F, endshade = F)
-soe.stacked.axis("Time","Southern Kingfish Occurrence, n", outer = F)
-```
-
 
 # Ecosystem Conditions and Productivity
 
