@@ -218,6 +218,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
     x2 <- x2[order(x2[, get(x.var2)]), ]
     setnames(x2, x.var2, 'X2')
     x2 <- x2[X2 >= x.start, ]
+    abline(h = mean(x2[, Value]), col = 'lightcoral', lwd = 3, lty = 2)
     points(x2[, list(X2, Value)], pch = 16, cex = point.cex, col = "indianred")
     lines( x2[, list(X2, Value)], lwd = lwd, col = "indianred")
     }
