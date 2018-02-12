@@ -29,6 +29,10 @@ image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 library(data.table); library(Kendall)
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
 knitr::opts_chunk$set(echo = FALSE)
+
+#The map_figs option can be set to FALSE to skip making maps on the fly (they will be missing). Or TRUE to make them. 
+map_figs <- FALSE
+
 ```
 
 
@@ -393,18 +397,19 @@ finder <- function(data, match = match, factor = T){
 
 ```
 
-<!--#Introduction-->
-The purpose of this report is to provide ecosystem-scale information for fishery managers to consider along with existing species-scale analyses.  An overview of ecosystem relationships as represented by a conceptual model helps place more detailed species-level management in context by highlighting relationships between focal species groups organized by Mid Atlantic Fishery Management Council (MAFMC) Fishery Management Plan (FMP), managed human activities, environmental drivers, habitats, and key ecological links (Fig. \ref{conceptual}). The activities link to high level strategic management objectives. Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
+#Introduction
+The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses.  An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highlighting relationships between focal species groups organized by Mid Atlantic Fishery Management Council (MAFMC) Fishery Management Plan (FMP), managed human activities, environmental drivers, habitats, and key ecological links (Fig. \ref{conceptual}). Here, human activities link to high level strategic management objectives. Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
 
-```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", fig.height=6, fig.width=4, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
+```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", fig.height=6, fig.width=4, out.width='\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 knitr::include_graphics(file.path(image.dir, 'SOE_MAB_ConceptMod.png'))
 
 ```
 
-<!--\clearpage-->
+\clearpage
+
 # Executive Summary
 
-We have organized this report using a proposed set of ecosystem-scale objectives derived from US legislation and current management practices. ***We also report single-species status relative to established objectives and reference points***.
+We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. 
 
 \begin{table}[ht]
  \caption{Mid-Atlantic ecosystem objectives}
@@ -426,7 +431,7 @@ We have organized this report using a proposed set of ecosystem-scale objectives
 \end{tabular}
 \end{table}
 
-The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for 11 of 14 stocks and biomass (B) levels for 13 of 14 stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for summer flounder, likely high F rates for Atlantic mackerel and blueline tilefish, and likely low B status for Atlantic mackerel. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
+**We also report single-species status relative to established objectives and reference points**. The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for 11 of 14 stocks and biomass (B) levels for 13 of 14 stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for summer flounder, likely high F rates for Atlantic mackerel and blueline tilefish, and likely low B status for Atlantic mackerel. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
 
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -524,13 +529,13 @@ plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 
 ```
 
-Performance against human dimensions objectives is mixed, with declines in seafood production and recreational opportunities but stabilization of fleet numbers and revenue diversity.  Revenue has seen substantial interannual variability in recent years, driven primarily by increases in prices of benthos (i.e. scallops & clams). Total volume of landings have decreased since at least 2010, with seafood production by both commercial and recreational fisheries declining overall. This corresponds to a stark decrease in recreational fishing effort and participation since 2008, although the number of commercial fleets, and the diversity of revenue generated from those fleets, have been relatively stable in the last few years. The diversity of species revenue, measured at the individual permit level, has also been relatively stable over the past 10 years. However, many communities in the Mid-Atlantic Bight (MAB) that are highly engaged and/or reliant on commercial fishing are socially vulnerable, and 5 of the 6 largest commercial fishing ports in the MAB (in terms of revenue) are heavily dependent on benthic species which are in turn highly vulnerable to climate change.
+**Performance against human dimensions objectives is mixed, with declines in seafood production and recreational opportunities but stabilization of fleet numbers and revenue diversity.**  Revenue has seen substantial interannual variability in recent years, driven primarily by increases in prices of benthos (i.e. scallops & clams). Total volume of landings have decreased since at least 2010, with seafood production by both commercial and recreational fisheries declining overall. This corresponds to a stark decrease in recreational fishing effort and participation since 2008, although the number of commercial fleets, and the diversity of revenue generated from those fleets, have been relatively stable in the last few years. The diversity of species revenue, measured at the individual permit level, has also been relatively stable over the past 10 years. However, many communities in the Mid-Atlantic Bight (MAB) that are highly engaged and/or reliant on commercial fishing are socially vulnerable, and **5 of the 6 largest commercial fishing ports in the MAB (in terms of revenue) are heavily dependent on benthic species which are in turn highly vulnerable to climate change.**
 
-Fisheries are currently meeting objectives with respect to protected species bycatch reduction, but climate and ecosystem changes may upset this balance. Fisheries interactions with harbor porpoise have decreased due to management measures, but climate driven distribution changes for sea turtles may lead to future fishery interactions and potential regulations. In addition, the most endangered species in the system (North Atlantic right whale) may be declining over the most recent few years after a slow but steady increase. Ecosystem conditions combined with changing distributions may be contributing to the decline and observed unusual mortality event for right whales in 2017.
+**Fisheries are currently meeting objectives with respect to protected species bycatch reduction, but climate and ecosystem changes may upset this balance.** Fisheries interactions with harbor porpoise have decreased due to management measures, but climate driven distribution changes for sea turtles may lead to future fishery interactions and potential regulations. In addition, the most endangered species in the system (North Atlantic right whale) may be declining over the most recent few years after a slow but steady increase. **Ecosystem conditions combined with changing distributions may be contributing to the decline and observed unusual mortality event for right whales in 2017.**
 
-Biomass of resource species changes seasonally in this dynamic system.  Survey biomass trends for aggregated trophic groups of resource species differ in the fall and spring. Larval survey data indicates species diversity has increased in the spring, but no similar shift has been witnessed in the fall. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in both seasons. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled. Seasonally divergent aggregate trends require further investigation.
+**Biomass of resource species changes seasonally in this dynamic system.**  Survey biomass trends for aggregated trophic groups of resource species differ in the fall and spring. Larval survey data indicates species diversity has increased in the spring, but no similar shift has been witnessed in the fall. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in both seasons. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled. Seasonally divergent aggregate trends require further investigation.
 
-Additional indicators in this report suggest a note of caution for the aggregate productivity of fish species in the region (fish condition declined and recovered for some species while survey based aggregate “recruitment” has declined overall). These changes in fish productivity may be linked to observed patterns in plankton communities, to changes in habitat, or both.  While there are some long-term productivity trends at the bottom of the food web in the Mid Atlantic, changes in species composition and shifts in seasonal timing may have a greater impact on upper trophic levels. Temperature is increasing in long term sea surface records as well as surface and bottom measurements from surveys. The seasonal temperature signal also shows sustained warming. Warming waters have impacts on the ecosystem that can be complex due to differential impacts at the species level, including observed shifts in species distribution and changes in productivity as thermal habitats shift. 
+**Additional indicators in this report suggest a note of caution for the aggregate productivity of fish species in the region** (fish condition declined and recovered for some species while survey based aggregate “recruitment” has declined overall). These changes in fish productivity may be linked to observed patterns in plankton communities, to changes in habitat, or both.  While there are some long-term productivity trends at the bottom of the food web in the Mid Atlantic, changes in species composition and shifts in seasonal timing may have a greater impact on upper trophic levels. Temperature is increasing in long term sea surface records as well as surface and bottom measurements from surveys. The seasonal temperature signal also shows sustained warming. **Warming waters have impacts on the ecosystem that can be complex due to differential impacts at the species level, including observed shifts in species distribution and changes in productivity as thermal habitats shift.** 
 
 #Changes for 2018
 
@@ -587,7 +592,7 @@ The MAFMC only manages a portion of the total commercial landings that occur in 
 
 Figure \ref{landings} shows the removals for human consumption both at the entire EPU level as well as those removals managed by the MAFMC.  Landings for managed species are all trending up in recent years, but only Benthivore landings are above the long term-mean. There is a significant decline in MAFMC-managed landings of benthos. We note that time series at the Mid-Atlantic regional scale may not include all state landings prior to 1994. 
 
-```{r seafood_landings_MAB, fig.cap="MAFMC seafood specific landings (red) and total commericial landings (black). A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos \\label{landings}",echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center'}
+```{r seafood_landings_MAB, fig.cap="MAFMC seafood specific landings (red) and total commericial landings (black). A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos \\label{landings}",echo = F, warning = F, include = T,out.width='1\\linewidth', fig.height=5.5, fig.align='center'}
 
 ## Ecosystem-wide and managed species total landings
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
@@ -616,7 +621,7 @@ soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
 
 Total commercial seafood landings from all species and from MAFMC managed species indicate total seafood production. Years prior to 1977 included foreign landings, so we begin the time series in 1986. Recent landings are all domestic fisheries. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
 
-```{r managed_landings ,  echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4, fig.align = 'center'}
+```{r managed_landings ,  echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=2.5, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 # managed_land <- SOE.data.2018 %>% filter(Var == "Total managed landings MAB",Time >= 1986)
 # total_land <-  SOE.data.2018 %>% filter(Var == "Total Landings MAB",Time >= 1986)
@@ -645,7 +650,7 @@ soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = F)
 
 Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
 
-```{r rec_catch_MAB, fig.cap="Total recreational harvest  \\label{recfood}", echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
+```{r rec_catch_MAB, fig.cap="Total recreational harvest  \\label{recfood}", echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=2.5, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Recreational Seafood MA", stacked = NA, status = F, full.trend = T,
@@ -656,26 +661,34 @@ soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F)
 
 ## Commercial Fishery Revenue
 
-This indicator links the human activity of commercial fishing to the profits objective. This year we present the “Bennet Indicator” which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}A). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennet}B). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups. Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennet}C).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain.  
+This indicator links the human activity of commercial fishing to the profits objective. This year we present the “Bennet Indicator” which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennetspp}A). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups. Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennetspp}B).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain.  
 
-```{r 'Rev_Price_Vol_MAB', fig.cap="(A) Bennet indicator, (B) volume by group, and (C) price by group\\label{Bennet}", echo = F, out.width = "450pt", fig.align='center'}
+```{r 'Rev_Price_Vol_MAB', fig.cap="Bennet indicator, all species aggregated \\label{Bennet}", echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
 
 ```
 
-```{r 'price_ind_MAB' , echo = F, out.width = "450pt", fig.align='center'}
+```{r 'price_ind_MAB' , echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'price_ind_MAB.png'))
+knitr::include_graphics(file.path(image.dir, 'vol_ind_MAB.png'))
 ```
 
+```{r, fig.cap="Bennet indicator, (A) price component and (B) volume component by functional group\\label{Bennetspp}", fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
+
+```
+<!--
 ```{r 'vol_ind_MAB' , echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'vol_ind_MAB.png'))
 ```
 \newpage
+-->
 
 ## Ecosystem-wide and managed species total revenue
 Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the region over the last 5 years. 
 
-```{r managed_revenue , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}", echo = F, message=F, include=T, warning=F , fig.width=7, fig.height=4, fig.align = 'center'}
+```{r managed_revenue , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}", echo = F, message=F, include=T, warning=F , fig.width=7, fig.height=2.5, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 
@@ -687,7 +700,7 @@ soe.stacked.axis("Time",expression("Revenue, 10"^6*'USD'), outer = F)
 ```
 
 
-```{r prop_table,echo = F, results = 'asis', fig.width=5, eval=F, fig.align = 'center'}
+```{r prop_table,echo = F, results = 'asis', message=FALSE, header=FALSE, fig.width=5,  fig.align = 'center'}
 library(stargazer)
 landings <- SOE.data.2018[grepl("Landings MAB 2016 prop", SOE.data.2018$Var),]$Value[1:5]
 joint_landings <- SOE.data.2018[grepl("Landings MAB 2016 prop", SOE.data.2018$Var),]$Value[6:10]
@@ -715,7 +728,7 @@ A declining trend in diversity indicates reliance on either a smaller number of 
 
 The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
 
-```{r fleet diversity MAB, fig.cap="(A) Fleet diversity and (B) fleet count\\label{commdiv}", echo=F, message=FALSE, warning=FALSE, include=T, fig.width=7, fig.height=4, fig.align = 'center'}
+```{r fleet diversity MAB, fig.cap="(A) Fleet diversity and (B) fleet count\\label{commdiv}", echo=F, message=FALSE, warning=FALSE, include=T, fig.height=3, fig.align = 'center'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","Mid-Atlantic average fleet diversity", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007)
@@ -728,7 +741,7 @@ Another diversity index is the average effective Shannon index for species reven
 
 <!--This trend contrasts with the species diversity trends from survey data presented below, which indicate relatively low diversity during the mid1990’s and higher diversity now (with a significantly increasing recent trend in the spring survey data). Ultimately diversity can be measured in numerous ways (for example, in numbers of vessels in each fleet component as opposed to revenue) and feedback from the Council as to how this should be defined is welcomed.--> 
 
-```{r revenue diversity MAB, fig.cap="Diversity in species revenue\\label{revdiv}", echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
+```{r revenue diversity MAB, fig.cap="Diversity in species revenue\\label{revdiv}", echo = F, message=F, include=T, warning=F,  fig.height=2.5, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, 'Time', "Mid-Atlantic commercial species diversity",stacked = NA, 
          endshade = T, full.trend = F, status = F,end.start = 2007)
@@ -739,7 +752,7 @@ soe.stacked.axis("Year","Shannon Index", outer = F)
 
 Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
 
-```{r recreation MAB, fig.cap="(A) Number of anglers and (B) number of trips", echo=F, message=FALSE, warning=FALSE, include=T, fig.width=8, fig.height=6, fig.align = 'center'}
+```{r recreation MAB, fig.cap="(A) Number of anglers and (B) number of trips", echo=F, message=FALSE, warning=FALSE, include=T,  fig.height=3.5, fig.align = 'center'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","Mid-Atlantic Rec participation", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6, status = F,end.start = 2007)
@@ -752,7 +765,7 @@ soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'))
 
 Aquaculture indicators address both seafood production and possibly habitat objectives in that planted bivalves such as oysters provide both habitat structure and contribute locally to improved water quality at high densities. Individual states collect and report aquaculture data by surveying commercial farmers, and at this time, data in the Mid-Atlantic are available for Virginia, Maryland, and New Jersey. From the reported data, Virginia is the largest producer of oysters, although oyster aquaculture is increasing overall throughout the Mid-Atlantic. Hard-clam production data from Virginia show no changes in overall trend. 
 
-```{r, mariculture MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
+```{r, mariculture MAB, echo = F, warning = F, include = T, fig.height=2.5, fig.align='center'}
 library(RColorBrewer)
 topo <- c('black', "indianred", "darkorange")
 
@@ -798,7 +811,7 @@ Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic regi
 
 Blooms of C. polykrikoides and Auerococcus anophagefferens (responsible for “brown tides”) occur regularly in the Long Island Sound region, with the most extensive and longest-lasting brown tide event ever recorded occurring in 2017. Long Island also has annual blooms of Alexandrium catenella, which has become more prevalent over the last few decades, though it was known to exist in the region more than 40 years ago. Blooms of toxic Dinophysis species have also been recorded in Long Island for the first time in recent years, though there have not been any official closures by state regulators.
 
-```{r hab_MAB, fig.cap="Occurrence of algal blooms in Chesapeake Bay at cell concentrations greater than the NOAA threshold for consideration as a bloom event (black), and occurrence of blooms at concentrations warranting action by the Virginia Department of Health (red)", echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
+```{r hab_MAB, fig.cap="Occurrence of algal blooms in Chesapeake Bay at cell concentrations greater than the NOAA threshold for consideration as a bloom event (black), and occurrence of blooms at concentrations warranting action by the Virginia Department of Health (red)", echo = F, warning = F, include = T,fig.width=7, fig.height=2.5, fig.align='center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status = F,mean_line = F,
@@ -814,6 +827,8 @@ The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statist
 Here, we look at the extent to which commercial fishery engagement and reliance overlap with community vulnerability in the Mid-Atlantic region. Commercial engagement is a combined measure of  total landings pounds and value, commercial permits and dealers amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. Social vulnerability indices represent social factors that can shape either an individual or community’s ability to adapt to change. There are many socially vulnerable communities in the Mid-Atlantic region, but varying degrees of engagement in and reliance on commercial fishing. Overall, communities that are both highly socially vulnerable and highly engaged or reliant on commercial fishing are found in coastal Virginia and North Carolina, with more highly reliant and moderately socially vulnerable communities in coastal New Jersey and New York (Fig.\ref{commvulmap}). Highly engaged and/or reliant fishing communities were found to be statistically more socially vulnerable which can affect a communities’ ability to respond and adapt to regulatory change and the effects of climate change. Of the 29 highly engaged and/or highly reliant communities, 24 scored moderate to high for social vulnerability.
 
 ```{r 'commercial_reliance_and_vulnerability MAB' , fig.cap="Commercial reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
+
+if(map_figs){
 library(maps);library(mapdata);library(raster)
 library(grid);library(colorRamps);library(stringr)
 
@@ -933,11 +948,13 @@ plot(r, col = base_col, legend = F, bty = "n", axes = F, yaxt = "n", frame.plot 
 #text
 text(-73.3, 36.9, "Commercial Reliance",srt=90)
 text(-72,35.8, "Social Vulnerability")
+}
 ```
 
 ## Recreational reliance and social vulnerability (MAB)
 ```{r 'community_reliance_and_social_vulnerability MAB' , fig.cap="Recreational reliance and social vulnerability (MAB) \\label{recvulmap}", echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
 
+if(map_figs){
 cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
 cat2 <- SOE.data.2018[SOE.data.2018$Var == "recreational reliance MAB",]$Value
 
@@ -1054,6 +1071,7 @@ plot(r, col = base_col, legend = F, bty = "n", axes = F, yaxt = "n", frame.plot 
 #text
 text(-73.3, 36.9, "Recreational Reliance",srt=90)
 text(-72,35.8, "Social Vulnerability")
+}
 ```
 
 ## Climate Vulnerability of Coastal Fishing Communities
@@ -1124,7 +1142,7 @@ Patterns for groups of species that feed on similar prey can indicate how overal
 
 Biomass across trophic levels shows different trends between the fall and spring NEFSC trawl surveys, with no groups having similar significant trends across seasons. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in fall, but not a significant trend in spring. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled, decreasing in fall and increasing in spring. 
 
-```{r fall_survey_MAB, fig.cap="Fall Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)", echo = F, warning = F, include = T,out.width='1\\linewidth',fig.width = 6,fig.height=7.5, fig.align='center'}
+```{r fall_survey_MAB, fig.cap="Fall Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)", out.width=c('9.5cm','9.5cm'), out.height=c('14cm','14cm'), fig.show='hold',fig.ncol = 2, echo = F, warning = F, include = T}
 
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
@@ -1139,12 +1157,6 @@ soe.plot(SOE.data.2018, "Time", "Benthos Fall Biomass Index MAB", stacked = "D",
 #soe.plot(SOE.data.2018, "Time", "Total Fall Biomass MAB", stacked = "E",status  = F,
 #         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1)
 soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
-```
-
-Seasonally divergent aggregate biomass trends require further investigation. They could indicate the trends of different fish communities with seasonal differences that are the result of regular seasonal migrations, or they could indicate movement of new species into/out of the region on a seasonal basis, or both. These trends across trophic levels point to the potentially complex and dynamic trophic structure of the Mid-Atlantic ecosystem.
-
-
-```{r Spring_survey_MAB, fig.cap="Spring Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)", echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center'}
 
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
@@ -1159,7 +1171,28 @@ soe.plot(SOE.data.2018, "Time", "Benthos Spring Biomass Index MAB", stacked = "D
 #soe.plot(SOE.data.2018, "Time", "Total Spring Biomass MAB", stacked = "E",status  = F,
 #         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1)
 soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
+
 ```
+
+Seasonally divergent aggregate biomass trends require further investigation. They could indicate the trends of different fish communities with seasonal differences that are the result of regular seasonal migrations, or they could indicate movement of new species into/out of the region on a seasonal basis, or both. These trends across trophic levels point to the potentially complex and dynamic trophic structure of the Mid-Atlantic ecosystem.
+
+
+<!-- ```{r Spring_survey_MAB, fig.cap="Spring Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)", echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center'} -->
+
+<!-- opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6)) -->
+
+<!-- soe.plot(SOE.data.2018, "Time", "Piscivore Spring Biomass Index MAB", stacked = "A",status  = F, -->
+<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1) -->
+<!-- soe.plot(SOE.data.2018, "Time", "Planktivore Spring Biomass Index MAB", stacked = "B",status  = F, -->
+<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1) -->
+<!-- soe.plot(SOE.data.2018, "Time", "Benthivore Spring Biomass Index MAB", stacked = "C",status  = F, -->
+<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1) -->
+<!-- soe.plot(SOE.data.2018, "Time", "Benthos Spring Biomass Index MAB", stacked = "D",status  = F, -->
+<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1) -->
+<!-- #soe.plot(SOE.data.2018, "Time", "Total Spring Biomass MAB", stacked = "E",status  = F, -->
+<!-- #         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1) -->
+<!-- soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T) -->
+<!-- ``` -->
 
 ## Species composition
 
@@ -1271,6 +1304,7 @@ A full suite of the current distribution maps is available at www.nefsc.noaa.gov
 New species may be entering the Mid Atlantic ecosystem. Fishery observer records indicate that southern kingfish sightings have increased since 2014 when species validation methods were implemented, but this increasing trend has been in place since 2010. Further information from fishermen on new and uncommon species is welcome for this report. 
 
 ```{r southern kingfish, fig.cap="Southern kingfish occurrences in the observer database", echo=F, message=FALSE, warning=FALSE ,fig.align='center', fig.height=7, fig.width=6}
+if(map_figs){
 PKG <-c("rgdal","raster","maptools","mapdata",
         "maps","colorRamps","fields","RColorBrewer")
 
@@ -1330,7 +1364,7 @@ barplot(occur,time, col = matlab.like2(8), xlab = c("Time"),ylab = "S. Kingfish 
         cex.lab = 1, las = 1, cex.axis = 1.1)
 axis(1,at = seq(1250,18500,length.out = 8),labels = c("2010","2011","2012","2013",
                                             "2014","2015","2016","2017"), cex.axis=1)
-
+}
 ```
 
 # Ecosystem Conditions and Productivity
