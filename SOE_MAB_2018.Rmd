@@ -1121,11 +1121,13 @@ points(year, up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), l
 
 # Resource Species
 
+Patterns for groups of species that feed on similar prey can indicate how overall ecosystem conditions are changing, and provide context for individual species stock assessments. This information is from NEFSC bottom trawl surveys in spring and fall. We note that the Mid-Atlantic region was not sampled by the 2017 fall bottom trawl survey due to vessel repairs so the fall time series have not changed from the 2017 report. 
+
 ## Trends in Biomass
 
-## Fall Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)
+Biomass across trophic levels shows different trends between the fall and spring NEFSC trawl surveys, with no groups having similar significant trends across seasons. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in fall, but not a significant trend in spring. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled, decreasing in fall and increasing in spring. 
 
-```{r fall_survey_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth',fig.width = 6,fig.height=7.5, fig.align='center'}
+```{r fall_survey_MAB, fig.cap="Fall Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)", echo = F, warning = F, include = T,out.width='1\\linewidth',fig.width = 6,fig.height=7.5, fig.align='center'}
 
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
@@ -1142,10 +1144,10 @@ soe.plot(SOE.data.2018, "Time", "Benthos Fall Biomass Index MAB", stacked = "D",
 soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 ```
 
+Seasonally divergent aggregate biomass trends require further investigation. They could indicate the trends of different fish communities with seasonal differences that are the result of regular seasonal migrations, or they could indicate movement of new species into/out of the region on a seasonal basis, or both. These trends across trophic levels point to the potentially complex and dynamic trophic structure of the Mid-Atlantic ecosystem.
 
-## Spring Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)
 
-```{r Spring_survey_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center'}
+```{r Spring_survey_MAB, fig.cap="Spring Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)", echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center'}
 
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
@@ -1162,12 +1164,11 @@ soe.plot(SOE.data.2018, "Time", "Benthos Spring Biomass Index MAB", stacked = "D
 soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 ```
 
-
 ## Species composition
 
-## Ichthyoplankton Shannon diversity and species counts in the Spring (Top row) and Fall (bottom row)
+Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Diversity (here estimated using data from NOAA NEFSC Oceans and Climate branch public dataset for 45 abundant and well-identified ichthyoplankton taxa (Walsh et al. 2015))  shows a decrease for one season (spring), suggesting that survey timing may be interacting with changes in spawn timing or migration of adult fish (see above) as well as a potential change in ichthyoplankton availability due to adult fish distribution shifts (see below).  The decrease in spring ichthyoplankton diversity coincides with an increase in the spring abundance of sand lance (Ammodytes spp.) larvae, an important prey species (Richardson et al. 2014).  Walsh et al. (2015) documented a significant seasonal shift from winter to spring based on annual relative proportions from 1977-1987 to 1999-2008. 
 
-```{r larval_diversity, out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+```{r larval_diversity, fig.cap="Ichthyoplankton Shannon diversity and species counts in the Spring (Top row) and Fall (bottom row)", out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 soe.plot(SOE.data.2018, "Time","Spring_Ich_Shannon Diversity Index", stacked = "A",
@@ -1187,19 +1188,18 @@ soe.stacked.axis('Year', expression('Species Present, n'), outer = T)
 
 ## Species distribution
 
+Spatial distribution can change for a variety of different reasons resulting in distributions that have changed over time for some species more than for others. Two species of particular interest to the MAFMC are black sea bass and summer flounder.  Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions while summer flounder have expanded inshore. Recent work looking at multiple factors that are associated with a species’ prefered habitat show an increase in potential habitat for both species most notably in the spring.  Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for resource species.  Thermal habitat for individual species can then be projected using global climate models. While thermal habitat is only part of the picture, and species may adapt to new thermal regimes, these projections indicate the potential for key species to thrive or not over the coming decades where further ocean warming is expected.  Black sea bass thermal habitat is reduced in the projection while for summer flounder thermal habitat continues to expand and move further offshore in the  MAB. The projections shown here are for fall only but spring projections are also available.
 
-## Historical and current distributions, thermal habitat projections
+### Black Sea Bass
 
-### Black sea bass (KDE, contemporary, 20-40 year thermal habitat projection)
-```{r black_sea_bass_MAB , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
+```{r black_sea_bass_MAB , fig.cap="Black sea bass (KDE, contemporary, 20-40 year thermal habitat projection)", echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
 knitr::include_graphics(file.path(image.dir, 'black_sea_bass_kde.png'))
 knitr::include_graphics(file.path(image.dir, 'bsb_contemp.png'))
 knitr::include_graphics(file.path(image.dir, 'bsb_20_40.png'))
 
 ```
 
-## Black sea bass habitat distribution trends (Top row: Spring, bottom row: Fall)
-```{r bsb_species_distributions_MAB, out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+```{r bsb_species_distributions_MAB, fig.cap="Black sea bass mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 
@@ -1219,15 +1219,15 @@ soe.stacked.axis("Time",expression("Mean along-shelf distance, km"), outer = T)
 
 ```
 
-### Summer flounder (KDE, contemporary, 20-40 year thermal habitat projection)
-```{r 'summer_flounder_MAB' , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
+### Summer Flounder
+
+```{r 'summer_flounder_MAB' , fig.cap="Summer flounder (KDE, contemporary, 20-40 year thermal habitat projection)",  echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
 knitr::include_graphics(file.path(image.dir, 'summer_flounder_kde.png'))
 knitr::include_graphics(file.path(image.dir, 'summer_flounder_contemp.png'))
 knitr::include_graphics(file.path(image.dir, 'summer_flounder_20_40.png'))
 ```
 
-##Summer flounder habitat distribution trends (Top row: Spring, bottom row: Fall)
-```{r sf_species_distributions_MAB, out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+```{r sf_species_distributions_MAB,fig.cap="Summer flounder mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 
@@ -1247,8 +1247,8 @@ soe.stacked.axis("Time",expression("Mean along-shelf distance, km"), outer = T)
 
 ```
 
-##Summer flounder (left) and black sea bass (right) shelf habitat (Top row: Spring, bottom row: Fall)
-```{r occupancy_MAB, out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+### Modeled shelf habitat trends 
+```{r occupancy_MAB, fig.cap="Summer flounder (left) and black sea bass (right) modeled shelf habitat trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 
@@ -1266,19 +1266,14 @@ soe.plot(SOE.data.2018, "Time", "black sea bass fall occupancy", stacked = "D",s
          endshade = T, rel.y.num = 1.1, full.trend = F, scale.axis = 10^3)
 soe.stacked.axis("Time",expression("Habitat Area, 10"^3*" km"^2*''), outer = T)
 ```
-<!--
-### Sea Scallop (KDE, contemporary, 20-40 year thermal habitat projection)
 
-```{r 'sea_scallop_MAB' , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
-knitr::include_graphics(file.path(image.dir, 'Sea_scallop_kde.png'))
-knitr::include_graphics(file.path(image.dir, 'Sea_scallop_contemp.png'))
-knitr::include_graphics(file.path(image.dir, 'Sea_scallop_20_40.png'))
-```
--->
+A full suite of the current distribution maps is available at www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html.  While the full suite of thermal habitat projections can be found at  www.nefsc.noaa.gov/ecosys/climate-change/projected-thermal-habitat/
 
-## Southern kingfish occurrences in the observer database
+### Incoming species?
 
-```{r southern kingfish, echo=F, message=FALSE, warning=FALSE ,fig.align='center', fig.height=7, fig.width=6}
+New species may be entering the Mid Atlantic ecosystem. Fishery observer records indicate that southern kingfish sightings have increased since 2014 when species validation methods were implemented, but this increasing trend has been in place since 2010. Further information from fishermen on new and uncommon species is welcome for this report. 
+
+```{r southern kingfish, fig.cap="Southern kingfish occurrences in the observer database", echo=F, message=FALSE, warning=FALSE ,fig.align='center', fig.height=7, fig.width=6}
 PKG <-c("rgdal","raster","maptools","mapdata",
         "maps","colorRamps","fields","RColorBrewer")
 
