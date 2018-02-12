@@ -615,7 +615,7 @@ soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
 
 ```
 
-## Ecosystem-wide and managed species total landings
+Total commercial seafood landings from all species and from MAFMC managed species indicate total seafood production. Years prior to 1977 included foreign landings, so we begin the time series in 1986. Recent landings are all domestic fisheries. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
 
 ```{r managed_landings ,  echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -644,20 +644,10 @@ soe.plot(SOE.data.2018, "Time", "Total Landings MAB", stacked = NA,status = F,
 soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = F)
 ```
 
-## Recreational landings (from MAB risk assessment)
 
-add to database then uncomment r plot
-<!--
-<!-- ```{r RecFood, fig.cap="A: Total recreational harvest, B: Harvest per angler  \\label{recfood}", echo = F, fig.height=3.5} -->
-<!-- opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6)) -->
-<!-- soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'Total_Harvest', rel.y.num = 0.8, stacked = 'A') -->
-<!-- soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'Harvest.per.Angler', rel.y.num = 0.8, stacked = 'B') -->
+Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
 
-<!-- soe.stacked.axis('Year', 'N Recreationally Harvested Fish',rel.y.text = 1) -->
-<!-- ``` -->
--->
-## Mid-Atlantic recreational catch
-```{r rec_catch_MAB, echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
+```{r rec_catch_MAB, fig.cap="Total recreational harvest  \\label{recfood}", echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Recreational Seafood MA", stacked = NA, status = F, full.trend = T,
@@ -666,9 +656,12 @@ soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F)
 
 ```
 
-## Bennet Indicators & Revenue
+## Commercial Fishery Revenue
 
-```{r 'Rev_Price_Vol_MAB' , echo = F, out.width = "450pt", fig.align='center'}
+This indicator links the human activity of commercial fishing to the profits objective. This year we present the “Bennet Indicator” which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}A). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennet}B). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups. Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennet}C).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain.  
+
+
+```{r 'Rev_Price_Vol_MAB', fig.cap="(A) Bennet indicator, (B) volume by group, and (C) price by group\\label{Bennet}", echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
 
 ```
@@ -682,29 +675,10 @@ knitr::include_graphics(file.path(image.dir, 'vol_ind_MAB.png'))
 ```
 \newpage
 
-<!-- ## Revenue (A: Apex Predator, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos) -->
-<!-- ```{r Revenue_MAB, echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width=5.5, fig.height=8, fig.align='center'} -->
-<!-- opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6)) -->
-
-<!-- soe.plot(SOE.data.2018, "Time", "Apex Predator Revenue MAB", stacked = "A",status = F, -->
-<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007) -->
-<!-- soe.plot(SOE.data.2018, "Time", "Piscivore Revenue MAB", stacked = "B",status = F, -->
-<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007) -->
-<!-- soe.plot(SOE.data.2018, "Time", "Planktivore Revenue MAB", stacked = "C",status = F, -->
-<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007) -->
-<!-- soe.plot(SOE.data.2018, "Time", "Benthivore Revenue MAB", stacked = "D",status = F, -->
-<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007) -->
-<!-- soe.plot(SOE.data.2018, "Time", "Benthos Revenue MAB", stacked = "E",status =F, -->
-<!--          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007) -->
-<!-- #soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", stacked = "F",status  = F, -->
-<!-- #         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3) -->
-<!-- soe.stacked.axis("Time",expression("Revenue 10"^6*" USD"), outer = T) -->
-
-<!-- ``` -->
-
 ## Ecosystem-wide and managed species total revenue
+Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the region over the last 5 years. 
 
-```{r managed_revenue , echo = F, message=F, include=T, warning=F , fig.width=7, fig.height=4, fig.align = 'center'}
+```{r managed_revenue , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}", echo = F, message=F, include=T, warning=F , fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 
@@ -736,11 +710,15 @@ names(df) <- c("Groups", "MAB Landings", "MAB Joint Landings", "MAB Revenue",
 stargazer(df, summary = F, rownames = T, title = "Proportion of catch managed by MAFMC (2016)", header = F)
 ```
 
+# Commercial Fleet Diveristy
 
+Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Diversity estimates have been developed for fleets and species landed by vessels with Mid-Atlantic permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. 
 
+A declining trend in diversity indicates reliance on either a smaller number of resources, or a less diverse pool of resources but cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem. 
 
-## Mid-Atlantic fleet diversity and fleet count 
-```{r fleet diversity MAB, echo=F, message=FALSE, warning=FALSE, include=T, fig.width=7, fig.height=4, fig.align = 'center'}
+The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
+
+```{r fleet diversity MAB, fig.cap="(A) Fleet diversity and (B) fleet count\\label{commdiv}"", echo=F, message=FALSE, warning=FALSE, include=T, fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","Mid-Atlantic average fleet diversity", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007)
@@ -749,17 +727,22 @@ soe.plot(SOE.data.2018,"Time","Mid-Atlantic fleet count", stacked = "B",
 soe.stacked.axis('Year', 'Commercial fleet diversity')
 ```
 
-## Mid-Atlantic commercial species diversity
+Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable.
 
-```{r revenue diversity MAB, echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
+<!--This trend contrasts with the species diversity trends from survey data presented below, which indicate relatively low diversity during the mid1990’s and higher diversity now (with a significantly increasing recent trend in the spring survey data). Ultimately diversity can be measured in numerous ways (for example, in numbers of vessels in each fleet component as opposed to revenue) and feedback from the Council as to how this should be defined is welcomed.--> 
+
+```{r revenue diversity MAB, fig.cap="Diversity in species revenue\\label{revdiv}", echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, 'Time', "Mid-Atlantic commercial species diversity",stacked = NA, 
          endshade = T, full.trend = F, status = F,end.start = 2007)
 soe.stacked.axis("Year","Shannon Index", outer = F)
 ```
 
-## Mid-Atlantic recreational opportunities (A: Rec participation, B: Angler trips)
-```{r recreation MAB, echo=F, message=FALSE, warning=FALSE, include=T, fig.width=8, fig.height=6, fig.align = 'center'}
+## Recreational opportunities 
+
+Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
+
+```{r recreation MAB, fig.cap="(A) Number of anglers and (B) number of trips", echo=F, message=FALSE, warning=FALSE, include=T, fig.width=8, fig.height=6, fig.align = 'center'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","Mid-Atlantic Rec participation", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6, status = F,end.start = 2007)
@@ -768,9 +751,10 @@ soe.plot(SOE.data.2018,"Time","Mid-Atlantic angler trips", stacked = "B",
 soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'))
 ```
 
-
-
 ## Mariculture
+
+Aquaculture indicators address both seafood production and possibly habitat objectives in that planted bivalves such as oysters provide both habitat structure and contribute locally to improved water quality at high densities. Individual states collect and report aquaculture data by surveying commercial farmers, and at this time, data in the Mid-Atlantic are available for Virginia, Maryland, and New Jersey. From the reported data, Virginia is the largest producer of oysters, although oyster aquaculture is increasing overall throughout the Mid-Atlantic. Hard-clam production data from Virginia show no changes in overall trend. 
+
 ```{r, mariculture MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
 library(RColorBrewer)
 topo <- c('black', "indianred", "darkorange")
@@ -811,11 +795,13 @@ legend(2006, 30000000, legend = c("New Jersey",
 
 ```
 
+## Harmful Algal Blooms
 
+Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic region is sparse. In the lower Chesapeake Bay, annual blooms of the dinoflagellate Cochlodinium polykrikoides have been observed for several decades and more recently, blooms of Alexandrium monilatum, a toxin-producing dinoflagellate common to the Gulf of Mexico, have invaded the region. Both dinoflagellate species have been associated with fish kills either directly or indirectly, the latter due to the prevalence of hypoxic waters following a bloom. Available data regarding the incidence of algal bloom events in Chesapeake Bay (both harmful and otherwise) show that there has been an increase in the number of reported bloom events within the past three years, with the most notable contributors being C. polykrikoides and A. monilatum. 
 
-## Occurrence of algal blooms in Chesapeake Bay at cell concentrations greater than the NOAA threshold for consideration as a bloom event (black), and occurrence of blooms at concentrations warranting action by the Virginia Department of Health (red)
+Blooms of C. polykrikoides and Auerococcus anophagefferens (responsible for “brown tides”) occur regularly in the Long Island Sound region, with the most extensive and longest-lasting brown tide event ever recorded occurring in 2017. Long Island also has annual blooms of Alexandrium catenella, which has become more prevalent over the last few decades, though it was known to exist in the region more than 40 years ago. Blooms of toxic Dinophysis species have also been recorded in Long Island for the first time in recent years, though there have not been any official closures by state regulators.
 
-```{r hab_MAB, echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
+```{r hab_MAB, fig.cap="Occurrence of algal blooms in Chesapeake Bay at cell concentrations greater than the NOAA threshold for consideration as a bloom event (black), and occurrence of blooms at concentrations warranting action by the Virginia Department of Health (red)", echo = F, warning = F, include = T,fig.width=7, fig.height=4.25, fig.align='center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status = F,mean_line = F,
@@ -824,10 +810,13 @@ soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status = F,me
 soe.stacked.axis("Time","Algal Bloom Events, n", outer = F)
 ```
 
+## Community social vulnerability, engagement and dependence on commercial fisheries
 
-## Commercial reliance and social vulnerability (MAB)
+The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing reliance and engagement, sea level rise risk, species vulnerability to climate change, and catch composition diversity. 
 
-```{r 'commercial_reliance_and_vulnerability MAB' , echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
+Here, we look at the extent to which commercial fishery engagement and reliance overlap with community vulnerability in the Mid-Atlantic region. Commercial engagement is a combined measure of  total landings pounds and value, commercial permits and dealers amounts of fishery infrastructure and production in a community, while reliance measures these on a per capita basis. Social vulnerability indices represent social factors that can shape either an individual or community’s ability to adapt to change. There are many socially vulnerable communities in the Mid-Atlantic region, but varying degrees of engagement in and reliance on commercial fishing. Overall, communities that are both highly socially vulnerable and highly engaged or reliant on commercial fishing are found in coastal Virginia and North Carolina, with more highly reliant and moderately socially vulnerable communities in coastal New Jersey and New York (Fig.\ref{commvulmap}). Highly engaged and/or reliant fishing communities were found to be statistically more socially vulnerable which can affect a communities’ ability to respond and adapt to regulatory change and the effects of climate change. Of the 29 highly engaged and/or highly reliant communities, 24 scored moderate to high for social vulnerability.
+
+```{r 'commercial_reliance_and_vulnerability MAB' , fig.cap="Commercial reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
 library(maps);library(mapdata);library(raster)
 library(grid);library(colorRamps);library(stringr)
 
@@ -950,7 +939,7 @@ text(-72,35.8, "Social Vulnerability")
 ```
 
 ## Recreational reliance and social vulnerability (MAB)
-```{r 'community_reliance_and_social_vulnerability MAB' , echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
+```{r 'community_reliance_and_social_vulnerability MAB' , fig.cap="Recreational reliance and social vulnerability (MAB) \\label{recvulmap}", echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
 
 cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
 cat2 <- SOE.data.2018[SOE.data.2018$Var == "recreational reliance MAB",]$Value
@@ -1070,9 +1059,11 @@ text(-73.3, 36.9, "Recreational Reliance",srt=90)
 text(-72,35.8, "Social Vulnerability")
 ```
 
-## Species vulnerability (MAB)
+## Climate Vulnerability of Coastal Fishing Communities
 
-```{r 'species_vulnerability_MAB' , echo = F, out.width = "450pt", fig.align='center'}
+Six key Mid-Atlantic fishing communities were evaluated for their dependence on species vulnerable to climate change and catch composition diversity (Fig \ref{sppvul}). Five of the six communities had a majority of revenue from climate-vulnerable species.
+
+```{r 'species_vulnerability_MAB' , fig.cap="Species vulnerability in Mid-Atlantic fishing communities \\label{sppvul}", echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_MAB.jpg'))
 ```
 
@@ -1638,11 +1629,11 @@ knitr::include_graphics(file.path(image.dir, 'Fall_2017_SST_Anomaly.png'))
 opar<-par(mar=c(1,1,1,4),mfrow = c(2,1))
 
 mab_prim_prod <- finder(SOE.data.2018, "Primary Production ratio anomaly MAB")
-mab_copepod_anom <- finder(SOE.data.2018, "mean small-large index ALL")
+mab_copepod_anom <- finder(SOE.data.2018, "Small-Large copepod Index MAB")
 
 usr <- par("usr")
 opar <- par(mar = c(5,4.75,4,4.75))
-with(SOE.data.2018[SOE.data.2018$Var == mab_copepod_anom,], plot(Time[10:39], Value[10:39],
+with(SOE.data.2018[SOE.data.2018$Var == mab_copepod_anom,], plot(Time[22:39], Value[22:39],
        type = "o", col = "black", ylim = c(-1.5,1.5), pch = 16, lwd = 3,
        cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = ""))
 
