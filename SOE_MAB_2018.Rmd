@@ -1278,8 +1278,8 @@ knitr::include_graphics(file.path(image.dir, 'Sea_scallop_20_40.png'))
 ## Southern kingfish occurrences in the observer database
 
 ```{r southern kingfish, echo=F, message=FALSE, warning=FALSE ,fig.align='center', fig.height=7, fig.width=6}
-PKG <-c("dplyr","ncdf4","rgdal","tmap","raster","tmaptools",
-        "maptools","mapdata","maps","colorRamps","fields","RColorBrewer")
+PKG <-c("rgdal","raster","maptools","mapdata",
+        "maps","colorRamps","fields","RColorBrewer")
 
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {
@@ -1443,8 +1443,8 @@ polygon(c(doy, rev(doy)),
 polygon(c(doy, rev(doy)),
         c(below_sd + (below_sd-(val_LT - val_LT_sd)), rev(below_sd)),
         col = "blue", border = NA)
-points(doy,val_LT, type = "l", lwd = .25, "grey90")
-points(doy,val_2017, type = "l", lwd = .5, "black")
+points(doy,val_LT, type = "l", lwd = 1, "grey90")
+#points(doy,val_2017, type = "l", lwd = .5, "black")
 
 
 
@@ -1527,8 +1527,8 @@ polygon(c(doy, rev(doy)),
 polygon(c(doy, rev(doy)),
         c(below_sd + (below_sd-(ppd_val_LT - ppd_val_LT_sd)), rev(below_sd)),
         col = "blue", border = NA)
-points(doy,ppd_val_LT, type = "l", lwd = .25, "grey90")
-points(doy,ppd_val_2017, type = "l", lwd = .5, "black")
+points(doy,ppd_val_LT, type = "l", lwd = 1, "grey90")
+#points(doy,ppd_val_2017, type = "l", lwd = .5, "black")
 box(lty = 'solid', col = 'black',lwd = 1.25)
 
 ## Chlorophyll a
@@ -1609,8 +1609,8 @@ polygon(c(doy, rev(doy)),
 polygon(c(doy, rev(doy)),
         c(below_sd + (below_sd-(chl_val_LT - chl_val_LT_sd)), rev(below_sd)),
         col = "blue", border = NA)
-points(doy,chl_val_LT, type = "l", lwd = .25, "grey90")
-points(doy,chl_val_2017, type = "l", lwd = .5, "black")
+points(doy,chl_val_LT, type = "l", lwd = 1, "grey90")
+#points(doy,chl_val_2017, type = "l", lwd = .5, "black")
 box(lty = 'solid', col = 'black',lwd = 1.25)
 text(2,2*.95,"C", cex = 1.5)
 ```
@@ -1649,14 +1649,14 @@ text(1986,1.4,"A",cex = 1.75)
 par(new = T)
  
 with(SOE.data.2018[SOE.data.2018$Var ==  mab_prim_prod[1],], plot(Time, Value,
-       type = "o", col =  "springgreen2", ylim = c(.5,1.5), ylab = "", axes = F,
+       type = "o", col =  "springgreen2", ylim = c(.75,1.25), ylab = "", axes = F,log = "y",
        yaxt = "n", pch = 16, lwd = 3, cex = 1.2, las = 1, xaxt = "n",xlab = ""))
   
 axis(side = 4, las = 1, cex.axis = 1.2)
 axis(side = 1, cex.axis = 1.2)
 mtext(side = 4, line = 3, "Mean Primary Production Ratio", cex = 1.2)
 mtext(side = 1, line = 3, "", cex = 1.2)
-legend("topright",
+legend("bottomright",
          legend = c("Copepod Index", "Prim. Prod. Ratio"), col = c("black","springgreen2"),
          bty = "n", lwd = 3)
 
