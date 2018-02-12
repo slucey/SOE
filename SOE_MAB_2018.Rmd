@@ -22,10 +22,10 @@ geometry: margin=1cm
 #image.dir <- '/home/slucey/EcoAP/SOE2017/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- "F:/SOE/SOE_data"
-image.dir <- "F:/SOE/SOE_data"
-#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+#data.dir  <- "F:/SOE/SOE_data"
+#image.dir <- "F:/SOE/SOE_data"
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 library(data.table); library(Kendall)
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
 knitr::opts_chunk$set(echo = FALSE)
@@ -811,9 +811,9 @@ legend(2006, 30000000, legend = c("New Jersey",
 
 ## Harmful Algal Blooms
 
-Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic region is sparse. In the lower Chesapeake Bay, annual blooms of the dinoflagellate Cochlodinium polykrikoides have been observed for several decades and more recently, blooms of Alexandrium monilatum, a toxin-producing dinoflagellate common to the Gulf of Mexico, have invaded the region. Both dinoflagellate species have been associated with fish kills either directly or indirectly, the latter due to the prevalence of hypoxic waters following a bloom. Available data regarding the incidence of algal bloom events in Chesapeake Bay (both harmful and otherwise) show that there has been an increase in the number of reported bloom events within the past three years, with the most notable contributors being C. polykrikoides and A. monilatum. 
+Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic region is sparse. In the lower Chesapeake Bay, annual blooms of the dinoflagellate *Cochlodinium polykrikoides* have been observed for several decades and more recently, blooms of *Alexandrium monilatum*, a toxin-producing dinoflagellate common to the Gulf of Mexico, have invaded the region. Both dinoflagellate species have been associated with fish kills either directly or indirectly, the latter due to the prevalence of hypoxic waters following a bloom. Available data regarding the incidence of algal bloom events in Chesapeake Bay (both harmful and otherwise) show that there has been an increase in the number of reported bloom events within the past three years, with the most notable contributors being *C. polykrikoides* and *A. monilatum*. 
 
-Blooms of C. polykrikoides and Auerococcus anophagefferens (responsible for “brown tides”) occur regularly in the Long Island Sound region, with the most extensive and longest-lasting brown tide event ever recorded occurring in 2017. Long Island also has annual blooms of Alexandrium catenella, which has become more prevalent over the last few decades, though it was known to exist in the region more than 40 years ago. Blooms of toxic Dinophysis species have also been recorded in Long Island for the first time in recent years, though there have not been any official closures by state regulators.
+Blooms of *C. polykrikoides* and *Auerococcus anophagefferens* (responsible for “brown tides”) occur regularly in the Long Island Sound region, with the most extensive and longest-lasting brown tide event ever recorded occurring in 2017. Long Island also has annual blooms of *Alexandrium catenella*, which has become more prevalent over the last few decades, though it was known to exist in the region more than 40 years ago. Blooms of toxic *Dinophysis* species have also been recorded in Long Island for the first time in recent years, though there have not been any official closures by state regulators.
 
 ```{r hab_MAB, fig.cap="Occurrence of algal blooms in Chesapeake Bay at cell concentrations greater than the NOAA threshold for consideration as a bloom event (black), and occurrence of blooms at concentrations warranting action by the Virginia Department of Health (red)", echo = F, warning = F, include = T,fig.width=7, fig.height=2.5, fig.align='center'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -826,13 +826,12 @@ soe.stacked.axis("Time","Algal Bloom Events, n", outer = F)
 
 ##Community social vulnerability, engagement and dependence on commercial fisheries
 
-
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing reliance and engagement, sea level rise risk, species vulnerability to climate change, and catch composition diversity.
 
 Here, we look at the extent to which commercial and recreational fishing reliance intersect with community social vulnerability in the Mid-Atlantic region. Commercial fishing reliance is a measure of per capita pounds landed, value landed, commercial permits and commercial dealers in a community.  Recreational reliance is a per capita measure of shore, private vessel and for-hire recreational fishing in a community. Social vulnerability represents social factors that can shape either an individual or community's ability to adapt to change. There are many socially vulnerable communities in the Mid-Atlantic region, but with varying degrees of commercial and/or recreational fishing reliance. While there are some communities that are both moderate to highly socially vulnerable and moderate to highly reliant on commercial fishing  (Fig.\ref{commvulmap}) there are many more communities that are both moderate to highly vulnerable and moderate to highly reliant on recreational fishing (Fig. \ref{recvulmap}) primarily in New Jersey and New York.  
 
 
-```{r 'commercial_reliance_and_vulnerability MAB' , fig.cap="Commercial reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
+```{r 'commercial_reliance_and_vulnerability MAB' , fig.cap="Commercial reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=5, fig.align = 'center'}
 
 if(map_figs){
 library(maps);library(mapdata);library(raster)
@@ -957,8 +956,7 @@ text(-72,35.8, "Social Vulnerability")
 }
 ```
 
-## Recreational reliance and social vulnerability (MAB)
-```{r 'community_reliance_and_social_vulnerability MAB' , fig.cap="Recreational reliance and social vulnerability (MAB) \\label{recvulmap}", echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
+```{r 'community_reliance_and_social_vulnerability MAB' , fig.cap="Recreational reliance and social vulnerability (MAB) \\label{recvulmap}", echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=5, fig.align = 'center'}
 
 if(map_figs){
 cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
@@ -1079,10 +1077,10 @@ text(-73.3, 36.9, "Recreational Reliance",srt=90)
 text(-72,35.8, "Social Vulnerability")
 }
 ```
+
 ##Climate Vulnerability of Coastal Fishing Communities
 
-
-Six key Mid-Atlantic fishing communities were evaluated for their dependence on species vulnerable to climate change and catch composition diversity (Fig 4\ref{sppvul}). Five of the six communities had a majority of revenue from species highly vulnerable to climate change.
+Six key Mid-Atlantic fishing communities were evaluated for their dependence on species vulnerable to climate change and catch composition diversity (Fig. \ref{sppvul}). Five of the six communities had a majority of revenue from species highly vulnerable to climate change.
 
 
 ```{r 'species_vulnerability_MAB' , fig.cap="Species vulnerability in Mid-Atlantic fishing communities \\label{sppvul}", echo = F, out.width = "450pt", fig.align='center'}
@@ -1096,7 +1094,7 @@ Protected species include marine mammals (under the Marine Mammal Protection Act
 ## Harbor porpoise
 Harbor porpoise bycatch has resulted in fisheries closures in the past, but current bycatch levels demonstrate that management measures have been effective, reducing this fishery interaction. The 5-year mean bycatch has been below the maximum permitted level (Potential Biological Removal, PBR) since 2011 (Fig. \ref{harbporp}), and the most recent annual bycatch estimate is one of the lowest in the time series. Increased compliance and reduced fishing effort are thought to contribute to low bycatch estimates. There should be an updated harbor porpoise abundance estimate this year. Recent analyses have examined regional harbor porpoise diet, however, the impact of ecosystem changes on bycatch, population, or distribution remain unclear.
 
-```{r harbor_porpoise, fig.cap="Harbor porpoise bycatch estimated compared with PBR \\label{harbporp}", echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
+```{r harbor_porpoise, fig.cap="Harbor porpoise bycatch estimated compared with PBR \\label{harbporp}", echo = F, message=F, include=T, warning=F, fig.height=2.5, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 #Harbor porpoise bycatch - Dropped mean line for clarity
 soe.plot(SOE.data.2018, 'Time', "Harbor porpoise bycatch estimates",            
@@ -1127,7 +1125,7 @@ North Atlantic right whales are among the most endangered large whale population
 
 Although the population increased steadily from 1990 to 2011, it has decreased recently. From Pace et al 2017: “The probability that the population’s trajectory post-2010 was a decline was estimated at 99.99%.” Reduced survival rates of adult females and diverging abundance trends between sexes have also been observed. Further, right whale distribution has changed since 2010. The reasons for these changes is unclear, but changes in climate and primary prey (Calanus finmarchicus) are suspected. Not yet reflected in this trend are the 17 right whale deaths observed in 2017, 5 due to vessel strike (1 in US waters, 4 in Canadian waters), 3 from entanglement (2 in Canadian gear, 1 in unknown gear), and the rest from unknown causes. 
 
-```{r rw_abundance, fig.cap="Right whale population estimate\\label{rightwh}",echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center'}
+```{r rw_abundance, fig.cap="Right whale population estimate\\label{rightwh}",echo = F, message=F, include=T, warning=F, fig.height=2.5, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, 'Time', "right_whale_median",            
          scale.axis = 1, rel.y.num = 1.2, stacked = NA, endshade = T,status = F,
@@ -1229,10 +1227,16 @@ Spatial distribution can change for a variety of different reasons resulting in 
 
 ### Black Sea Bass
 
-```{r black_sea_bass_MAB , fig.cap="Black sea bass (KDE, contemporary, 20-40 year thermal habitat projection)", echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
+```{r black_sea_bass_MAB , echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
 knitr::include_graphics(file.path(image.dir, 'black_sea_bass_kde.png'))
 knitr::include_graphics(file.path(image.dir, 'bsb_contemp.png'))
 knitr::include_graphics(file.path(image.dir, 'bsb_20_40.png'))
+
+```
+
+```{r, fig.cap="Black sea bass (KDE, contemporary, 20-40 year thermal habitat projection) \\label{dists}", fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
 
@@ -1258,10 +1262,16 @@ soe.stacked.axis("Time",expression("Mean along-shelf distance, km"), outer = T)
 
 ### Summer Flounder
 
-```{r 'summer_flounder_MAB' , fig.cap="Summer flounder (KDE, contemporary, 20-40 year thermal habitat projection)",  echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
+```{r 'summer_flounder_MAB' ,  echo = F, out.width=c('7cm','7cm','7cm'), out.height=c('6cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
 knitr::include_graphics(file.path(image.dir, 'summer_flounder_kde.png'))
 knitr::include_graphics(file.path(image.dir, 'summer_flounder_contemp.png'))
 knitr::include_graphics(file.path(image.dir, 'summer_flounder_20_40.png'))
+```
+
+```{r, fig.cap="Summer flounder (KDE, contemporary, 20-40 year thermal habitat projection) \\label{dists}", fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
+
 ```
 
 ```{r sf_species_distributions_MAB,fig.cap="Summer flounder mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
@@ -1310,7 +1320,7 @@ A full suite of the current distribution maps is available at www.nefsc.noaa.gov
 
 New species may be entering the Mid Atlantic ecosystem. Fishery observer records indicate that southern kingfish sightings have increased since 2014 when species validation methods were implemented, but this increasing trend has been in place since 2010. Further information from fishermen on new and uncommon species is welcome for this report. 
 
-```{r southern kingfish, fig.cap="Southern kingfish occurrences in the observer database", echo=F, message=FALSE, warning=FALSE ,fig.align='center', fig.height=7, fig.width=6}
+```{r southern kingfish, fig.cap="Southern kingfish occurrences in the observer database", echo=F, message=FALSE, warning=FALSE ,fig.align='center', fig.height=5, fig.width=6}
 if(map_figs){
 PKG <-c("rgdal","raster","maptools","mapdata",
         "maps","colorRamps","fields","RColorBrewer")
@@ -1384,7 +1394,7 @@ Productivity of the system can be influenced by many factors.  Temperature affec
 
 Sea surface temperature (SST) measurements have been collected on the Northeast Continental Shelf since the mid-1800s. The highest mean annual temperature in this time series was recorded in 2012, as the ecosystem warmed above the levels last seen in the late 1940s. The 2017 datum is the sixth highest temperature in the time series. The positive trend over the full time series (1856-2016) is significant, and the trend over the most recent decade of the time series is even greater.
 
-```{r long_term_sst,  echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4, fig.align = 'center'}
+```{r long_term_sst,  echo=F, message=FALSE, warning=FALSE , fig.height=2.5, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time", "long term SST jan-jun",
          endshade = T, status = F,end.start = 2007, line.forward = TRUE)
@@ -1658,32 +1668,45 @@ text(2,2*.95,"C", cex = 1.5)
 
 While sea surface temperature in the U.S. NES was warmer than average for 2017, there were some regions that experienced cooler than average conditions in some seasons.  For most of the year the southern Mid-Atlantic Bight was cooler than average despite the entire U.S. NES region being above average.
 
-```{r '2017_SST_Anomaly_Maps' , fig.cap="Sea surface temperature seasonal anomaly, 2017", echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
+```{r '2017_SST_Anomaly_Maps' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
 knitr::include_graphics(file.path(image.dir, 'Winter_2017_SST_Anomaly.png'))
 knitr::include_graphics(file.path(image.dir, 'Spring_2017_SST_Anomaly.png'))
 ```
+
 ```{r '2017_SST_Anomaly_Maps_2' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
 knitr::include_graphics(file.path(image.dir, 'Summer_2017_SST_Anomaly.png'))
 knitr::include_graphics(file.path(image.dir, 'Fall_2017_SST_Anomaly.png'))
+```
+
+```{r, fig.cap="Sea surface temperature seasonal anomaly, 2017 \\label{SSTanommap}", fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
+
 ```
 
 ##Patterns in the lower trophic levels
 
 Chlorophyll a (CHL), an index for phytoplankton biomass, was above average in 2017, but there has been no distinct trend over the time series.   Primary production (PP) was also above average during most of 2017 throughout the MAB and has had an upward trend since 2004.  The high PP rates in the summer are likely due to increased remineralization of nutrients and regenerated production by smaller phytoplankton species.  This suggests that while overall PP may be increasing, not all of excess PP may be available to higher trophic levels. There is a coherent pattern between the primary production anomaly and the copepod size index for the MAB, with distinct peaks in production centered around 2002, 2010, and 2015, when the copepod size index was positive. The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, Calanus finmarchicus. Additionally, Centropages typicus, an important copepod in the MAB, exhibits a long-term decline in abundance, with negative anomaly observations  beginning in the early 2000’s.
 
-```{r 'PPD_maps_MAB' , fig.cap="Primary production and chlorophyll anomaly maps", echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
+```{r 'PPD_maps_MAB' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
 knitr::include_graphics(file.path(image.dir, 'PPD_anom_MAB.png'))
 knitr::include_graphics(file.path(image.dir, 'CHL_anom_MAB.png'))
 ```
 
-```{r, MAB zooplankton, echo = F, warning = F, include = T, fig.width=7, fig.height=9, fig.align='center', warning=F}
+```{r, fig.cap="Primary production and chlorophyll anomaly maps \\label{ppchlanom}", fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
+
+```
+
+```{r, MAB zooplankton, echo = F, warning = F, include = T, fig.width=7, fig.height=5, fig.align='center', warning=F}
 opar<-par(mar=c(1,1,1,4),mfrow = c(2,1))
 
 mab_prim_prod <- finder(SOE.data.2018, "annual ppd ratio anomaly MAB")
 mab_copepod_anom <- finder(SOE.data.2018, "Small-Large copepod Index MAB")
 
 usr <- par("usr")
-opar <- par(mar = c(5,4.75,4,4.75))
+opar <- par(mar = c(3,4.75,2,4.75))
 plot(NULL,ylim = c(-1.5,1.5), pch = 16, lwd = 3,xlim = c(1998,2017),
        cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = "")
 abline(h = 0, col  = "grey", lwd = 3, lty = 2) 
@@ -1718,7 +1741,7 @@ soe.stacked.axis("Time","Abundance anomaly", outer = F, rel.x.text = 1.2,
 Fish condition is measured as the weight per length–a measure of “fatness”. This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while black sea bass, goosefish and male spiny dogfish remain thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
 
 
-```{r 'condition factor MAB' , fig.cap="Groundfish condition, MAB", echo = F, out.width = "450pt", fig.align='center'}
+```{r 'condition factor MAB' , fig.cap="Groundfish condition, MAB", echo = F, out.height='10cm', fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition_2018.jpg'))
 ```
 
