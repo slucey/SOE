@@ -1338,9 +1338,13 @@ axis(1,at = seq(1250,18500,length.out = 8),labels = c("2010","2011","2012","2013
 
 # Ecosystem Conditions and Productivity
 
+Productivity of the system can be influenced by many factors.  Temperature affects the behavior and physiology of marine organisms while changes in productivity and species composition at the base of the food web can influence juvenile survival. In this section we report temperature and lower trophic level  production trends and annual cycles for the most recent year.  We also look at fish productivity through recruitment and fish condition.
+
 ## Observed ocean conditions
 
-## Long-term SST 
+### Long-term ocean temperature
+
+Sea surface temperature (SST) measurements have been collected on the Northeast Continental Shelf since the mid-1800s. The highest mean annual temperature in this time series was recorded in 2012, as the ecosystem warmed above the levels last seen in the late 1940s. The 2017 datum is the sixth highest temperature in the time series. The positive trend over the full time series (1856-2016) is significant, and the trend over the most recent decade of the time series is even greater.
 
 ```{r long_term_sst,  echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -1350,9 +1354,11 @@ soe.stacked.axis("Time",expression(paste("Mean SST (",degree,"C)")), outer = F)
 
 ```
 
-### SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon)
+### Annual cycles (2017) in ocean temperature and primary production 
 
-```{r SST_PPD_CHL, echo = F, out.width=c('6.5cm','6.5cm','6.5cm'), out.height=c('7cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
+The Mid-Atlantic experienced above average sea surface temperatures (SSTs) during 2017. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one  standard deviation of the mean as a shade of gray,. SSTs for 2017 that were above the mean are shown in red and below the mean in blue. Last winter was characterized by well above average temperatures in the Mid-Atlantic that transitioned to generally moderate conditions during summer. The Bight returned to warm conditions during October and remained above average for the balance of the year.
+
+```{r SST_PPD_CHL, fig.cap="SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon)", echo = F, out.width=c('6.5cm','6.5cm','6.5cm'), out.height=c('7cm','7cm','7cm'), fig.show='hold',fig.ncol = 3}
 
 ## SST
 doy <- as.numeric(SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 MAB",]$Time)
@@ -1611,11 +1617,10 @@ box(lty = 'solid', col = 'black',lwd = 1.25)
 text(2,2*.95,"C", cex = 1.5)
 ```
 
-## Sea surface temperature maps
 
-## 2017 Spatial SST Anomaly
+While sea surface temperature in the U.S. NES was warmer than average for 2017, there were some regions that experienced cooler than average conditions in some seasons.  For most of the year the southern Mid-Atlantic Bight was cooler than average despite the entire U.S. NES region being above average.
 
-```{r '2017_SST_Anomaly_Maps' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
+```{r '2017_SST_Anomaly_Maps' , fig.cap="Sea surface temperature seasonal anomaly, 2017", echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
 knitr::include_graphics(file.path(image.dir, 'Winter_2017_SST_Anomaly.png'))
 knitr::include_graphics(file.path(image.dir, 'Spring_2017_SST_Anomaly.png'))
 ```
@@ -1624,9 +1629,14 @@ knitr::include_graphics(file.path(image.dir, 'Summer_2017_SST_Anomaly.png'))
 knitr::include_graphics(file.path(image.dir, 'Fall_2017_SST_Anomaly.png'))
 ```
 
+##Patterns in the lower trophic levels
 
+Chlorophyll a (CHL), an index for phytoplankton biomass, was above average in 2017, but there has been no distinct trend over the time series.   Primary production (PP) was also above average during most of 2017 throughout the MAB and has had an upward trend since 2004.  The high PP rates in the summer are likely due to increased remineralization of nutrients and regenerated production by smaller phytoplankton species.  This suggests that while overall PP may be increasing, not all of excess PP may be available to higher trophic levels. There is a coherent pattern between the primary production anomaly and the copepod size index for the MAB, with distinct peaks in production centered around 2002, 2010, and 2015, when the copepod size index was positive. The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, Calanus finmarchicus. Additionally, Centropages typicus, an important copepod in the MAB, exhibits a long-term decline in abundance, with negative anomaly observations  beginning in the early 2000’s.
 
-## Zooplankton (MAB)
+```{r 'PPD_maps_MAB' , fig.cap="Primary production and chlorophyll anomaly maps", echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
+knitr::include_graphics(file.path(image.dir, 'PPD_anom_MAB.png'))
+knitr::include_graphics(file.path(image.dir, 'CHL_anom_MAB.png'))
+```
 
 ```{r, MAB zooplankton, echo = F, warning = F, include = T, fig.width=7, fig.height=9, fig.align='center', warning=F}
 opar<-par(mar=c(1,1,1,4),mfrow = c(2,1))
@@ -1641,7 +1651,7 @@ with(SOE.data.2018[SOE.data.2018$Var == mab_copepod_anom,], plot(Time[22:39], Va
        cex = 1.2, ylab = "", las = 1, xaxt = "n", cex.axis = 1.2, xlab = ""))
 
 mtext(side = 2, line = 3, "Small-Lg Copepod Index", cex = 1.2)
-text(1986,1.4,"A",cex = 1.75)
+text(1998,1.4,"A",cex = 1.75)
 par(new = T)
  
 with(SOE.data.2018[SOE.data.2018$Var ==  mab_prim_prod[1],], plot(Time, Value,
@@ -1657,27 +1667,25 @@ legend("bottomright",
          bty = "n", lwd = 3)
 
 soe.plot(SOE.data.2018, "Time", "Centropages typicus abundance anomaly MAB", 
-         full.trend = T, endshade = T, stacked = "B", suppressAxis = T, x.start = 1986)
+         full.trend = T, endshade = T, stacked = "B", suppressAxis = T, x.start = 1998)
 soe.stacked.axis("Time","Abundance anomaly", outer = F, rel.x.text = 1.2,
                  rel.y.text = 1.2, y.line = 3.1)
 ```
 
-#Primary production and chlorophyll anomaly maps
-```{r 'PPD_maps_MAB' , echo = F, out.width='10cm', out.height='10cm', fig.show='hold'}
-knitr::include_graphics(file.path(image.dir, 'PPD_anom_MAB.png'))
-knitr::include_graphics(file.path(image.dir, 'CHL_anom_MAB.png'))
-```
+### Groundfish condition
+
+Fish condition is measured as the weight per length–a measure of “fatness”. This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while black sea bass, goosefish and male spiny dogfish remain thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
 
 
-## Groundfish condition (MAB)
-
-```{r 'condition factor MAB' , echo = F, out.width = "450pt", fig.align='center'}
+```{r 'condition factor MAB' , fig.cap="Groundfish condition, MAB", echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition_2018.jpg'))
 ```
 
-## Groundfish productivity (A: MAFMC managed species, B: Commercial MAB Species)
+### Groundfish productivity
 
-```{r groundfish productivity,  echo = F, out.width='9.2cm', out.height='9.2cm', fig.show='hold', fig.align = 'center'}
+The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed species in the Mid-Atlantic
+
+```{r groundfish productivity, fig.cap="Groundfish productivity (A: MAFMC managed species, B: Commercial MAB Species)", echo = F, out.width='9.2cm', out.height='9.2cm', fig.show='hold', fig.align = 'center'}
 ## Functions for plotting
 library(ggplot2)
 library(rpart)
@@ -1823,4 +1831,20 @@ plot_stackbarcpts_single(YEAR = bar_dat$Time,
                          label = "B",
                          y.text = 10)
 ```
+
+#Work in Progress
+
+##Forage fish energy content
+
+Work is in progress to address changes in forage fish energy content, which links observed changes in the plankton to resource and protected species condition, reproductive success, and population dynamics. A collaborative project between UMASS Dartmouth Biology Department (Dr. Ken Oliveira, M.S student Kelcie Bean) and NEFSC Population Biology Branch (Mark Wuenschel) is underway to evaluate energy content of forage species.  The study focuses on the following species; Atlantic herring, alewife, silver hake, butterfish, round herring, northern sandlance, menhaden, Atlantic mackerel, longfin squid, and northern shortfin squid.  Samples are being analyzed from the 2017 spring bottom trawl survey (n=1200), 2017 fall bottom trawl survey (n=1000), and from NEFSC study Fleet (n=400).  The percentage dry weight (water content) will be measured, as a predictor of energy density, and subsamples are being analyzed to determine remaining proximate composition (lipid, protein, ash) from which total energy can be calculated.  Samples from multiple seasons, and regions will enable evaluation of spatial and temporal patterns in energy content of forage. These current estimates will also be compared to historical estimates of forage energy content in the region (where available), to evaluate if long-term changes have occurred.  This study is more of an up to date 'snapshot' on the energy content of forage fishes, and not a time series per se; however, we hope the results will provide justification for and establish practical methods (e.g. % dry weight) to monitor energy content of key species on a routine basis. 
+
+##Management Complexity
+
+Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.  This could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified.
+
+#Research recommendations 
+filled in after internal, SSC review
+
+#Acknowledgements
+insert author list here
 
