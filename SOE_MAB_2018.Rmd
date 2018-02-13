@@ -1164,7 +1164,7 @@ Patterns for groups of species that feed on similar prey can indicate how overal
 
 Biomass across trophic levels shows different trends between the fall and spring NEFSC trawl surveys, with no groups having similar significant trends across seasons. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in fall, but not a significant trend in spring. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled, decreasing in fall and increasing in spring. 
 
-```{r fall_survey_MAB, fig.cap="Fall Survey Biomass (MAB) (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)", out.width=c('9.5cm','9.5cm'), out.height=c('14cm','14cm'), fig.show='hold',fig.ncol = 2, echo = F, warning = F, include = T}
+```{r fall_survey_MAB, fig.cap="Fall (left) and Spring (right) MAB Survey Biomass (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)", out.width=c('9.5cm','9.5cm'), out.height=c('14cm','14cm'), fig.show='hold',fig.ncol = 2, echo = F, warning = F, include = T}
 
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
@@ -1220,7 +1220,7 @@ Seasonally divergent aggregate biomass trends require further investigation. The
 
 Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Diversity (here estimated using data from NOAA NEFSC Oceans and Climate branch public dataset for 45 abundant and well-identified ichthyoplankton taxa (Walsh et al. 2015))  shows a decrease for one season (spring), suggesting that survey timing may be interacting with changes in spawn timing or migration of adult fish (see above) as well as a potential change in ichthyoplankton availability due to adult fish distribution shifts (see below).  The decrease in spring ichthyoplankton diversity coincides with an increase in the spring abundance of sand lance (Ammodytes spp.) larvae, an important prey species (Richardson et al. 2014).  Walsh et al. (2015) documented a significant seasonal shift from winter to spring based on annual relative proportions from 1977-1987 to 1999-2008. 
 
-```{r larval_diversity, fig.cap="Ichthyoplankton Shannon diversity and species counts in the Spring (Top row) and Fall (bottom row)", out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+```{r larval_diversity, fig.cap="Ichthyoplankton Shannon diversity and species counts in the Spring (Top row) and Fall (bottom row)", out.width=c('9.5cm','9.5cm'), out.height=c('5cm','5cm'), fig.show='hold',fig.align='center', fig.ncol = 2,warning=F, echo=F}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 soe.plot(SOE.data.2018, "Time","Spring_Ich_Shannon Diversity Index", stacked = "A",
@@ -1257,7 +1257,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
 
-```{r bsb_species_distributions_MAB, fig.cap="Black sea bass mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+```{r bsb_species_distributions_MAB, fig.cap="Black sea bass mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'), out.height=c('5cm','5cm'), fig.show='hold',fig.align='center', fig.ncol = 2,warning=F, echo=F}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 
@@ -1291,7 +1291,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
 
-```{r sf_species_distributions_MAB,fig.cap="Summer flounder mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+```{r sf_species_distributions_MAB,fig.cap="Summer flounder mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'), out.height=c('5cm','5cm'), fig.show='hold',fig.align='center',fig.ncol = 2,warning=F, echo=F}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 
@@ -1312,7 +1312,7 @@ soe.stacked.axis("Time",expression("Mean along-shelf distance, km"), outer = T)
 ```
 
 ### Modeled shelf habitat trends 
-```{r occupancy_MAB, fig.cap="Summer flounder (left) and black sea bass (right) modeled shelf habitat trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'), out.height=c('7cm','7cm'), fig.show='hold',fig.ncol = 2,warning=F, echo=F}
+```{r occupancy_MAB, fig.cap="Summer flounder (left) and black sea bass (right) modeled shelf habitat trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'), out.height=c('5cm','5cm'), fig.show='hold',fig.align='center',fig.ncol = 2,warning=F, echo=F}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 
@@ -1415,7 +1415,7 @@ Sea surface temperature (SST) measurements have been collected on the Northeast 
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time", "long term SST jan-jun",
          endshade = T, status = F,end.start = 2007, line.forward = TRUE)
-soe.stacked.axis("Time",expression(paste("Mean SST (",degree,"C)")), outer = F)
+soe.stacked.axis("Time",expression(paste("Mean SST (",degree,"C)")), outer = F, rel.x.text = 1, rel.y.text = 1)
 
 ```
 
