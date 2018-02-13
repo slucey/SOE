@@ -244,7 +244,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   
   #Add axis
   if (suppressAxis == FALSE){
-    if(is.na(stacked)) axis(1, cex.axis = 1.5)
+    if(is.na(stacked)) axis(1, cex.axis = 1)
     if(!is.na(stacked)){
       if(stacked!= 'A') axis(3, cex.axis = 1.5, tck = 0.1, labels = F)
     }
@@ -275,9 +275,9 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   }
 
     #Add axis labels
-    if(!is.na(stacked)) text(u[1], u[4], labels = stacked, cex = 2, adj = c(-0.5, 1.5))
+    if(!is.na(stacked)) text(u[1], u[4], labels = stacked, cex = 1, adj = c(-0.5, 1.5))
     if(is.na(stacked)){
-      mtext(1, text = x.label, line = x.line, cex = 1.5)
+      mtext(1, text = x.label, line = x.line, cex = 1)
       mtext(2, text = y.label, line = y.line, cex = rel.y.text)
     }
   
@@ -596,7 +596,7 @@ The MAFMC only manages a portion of the total commercial landings that occur in 
 
 Figure \ref{landings} shows the removals for human consumption both at the entire EPU level as well as those removals managed by the MAFMC.  Landings for managed species are all trending up in recent years, but only Benthivore landings are above the long term-mean. There is a significant decline in MAFMC-managed landings of benthos. We note that time series at the Mid-Atlantic regional scale may not include all state landings prior to 1994. 
 
-```{r seafood_landings_MAB, fig.cap="MAFMC seafood specific landings (red) and total commericial landings (black). A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos \\label{landings}",echo = F, warning = F, include = T,out.width='1\\linewidth', fig.height=5.5, fig.align='center'}
+```{r seafood_landings_MAB, fig.cap="MAFMC seafood specific landings (red) and total commericial landings (black). A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos \\label{landings}",echo = F, warning = F, include = T, fig.asp=0.78, fig.align='center'}
 
 ## Ecosystem-wide and managed species total landings
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
@@ -625,7 +625,7 @@ soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
 
 Total commercial seafood landings from all species and from MAFMC managed species indicate total seafood production. Years prior to 1977 included foreign landings, so we begin the time series in 1986. Recent landings are all domestic fisheries. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
 
-```{r managed_landings , fig.cap="Total commercial seafood landings (black), MAFMC managed seafood landings (red)", echo=F, message=FALSE, warning=FALSE , fig.height=2.5, fig.align = 'center'}
+```{r managed_landings , fig.cap="Total commercial seafood landings (black), MAFMC managed seafood landings (red)", echo=F, message=FALSE, warning=FALSE , fig.asp=0.35, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 # managed_land <- SOE.data.2018 %>% filter(Var == "Total managed landings MAB",Time >= 1986)
 # total_land <-  SOE.data.2018 %>% filter(Var == "Total Landings MAB",Time >= 1986)
@@ -649,17 +649,17 @@ opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time", "Total Landings MAB", stacked = NA,status = F,
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Total managed landings MAB")
-soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), rel.y.text = 1, rel.x.text=1, outer = F)
+soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = F, rel.x.text = 1, rel.y.text = 1)
 ```
 
 Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
 
-```{r rec_catch_MAB, fig.cap="Total recreational harvest  \\label{recfood}", echo = F, message=F, include=T, warning=F, fig.height=2.5, fig.align = 'center'}
+```{r rec_catch_MAB, fig.cap="Total recreational harvest  \\label{recfood}", echo = F, message=F, include=T, warning=F, fig.asp=0.35, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Recreational Seafood MA", stacked = NA, status = F, full.trend = T, rel.y.num = 1.1, 
          scale.axis = 10^6,end.start = 2007)
-soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"),  rel.y.text = 1, rel.x.text=1, outer = F)
+soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), rel.x.text = 1, rel.y.text = 1, outer = F)
 
 ```
 
