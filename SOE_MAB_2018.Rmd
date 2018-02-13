@@ -745,37 +745,37 @@ A declining trend in diversity indicates reliance on either a smaller number of 
 
 The number of fleets in the Mid-Atlantic seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.
 
-```{r fleet diversity MAB, fig.cap="(A) Fleet diversity and (B) fleet count\\label{commdiv}", echo=F, message=FALSE, warning=FALSE, include=T, fig.height=3, fig.align = 'center'}
+```{r fleet diversity MAB, fig.cap="(A) Fleet diversity and (B) fleet count\\label{commdiv}", echo=F, message=FALSE, warning=FALSE, include=T, fig.asp=0.5, fig.align = 'center'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","Mid-Atlantic average fleet diversity", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007)
 soe.plot(SOE.data.2018,"Time","Mid-Atlantic fleet count", stacked = "B",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007)
-soe.stacked.axis('Year', 'Commercial fleet diversity')
+soe.stacked.axis('Year', 'Commercial fleet diversity', rel.x.text = 1, rel.y.text = 1)
 ```
 
 Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable.
 
 <!--This trend contrasts with the species diversity trends from survey data presented below, which indicate relatively low diversity during the mid1990’s and higher diversity now (with a significantly increasing recent trend in the spring survey data). Ultimately diversity can be measured in numerous ways (for example, in numbers of vessels in each fleet component as opposed to revenue) and feedback from the Council as to how this should be defined is welcomed.--> 
 
-```{r revenue diversity MAB, fig.cap="Diversity in species revenue\\label{revdiv}", echo = F, message=F, include=T, warning=F,  fig.height=2.5, fig.align = 'center'}
+```{r revenue diversity MAB, fig.cap="Diversity in species revenue\\label{revdiv}", echo = F, message=F, include=T, warning=F,  fig.asp=0.35, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, 'Time', "Mid-Atlantic commercial species diversity",stacked = NA, 
          endshade = T, full.trend = F, status = F,end.start = 2007)
-soe.stacked.axis("Year","Shannon Index", outer = F)
+soe.stacked.axis("Year","Shannon Index", outer = F, rel.x.text = 1, rel.y.text = 1)
 ```
 
 ## Recreational opportunities 
 
 Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
 
-```{r recreation MAB, fig.cap="(A) Number of anglers and (B) number of trips", echo=F, message=FALSE, warning=FALSE, include=T,  fig.height=3.5, fig.align = 'center'}
+```{r recreation MAB, fig.cap="(A) Number of anglers and (B) number of trips", echo=F, message=FALSE, warning=FALSE, include=T,  fig.asp=0.5, fig.align = 'center'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","Mid-Atlantic Rec participation", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6, status = F,end.start = 2007)
 soe.plot(SOE.data.2018,"Time","Mid-Atlantic angler trips", stacked = "B",
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6, status = F,end.start = 2007)
-soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'))
+soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'), rel.x.text = 1, rel.y.text = 1)
 ```
 
 ## Mariculture
