@@ -796,7 +796,7 @@ y.max <- 40000000
 opar <- par(mar = c(4, 6, 2, 6))
 plot(NULL, xlim = c(2005, 2017),
      ylim = c(y.min,y.max), xlab = 'Time', ylab = '', yaxt = "n",ty = 'n',
-     cex.lab=1.5, las = 1, cex.axis = 1.5)
+     cex.lab=1, las = 1, cex.axis = 1)
 for (i in 1:length(oyst_vars)){
 
   ts <- SOE.data.2018[SOE.data.2018$Var == oyst_vars[[i]],]$Value
@@ -809,13 +809,13 @@ for (i in 1:length(oyst_vars)){
    
 }
 mtext(2, text = expression("Oysters Harvested, 10"^6*'n'),
-        line = 3.5, cex = 1.5, outer = F)
+        line = 3.5, cex = 1, outer = F)
   axis(2, at = c(1*10^6,5*10^6,10*10^6,15*10^6,
                  20*10^6,25*10^6,30*10^6,35*10^6,40*10^6), 
        labels = c("1","5","10","15","20",
                   "25","30","35","40"),
-       las = 1, cex.axis = 1.5)
-legend(2006, 30000000, legend = c("New Jersey",
+       las = 1, cex.axis = 1)
+legend(2006, 40000000, legend = c("New Jersey",
                             "Maryland",
                             #"Rhode Island",
                             "Virginia"), col = topo, bty = "n",lwd = 2)
@@ -835,7 +835,7 @@ soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status = F,me
          endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 1,end.start = 2007,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "HAB events at VDH threshold",
          mean_line.2 = F)
-soe.stacked.axis("Time","Algal Bloom Events, n", outer = F)
+soe.stacked.axis("Time","Algal Bloom Events, n", outer = F, rel.x.text = 1, rel.y.text = 1)
 ```
 
 ##Community social vulnerability, engagement and dependence on commercial fisheries
@@ -844,8 +844,10 @@ The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statist
 
 Here, we look at the extent to which commercial and recreational fishing reliance intersect with community social vulnerability in the Mid-Atlantic region. Commercial fishing reliance is a measure of per capita pounds landed, value landed, commercial permits and commercial dealers in a community.  Recreational reliance is a per capita measure of shore, private vessel and for-hire recreational fishing in a community. Social vulnerability represents social factors that can shape either an individual or community's ability to adapt to change. There are many socially vulnerable communities in the Mid-Atlantic region, but with varying degrees of commercial and/or recreational fishing reliance. While there are some communities that are both moderate to highly socially vulnerable and moderate to highly reliant on commercial fishing  (Fig.\ref{commvulmap}) there are many more communities that are both moderate to highly vulnerable and moderate to highly reliant on recreational fishing (Fig. \ref{recvulmap}) primarily in New Jersey and New York.  
 
+\newpage
+\btwocol
 
-```{r 'commercial_reliance_and_vulnerability MAB' , fig.cap="Commercial reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=5, fig.align = 'center'}
+```{r 'commercial_reliance_and_vulnerability MAB' , fig.cap="Commercial reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
 
 if(map_figs){
 library(maps);library(mapdata);library(raster)
@@ -970,7 +972,7 @@ text(-72,35.8, "Social Vulnerability")
 }
 ```
 
-```{r 'community_reliance_and_social_vulnerability MAB' , fig.cap="Recreational reliance and social vulnerability (MAB) \\label{recvulmap}", echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=5, fig.align = 'center'}
+```{r 'community_reliance_and_social_vulnerability MAB' , fig.cap="Recreational reliance and social vulnerability (MAB) \\label{recvulmap}", echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
 
 if(map_figs){
 cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
@@ -1091,6 +1093,7 @@ text(-73.3, 36.9, "Recreational Reliance",srt=90)
 text(-72,35.8, "Social Vulnerability")
 }
 ```
+\etwocol
 
 ##Climate Vulnerability of Coastal Fishing Communities
 
@@ -1114,7 +1117,7 @@ opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, 'Time', "Harbor porpoise bycatch estimates",            
          scale.axis = 1, rel.y.num = 1.2, stacked = NA, status = F, endshade = T,
          end.start = 2007, suppressAxis = F, full.trend = F, point.cex = 1,ymax = F, y.upper = 2500, mean_line = F)
-soe.stacked.axis('Year', expression('Harbor Porpoise Bycatch, n'), outer = F)
+soe.stacked.axis('Year', expression('Harbor Porpoise Bycatch, n'), outer = F, rel.x.text = 1, rel.y.text = 1)
 
 
 legend(2000, 2250, legend = "Potential Biological Removal", col = adjustcolor("red", .5), lwd = 3,
@@ -1144,7 +1147,7 @@ opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, 'Time', "right_whale_median",            
          scale.axis = 1, rel.y.num = 1.2, stacked = NA, endshade = T,status = F,
          suppressAxis = F, full.trend = F, lwd = 1.5, point.cex = 1, end.start = 2007)
-soe.stacked.axis('Year', expression('Median Right Whale Abundance, n'), outer = F)
+soe.stacked.axis('Year', expression('Median Right Whale Abundance, n'), outer = F, rel.x.text = 1, rel.y.text = 1)
 lw_CI <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_lower_95',]$Value
 up_CI <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_upper_95',]$Value
 year <- SOE.data.2018[SOE.data.2018$Var == 'right_whale_upper_95',]$Time
