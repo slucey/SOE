@@ -18,27 +18,29 @@ geometry: margin=1cm
 ---
 
 ```{r Directory and Data Set-up, echo=F, message=F, warning=FALSE, paged.print=TRUE}
-#data.dir  <- '/home/slucey/EcoAP/SOE2017/data'
-#image.dir <- '/home/slucey/EcoAP/SOE2017/images'
+data.dir  <- '/home/slucey/EcoAP/SOE/2018'
+image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
 #data.dir  <- "F:/SOE/SOE_data"
 #image.dir <- "F:/SOE/SOE_data"
-data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 library(data.table); library(Kendall)
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
 knitr::opts_chunk$set(echo = FALSE)
 
 #The map_figs option can be set to FALSE to skip making maps on the fly (they will be missing). Or TRUE to make them. 
-map_figs <- TRUE
+map_figs <- F
 
 ```
 
 
 ```{r libraries and functions, include=F, echo = F}
+options(repos = c(CRAN = "http://cran.rstudio.com"))
 
 #load("SOE_data_2018.Rdata")
+#NEED TO PULL OTHER PACKAGES UP TO HERE - REVIEW WHAT PACKAGES ARE NECESSARY
 PKG <-c("Kendall","data.table","zoo","dplyr","nlme","AICcmodavg",
         "Hmisc", "leaflet", "rgdal", "colorRamps")
 
@@ -442,7 +444,7 @@ We have organized this report using a proposed set of **ecosystem-scale objectiv
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
 
-dat <- read.csv("2017assess.csv")
+dat <- read.csv(file.path(data.dir, "2017assess.csv"))
 
 stocks <- unique(dat$Entity.Name)
 n.stocks <- length(stocks)
@@ -1101,7 +1103,7 @@ Six key Mid-Atlantic fishing communities were evaluated for their dependence on 
 
 
 ```{r 'species_vulnerability_MAB' , fig.cap="Species vulnerability in Mid-Atlantic fishing communities \\label{sppvul}", echo = F, out.width = "450pt", fig.align='center'}
-knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_MAB.jpg'))
+knitr::include_graphics(file.path(image.dir, 'Sp_vulnerability_MAB.jpg'))
 ```
 
 # Protected species-fishery interactions
