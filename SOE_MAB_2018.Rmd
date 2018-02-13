@@ -682,16 +682,19 @@ knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
 
 ```
 
+
 ```{r 'price_ind_MAB' , echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'price_ind_MAB.png'))
 knitr::include_graphics(file.path(image.dir, 'vol_ind_MAB.png'))
 ```
+
 
 ```{r, fig.cap="Bennet indicator, (A) price component and (B) volume component by functional group\\label{Bennetspp}", fig.height=0.05}
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
+
 <!--
 ```{r 'vol_ind_MAB' , echo = F, out.width = "450pt", fig.align='center'}
 knitr::include_graphics(file.path(image.dir, 'vol_ind_MAB.png'))
@@ -702,7 +705,7 @@ knitr::include_graphics(file.path(image.dir, 'vol_ind_MAB.png'))
 ## Ecosystem-wide and managed species total revenue
 Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the region over the last 5 years. 
 
-```{r managed_revenue , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}", echo = F, message=F, include=T, warning=F , fig.width=7, fig.height=2.5, fig.align = 'center'}
+```{r managed_revenue , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}", echo = F, message=F, include=T, warning=F ,  fig.asp=0.35, fig.align = 'center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 
@@ -710,11 +713,11 @@ opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", stacked = NA,status = F,
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007, x.start = 1986,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Total managed revenue MAB")
-soe.stacked.axis("Time",expression("Revenue, 10"^6*'USD'), outer = F)
+soe.stacked.axis("Time",expression("Revenue, 10"^6*'USD'), outer = F, rel.x.text = 1, rel.y.text = 1)
 ```
 
 
-```{r prop_table,echo = F, results = 'asis', message=FALSE, header=FALSE, fig.width=5,  fig.align = 'center', eval = F}
+```{r prop_table,echo = F, results = 'asis', message=FALSE, header=FALSE, fig.width=5,  fig.align = 'center'}
 library(stargazer)
 landings <- SOE.data.2018[grepl("Landings MAB 2016 prop", SOE.data.2018$Var),]$Value[1:5]
 joint_landings <- SOE.data.2018[grepl("Landings MAB 2016 prop", SOE.data.2018$Var),]$Value[6:10]
@@ -1110,7 +1113,7 @@ opar <- par(mar = c(4, 6, 2, 6))
 #Harbor porpoise bycatch - Dropped mean line for clarity
 soe.plot(SOE.data.2018, 'Time', "Harbor porpoise bycatch estimates",            
          scale.axis = 1, rel.y.num = 1.2, stacked = NA, status = F, endshade = T,
-         end.start = 2007, suppressAxis = F, full.trend = F, point.cex = 1,ymax = F, y.upper = 2500, mean = F)
+         end.start = 2007, suppressAxis = F, full.trend = F, point.cex = 1,ymax = F, y.upper = 2500, mean_line = F)
 soe.stacked.axis('Year', expression('Harbor Porpoise Bycatch, n'), outer = F)
 
 
