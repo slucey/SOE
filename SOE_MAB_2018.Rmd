@@ -419,25 +419,23 @@ knitr::include_graphics(file.path(image.dir, 'SOE_MAB_ConceptMod.png'))
 
 We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. 
 
-\begin{table}[ht]
- \caption{Mid-Atlantic ecosystem objectives}
-\centering
-\begin{tabular}{lll}
-  \hline
- & Objective Categories & Indicators reported here \\ 
-  \hline
- & Seafood production & Landings by feeding guild, mariculture \\ 
-   & Profits & Revenue by feeding guild \\ 
-   & Recreation & Number of anglers and trips \\ 
-   & Stability & Diversity indices (fishery and species) \\ 
-   & Social-Cultural & Community vulnerability, fishery engagement and reliance \\ 
-   & Biomass & Biomass or abundance by feeding guild from surveys \\ 
-   & Productivity & Condition and recruitment of MAFMC managed species \\ 
-   & Trophic structure & Relative biomass of feeding guilds, primary productivity \\ 
-   & Habitat & Thermal habitat projections, estimated habitat occurrence \\ 
-   \hline
-\end{tabular}
-\end{table}
+**Table 1**: Mid-Atlantic ecosystem objectives
+```{r obj_cats_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Objective Categories     | Indicators reported here                                  |
+|:-------------------------|:----------------------------------------------------------|
+| Seafood production       | Landings by feeding guild, mariculture                    |
+| Profits                  | Revenue by feeding guild                                  |
+| Recreation               | Number of anglers and trips; recreational catch           |
+| Stability                | Diversity indices (fishery and species)                   |
+| Social-Cultural          | Commercial and recreational reliance; social vulnerability|
+| Biomass                  | Biomass or abundance by feeding guild from surveys        |
+| Productivity             | Condition and recruitment of MAFMC managed species        |
+| Trophic structure        | Relative biomass of feeding guilds, primary productivity  |
+| Habitat                  | Thermal habitat projections, estimated habitat occurrence |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
 
 **We also report single-species status relative to established objectives and reference points**. The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for 11 of 14 stocks and biomass (B) levels for 13 of 14 stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for summer flounder, likely high F rates for Atlantic mackerel and blueline tilefish, and likely low B status for Atlantic mackerel. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
 
@@ -551,26 +549,19 @@ Indicators throughout the report have been updated with the most recent data, an
 
 Many metrics aggregate species by similar functional groups.  Species that comprise the functional groups are listed below. Relative to the 2017 report, these categories have been aggregated into fewer groups for simplification and clarity.
 
-\begin{table}[ht]
- \caption{Mid-Atlantic Bight Feeding Guilds}
-\centering
-\newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
-\begin{tabular}{lp{2.75in}cp{2.5in}}
-  \hline
- & Feeding group & N species & Major species in group \\ 
-  \hline
-\splat & \textbf{A: Apex Predator} (Highest trophic level) & 4 & shark (Unc.), swordfish, yellowfin and bluefin tuna \\   
-  
-\splat & \textbf{B: Piscivore} (Eat fish) & 23 & spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder \\   
-
-\splat & \textbf{C: Benthivore} (Eat bottom dwellers) & 25 & black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail, winter, and witch flounders, barndoor skate, American plaice, other crabs \\ 
-
-\splat & \textbf{D: Planktivore} (Eat plankton) & 16 & Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid \\ 
-
-\splat & \textbf{E: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\ 
-   \hline
-\end{tabular}
-\end{table}
+**Table 2**: Mid-Atlantic feeding guilds.
+```{r species_groupings_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Group             | N species | Major species in the group       |
+|:------------------|:-------|:--------------------------------------------|
+| A: Apex predator (Highest trophic level)   |  4  | shark (Unc.), swordfish, yellowfin and bluefin tuna |
+| B: Piscivore (Eat fish)                    |  23 | spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder |
+| C: Planktivore (Eat plankton)              |  16 | Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid |
+| E: Benthivores (Eat bottom dwellers)       |  25 | black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail, winter, and witch flounders, barndoor skate, American plaice, other crabs|
+| F: Benthos  (Filter feeders)               |  9  |  scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
 
 Our assessment of indicator trends has changed this year.  In the 2017 time series plots, monotonic (but not necessarily linear) trends were assessed for both the full time series and the most recent 10 years (shaded dark grey background). Recent simulation analysis suggest that statistical significance tests are unreliable for short time series, but reliable for longer ones. Therefore, similar to 2017, we indicate significant increasing long term trends with orange lines, while significant decreasing long term trends have purple lines.  However, we no longer indicate significant trends for the most recent period but rather discuss recent/current status and trend of each indicator relative to the full time series.  Time series mean is indicated with a dashed line and the final ten years of the time series are highlighted through a grey background. 
 
@@ -582,21 +573,18 @@ Seafood production is a stated goal of optimal fishery management as part of the
 
 The MAFMC only manages a portion of the total commercial landings that occur in the region.  For example, blue crabs represent a substantial portion of category D (Benthivores) landings. Therefore in 2016, MAFMC accounted for 15% of the Benthivore landings and 12% of the revenue generated from those landings. 
 
-\begin{table}[ht]
-  \caption{Proportion of catch managed by MAFMC (2016)}
-\centering
-\newcommand{\splat}{\vrule width 0 pt height 15pt depth 2pt\relax}
-\begin{tabular}{lp{1.25in}cc} 
-\hline 
- & Groups & MAB Landings &  MAB Revenue \\ 
-\hline  
-\splat & Piscivore   & $0.514$ &  $0.739$ \\ 
-\splat & Planktivore & $0.639$ &  $0.925$ \\ 
-\splat & Benthivore  & $0.146$ &  $0.122$ \\ 
-\splat & Benthos     & $0.618$ &  $0.096$ \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table} 
+**Table 3**: Proportion of landings and revenue derived from managed species in the Mid-Atlantic. 
+```{r prop_landings_rev_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Groups          | MAB Landings| MAB Revenue|
+|:----------------|:------------|:-----------|
+| Piscivore       | 0.51        | 0.74       |
+| Planktivore     | 0.64        | 0.93       |
+| Benthivore      | 0.15        | 0.1        |
+| Benthos         | 0.62        | 0.1        |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
 
 Figure \ref{landings} shows the removals for human consumption both at the entire EPU level as well as those removals managed by the MAFMC.  Landings for managed species are all trending up in recent years, but only Benthivore landings are above the long term-mean. There is a significant decline in MAFMC-managed landings of benthos. We note that time series at the Mid-Atlantic regional scale may not include all state landings prior to 1994. 
 
