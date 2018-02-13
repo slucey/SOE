@@ -590,10 +590,10 @@ The MAFMC only manages a portion of the total commercial landings that occur in 
 \hline 
  & Groups & MAB Landings &  MAB Revenue \\ 
 \hline  
-\splat & Piscivore & $0.514$ &  $0.739$ \\ 
-\splat & Planktivore & $0.639$ & $0.925$ \\ 
-\splat & Benthivore & $0.146$ &  $0.122$ \\ 
-\splat & Benthos & $0.618$ &  $0.096$ \\ 
+\splat & Piscivore   & $0.514$ &  $0.739$ \\ 
+\splat & Planktivore & $0.639$ &  $0.925$ \\ 
+\splat & Benthivore  & $0.146$ &  $0.122$ \\ 
+\splat & Benthos     & $0.618$ &  $0.096$ \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table} 
@@ -611,19 +611,25 @@ soe.plot(SOE.data.2018, "Time","Apex Predator Landings MAB", stacked = "A",statu
 
 soe.plot(SOE.data.2018, "Time", "Piscivore Landings MAB", stacked = "B",status = F,
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
-         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Piscivore MAFMC managed species sea food MAB")
-
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
+         y.var2 = "Piscivore MAFMC managed species sea food MAB")
 
 soe.plot(SOE.data.2018, "Time", "Planktivore Landings MAB", stacked = "C",status = F,
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
-         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Planktivore MAFMC managed species sea food MAB")
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
+         y.var2 = "Planktivore MAFMC managed species sea food MAB")
+
 soe.plot(SOE.data.2018, "Time", "Benthivore Landings MAB", stacked = "D",status = F,
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
-         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Benthivore MAFMC managed species sea food MAB")
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
+         y.var2 = "Benthivore MAFMC managed species sea food MAB")
+
 soe.plot(SOE.data.2018, "Time", "Benthos Landings MAB", stacked = "E",status = F,
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
-         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Benthos MAFMC managed species sea food MAB")
-soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
+         y.var2 = "Benthos MAFMC managed species sea food MAB")
+
+soe.stacked.axis("Year", expression("Landings, 10"^3*"metric tons"), x.line = 2.7, outer = T)
 
 ```
 
@@ -652,11 +658,11 @@ opar <- par(mar = c(4, 6, 2, 6))
 # legend(1985,9e4,c("Ecosystem-wide","Managed species"),
 #        col = c("black","indianred"),bty = "n", lwd = 3)
 
-soe.plot(SOE.data.2018, "Time", "Total Landings MAB", stacked = NA,status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1986,
-         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "Total managed landings MAB")
-
-soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = F, rel.x.text = 1, rel.y.text = 1)
+soe.plot(SOE.data.2018, "Time", "Total Landings MAB", rel.y.num = 1.1, 
+         scale.axis = 10^3, end.start = 2007, x.start = 1986,
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
+         y.var2 = "Total managed landings MAB", x.label = 'Year',
+         y.label = expression('Landings, 10'^3 * 'metric tons'))
 
 ```
 
