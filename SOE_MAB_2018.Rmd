@@ -169,7 +169,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
                      rel.y.num = 1.5, rel.y.text = 1.5, suppressAxis = FALSE,status  = F,anomaly = F,
                      endshade = TRUE, full.trend = TRUE, point.cex = 1.5, lwd = 2, ymax = TRUE,ymin = TRUE,
                      y.upper = y.upper, y.lower = y.lower, extra = FALSE, x.var2 = x.var2, y.var2 = y.var2,
-                     line.forward = FALSE) {
+                     line.forward = FALSE, mean_line.2 = T) {
   
   #print("You'll need to remove or interpolate NA values before this function will work")
   
@@ -236,7 +236,9 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
     x2 <- x2[order(x2[, get(x.var2)]), ]
     setnames(x2, x.var2, 'X2')
     x2 <- x2[X2 >= x.start, ]
-    abline(h = mean(x2[, Value]), col = 'lightcoral', lwd = 3, lty = 2)
+    if (mean_line.2 == TRUE){
+     abline(h = mean(x2[, Value]), col = 'lightcoral', lwd = 3, lty = 2) 
+    }
     points(x2[, list(X2, Value)], pch = 16, cex = point.cex, col = "indianred")
     lines( x2[, list(X2, Value)], lwd = lwd, col = "indianred")
     }
@@ -704,7 +706,7 @@ soe.stacked.axis("Time",expression("Revenue, 10"^6*'USD'), outer = F)
 ```
 
 
-```{r prop_table,echo = F, results = 'asis', message=FALSE, header=FALSE, fig.width=5,  fig.align = 'center'}
+```{r prop_table,echo = F, results = 'asis', message=FALSE, header=FALSE, fig.width=5,  fig.align = 'center', eval = F}
 library(stargazer)
 landings <- SOE.data.2018[grepl("Landings MAB 2016 prop", SOE.data.2018$Var),]$Value[1:5]
 joint_landings <- SOE.data.2018[grepl("Landings MAB 2016 prop", SOE.data.2018$Var),]$Value[6:10]
@@ -815,12 +817,13 @@ Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic regi
 
 Blooms of *C. polykrikoides* and *Auerococcus anophagefferens* (responsible for “brown tides”) occur regularly in the Long Island Sound region, with the most extensive and longest-lasting brown tide event ever recorded occurring in 2017. Long Island also has annual blooms of *Alexandrium catenella*, which has become more prevalent over the last few decades, though it was known to exist in the region more than 40 years ago. Blooms of toxic *Dinophysis* species have also been recorded in Long Island for the first time in recent years, though there have not been any official closures by state regulators.
 
-```{r hab_MAB, fig.cap="Occurrence of algal blooms in Chesapeake Bay at cell concentrations greater than the NOAA threshold for consideration as a bloom event (black), and occurrence of blooms at concentrations warranting action by the Virginia Department of Health (red)", echo = F, warning = F, include = T,fig.width=7, fig.height=2.5, fig.align='center'}
+```{r hab_MAB, fig.cap="Occurrence of algal blooms in Chesapeake Bay at cell concentrations greater than the NCCOS Phytoplankton Monitoring Network threshold for consideration as a bloom event (black), and occurrence of blooms at concentrations warranting action by the Virginia Department of Health (red).", echo = F, warning = F, include = T,fig.width=7, fig.height=2.5, fig.align='center'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", stacked = NA,status = F,mean_line = F,
          endshade = F, rel.y.num = 1.1, full.trend = F, scale.axis = 1,end.start = 2007,
-         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "HAB events at VDH threshold")
+         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", y.var2 = "HAB events at VDH threshold",
+         mean_line.2 = F)
 soe.stacked.axis("Time","Algal Bloom Events, n", outer = F)
 ```
 
