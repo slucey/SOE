@@ -175,7 +175,9 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 ```
 
 #Introduction
-The purpose of this report is to document the use of ecosystem indicators within the Mid-Atlantic Council’s Ecosystem Approach to Fisheries Management (EAFM) initial risk assessment.
+The Mid-Atlantic Council approved an Ecosystem Approach to Fisheries Management (EAFM) Guidance Document in 2017 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management.  Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them.  Because there are so many possible ecosystem interactions to consider, risk assessment was adopted as the first step to identify a subset of high priority interactions.  
+
+This report documents the use of ecosystem indicators within the Mid-Atlantic Council’s EAFM initial risk assessment. This risk assessment will help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, the purpose of this document is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account.  
 
 A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements or risk rankings may change as conditions change or new information becomes available. Thus, the EAFM Risk Assessment will be a dynamic and evolving process that will be revisited and updated in future years.
 
@@ -184,8 +186,6 @@ The Council selected a range of risk elements to be evaluated at either the mana
 In the following sections, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. For trend-based risk definitions, a Mann-Kendall test for monotonic trends is used to test significance (p<0.05) of both long term and recent trends. Autocorrelation in the time series was addressed by prewhitening the data as suggested by [@yue_influence_2002]. 
 
 At the end of the document, we summarize risk ranking results across elements in three tables.
-
-*This risk assessment is currently in draft form, pending Council review.*
 
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
