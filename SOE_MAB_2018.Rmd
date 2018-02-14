@@ -1,29 +1,29 @@
----
-title: "State of the Ecosystem - Mid-Atlantic Bight"
-author: "Northeast Fisheries Science Center"
-date: '`r format(Sys.Date(), "%B %d, %Y")`'
-output:
-  pdf_document:
+ ---
+ title: "State of the Ecosystem - Mid-Atlantic Bight"
+ author: "Northeast Fisheries Science Center"
+ date: '`r format(Sys.Date(), "%B %d, %Y")`'
+ output:
+   pdf_document:
     includes:
-      in_header: preamble-latex.tex
-    keep_tex: yes
-    pandoc_args: --latex-engine=xelatex
-    toc: no
-  html_document:
-    toc: yes
-  word_document:
-    toc: no
-fontsize: 11pt
-geometry: margin=1cm
----
+       in_header: preamble-latex.tex
+     keep_tex: yes
+     pandoc_args: --latex-engine=xelatex
+     toc: no
+   html_document:
+     toc: yes
+   word_document:
+     toc: no
+ fontsize: 11pt
+ geometry: margin=1cm
+ ---
 
 ```{r Directory and Data Set-up, echo=F, message=F, warning=FALSE, paged.print=TRUE}
-data.dir  <- '/home/slucey/EcoAP/SOE/2018'
-image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
+#data.dir  <- '/home/slucey/EcoAP/SOE/2018'
+#image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- "F:/SOE/SOE_data"
-#image.dir <- "F:/SOE/SOE_data"
+data.dir  <- "F:/SOE/SOE_data"
+image.dir <- "F:/SOE/SOE_data"
 #data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
 #image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 library(data.table); library(Kendall)
@@ -31,24 +31,29 @@ load(file.path(data.dir, "SOE_data_2018.Rdata"))
 knitr::opts_chunk$set(echo = FALSE)
 
 #The map_figs option can be set to FALSE to skip making maps on the fly (they will be missing). Or TRUE to make them. 
-map_figs <- F
+map_figs <- T
 
 ```
 
+```{r libraries, echo=F, message=F, warning=FALSE, paged.print=TRUE}
+library(Kendall);library(data.table);library(zoo)
+library(dplyr);library(nlme);library(AICcmodavg)
+library(colorRamps);library(Hmisc);library(rgdal)
+library(maps);library(mapdata);library(raster)
+library(grid);library(stringr)
+
+
+#projection
+map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
+               +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
+
+#get USA map data
+usa <- readOGR(dsn = "usa_shape_files", verbose = F)
+usa@proj4string <- map.crs
+```
 
 ```{r libraries and functions, include=F, echo = F}
 options(repos = c(CRAN = "http://cran.rstudio.com"))
-
-#load("SOE_data_2018.Rdata")
-#NEED TO PULL OTHER PACKAGES UP TO HERE - REVIEW WHAT PACKAGES ARE NECESSARY
-PKG <-c("Kendall","data.table","zoo","dplyr","nlme","AICcmodavg",
-        "Hmisc", "leaflet", "rgdal", "colorRamps")
-
-for (p in PKG) {
-  if(!require(p,character.only = TRUE)) {
-    install.packages(p)
-    library(p)  }
-}
 
 
 fit_lm <- function(dat) {
@@ -827,8 +832,6 @@ Here, we look at the extent to which commercial and recreational fishing relianc
 ```{r 'commercial_reliance_and_vulnerability MAB' , fig.cap="Commercial reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
 
 if(map_figs){
-library(maps);library(mapdata);library(raster)
-library(grid);library(colorRamps);library(stringr)
 
 cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
 cat2 <- SOE.data.2018[SOE.data.2018$Var == "commercial reliance MAB",]$Value
@@ -867,13 +870,9 @@ lat <- SOE.data.2018[SOE.data.2018$Var == "choropleth latitude MAB",]$Value
 
 #new dataframe to turn into sp object
 mab.dat <- data.frame(lon = lon,
-                     lat = lat,
-                     cat3 = cat3)#,
-                     #Value = mab$col)
-#mab.dat <- mab.dat %>% group_by(Value) %>%
-#  arrange(desc(Value))
+                      lat = lat,
+                      cat3 = cat3)
 
-#break up into groups for plotting - allows for effective layering
 #break up into groups for plotting - allows for effective layering
 g1 <- mab.dat %>% filter(cat3 == "A1"|cat3 == "A2"|cat3 == "A3") %>% arrange(cat3)
 g2 <- mab.dat %>% filter(cat3 == "B1"|cat3 == "B2") %>% arrange(cat3)
@@ -883,12 +882,6 @@ g3 <- mab.dat %>% filter(cat3 == "C1") %>% arrange(cat3)
 g2_big <- mab.dat %>% filter(cat3 == "B3")
 g3_big <- mab.dat %>% filter(cat3 == "C2"|cat3 == "C3") %>% arrange(cat3)
 
-#projection
-map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
-               +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
-
-#get USA map data
-usa<-getData('GADM', country="USA", level=0)
 
 #turn grouped data into sp objects for overlaying on plot of Mid-Atlantic
 
@@ -944,14 +937,16 @@ plot(r, col = base_col, legend = F, bty = "n", axes = F, yaxt = "n", frame.plot 
      xaxt='n', add = T)
 
 #text
-text(-73.3, 36.9, "Commercial Reliance",srt=90)
-text(-72,35.8, "Social Vulnerability")
+text(-73.3, 36.9, "Commercial Reliance",srt=90, cex = .85)
+text(-72,35.8, "Social Vulnerability", cex = .85)
 }
+
 ```
 
 ```{r 'community_reliance_and_social_vulnerability MAB' , fig.cap="Recreational reliance and social vulnerability (MAB) \\label{recvulmap}", echo = F, message=F, include=T, warning=F, fig.width=6, fig.height=7, fig.align = 'center'}
 
 if(map_figs){
+
 cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
 cat2 <- SOE.data.2018[SOE.data.2018$Var == "recreational reliance MAB",]$Value
 
@@ -984,19 +979,14 @@ cat3 <- factor(cat3, levels = c("A1","A2","A3",
                                 "B1","B2","B3",
                                 "C1","C2","C3"),
                ordered = TRUE)
-
 lon <- SOE.data.2018[SOE.data.2018$Var == "choropleth longitude MAB",]$Value
 lat <- SOE.data.2018[SOE.data.2018$Var == "choropleth latitude MAB",]$Value
 
 #new dataframe to turn into sp object
 mab.dat <- data.frame(lon = lon,
-                     lat = lat,
-                     cat3 = cat3)#,
-                     #Value = mab$col)
-#mab.dat <- mab.dat %>% group_by(Value) %>%
-#  arrange(desc(Value))
+                      lat = lat,
+                      cat3 = cat3)
 
-#break up into groups for plotting - allows for effective layering
 #break up into groups for plotting - allows for effective layering
 g1 <- mab.dat %>% filter(cat3 == "A1"|cat3 == "A2"|cat3 == "A3") %>% arrange(cat3)
 g2 <- mab.dat %>% filter(cat3 == "B1"|cat3 == "B2") %>% arrange(cat3)
@@ -1006,12 +996,6 @@ g3 <- mab.dat %>% filter(cat3 == "C1") %>% arrange(cat3)
 g2_big <- mab.dat %>% filter(cat3 == "B3")
 g3_big <- mab.dat %>% filter(cat3 == "C2"|cat3 == "C3") %>% arrange(cat3)
 
-#projection
-map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
-               +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
-
-#get USA map data
-usa<-getData('GADM', country="USA", level=0)
 
 #turn grouped data into sp objects for overlaying on plot of Mid-Atlantic
 
@@ -1054,6 +1038,7 @@ plot(g3, pch = 16, col = colo3,cex = 1,add = T)
 
 plot(g2_big, pch = 16, col = "blue",cex = 2, add = T)
 plot(g3_big, pch = 16, col = c(rep("red",table(g3_big$cat3)[8]),rep("black",table(g3_big$cat3)[9])),cex = 2,add = T)
+
 #colors of bivariate color scheme
 base_col <- c("#7F7FFF","blue","black",
               "#B8B8FF","#B871B8","red",
@@ -1066,9 +1051,11 @@ plot(r, col = base_col, legend = F, bty = "n", axes = F, yaxt = "n", frame.plot 
      xaxt='n', add = T)
 
 #text
-text(-73.3, 36.9, "Recreational Reliance",srt=90)
-text(-72,35.8, "Social Vulnerability")
+text(-73.3, 36.9, "Recreational Reliance",srt=90, cex = .85)
+text(-72,35.8, "Social Vulnerability", cex = .85)
 }
+
+
 ```
 \etwocol
 
@@ -1316,16 +1303,9 @@ A full suite of the current distribution maps is available at www.nefsc.noaa.gov
 
 New species may be entering the Mid Atlantic ecosystem. Fishery observer records indicate that southern kingfish sightings have increased since 2014 when species validation methods were implemented, but this increasing trend has been in place since 2010. Further information from fishermen on new and uncommon species is welcome for this report. 
 
-```{r southern kingfish, fig.cap="Southern kingfish occurrences in the observer database", echo=F, message=FALSE, warning=FALSE ,fig.align='center', fig.height=5, fig.width=6}
+```{r southern kingfish, fig.cap="Southern kingfish occurrences in the observer database", echo=F, message=FALSE, warning=FALSE ,fig.align='center', fig.height=7, fig.width=6}
 if(map_figs){
-PKG <-c("rgdal","raster","maptools","mapdata",
-        "maps","colorRamps","fields","RColorBrewer")
 
-for (p in PKG) {
-  if(!require(p,character.only = TRUE)) {
-    install.packages(p)
-    library(p)  }
-}
 
 sk.dat <- SOE.data.2018[grepl("Lat",SOE.data.2018$Units) & grepl("Southern Kingfish",SOE.data.2018$Var),]
 lon <- sk.dat[as.numeric(sk.dat$Value) < 0,]$Value
@@ -1354,8 +1334,7 @@ colors <- df$colors
 map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
                +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
 
-#get USA map data
-usa<-getData('GADM', country="USA", level=0)
+
 
 #data.frame to sp object
 coordinates(df) <- ~lon+lat
