@@ -22,6 +22,7 @@ geometry: margin=1cm
 #image.dir <- 'Z:\\SOE2017\\images'
 data.dir  <- "F:/SOE/SOE_data"
 image.dir <- "F:/SOE/SOE_data"
+gis.dir <- 'F:/soe/soe_data/usa_shape_files'
 #data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
 #image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 library(data.table); library(Kendall)
@@ -45,10 +46,8 @@ map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
                +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
 
 #get USA map data
-can <- readOGR(dsn = "canada_shape_files", verbose = F)
-can@proj4string <- map.crs
-usa <- readOGR(dsn = "usa_shape_files", verbose = F)
-usa@proj4string <- map.crs
+coast <- readOGR(gis.dir, 'NES_LME_coast')
+coast <- spTransform(coast,map.crs)
 ```
 
 
@@ -854,8 +853,8 @@ g3_big <- spTransform(g3_big, map.crs)
 
 #plot map and dots of different size based on category
 
-plot(usa, xlim = c(-72,-68.5), ylim = c(40.5,45.5),col = "grey")
-plot(can, col = "grey", add = T)
+plot(coast, xlim = c(-72,-68.5), ylim = c(40.5,45.5),col = "grey")
+#plot(can, col = "grey", add = T)
 plot(g1, pch = 16, col = colo1,cex = 1, add = T)
 plot(g2, pch = 16, col = colo2,cex = 1, add = T)
 plot(g3, pch = 16, col = colo3,cex = 1,add = T)
@@ -968,8 +967,8 @@ g3_big <- spTransform(g3_big, map.crs)
 
 #plot map and dots of different size based on category
 
-plot(usa, xlim = c(-72,-68.5), ylim = c(40.5,45.5),col = "grey")
-plot(can, col = "grey", add = T)
+plot(coast, xlim = c(-72,-68.5), ylim = c(40.5,45.5),col = "grey")
+#plot(can, col = "grey", add = T)
 plot(g1, pch = 16, col = colo1,cex = 1, add = T)
 plot(g2, pch = 16, col = colo2,cex = 1, add = T)
 plot(g3, pch = 16, col = colo3,cex = 1,add = T)

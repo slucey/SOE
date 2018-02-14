@@ -1,4 +1,4 @@
- ---
+---
  title: "State of the Ecosystem - Mid-Atlantic Bight"
  author: "Northeast Fisheries Science Center"
  date: '`r format(Sys.Date(), "%B %d, %Y")`'
@@ -15,7 +15,7 @@
      toc: no
  fontsize: 11pt
  geometry: margin=1cm
- ---
+---
 
 ```{r Directory and Data Set-up, echo=F, message=F, warning=FALSE, paged.print=TRUE}
 #data.dir  <- '/home/slucey/EcoAP/SOE/2018'
@@ -24,6 +24,7 @@
 #image.dir <- 'Z:\\SOE2017\\images'
 data.dir  <- "F:/SOE/SOE_data"
 image.dir <- "F:/SOE/SOE_data"
+gis.dir <- 'F:/soe/soe_data/usa_shape_files'
 #data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
 #image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 library(data.table); library(Kendall)
@@ -48,8 +49,8 @@ map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
                +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
 
 #get USA map data
-usa <- readOGR(dsn = "usa_shape_files", verbose = F)
-usa@proj4string <- map.crs
+coast <- readOGR(gis.dir, 'NES_LME_coast')
+coast <- spTransform(coast,map.crs)
 ```
 
 ```{r libraries and functions, include=F, echo = F}
@@ -916,7 +917,7 @@ g3_big <- spTransform(g3_big, map.crs)
 
 #plot map and dots of different size based on category
 
-plot(usa, xlim = c(-77.5,-71), ylim = c(35,41),col = "grey")
+plot(coast, xlim = c(-77.5,-71), ylim = c(35,41),col = "grey")
 plot(g1, pch = 16, col = colo1,cex = 1, add = T)
 plot(g2, pch = 16, col = colo2,cex = 1, add = T)
 plot(g3, pch = 16, col = colo3,cex = 1,add = T)
@@ -1030,7 +1031,7 @@ g3_big <- spTransform(g3_big, map.crs)
 
 #plot map and dots of different size based on category
 
-plot(usa, xlim = c(-77.5,-71), ylim = c(35,41),col = "grey")
+plot(coast, xlim = c(-77.5,-71), ylim = c(35,41),col = "grey")
 plot(g1, pch = 16, col = colo1,cex = 1, add = T)
 plot(g2, pch = 16, col = colo2,cex = 1, add = T)
 plot(g3, pch = 16, col = colo3,cex = 1,add = T)
@@ -1064,7 +1065,7 @@ text(-72,35.8, "Social Vulnerability", cex = .85)
 Six key Mid-Atlantic fishing communities were evaluated for their dependence on species vulnerable to climate change and catch composition diversity (Fig. \ref{sppvul}). Five of the six communities had a majority of revenue from species highly vulnerable to climate change.
 
 
-```{r 'species_vulnerability_MAB' , fig.cap="Species vulnerability in Mid-Atlantic fishing communities \\label{sppvul}", echo = F, out.width = "450pt", fig.align='center'}
+```{r 'species_vulnerability_MAB' , fig.cap="Species vulnerability in Mid-Atlantic fishing communities \\label{sppvul}", echo = F, out.width = "450pt", fig.align='center', eval = T}
 knitr::include_graphics(file.path(image.dir, 'Sp_vulnerability_MAB.jpg'))
 ```
 
@@ -1343,7 +1344,7 @@ df <- spTransform(df, map.crs)
 
 #plot
 par(fig = c(0,1,0,1))
-plot(usa, xlim = c(-76,-73), ylim = c(35,40.5),col = "grey")
+plot(coast, xlim = c(-76,-73), ylim = c(35,40.5),col = "grey")
 plot(df, pch = 16, col = colors, add = T, cex = 2.5)
 
 
