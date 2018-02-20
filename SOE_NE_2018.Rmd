@@ -1918,7 +1918,7 @@ text(2,2*.95,"C", cex = 1.5)
 #C. finmarchicus abundance anomaly
 opar <- par(mar = c(4,4.75,2,4))
 soe.plot(SOE.data.2018, "Time", "Calanus finmarchicus abundance anomaly GOM", 
-         anomaly = T, stacked = "A", cex.stacked = 1.5, full.trend = T, cex.stacked = 1.5)
+         anomaly = T, stacked = "A", cex.stacked = 1.5, full.trend = T)
 soe.stacked.axis("Year", "Abundance anomaly", rel.x.text = 1.2, rel.y.text = 1.2, 
                  y.line = 3.2, outer = F)
 
