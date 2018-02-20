@@ -184,7 +184,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
                      rel.y.num = 1.5, rel.y.text = 1.5, suppressAxis = FALSE,status  = F,anomaly = F,
                      endshade = TRUE, full.trend = TRUE, point.cex = 1.5, lwd = 2, ymax = TRUE,ymin = TRUE,
                      y.upper = y.upper, y.lower = y.lower, extra = FALSE, x.var2 = x.var2, y.var2 = y.var2,
-                     line.forward = FALSE, mean_line.2 = T) {
+                     line.forward = FALSE, mean_line.2 = T, cex.stacked = 1) {
   
   #print("You'll need to remove or interpolate NA values before this function will work")
   
@@ -217,7 +217,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   #Plot blank plot
   plot(x[X >= x.start, list(X, Var)], xlim = c(x.start, x.end),
        ylim = c(y.min,y.max), xlab = '', ylab = '', axes = F, ty = 'n')
-    #Add grides
+
 
   #Add background
   u <- par('usr')
@@ -268,37 +268,19 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
   }
 
   #Stacked axes with 0 overlap so need to remove
-  labels <- axTicks(2) / scale.axis
+  labels <- round((axTicks(2) / scale.axis), 5)
   if(labels[1] == 0) labels[1] <- ''
   axis(2, at = axTicks(2), labels = labels, cex.axis = rel.y.num,
        las = T)
-  
-  #Final portion of time series
-  if (status == T){
-    l10_x <- x[X > (end.start - 1), X]
-    l10_y <- x[X > (end.start - 1), Value]
-    lmod <- lm(l10_y ~ l10_x)
-    lmod_c <- unlist(lmod[1])
-    lmod_i <- lmod_c[1]
-    lmod_s <- lmod_c[2]
-    if(lmod_s > 0){
-      lines(l10_x, lmod_s * l10_x + lmod_i,
-            col = main.pos, lwd=5)
-    }
-    if(lmod_s < 0){
-      lines(l10_x, lmod_s * l10_x + lmod_i,
-            col = main.neg, lwd=5)
-    }
-  }
 
     #Add axis labels
-    if(!is.na(stacked)) text(u[1], u[4], labels = stacked, cex = 1, adj = c(-0.5, 1.5))
+    if(!is.na(stacked)) text(u[1], u[4], labels = stacked, cex = cex.stacked, adj = c(-0.5, 1.5))
     if(is.na(stacked)){
       mtext(1, text = x.label, line = x.line, cex = 1)
       mtext(2, text = y.label, line = y.line, cex = rel.y.text)
     }
   
-  if (full.trend == T){
+    if (full.trend == T){
     #Split data into past decade and full time series
     dat <- as.data.frame(x[, list(X, Value)])
     
@@ -1735,7 +1717,7 @@ There is a coherent pattern between the primary production anomaly and the copep
 #C. typicus abundance anomaly
 opar <- par(mar = c(4,4.75,2,4))
 soe.plot(SOE.data.2018, "Time", "Centropages typicus abundance anomaly MAB", 
-         anomaly = T, stacked = "A", suppressAxis = T, x.start = 1986)
+         anomaly = T, stacked = "A", suppressAxis = T, x.start = 1986, cex.stacked = 1.75)
 soe.stacked.axis("Year", "Abundance anomaly", rel.x.text = 1.2, rel.y.text = 1.2, 
                  y.line = 3.1, outer = F)
 
@@ -1765,9 +1747,6 @@ legend("bottomright",
          bty = "n", lwd = 3)
 
 ```
-
-
-
 
 
 
@@ -1829,10 +1808,10 @@ plot_stackbarcpts_single <- function(YEAR, var2bar,
                                  replacement  = " ", 
                                  x            = var2bar),
                   var2bar = gsub(pattern      = "Atl.", 
-                                 replacement  = "", 
+                                 replacement  = "ATLANTIC", 
                                  x            = var2bar),
                   var2bar = gsub(pattern      = "Atl", 
-                                 replacement  = "", 
+                                 replacement  = "ATLANTIC", 
                                  x            = var2bar),
                   var2bar = gsub(pattern      = "NS and combined", 
                                  replacement  = "", 
@@ -1855,10 +1834,10 @@ plot_stackbarcpts_single <- function(YEAR, var2bar,
                                  replacement  = " ", 
                                  x            = var2bar),
                   var2bar = gsub(pattern      = "Atl.", 
-                                 replacement  = "", 
+                                 replacement  = "ATLANTIC", 
                                  x            = var2bar),
                   var2bar = gsub(pattern      = "Atl", 
-                                 replacement  = "", 
+                                 replacement  = "ATLANTIC", 
                                  x            = var2bar),
                   var2bar = gsub(pattern      = "NS and combined", 
                                  replacement  = "", 
