@@ -1061,7 +1061,7 @@ Six key Mid-Atlantic fishing communities were evaluated for their dependence on 
 
 
 ```{r 'species_vulnerability_MAB' , fig.cap="Species vulnerability in Mid-Atlantic fishing communities \\label{sppvul}", echo = F, out.width = "450pt", fig.align='center', eval = T,fig.pos='H'}
-knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_MAB.jpg'))
+knitr::include_graphics(file.path(image.dir, 'Sp_vulnerability_MAB.jpg'))
 ```
 
 # Protected species-fishery interactions
