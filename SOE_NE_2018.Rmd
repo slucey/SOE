@@ -411,25 +411,24 @@ knitr::include_graphics(file.path(image.dir, 'GBandGOM_simple.png'))
 
 # Objectives
 
-\begin{table}[ht]
- \caption{Gulf of Maine and Georges Bank Ecosystem Objectives}
-\centering
-\begin{tabular}{lll}
-  \hline
- & Objective Categories & Indicators reported here \\
-  \hline
-   & Seafood production & Landings by feeding guild \\
-   & Profits & Revenue by feeding guild \\
-   & Recreation & Number of anglers and trips \\
-   & Stability & Diversity indices (fishery and species) \\
-   & Social-Cultural & Community vulnerability, fishery engagement and reliance \\
-   & Biomass & Biomass or abundance by feeding guild from surveys \\
-   & Productivity & Condition and recruitment of NEFMC managed species \\
-   & Trophic structure & Relative biomass of feeding guilds, primary productivity \\
-   & Habitat & Thermal habitat projections, estimated habitat occurrence \\
-   \hline
-\end{tabular}
-\end{table}
+**Table 1**: New England ecosystem objectives
+```{r obj_cats_NE, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Objective Categories     | Indicators reported here                                  |
+|:-------------------------|:----------------------------------------------------------|
+| Seafood production       | Landings by feeding guild                                 |
+| Profits                  | Revenue by feeding guild                                  |
+| Recreation               | Number of anglers and trips; recreational catch           |
+| Stability                | Diversity indices (fishery and species)                   |
+| Social-Cultural          | Commercial and recreational reliance; social vulnerability|
+| Biomass                  | Biomass or abundance by feeding guild from surveys        |
+| Productivity             | Condition and recruitment of NEFMC managed species        |
+| Trophic structure        | Relative biomass of feeding guilds, primary productivity  |
+| Habitat                  | Thermal habitat projections, estimated habitat occurrence |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
 
 ```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -532,28 +531,22 @@ plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 
 # Species Groupings
 
-\begin{table}[ht]
- \caption{Gulf of Maine and Georges Bank Feeding Guilds}
-\centering
-\newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
-\begin{tabular}{lp{2.75in}cp{2.5in}}
-  \hline
- & Feeding group & N species & Major species in group \\
-  \hline
-\splat & \textbf{A: Apex Predator} (Highest trophic level) & 4 & shark (Unc.), swordfish, yellowfin and bluefin tuna \\
 
-\splat & \textbf{B: Piscivore} (Eat fish) & 23 & monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod, halibut, fourspot flounder, spiny
-dogfish, summer flounder, bluefish, striped bass, weakfishs \\
+**Table 2**: New England feeding guilds.
+```{r species_groupings_NE, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Group             | N species | Major species in the group       |
+|:------------------|:-------|:--------------------------------------------|
+| A: *Apex predator* (Highest trophic level)   |  4  | shark (Unc.), swordfish, yellowfin and bluefin tuna |
+| B: *Piscivore* (Eat fish)                    |  23 | monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod, halibut, fourspot flounder, spiny dogfish, summer flounder, bluefish, striped bass, weakfish|
+| C: *Planktivore* (Eat plankton)              |  16 |  Atlantic herring, butterfish, Atlantic mackerel, menhaden, river herrings, shad, white hake, longfin and shortfin squids, searobins, sculpin, lumpfish |
+| E: *Benthivores* (Eat bottom dwellers)       |  25 | lobster, haddock, yellowtail, winter, and witch flounders,barnoor skate, ocean pout, black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, other crabs |
+| F: *Benthos*  (Filter feeders)               |  9  |   scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
 
-\splat & \textbf{C: Planktivore} (Eat plankton) & 16 & Atlantic herring, butterfish, Atlantic mackerel, menhaden, river herrings, shad, white hake, longfin and shortfin squids, searobins, sculpin, lumpfish \\
 
-\splat & \textbf{D: Benthivore} (Eat bottom dwellers) & 25 & lobster, haddock, yellowtail, winter, and witch flounders,barnoor skate, ocean pout, black sea bass, scup, tilefish,
-tautog, cunner, blue crab, red crab, other crabs \\
-
-\splat & \textbf{E: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\
-   \hline
-\end{tabular}
-\end{table}
 
 \clearpage
 
@@ -586,23 +579,19 @@ stargazer(df, summary = F, rownames = T, title = "Proportion of catch managed by
 ```
 # Human Dimensions
 
-## Seafood Production
-\begin{table}[ht]
-  \caption{Proportion of catch managed by NEFMC (2016)}
-\centering
-\newcommand{\splat}{\vrule width 0 pt height 15pt depth 2pt\relax}
-\begin{tabular}{lp{1.25in}cccc}
-\hline
- & Groups & GOM Landings & GB Landings & GOM Revenue & GB Revenue \\
-\hline \\
-\splat & Piscivore & $0.98$ & $0.98$ & $0.93$ & $0.91$ \\
-\splat & Planktivore & $0.89$ & $0.9$ & $0.89$ & $0.77$ \\
-\splat & Benthivore & $0.05$ & $0.42$ & $0.03$ & $0.26$ \\
-\splat & Benthos & $0.30$ & $0.30$ & $0.71$ & $0.85$ \\
-\hline \\[-1.8ex]
-\end{tabular}
-\end{table}
 
+**Table 3**: Proportion of landings and revenue derived from managed species in the Mid-Atlantic. 
+```{r prop_landings_rev_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Groups          | GOM Landings| GB Landings| GOM Revenue| GB Revenue|
+|:----------------|:------------|:-----------|:-----------|:----------|
+| Piscivore       | 0.98        | 0.98       | 0.93       | 0.91      | 
+| Planktivore     | 0.89        | 0.90       | 0.89       | 0.77      | 
+| Benthivore      | 0.05        | 0.42       | 0.03       | 0.26      |
+| Benthos         | 0.30        | 0.30       | 0.71       | 0.85      |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
 #Seafood production
 
 ## NEFMC seafood specific landings (red) and total commericial landings (black) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
@@ -752,7 +741,7 @@ text(.12,.825, "A", cex=1.5)
 text(1.22,.825, "B", cex=1.5)
 ```
 
-## Total revenue (black) and total revenue from landings managed by NEFMC (red) in Gulf of Maine (A) and Georges Bank (B)
+\newpage
 
 ```{r managed_revenue_NE , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}.", echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4, fig.align = 'center',fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -769,19 +758,19 @@ soe.stacked.axis("Time",expression("Revenue, 10"^6*"USD"), outer = T)
 ```
 
 ## New England commercial fleet diversity
-```{r fleet diversity NE, fig.cap = "New England commercial fleet diversity (A) and fleet count (B).",echo=F, message=FALSE, warning=FALSE, include=T, fig.width=7, fig.height=4, fig.align = 'center',fig.pos='H'}
+```{r fleet diversity NE, fig.cap = "New England commercial fleet diversity (A) and fleet count (B).", echo=F, message=FALSE, warning=FALSE, include=T, fig.asp=0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","New England average fleet diversity", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis('Year', 'Fleet diversity', outer = F,rel.y.text = 1.2, y.line = 3)
+soe.stacked.axis('Year', 'Fleet diversity', outer = F,rel.y.text = 0.9, y.line = 3)
 soe.plot(SOE.data.2018,"Time","New England fleet count", stacked = "B",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis('Year', 'Fleet count', outer = F,rel.y.text = 1.2, y.line = 3)
+soe.stacked.axis('Year', 'Fleet count', outer = F,rel.y.text = 0.9, y.line = 3)
 ```
 
 ## New England revenue diversity
 
-```{r revenue diversity NE,fig.cap = "New England species revenue diversity.", echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center',fig.pos='H'}
+```{r revenue diversity NE,fig.cap = "New England species revenue diversity.", echo = F, message=F, include=T, warning=F,  fig.asp=0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, 'Time', "New England commercial species diversity",stacked = NA, 
          endshade = T, full.trend = F, status = F,end.start = 2007, suppressAxis = T)
@@ -789,16 +778,21 @@ soe.stacked.axis("Year","Shannon Index", outer = F)
 ```
 
 ## New England recreational opportunities (A: Rec participation, B: Angler trips)
-```{r recreation NE,fig.cap = "Recreational participation (A) and number of angler trips (B) in New England.", echo=F, message=FALSE, warning=FALSE, include=T, fig.width=8, fig.height=6, fig.align = 'center'}
+```{r recreation NE,fig.cap = "Recreational participation (A) and number of angler trips (B) in New England.", echo=F, message=FALSE, warning=FALSE, include=T,  fig.asp=0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","North Atlantic Rec participation", stacked = "A",
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6, status = F,end.start = 2007, cex.stacked = 1.5)
+         endshade = T, rel.y.num = 0.9, full.trend = T, scale.axis = 10^6, status = F,end.start = 2007, cex.stacked = 1.5)
 soe.plot(SOE.data.2018,"Time","North Atlantic angler trips", stacked = "B",
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6, status = F,end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'))
+         endshade = T, rel.y.num = 0.9, full.trend = T, scale.axis = 10^6, status = F,end.start = 2007, cex.stacked = 1.5)
+soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'), rel.y.text = 0.9)
 ```
 
-```{r NE_HAB, fig.cap="HAB-related shellfish bed closures in New England (2007-2016).", echo=F,message=FALSE, warning=FALSE ,fig.align='center', fig.asp=1.1,fig.width=6,fig.pos='H'}
+
+
+```{r NE_HAB, fig.cap="HAB-related shellfish bed closures in New England (2007-2016).", echo=F,message=FALSE, warning=FALSE ,fig.align='center', fig.asp=1.1,fig.width=6,fig.pos='H',strip.white=T}
+#get map data
+e  <- extent(-78.5, -64, 41, 45)
+coast1 <- crop(coast, e)
 
 events <- SOE.data.2018[grepl("occurrence NE",SOE.data.2018$Var),]
 
@@ -832,19 +826,23 @@ g3 <- spTransform(g3, map.crs)
 
 
 #plot map and dots of different size based on category
-
-plot(coast, xlim = c(-71.5,-64.5), ylim = c(41.5,44.5),col = "grey")
+par(mar = c(0,2.8,0,0.2))
+plot(coast1, xlim = c(-71.5,-64.5),ylim = c(41,45),col = "grey",yaxs="i")
 plot(g1,  add = T,cex = 6, pch = 16, col = "darkorange")
 plot(g2,  add = T,cex = 4, pch = 16,
      col = c("grey", "purple","darkorange","darkorange","darkorange"))
 plot(g3,  add = T,cex = 2, pch = 16, col = c("purple","darkorange"))
 
-axis(1, at = c(-71,-69,-67,-65), labels = paste( c(-71,-69,-67,-65) * -1, 'W'),col = NA, col.ticks = 1)
-axis(2, at = axTicks(2), labels = paste(axTicks(2), 'N'), las = T, pos = -71.78,col = NA, col.ticks = 1)
-box(lty = 1)
+axis(1, at = c(-71,-69,-67,-65), labels = paste( c(-71,-69,-67,-65) * -1, 'W'),col = NA, col.ticks = 1, pos = 41)
+axis(2, at = c(45, 44, 43, 42, 41.05), labels = paste(c(45, 44, 43, 42, 41), 'N'), las = T, pos = -71.78,col = NA, col.ticks = 1)
 legend(-66.2,42.5, c("PSP", "ASP", "DSP"), col = c("darkorange","purple","grey"), pch = 16,
        cex = 1.1, bty = "n", pt.cex = 2)
 text(-65.55,42.495, "Category")
+arrows(-71.765,41,-71.765,45,angle = 90,lwd = 2)
+arrows(-64.22,41,-64.22,45,angle = 90,lwd = 2)
+abline(h = 41, lwd = 2)
+abline(h = 45, lwd = 2)
+abline(v = -64, lwd = 2)
 legend(-67.9,42.5, c("6-10", "2-5", "1"), col = c("black"), pch = 16, cex = 1.1,
        pt.cex = c(6,4,2), x.intersp = 1.45, y.intersp = 1.75, bty = "n")
 text(-67.7,42.525, "2007-2016 Detections")
@@ -963,7 +961,7 @@ plot(r, col = base_col, legend = F, bty = "n", axes = F, yaxt = "n", frame.plot 
      xaxt='n', add = T)
 axis(1, at = c(-72,-70,-68,-66), labels = paste( c(-72,-70,-68,-66) * -1, 'W'),pos = 40.29,col = NA, col.ticks = 1)
 axis(2, at = axTicks(2), labels = paste(axTicks(2), 'N'), las = T, pos = -72.55,col = NA, col.ticks = 1)
-box(lty = 1)
+box(lty = 1, lwd = 2)
 #text
 text(-69.475, 41.55, "Commercial Reliance",srt=90, cex = .75)
 text(-68.4,40.8, "Social Vulnerability", cex = .75)
@@ -1075,7 +1073,7 @@ plot(r, col = base_col, legend = F, bty = "n", axes = F, yaxt = "n", frame.plot 
      xaxt='n', add = T)
 axis(1, at = c(-72,-70,-68,-66), labels = paste( c(-72,-70,-68,-66) * -1, 'W'),pos = 40.29,col = NA, col.ticks = 1)
 axis(2, at = axTicks(2), labels = paste(axTicks(2), 'N'), las = T, pos = -72.55,col = NA, col.ticks = 1)
-box(lty = 1)
+box(lty = 1, lwd = 2)
 #text
 text(-69.475, 41.55, "Recreational Reliance",srt=90, cex = .75)
 text(-68.4,40.8, "Social Vulnerability", cex = .75)
@@ -1344,7 +1342,7 @@ soe.plot(SOE.data.2018, "Time", "long term SST jan-jun", end.start = 2007,
 ```
 
 ### SST anomaly maps
-```{r sst_anomaly_maps, fig.cap="Sea surface temperature anomalies in Fall (A), fig.height=5.5, fig.pos='H', fig.show='hold', message=FALSE, warning=FALSE, Winter (B), Spring (C), and Summer (D) 2017. \\label{dists}" , fig.width=8}
+```{r sst_anomaly_maps, fig.cap="Sea surface temperature anomalies in Fall (A), Winter (B), Spring (C), and Summer (D) 2017.\\label{dists}", fig.height=5.5, fig.pos='H', fig.show='hold', message=FALSE, warning=FALSE , fig.width=8}
 if (map_figs == T){
 SST_plot <- function(raster_data, text){
   d <- raster(raster_data, varname = "ANOM")
@@ -1546,7 +1544,7 @@ axis(1,  labels = c("Jan","Mar","May","July","Sep","Nov","Jan"),
      at = c(1,8,16,24,32,40,48), cex.axis= 1.25)
 mtext(2, line = 2.5, text = expression(paste("Primary Production (gC m"^-2*"d"^-1*")")), cex = 1.5)
 mtext(1, line = 2.5, text = "Time", cex = 1.5)
-text(2,2.5*.95,"B", cex = 1.5)
+text(2,2*.95,"B", cex = 1.5)
 # +/- 1 sd
 polygon(c(doy, rev(doy)),
         c(upper, rev(lower)),
@@ -1650,7 +1648,7 @@ polygon(c(doy, rev(doy)),
 points(doy,chl_val_LT, type = "l", lwd = 1, "grey90")
 #points(doy,chl_val_2017, type = "l", lwd = .5, "black")
 box(lty = 'solid', col = 'black',lwd = 1.25)
-text(2,2*.95,"C", cex = 1.5)
+text(2,2.5*.95,"C", cex = 1.5)
 ```
 
 ```{r SST_PPD_CHL_GB, fig.cap="SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon) in Georges Bank", echo = F, out.width=c('6.5cm','6.5cm','6.5cm'), out.height=c('7cm','7cm','7cm'), fig.show='hold',fig.ncol = 3,fig.pos='H'}
@@ -1806,7 +1804,7 @@ axis(1,  labels = c("Jan","Mar","May","July","Sep","Nov","Jan"),
      at = c(1,8,16,24,32,40,48), cex.axis= 1.25)
 mtext(2, line = 2.5, text = expression(paste("Primary Production (gC m"^-2*"d"^-1*")")), cex = 1.5)
 mtext(1, line = 2.5, text = "Time", cex = 1.5)
-text(2,2.5*.95,"B", cex = 1.5)
+text(2,2*.95,"B", cex = 1.5)
 # +/- 1 sd
 polygon(c(doy, rev(doy)),
         c(upper, rev(lower)),
@@ -1910,7 +1908,7 @@ polygon(c(doy, rev(doy)),
 points(doy,chl_val_LT, type = "l", lwd = 1, "grey90")
 #points(doy,chl_val_2017, type = "l", lwd = .5, "black")
 box(lty = 'solid', col = 'black',lwd = 1.25)
-text(2,2*.95,"C", cex = 1.5)
+text(2,2.5*.95,"C", cex = 1.5)
 ```
 
 ```{r calfin_anom_NE,fig.cap = "\\textit{C. finmarchicus} abundance anomaly in Gulf of Maine (A) and Georges Bank (B)",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F}
