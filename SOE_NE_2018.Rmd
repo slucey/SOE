@@ -411,25 +411,24 @@ knitr::include_graphics(file.path(image.dir, 'GBandGOM_simple.png'))
 
 # Objectives
 
-\begin{table}[ht]
- \caption{Gulf of Maine and Georges Bank Ecosystem Objectives}
-\centering
-\begin{tabular}{lll}
-  \hline
- & Objective Categories & Indicators reported here \\
-  \hline
-   & Seafood production & Landings by feeding guild \\
-   & Profits & Revenue by feeding guild \\
-   & Recreation & Number of anglers and trips \\
-   & Stability & Diversity indices (fishery and species) \\
-   & Social-Cultural & Community vulnerability, fishery engagement and reliance \\
-   & Biomass & Biomass or abundance by feeding guild from surveys \\
-   & Productivity & Condition and recruitment of NEFMC managed species \\
-   & Trophic structure & Relative biomass of feeding guilds, primary productivity \\
-   & Habitat & Thermal habitat projections, estimated habitat occurrence \\
-   \hline
-\end{tabular}
-\end{table}
+**Table 1**: New England ecosystem objectives
+```{r obj_cats_NE, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Objective Categories     | Indicators reported here                                  |
+|:-------------------------|:----------------------------------------------------------|
+| Seafood production       | Landings by feeding guild                                 |
+| Profits                  | Revenue by feeding guild                                  |
+| Recreation               | Number of anglers and trips; recreational catch           |
+| Stability                | Diversity indices (fishery and species)                   |
+| Social-Cultural          | Commercial and recreational reliance; social vulnerability|
+| Biomass                  | Biomass or abundance by feeding guild from surveys        |
+| Productivity             | Condition and recruitment of NEFMC managed species        |
+| Trophic structure        | Relative biomass of feeding guilds, primary productivity  |
+| Habitat                  | Thermal habitat projections, estimated habitat occurrence |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
 
 ```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -532,28 +531,22 @@ plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 
 # Species Groupings
 
-\begin{table}[ht]
- \caption{Gulf of Maine and Georges Bank Feeding Guilds}
-\centering
-\newcommand{\splat}{\vrule width 0 pt height 15pt depth 5pt\relax}
-\begin{tabular}{lp{2.75in}cp{2.5in}}
-  \hline
- & Feeding group & N species & Major species in group \\
-  \hline
-\splat & \textbf{A: Apex Predator} (Highest trophic level) & 4 & shark (Unc.), swordfish, yellowfin and bluefin tuna \\
 
-\splat & \textbf{B: Piscivore} (Eat fish) & 23 & monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod, halibut, fourspot flounder, spiny
-dogfish, summer flounder, bluefish, striped bass, weakfishs \\
+**Table 2**: New England feeding guilds.
+```{r species_groupings_NE, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Group             | N species | Major species in the group       |
+|:------------------|:-------|:--------------------------------------------|
+| A: *Apex predator* (Highest trophic level)   |  4  | shark (Unc.), swordfish, yellowfin and bluefin tuna |
+| B: *Piscivore* (Eat fish)                    |  23 | monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod, halibut, fourspot flounder, spiny dogfish, summer flounder, bluefish, striped bass, weakfish|
+| C: *Planktivore* (Eat plankton)              |  16 |  Atlantic herring, butterfish, Atlantic mackerel, menhaden, river herrings, shad, white hake, longfin and shortfin squids, searobins, sculpin, lumpfish |
+| E: *Benthivores* (Eat bottom dwellers)       |  25 | lobster, haddock, yellowtail, winter, and witch flounders,barnoor skate, ocean pout, black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, other crabs |
+| F: *Benthos*  (Filter feeders)               |  9  |   scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
 
-\splat & \textbf{C: Planktivore} (Eat plankton) & 16 & Atlantic herring, butterfish, Atlantic mackerel, menhaden, river herrings, shad, white hake, longfin and shortfin squids, searobins, sculpin, lumpfish \\
 
-\splat & \textbf{D: Benthivore} (Eat bottom dwellers) & 25 & lobster, haddock, yellowtail, winter, and witch flounders,barnoor skate, ocean pout, black sea bass, scup, tilefish,
-tautog, cunner, blue crab, red crab, other crabs \\
-
-\splat & \textbf{E: Benthos} (Bottom dwellers) & 9 & scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins \\
-   \hline
-\end{tabular}
-\end{table}
 
 \clearpage
 
@@ -586,23 +579,19 @@ stargazer(df, summary = F, rownames = T, title = "Proportion of catch managed by
 ```
 # Human Dimensions
 
-## Seafood Production
-\begin{table}[ht]
-  \caption{Proportion of catch managed by NEFMC (2016)}
-\centering
-\newcommand{\splat}{\vrule width 0 pt height 15pt depth 2pt\relax}
-\begin{tabular}{lp{1.25in}cccc}
-\hline
- & Groups & GOM Landings & GB Landings & GOM Revenue & GB Revenue \\
-\hline \\
-\splat & Piscivore & $0.98$ & $0.98$ & $0.93$ & $0.91$ \\
-\splat & Planktivore & $0.89$ & $0.9$ & $0.89$ & $0.77$ \\
-\splat & Benthivore & $0.05$ & $0.42$ & $0.03$ & $0.26$ \\
-\splat & Benthos & $0.30$ & $0.30$ & $0.71$ & $0.85$ \\
-\hline \\[-1.8ex]
-\end{tabular}
-\end{table}
 
+**Table 3**: Proportion of landings and revenue derived from managed species in the Mid-Atlantic. 
+```{r prop_landings_rev_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Groups          | GOM Landings| GB Landings| GOM Revenue| GB Revenue|
+|:----------------|:------------|:-----------|:-----------|:----------|
+| Piscivore       | 0.98        | 0.98       | 0.93       | 0.91      | 
+| Planktivore     | 0.89        | 0.90       | 0.89       | 0.77      | 
+| Benthivore      | 0.05        | 0.42       | 0.03       | 0.26      |
+| Benthos         | 0.30        | 0.30       | 0.71       | 0.85      |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
 #Seafood production
 
 ## NEFMC seafood specific landings (red) and total commericial landings (black) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
