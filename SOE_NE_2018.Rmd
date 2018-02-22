@@ -31,6 +31,10 @@ gis.dir <- 'F:/soe/soe_data/usa_shape_files'
 #data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
 #image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 
+#STOP HERE
+#Do you have the most updated version of the SOE.data.2018 dataset AND the necessary spatial data? Check the SOE_NE google drive for most recent version.
+
+
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
 knitr::opts_chunk$set(echo = FALSE, fig.path = '/iea_figs_ne/')
 
