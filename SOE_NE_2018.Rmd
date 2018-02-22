@@ -15,7 +15,7 @@ fontsize: 11pt
 header-includes: 
 - \usepackage{float}
 geometry: margin=1cm
-self_contained: yes
+self_contained: no
 
 ---
 
@@ -32,32 +32,45 @@ gis.dir <- 'F:/soe/soe_data/usa_shape_files'
 #image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, fig.path = '/iea_figs_ne/')
 
 #The map_figs option can be set to FALSE to skip making maps on the fly (they will be missing). Or TRUE to make them. 
 map_figs <- T
 
 ```
 
-```{r libraries, echo=F, message=F, warning=FALSE, paged.print=TRUE}
+```{r libraries, echo=F, message=F, warning=FALSE, paged.print=TRUE, results = 'hide'}
 library(Kendall);library(data.table);library(zoo)
 library(dplyr);library(nlme);library(AICcmodavg)
 library(colorRamps);library(Hmisc);library(rgdal)
 library(maps);library(mapdata);library(raster)
 library(grid);library(stringr);library(png)
+library(ncdf4);library(marmap)
 
 
+
+
+#get map data and set constants
 #projection
 map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
                +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
 
-#get map data
+#coastline
 coast <- readOGR(gis.dir, 'NES_LME_coast', verbose = F)
 coast <- spTransform(coast,map.crs)
 
+#bathymetry
 bathy <- raster('NES_bathymetry.tif')
 e  <- extent(-78.5, -64, 33, 45)
 bathy <- crop(bathy, e)
+
+#thermal habitat bathymetry
+th <- getNOAA.bathy(lon1 = -77, lon2 = -65, lat1 = 35, lat2 = 45,
+              resolution = 10) -> nesbath
+
+#color palette for thermal habitat maps
+
+
 
 ```
 
@@ -397,7 +410,56 @@ finder <- function(data, match = match, factor = T){
   }
   
 }
-
+#themal habitat map function
+th_plot <- function(data, species, letter, z.max){
+  data <- nc_open(data)
+  
+  #longitude
+  lon <- ncvar_get(data, "xi", verbose = F)
+  
+  #latitude
+  lat <- ncvar_get(data, "yi", verbose = F)
+  
+  #thermal habitat projection
+  z <- ncvar_get(data, "zi")
+  
+  #combine in data.frame
+  proj <- data.frame(lon = lon,
+                     lat = lat,
+                     z = z)
+  proj <- proj %>% filter(z != "NA",z>0)
+  
+  #turn dataframe to raster
+  coordinates(proj) = ~lon+lat
+  proj4string(proj)=map.crs # set it to lat-long
+  proj = spTransform(proj,map.crs)
+  gridded(proj) = TRUE
+  r = raster(proj)
+  projection(r) = map.crs
+  
+  #max value for breaks
+  #z.max <- SOE.data.2018[grepl(paste(species, "max th"),SOE.data.2018$Var),]$Value
+  #z.max <- as.numeric(z.max)
+  colors <- matlab.like(120)
+  #plot maps
+  plot(r, col=colors, ylim=c(35,45),
+       breaks=seq(0,z.max,length.out=length(colors)),
+       zlim = c(0,z.max),
+       legend.width = 1.5,
+       axes=F, interpolate = F, las = 1,box = T,
+       axis.args=list(at=seq(0, z.max, length.out = 5),
+                      labels=round(seq(0,z.max,length.out = 5),1), 
+                      cex.axis=0.8),
+       legend.args=list(text=expression(paste("     Thermal \n      Habitat")),
+                        side=3, font=2, line=1, cex=.5))
+  
+  map("worldHires", xlim=c(-77,-65),ylim=c(35,45), fill=T,border=0,col="gray", add = T)
+  map.axes(cex.axis = .7)
+  
+  plot(nesbath,deep=-200, shallow=-200, step=1,add=T,lwd=1.2,col="black",lty=3)
+  text(-75.5, 43.9, letter,cex = 1.5)
+  #rm(r,proj)
+}
 
 ```
 
@@ -537,11 +599,11 @@ plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 tabl <- "
 | Group             | N species | Major species in the group       |
 |:------------------|:-------|:--------------------------------------------|
-| A: *Apex predator* (Highest trophic level)   |  4  | shark (Unc.), swordfish, yellowfin and bluefin tuna |
-| B: *Piscivore* (Eat fish)                    |  23 | monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod, halibut, fourspot flounder, spiny dogfish, summer flounder, bluefish, striped bass, weakfish|
-| C: *Planktivore* (Eat plankton)              |  16 |  Atlantic herring, butterfish, Atlantic mackerel, menhaden, river herrings, shad, white hake, longfin and shortfin squids, searobins, sculpin, lumpfish |
-| E: *Benthivores* (Eat bottom dwellers)       |  25 | lobster, haddock, yellowtail, winter, and witch flounders,barnoor skate, ocean pout, black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, other crabs |
-| F: *Benthos*  (Filter feeders)               |  9  |   scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
+| A: **Apex predator** (Highest trophic level)   |  4  | shark (Unc.), swordfish, yellowfin and bluefin tuna |
+| B: **Piscivore** (Eat fish)                    |  23 | monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod, halibut, fourspot flounder, spiny dogfish, summer flounder, bluefish, striped bass, weakfish|
+| C: **Planktivore** (Eat plankton)              |  16 |  Atlantic herring, butterfish, Atlantic mackerel, menhaden, river herrings, shad, white hake, longfin and shortfin squids, searobins, sculpin, lumpfish |
+| E: **Benthivores** (Eat bottom dwellers)       |  25 | lobster, haddock, yellowtail, winter, and witch flounders,barnoor skate, ocean pout, black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, other crabs |
+| F: **Benthos**  (Filter feeders)               |  9  |   scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
@@ -1239,27 +1301,23 @@ soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5)
 
 \newpage
 
-```{r sea_scallop_maps,fig.cap="Sea scallop historical and current abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C). \\label{dists}" , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
+
+```{r seas_scallop_maps,fig.cap="Sea scallop historical and current abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C). \\label{dists}" , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H', warning=F, message=F}
 #read images
 kde <-readPNG("sea_scallop_kde.png")
-contemp <-readPNG("sea_scallop_contemp.png")
-proj <- readPNG("sea_scallop_20_40.png")
 
-par(mar=c(0,0,0,0), xpd=NA, mgp=c(0,0,0), oma=c(0,0,0,0), ann=F, mfrow = c(1,3))
+par(mar=c(2.5,2.8,2,2), xpd=NA, mgp=c(3,1,0), oma=c(0,1,0,0), ann=F, mfrow = c(1,3))
 plot.new()
 usr<-par("usr")
 
+
+
 #fill plot with images
 rasterImage(kde, usr[1], usr[3], usr[2], usr[4])
-rasterImage(contemp, usr[1]+1.1, usr[3], usr[2]+1.1, usr[4])
-rasterImage(proj, usr[1]+2.1, usr[3], usr[2]+2.1, usr[4])
-
-#Add text
 text(.12,.9, "A", cex=1.5)
-text(1.2,.9, "B", cex=1.5)
-text(2.2,.9, "C", cex=1.5)
-text(2.04,.95,"Suitable \nthermal \nhabitat", cex = 0.65)
-text(3.04,.95,"Suitable \nthermal \nhabitat", cex = 0.65)
+th_plot(data = "Sea scallopfall_2.nc", species = "sea scallop", letter = "B", z.max = 2.855913)
+th_plot(data = "Sea scallopfall_4.nc", species = "sea scallop", letter = "C", z.max = 2.855913)
+
 ```
 
 ```{r sea_scallop_species_distributions_MAB, fig.cap="Sea scallop mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
@@ -1284,27 +1342,22 @@ soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
 ```
 
 
-```{r atlantic cod_maps,fig.cap="Atlantic cod historical and current abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C). \\label{dists}" , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
-#read images
+```{r atlantic cod_maps, echo=FALSE, fig.cap="Atlantic cod historical and current abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C). \\label{dists}", fig.height=2.75, fig.pos='H', fig.show='hold',warning=F, message=F,  fig.width=8}
+#read image
 kde <-readPNG("atlantic_cod_kde.png")
-contemp <-readPNG("atlantic_cod_contemp.png")
-proj <- readPNG("atlantic_cod_20_40.png")
 
-par(mar=c(0,0,0,0), xpd=NA, mgp=c(0,0,0), oma=c(0,0,0,0), ann=F, mfrow = c(1,3))
+par(mar=c(2.5,2.8,2,2), xpd=NA, mgp=c(3,1,0), oma=c(0,1,0,0), ann=F, mfrow = c(1,3))
 plot.new()
 usr<-par("usr")
 
+
+
 #fill plot with images
 rasterImage(kde, usr[1], usr[3], usr[2], usr[4])
-rasterImage(contemp, usr[1]+1.1, usr[3], usr[2]+1.1, usr[4])
-rasterImage(proj, usr[1]+2.1, usr[3], usr[2]+2.1, usr[4])
-
-#Add text
 text(.12,.9, "A", cex=1.5)
-text(1.2,.9, "B", cex=1.5)
-text(2.2,.9, "C", cex=1.5)
-text(2.04,.95,"Suitable \nthermal \nhabitat", cex = 0.65)
-text(3.04,.95,"Suitable \nthermal \nhabitat", cex = 0.65)
+th_plot(data = "Atlantic codfall_2.nc", species = "atlantic cod", letter = "B", z.max = 5.190186)
+th_plot(data = "Atlantic codfall_4.nc", species = "atlantic cod", letter = "C", z.max = 5.190186)
+
 ```
 
 ```{r atlantic cod_species_distributions_MAB, fig.cap="Atlantic cod mean depth and along-shelf distance trends (Top row: Spring, bottom row: Fall)",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
