@@ -414,7 +414,18 @@ finder <- function(data, match = match, factor = T){
   
 }
 #themal habitat map function
-th_plot <- function(data, species, letter, z.max){
+th_plot <- function(data, species, letter, z.max, y.axis = T,
+                    legend = T, pos){
+  if (pos == 'topleft'){
+    par(mar=c(3.9, 2.8,3.5,0), mex = .3,  mgp = c(4, .35, 0))
+  } else if (pos == 'topright'){
+    par(mar=c(3.9, 0, 3.5, 2.8), mex = .3,  mgp = c(4, .35, 0))
+  } else if (pos == "bottomleft"){
+    par(mar=c(3.9,2.8,3.5,0), mex = .3,  mgp = c(4, .35, 0))
+  } else if (pos == "bottomright"){
+    par(mar=c(3.9, 0, 3.5, 2.8), mex = .3,  mgp = c(4, .35, 0))
+  }
+  
   data <- nc_open(data)
   
   #longitude
@@ -445,19 +456,33 @@ th_plot <- function(data, species, letter, z.max){
   #z.max <- as.numeric(z.max)
   colors <- matlab.like(120)
   #plot maps
-  plot(r, col=colors, ylim=c(35,45),
+  if (legend == T){
+      plot(r, col=colors, ylim=c(35,45),
        breaks=seq(0,z.max,length.out=length(colors)),
        zlim = c(0,z.max),
-       legend.width = 1.5,
+       legend.width = 2,
        axes=F, interpolate = F, las = 1,box = T,
        axis.args=list(at=seq(0, z.max, length.out = 5),
                       labels=round(seq(0,z.max,length.out = 5),1), 
                       cex.axis=0.8),
        legend.args=list(text=expression(paste("     Thermal \n      Habitat")),
-                        side=3, font=2, line=1, cex=.5))
+                        side=3, font=2, line=1, cex=.65))
+  } else {
+       plot(r, col=colors, ylim=c(35,45),
+       breaks=seq(0,z.max,length.out=length(colors)),
+       axes=F, interpolate = F, las = 1,box = T,legend = F)
+  }
+
   
   map("worldHires", xlim=c(-77,-65),ylim=c(35,45), fill=T,border=0,col="gray", add = T)
-  map.axes(cex.axis = .7)
+  
+  if (y.axis == T){
+    map.axes(cex.axis = .7)
+  } else if (y.axis == F){
+    axis(1,cex = .7)
+    box(lty = 'solid', col = 'black',lwd = 1)
+  }
+  
   
   plot(nesbath,deep=-200, shallow=-200, step=1,add=T,lwd=1.2,col="black",lty=3)
   text(-75.5, 43.9, letter,cex = 1.5)
@@ -465,7 +490,6 @@ th_plot <- function(data, species, letter, z.max){
 }
 
 ```
-
 #Introduction
 The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses.  An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highlighting relationships between focal species groups organized by Mid Atlantic Fishery Management Council (MAFMC) Fishery Management Plan (FMP), managed human activities, environmental drivers, habitats, and key ecological links (Fig. \ref{conceptual}). Here, human activities link to high level strategic management objectives. Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
 
@@ -854,16 +878,16 @@ legend(2006, 40000000, legend = c("New Jersey",
 
 ## Harmful Algal Blooms
 
-Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic region is sparse. In the lower Chesapeake Bay, annual blooms of the dinoflagellate *Cochlodinium polykrikoides* have been observed for several decades and more recently, blooms of *Alexandrium monilatum*, a toxin-producing dinoflagellate common to the Gulf of Mexico, have invaded the region. Both dinoflagellate species have been associated with fish kills either directly or indirectly, the latter due to the prevalence of hypoxic waters following a bloom. Available data regarding the incidence of algal bloom events in Chesapeake Bay (both harmful and otherwise) show that there has been an increase in the number of reported bloom events within the past three years, with the most notable contributors being *C. polykrikoides* and *A. monilatum*. 
+Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic region is sparse. In the lower Chesapeake Bay, annual blooms of the dinoflagellate *Cochlodinium polykrikoides* have been observed for several decades and more recently, blooms of *Alexandrium monilatum*, a toxin-producing dinoflagellate common to the Gulf of Mexico, have invaded the region. Both dinoflagellate species have been associated with fish kills either directly or indirectly, the latter due to the prevalence of hypoxic waters following a bloom. Available data regarding the incidence of algal bloom events in Chesapeake Bay (both harmful and otherwise) show that there has been an increase in the number of reported bloom events within the past three years, with the most notable contributors being *C. polykrikoides* and *A. monilatum*.  The average number of cells in reported *C. polykrikoides* blooms increased dramatically from >3,500,000 cells per liter in 2016 to >35,000,000 cells per liter in 2017; all reported within the vicinity of the York River mouth. Fish exposed to *C. polykrikoides* cell concentrations >300,000 cells per liter will experience near total mortality in as little as 1 hour of exposure. 
 
 Blooms of *C. polykrikoides* and *Auerococcus anophagefferens* (responsible for “brown tides”) occur regularly in the Long Island Sound region, with the most extensive and longest-lasting brown tide event ever recorded occurring in 2017. Long Island also has annual blooms of *Alexandrium catenella*, which has become more prevalent over the last few decades, though it was known to exist in the region more than 40 years ago. Blooms of toxic *Dinophysis* species have also been recorded in Long Island for the first time in recent years, though there have not been any official closures by state regulators.
 
-```{r hab_MAB, fig.cap="Occurrence of algal blooms in Chesapeake Bay at cell concentrations greater than the NCCOS Phytoplankton Monitoring Network threshold for consideration as a bloom event (black), and occurrence of blooms at concentrations warranting action by the Virginia Department of Health (red).", echo = F, warning = F, include = T,fig.asp=0.5, fig.align='center',fig.pos='H'}
+```{r hab_MAB, fig.cap="Occurrence of all blooms at concentrations warranting action by the Virginia Department of Health (black), and occurrence of \\textit{C. polykrikoides} in Chesapeake Bay at cell concentrations >300,000 cells per L (red).", echo = F, warning = F, include = T,fig.asp=0.5, fig.align='center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
 
-soe.plot(SOE.data.2018, "Time", "chesapeake bay HAB", mean_line = F, rel.y.num = 1.1, 
+soe.plot(SOE.data.2018, "Time", "HAB events at VDH threshold", mean_line = F, rel.y.num = 1.1, 
          full.trend = F, end.start = NA, ymin = FALSE, y.lower = 0, extra = TRUE, 
-         x.var2 = "Time", y.var2 = "HAB events at VDH threshold", mean_line.2 = F,
+         x.var2 = "Time", y.var2 = "Cochlodinium polykrikoides at 3e5 thresh", mean_line.2 = F,
          x.label = 'Year', y.label = 'Algal Bloom Events, n', rel.y.text = 1, y.line = 2.5)
 ```
 
@@ -875,8 +899,9 @@ Here, we look at the extent to which commercial and recreational fishing relianc
 
 \newpage
 
+
 ```{r 'commercial_reliance_and_vulnerability MAB' , fig.cap="Commercial (A) and recreational (B) reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.show='hold', fig.width = 8,fig.height = 5.4,strip.white=T,fig.pos='H'}
-par(mfrow=c(1,2), mar = c(1,1,1,1))
+par(mfrow=c(1,2), mar = c(2,2.85,1,1))
 if(map_figs){
 
 cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
@@ -962,7 +987,7 @@ g3_big <- spTransform(g3_big, map.crs)
 
 #plot map and dots of different size based on category
 
-plot(coast, xlim = c(-77.5,-71), ylim = c(35,41),col = "grey")
+plot(coast, xlim = c(-77.5,-71), ylim = c(36.5,41),col = "grey")
 plot(g1, pch = 16, col = colo1,cex = 1, add = T)
 plot(g2, pch = 16, col = colo2,cex = 1, add = T)
 plot(g3, pch = 16, col = colo3,cex = 1,add = T)
@@ -985,7 +1010,13 @@ plot(r, col = base_col, legend = F, bty = "n", axes = F, yaxt = "n", frame.plot 
 #text
 text(-73.9, 36.9, "Commercial Reliance",srt=90, cex = .75)
 text(-72.4,35.6, "Social Vulnerability", cex = .75)
-text(-77.1,41, "A", cex = 1.5)
+text(-77.1,42, "A", cex = 1.5)
+
+axis(1, at = c(-76,-74,-72), labels = paste( c(-76,-74,-72) * -1, 'W'),pos = 34.7,col = NA, col.ticks = 1)
+axis(2, at = axTicks(2), labels = paste(axTicks(2), 'N'), las = T, pos = -77.8,col = NA, col.ticks = 1)
+box(lty = 1, lwd = 2)
+#text
+
 #####################################################################################################
 
 cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
@@ -1071,7 +1102,7 @@ g3_big <- spTransform(g3_big, map.crs)
 
 #plot map and dots of different size based on category
 
-plot(coast, xlim = c(-77.5,-71), ylim = c(35,41),col = "grey")
+plot(coast, xlim = c(-77.5,-71), ylim = c(36.5,41),col = "grey")
 plot(g1, pch = 16, col = colo1,cex = 1, add = T)
 plot(g2, pch = 16, col = colo2,cex = 1, add = T)
 plot(g3, pch = 16, col = colo3,cex = 1,add = T)
@@ -1090,17 +1121,20 @@ r <- raster(xmn = -73.5, xmx = -71.4, ymn = 36, ymx = 37.8, nrows = 3, ncols = 3
 r[] <- 1:9
 plot(r, col = base_col, legend = F, bty = "n", axes = F, yaxt = "n", frame.plot = F,
      xaxt='n', add = T)
-
+axis(1, at = c(-76,-74,-72), labels = paste( c(-76,-74,-72) * -1, 'W'),pos = 34.7,col = NA, col.ticks = 1)
+axis(2, at = axTicks(2), labels = paste(axTicks(2), 'N'), las = T, pos = -77.8,col = NA, col.ticks = 1)
+box(lty = 1, lwd = 2)
 #text
 text(-73.9, 36.9, "Recreational Reliance",srt=90, cex = .75)
 text(-72.4,35.6, "Social Vulnerability", cex = .75)
-text(-77.1,41, "B", cex = 1.5)
+text(-77.1,42, "B", cex = 1.5)
+
+
 }
 
 
 
 ```
-
 
 
 ##Climate Vulnerability of Coastal Fishing Communities
@@ -1249,78 +1283,17 @@ soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5)
 
 ## Species distribution
 
-Spatial distribution can change for a variety of different reasons resulting in distributions that have changed over time for some species more than for others. Two species of particular interest to the MAFMC are black sea bass and summer flounder.  Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions while summer flounder have expanded inshore. Recent work looking at multiple factors that are associated with a species’ prefered habitat show an increase in potential habitat for both species most notably in the spring.  Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for resource species.  Thermal habitat for individual species can then be projected using global climate models. While thermal habitat is only part of the picture, and species may adapt to new thermal regimes, these projections indicate the potential for key species to thrive or not over the coming decades where further ocean warming is expected.  Black sea bass thermal habitat is reduced in the projection while for summer flounder thermal habitat continues to expand and move further offshore in the  MAB. The projections shown here are for fall only but spring projections are also available.
+Spatial distribution can change for a variety of different reasons resulting in distributions that have changed over time for some species more than for others. Two species of particular interest to the MAFMC are black sea bass and summer flounder.  Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions while summer flounder have expanded inshore (Fig. \ref{asd}; Fig. \ref{thermhab}). Recent work looking at multiple factors that are associated with a species’ prefered habitat show an increase in potential habitat for both species most notably in the spring (Fig. \ref{occupancy}).  Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for resource species.
 
-\newpage
-
-```{r black sea bass_maps, echo=FALSE, fig.cap="Atlantic cod historical and current abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C). \\label{dists}", fig.height=2.75, fig.pos='H', fig.show='hold',warning=F, message=F,  fig.width=8}
-#read image
-kde <-readPNG("black_sea_bass_kde.png")
-
-par(mar=c(2.5,2.8,2,2), xpd=NA, mgp=c(3,1,0), oma=c(0,1,0,0), ann=F, mfrow = c(1,3))
-plot.new()
-usr<-par("usr")
-
-
-
-#fill plot with images
-rasterImage(kde, usr[1], usr[3], usr[2], usr[4])
-text(.12,.9, "A", cex=1.5)
-th_plot(data = "Black Sea Bassfall_2.nc", species = "black sea bass", letter = "B", z.max = 1.353462)
-th_plot(data = "Black Sea Bassfall_4.nc", species = "black sea bass", letter = "C", z.max = 1.353462)
-
-```
-
-
-```{r bsb_species_distributions_MAB, fig.cap="Black sea bass mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
-
-
-soe.plot(SOE.data.2018, "Time", "black sea bass spring mean depth", stacked = "A",
-         rel.y.num = 1.1, x.start = 1963, end.start = 2007)
-soe.plot(SOE.data.2018, "Time", "black sea bass fall mean depth", stacked = "B",
-         rel.y.num = 1.1, line.forward = T, end.start = 2007)
-soe.stacked.axis("Year", "Mean depth, m")
-
+```{r sf_species_distributions_MAB,fig.cap="Black sea bass (left) and summer flounder (right) along shelf distance trends (Top row: Spring, bottom row: Fall) \\label{asd}", out.width=c('9.5cm','9.5cm'),  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 soe.plot(SOE.data.2018, "Time", "black sea bass spring mean along-shelf dist", 
-         stacked = "C", rel.y.num = 1.1, suppressAxis = T, 
+         stacked = "A", rel.y.num = 1.1, suppressAxis = T, 
          line.forward = T, tol = 0.15, x.start = 1963, end.start = 2007)
 soe.plot(SOE.data.2018, "Time", "black sea bass fall mean along-shelf dist", 
-         stacked = "D", rel.y.num = 1.1, tol = 0.15, end.start = 2007)
+         stacked = "B", rel.y.num = 1.1, tol = 0.15, end.start = 2007)
 soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
-
-```
-
-
-```{r summer flounder_maps, echo=FALSE, fig.cap="Atlantic cod historical and current abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C). \\label{dists}", fig.height=2.75, fig.pos='H', fig.show='hold',warning=F, message=F,  fig.width=8}
-#read image
-kde <-readPNG("summer_flounder_kde.png")
-
-par(mar=c(2.5,2.8,2,2), xpd=NA, mgp=c(3,1,0), oma=c(0,1,0,0), ann=F, mfrow = c(1,3))
-plot.new()
-usr<-par("usr")
-
-
-
-#fill plot with images
-rasterImage(kde, usr[1], usr[3], usr[2], usr[4])
-text(.12,.9, "A", cex=1.5)
-th_plot(data = "Summer Flounderfall_2.nc", species = "summer flounder", letter = "B", z.max = 2.37253)
-th_plot(data = "Summer Flounderfall_4.nc", species = "summer flounder", letter = "C", z.max = 2.37253)
-
-```
-
-```{r sf_species_distributions_MAB,fig.cap="Summer flounder mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
-
-
-soe.plot(SOE.data.2018, "Time", "summer flounder spring mean depth", stacked = "A",
-         rel.y.num = 1.1, x.start = 1963, end.start = 2007)
-soe.plot(SOE.data.2018, "Time", "summer flounder fall mean depth", stacked = "B",
-         rel.y.num = 1.1, line.forward = T, end.start = 2007)
-soe.stacked.axis("Year", "Mean depth, m")
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
@@ -1333,8 +1306,47 @@ soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
 
 ```
 
-### Modeled shelf habitat trends 
-```{r occupancy_MAB, fig.cap="Summer flounder (left) and black sea bass (right) modeled shelf habitat trends (Top row: Spring, bottom row: Fall)", out.width=c('9.5cm','9.5cm'),  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+
+Thermal habitat for individual species can then be projected using global climate models (Fig. \ref{thermhab}). While thermal habitat is only part of the picture, and species may adapt to new thermal regimes, these projections indicate the potential for key species to thrive or not over the coming decades where further ocean warming is expected.  Black sea bass thermal habitat is reduced in the projection while for summer flounder thermal habitat continues to expand and move further offshore in the  MAB. The projections shown here are for fall only but spring projections are also available.
+
+
+```{r kdes_and_th_maps_MAB,fig.cap="Current and historical abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C) for black sea bass (top) and summer flounder (bottom). \\label{thermhab}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H', warning=F, message=F}
+#fill plot with images
+
+kde1 <- readPNG("black_sea_bass_kde.png")
+kde2 <-readPNG("summer_flounder_kde.png")
+par(mar=c(2.5,2,2,2), xpd=NA, mgp=c(3,1,0), oma=c(0,1,0,0), ann=F, mfrow = c(2,3))
+plot.new()
+usr<-par("usr")
+
+par(mfg=c(1,1))
+rasterImage(kde1, usr[1], usr[3], usr[2], usr[4])
+text(.12,.95, "A", cex=1.5)
+par(mfg=c(2,1))
+rasterImage(kde2, usr[1], usr[3], usr[2], usr[4])
+text(.12,.95, "D", cex=1.5)
+par(mfg=c(1,2))
+th_plot(data = "Black Sea Bassfall_2.nc", species = "sea scallop",
+        letter = "B", z.max = 1.353462, y.axis = T, legend = F, pos = "topleft")
+par(mfg=c(1,3))
+th_plot(data = "Black Sea Bassfall_4.nc", species = "sea scallop",
+        letter = "C", z.max = 1.353462, y.axis = T, legend = T, pos = "topright")
+
+
+par(mfg=c(2,2))
+th_plot(data = "Summer Flounderfall_2.nc", species = "sea scallop",
+        letter = "E", z.max = 2.5, y.axis = T, legend = F, pos = "bottomleft")
+par(mfg = c(2,3))
+th_plot(data = "Summer Flounderfall_4.nc", species = "sea scallop",
+        letter = "F", z.max = 2.5, y.axis = T, legend = T, pos = "bottomright")
+
+
+```
+
+
+
+
+```{r occupancy_MAB, fig.cap="Summer flounder (left) and black sea bass (right) modeled shelf habitat trends (Top row: Spring, bottom row: Fall) \\label{occupancy}", out.width=c('9.5cm','9.5cm'),  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 soe.plot(SOE.data.2018, "Time", "summer flounder spring occupancy", stacked = "A",
@@ -1354,7 +1366,7 @@ soe.stacked.axis("Year", expression("Habitat Area, 10"^3*" km"^2), y.line = 2.5)
 
 A full suite of the current distribution maps is available at www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html.  While the full suite of thermal habitat projections can be found at  www.nefsc.noaa.gov/ecosys/climate-change/projected-thermal-habitat/
 
-### Incoming species?
+### Incoming species
 
 New species may be entering the Mid Atlantic ecosystem. Fishery observer records indicate that southern kingfish sightings have increased since 2014 when species validation methods were implemented, but this increasing trend has been in place since 2010. Further information from fishermen on new and uncommon species is welcome for this report. 
 
