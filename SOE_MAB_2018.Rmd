@@ -741,7 +741,7 @@ soe.plot(SOE.data.2018, "Time", "Recreational Seafood MA", scale.axis = 10^6,
 
 ## Commercial Fishery Revenue
 
-This indicator links the human activity of commercial fishing to the profits objective. This year we present the “Bennet Indicator” which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000.Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennetspp}A).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennetspp}B). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups.
+This indicator links the human activity of commercial fishing to the profits objective. This year we present the “Bennet Indicator” which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000. Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennetspp}A).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennetspp}B). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups.
 
 ```{r 'Rev_Price_Vol_MAB', fig.cap="Bennet indicator, all species aggregated \\label{Bennet}", echo = F, out.width = "475pt", fig.align='center',fig.pos='H'}
 knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
@@ -1265,7 +1265,7 @@ Seasonally divergent aggregate biomass trends require further investigation. The
 
 ## Species composition
 
-Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Diversity (here estimated using data from NOAA NEFSC Oceans and Climate branch public dataset for 45 abundant and well-identified ichthyoplankton taxa (Walsh et al. 2015))  shows a decrease for one season (spring), suggesting that survey timing may be interacting with changes in spawn timing or migration of adult fish (see above) as well as a potential change in ichthyoplankton availability due to adult fish distribution shifts (see below).  The decrease in spring ichthyoplankton diversity coincides with an increase in the spring abundance of sand lance (Ammodytes spp.) larvae, an important prey species (Richardson et al. 2014).  Walsh et al. (2015) documented a significant seasonal shift from winter to spring based on annual relative proportions from 1977-1987 to 1999-2008. 
+Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Diversity (here estimated using data from NOAA NEFSC Oceans and Climate branch public dataset for 45 abundant and well-identified ichthyoplankton taxa shows a decrease for one season (spring), suggesting that survey timing may be interacting with changes in spawn timing or migration of adult fish (see above) as well as a potential change in ichthyoplankton availability due to adult fish distribution shifts (see below).  The decrease in spring ichthyoplankton diversity coincides with an increase in the spring abundance of sand lance (*Ammodytes* spp.) larvae, an important prey species.  Researchers documented a significant seasonal shift from winter to spring based on annual relative proportions from 1977-1987 to 1999-2008. 
 
 ```{r larval_diversity, fig.cap="Ichthyoplankton Shannon diversity and species counts in the Spring (Top row) and Fall (bottom row)",echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
@@ -1833,7 +1833,7 @@ knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition_2018.jpg'))
 
 ### Groundfish productivity
 
-The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed species in the Mid-Atlantic
+The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed species in the Mid-Atlantic.
 
 ```{r groundfish productivity, fig.cap="Groundfish productivity (A: MAFMC managed species, B: Commercial MAB Species)", echo = F, out.width='9.2cm', out.height='9.2cm', fig.show='hold', fig.align = 'center',fig.pos='H'}
 ## Functions for plotting
@@ -1993,8 +1993,9 @@ Work is in progress to address changes in forage fish energy content, which link
 Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.  This could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified.
 
 #Research recommendations 
-filled in after internal, SSC review
+filled in after internal and SSC review
 
 #Acknowledgements
-insert author list here
+Editors: Sarah Gaichas, Sean Lucey, Sean Hardison
+Contributors: Lisa Colburn, Geret DePiper, Kevin Friedland, Sarah Gaichas, Kim Hyde, Sean Lucey, Sean Hardison, Ryan Morse, Chris Orphanides, Charles Perretti, Vincent Saba, Laurel Smith, John Walden, Harvey Walsh, Mark Wuenschel
 
