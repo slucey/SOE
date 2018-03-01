@@ -5,16 +5,16 @@ date: '`r format(Sys.Date(), "%B %d, %Y")`'
 graphics: yes
 output:
   pdf_document:
-    toc: no
-    fig_caption: true
+    includes:
+      in_header: preamble-latex.tex
+    keep_tex: yes
+    pandoc_args: --latex-engine=xelatex
   html_document:
     toc: yes
   word_document:
     toc: no
 fontsize: 11pt
-header-includes: 
-- \usepackage{float}
-geometry: margin=1cm
+geometry: margin=1cm, footskip=.5cm
 self_contained: yes
 
 ---
@@ -1718,48 +1718,81 @@ While sea surface temperature in the U.S. NES was warmer than average for 2017, 
 
 ```{r sst_anomaly_maps,fig.cap="Sea surface temperature anomalies in Fall (A), Winter (B), Spring (C), and Summer (D) 2017. \\label{dists}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H'}
 if (map_figs == T){
-SST_plot <- function(raster_data, text){
-  d <- raster(raster_data, varname = "ANOM")
-  e  <- extent(-78.5, -63, 33, 45)
-  d <- crop(d, e)
   
+  #constants
   colors <- colorRampPalette(c("dodgerblue4",'blue', 'white', 'firebrick1',"firebrick4"))  
+  color_levels=100   
+  
+  #SST map function
+  SST_plot <- function(raster_data, text,pos = "left"){
+    
+    #adjusts par for legend placement 
+    if (pos == "right"){
+      par(mar = c(4.3,0,3,10), mex = .3,  mgp = c(4, .35, 0))
+    } else{
+      par(mar = c(4.3,5,3,6), mex = .3,  mgp = c(4, .35, 0))
+    }
+    
+    #read .nc and convert to raster
+    d <- raster(raster_data, varname = "ANOM")
+    crs(d) <- map.crs
+    #crop data
+    e  <- extent(-77.2, -64.2, 32, 48)
+    d <- crop(d, e)
+    
+    #get zmax
+    z.max=max(d[][is.finite(d[])])
+    
+    #plot raster
+    plot(d, col=colors(n=color_levels),
+         breaks=seq(-z.max,z.max,length.out=color_levels+1),
+         legend.width = 1.5,bty ="L",axes=F,
+         interpolate = T, las = 1,box = FALSE,legend = FALSE, asp = 1)
+    #plot contour
+    contour(bathy,drawlabels = F,nlevels = 5,add=T)
+    #plot coastline
+    plot(coast, col = 'grey',add = T , lty=0)
+    #axes
+    axis(1, at = seq(-77,-65,2), labels = seq(-77,-65,2) , cex.axis = 0.7)
+    axis(2, cex.axis = 0.7)
+    
+    #labels
+    text(-76,45,text,cex = 1.5)
+    
+    
+  }
+  
+  #plot maps
+  par(oma=c(0,0,0,0), mfrow = c(2,2))
+  SST_plot("2017_Fall_SST_anomaly.nc","A")
+  SST_plot("2017_Winter_SST_anomaly.nc","B",pos = "right")
+  SST_plot("2017_Spring_SST_anomaly.nc","C")
+  SST_plot("2017_Summer_SST_anomaly.nc","D",pos = "right") 
+  
+  #plot only legend
+  colors <- colorRampPalette(c("dodgerblue4",'blue', 'white', 'firebrick1',"firebrick4")) 
   color_levels=100 
-  z.max=max(d[][is.finite(d[])])
-
-  par(mar = c(2,4,3.2,1))  
-  plot(d, col=colors(n=color_levels),xlim = c(-78,-63),ylim = c(34,44),
+  z.max=7.21
+  
+  #set new par
+  par(mfrow=c(1, 1), mar=c(2, 5, 2, 0), new=FALSE)
+  
+  #any data
+  d <- raster(matrix(runif(100), ncol=10))
+  
+  #legend plot
+  plot(d, col=colors(n=color_levels),
        breaks=seq(-z.max,z.max,length.out=color_levels+1),
-       legend.width = 1.5,
+       legend.shrink = 1,
+       legend.width = 1,legend.only = T,
        axes=F, interpolate = T, las = 1,box = FALSE,
        axis.args=list(at=seq(-z.max, z.max, length.out = 5),
                       labels=seq(-4,4,length.out = 5), 
                       cex.axis=0.8),
        legend.args=list(text=expression(paste('Temperature Anomaly (',degree,"C)")),
                         side=4, font=2, line=2, cex=1))
-  
-  contour(bathy,xlim = c(-78,-63),drawlabels = F,nlevels = 5,add=T)
-  plot(coast, col = 'grey',add = T)
-  
-  axis(1, at = c(-75,-70,-65), labels = paste( c(-75,-70,-65) * -1, 'W'),col = NA, col.ticks = 1)
-  axis(2, at = axTicks(2), labels = paste(axTicks(2), 'N'), las = T, pos = -78.71,col = NA, col.ticks = 1)
-  
-  abline(v = -78.69,lwd =2)
-  arrows(-78.71,35,-64.55,35,angle = 180,lwd = 2.5)
-  text(-77.75,43.5,text,cex = 1.5)
 }
 
-
-sst_files <- list("2017_Fall_SST_anomaly.nc","2017_Winter_SST_anomaly.nc",
-                  "2017_Spring_SST_anomaly.nc","2017_Summer_SST_anomaly.nc")
-letters <- list("A","B","C","D")
-
-opar<-par(mfrow=c(2,2), oma = c(0,0,0,1))
-for (i in 1:length(sst_files)){
-  SST_plot(sst_files[[i]],letters[[i]])
-}
-  
-}
 
 ```
 
