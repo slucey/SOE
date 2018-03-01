@@ -36,7 +36,7 @@ gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
 
 
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
-knitr::opts_chunk$set(echo = FALSE, fig.path = '/iea_figs_ne/')
+knitr::opts_chunk$set(echo = FALSE, fig.path = './iea_figs_ne/')
 
 #The map_figs option can be set to FALSE to skip making maps on the fly (they will be missing). Or TRUE to make them. 
 map_figs <- T
@@ -1314,8 +1314,8 @@ Thermal habitat for individual species can then be projected using global climat
 ```{r kdes_and_th_maps_MAB,fig.cap="Current and historical abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C) for black sea bass (top) and summer flounder (bottom). \\label{thermhab}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H', warning=F, message=F}
 #fill plot with images
 
-kde1 <- readPNG("black_sea_bass_kde.png")
-kde2 <-readPNG("summer_flounder_kde.png")
+kde1 <- readPNG(file.path(image.dir, "black_sea_bass_kde.png"))
+kde2 <- readPNG(file.path(image.dir,"summer_flounder_kde.png"))
 par(mar=c(2.5,2,2,2), xpd=NA, mgp=c(3,1,0), oma=c(0,1,0,0), ann=F, mfrow = c(2,3))
 plot.new()
 usr<-par("usr")
@@ -1327,18 +1327,18 @@ par(mfg=c(2,1))
 rasterImage(kde2, usr[1], usr[3], usr[2], usr[4])
 text(.12,.95, "D", cex=1.5)
 par(mfg=c(1,2))
-th_plot(data = "Black Sea Bassfall_2.nc", species = "sea scallop",
+th_plot(data = file.path(gis.dir, "Black Sea Bassfall_2.nc"), species = "sea scallop",
         letter = "B", z.max = 1.353462, y.axis = T, legend = F, pos = "topleft")
 par(mfg=c(1,3))
-th_plot(data = "Black Sea Bassfall_4.nc", species = "sea scallop",
+th_plot(data = file.path(gis.dir, "Black Sea Bassfall_4.nc"), species = "sea scallop",
         letter = "C", z.max = 1.353462, y.axis = T, legend = T, pos = "topright")
 
 
 par(mfg=c(2,2))
-th_plot(data = "Summer Flounderfall_2.nc", species = "sea scallop",
+th_plot(data = file.path(gis.dir, "Summer Flounderfall_2.nc"), species = "sea scallop",
         letter = "E", z.max = 2.5, y.axis = T, legend = F, pos = "bottomleft")
 par(mfg = c(2,3))
-th_plot(data = "Summer Flounderfall_4.nc", species = "sea scallop",
+th_plot(data = file.path(gis.dir,"Summer Flounderfall_4.nc"), species = "sea scallop",
         letter = "F", z.max = 2.5, y.axis = T, legend = T, pos = "bottomright")
 
 
