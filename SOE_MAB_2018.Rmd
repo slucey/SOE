@@ -741,7 +741,7 @@ soe.plot(SOE.data.2018, "Time", "Recreational Seafood MA", scale.axis = 10^6,
 
 ## Commercial Fishery Revenue
 
-This indicator links the human activity of commercial fishing to the profits objective. This year we present the “Bennet Indicator” which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennetspp}A). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups. Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennetspp}B).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain.  
+This indicator links the human activity of commercial fishing to the profits objective. This year we present the “Bennet Indicator” which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000.Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennetspp}A).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennetspp}B). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups.
 
 ```{r 'Rev_Price_Vol_MAB', fig.cap="Bennet indicator, all species aggregated \\label{Bennet}", echo = F, out.width = "475pt", fig.align='center',fig.pos='H'}
 knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
@@ -775,8 +775,8 @@ knitr::include_graphics(file.path(image.dir, 'vol_ind_MAB.png'))
 \newpage
 -->
 
-## Ecosystem-wide and managed species total revenue
-Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the region over the last 5 years. 
+## Ecosystem-wide and Managed Species Total Revenue
+Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the region over the last 5 years (Fig. \ref{totcommrev}). 
 
 ```{r managed_revenue , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}", echo = F, message=F, include=T, warning=F ,  fig.asp=0.35, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -788,7 +788,7 @@ soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", rel.y.num = 1.1,
          y.label = expression("Revenue, 10"^6*'USD'), rel.y.text = 1)
 ```
 
-## Commercial Fleet Diveristy
+## Commercial Fleet Diversity
 
 Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Diversity estimates have been developed for fleets and species landed by vessels with Mid-Atlantic permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. 
 
@@ -820,7 +820,7 @@ soe.plot(SOE.data.2018, 'Time', "Mid-Atlantic commercial species diversity",
          rel.y.text = 1, rel.y.num = 1, y.line = 2.5, x.line = 2)
 ```
 
-## Recreational opportunities 
+## Recreational Opportunities 
 
 Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
 
