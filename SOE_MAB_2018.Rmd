@@ -492,7 +492,9 @@ th_plot <- function(data, species, letter, z.max, y.axis = T,
 }
 
 ```
+
 #Introduction
+
 The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses.  An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highlighting relationships between focal species groups organized by Mid Atlantic Fishery Management Council (MAFMC) Fishery Management Plan (FMP), managed human activities, environmental drivers, habitats, and key ecological links (Fig. \ref{conceptual}). Here, human activities link to high level strategic management objectives. Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
 
 ```{r, fig.cap="Mid-Atlantic Ecosystem \\label{conceptual}", fig.height=6, fig.width=4, out.width='\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T,fig.pos='H'}
@@ -643,11 +645,11 @@ Many metrics aggregate species by similar functional groups.  Species that compr
 tabl <- "
 | Group             | N species | Major species in the group       |
 |:------------------|:-------|:--------------------------------------------|
-| A: Apex predator (Highest trophic level)   |  4  | shark (Unc.), swordfish, yellowfin and bluefin tuna |
-| B: Piscivore (Eat fish)                    |  23 | spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder |
-| C: Planktivore (Eat plankton)              |  16 | Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid |
-| E: Benthivores (Eat bottom dwellers)       |  25 | black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail, winter, and witch flounders, barndoor skate, American plaice, other crabs|
-| F: Benthos  (Filter feeders)               |  9  |  scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
+| A: **Apex predator** (Highest trophic level)   |  4  | shark (Unc.), swordfish, yellowfin and bluefin tuna |
+| B: **Piscivore** (Eat fish)                    |  23 | spiny dogfish, summer flounder, bluefish, striped bass, weakfish, monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod and halibut, fourspot flounder |
+| C: **Planktivore** (Eat plankton)              |  16 | Atlantic and blueback herring, alewife, shad, menhaden, cusk, Atlantic mackerel, butterfish, blackbelly rosefish, sculpins, lumpfish, northern searobin, northern sand lance, northern shortfin and longfin squid |
+| E: **Benthivore** (Eat bottom dwellers)       |  25 | black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, lobster, ocean pout, haddock, yellowtail, winter, and witch flounders, barndoor skate, American plaice, other crabs|
+| F: **Benthos**  (Filter feeders)               |  9  |  scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
