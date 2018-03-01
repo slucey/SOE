@@ -1996,6 +1996,8 @@ Constituents have frequently raised concerns about the complexity of fishery reg
 filled in after internal and SSC review
 
 #Acknowledgements
-Editors: Sarah Gaichas, Sean Lucey, Sean Hardison
-Contributors: Lisa Colburn, Geret DePiper, Kevin Friedland, Sarah Gaichas, Kim Hyde, Sean Lucey, Sean Hardison, Ryan Morse, Chris Orphanides, Charles Perretti, Vincent Saba, Laurel Smith, John Walden, Harvey Walsh, Mark Wuenschel
+
+**Editors:** Sarah Gaichas, Sean Hardison, Sean Lucey
+
+**Contributors:** Donald Anderson, Lisa Colburn, Geret DePiper, Deb Duarte, Kevin Friedland, Sarah Gaichas, Heather Haas, Sean Hardison, Kim Hyde, Loren Kellogg, Kristin Kleisner, Sean Lucey, Ryan Morse, Chris Orphanides, Charles Perretti, Vincent Saba, Laurel Smith, John Walden, Harvey Walsh, Mark Wuenschel
 
