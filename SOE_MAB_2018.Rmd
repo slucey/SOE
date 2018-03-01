@@ -36,6 +36,7 @@ gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
 
 
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
+# latex figure folder
 knitr::opts_chunk$set(echo = FALSE, fig.path = './iea_figs_ne/')
 
 #The map_figs option can be set to FALSE to skip making maps on the fly (they will be missing). Or TRUE to make them. 
