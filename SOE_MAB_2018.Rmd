@@ -24,11 +24,12 @@ self_contained: yes
 #image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- "F:/SOE/SOE_data"
-image.dir <- "F:/SOE/SOE_data"
-gis.dir <- 'F:/soe/soe_data/usa_shape_files'
-#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+#data.dir  <- "F:/SOE/SOE_data"
+#image.dir <- "F:/SOE/SOE_data"
+#gis.dir <- 'F:/soe/soe_data/usa_shape_files'
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
 
 #STOP HERE
 #Do you have the most updated version of the SOE.data.2018 dataset AND the necessary spatial data? Check the SOE_MAB google drive for most recent version.
