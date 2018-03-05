@@ -15,10 +15,9 @@ fontsize: 11pt
 header-includes: 
 - \usepackage{float}
 geometry: margin=1cm
-self_contained: no
+self_contained: yes
 
 ---
-
 
 ```{r Directory and Data Set-up, echo=F, message=F, warning=FALSE, paged.print=TRUE}
 #data.dir  <- '/home/slucey/EcoAP/SOE/2018'
@@ -28,15 +27,17 @@ self_contained: no
 data.dir  <- "F:/SOE/SOE_data"
 image.dir <- "F:/SOE/SOE_data"
 gis.dir <- 'F:/soe/soe_data/usa_shape_files'
-#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+# data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+# image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+# gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
 
 #STOP HERE
-#Do you have the most updated version of the SOE.data.2018 dataset AND the necessary spatial data? Check the SOE_NE google drive for most recent version.
+#Do you have the most updated version of the SOE.data.2018 dataset AND the necessary spatial data? Check the SOE_MAB google drive for most recent version.
 
 
 load(file.path(data.dir, "SOE_data_2018.Rdata"))
-knitr::opts_chunk$set(echo = FALSE, fig.path = '/iea_figs_ne/')
+# latex figure folder
+knitr::opts_chunk$set(echo = FALSE, fig.path = './iea_figs_ne/')
 
 #The map_figs option can be set to FALSE to skip making maps on the fly (they will be missing). Or TRUE to make them. 
 map_figs <- T
@@ -53,28 +54,24 @@ library(ncdf4);library(marmap)
 
 
 
-
 #get map data and set constants
 #projection
 map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
                +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
 
-#coastline
+#coastline and bathymetry
 coast <- readOGR(gis.dir, 'NES_LME_coast', verbose = F)
 coast <- spTransform(coast,map.crs)
-
-#bathymetry
 bathy <- raster('NES_bathymetry.tif')
-e  <- extent(-78.5, -64, 33, 45)
+
+#define extents for cropping
+e  <- extent(-77.2, -64.2, 35, 48)
+th_extent <-extent(-77,-65,35,45) #thermal habitat
+
+#crop - thermal habitat bathymetry before general bathymetry
+coast <- crop(coast, e)
+th <- crop(bathy,th_extent)
 bathy <- crop(bathy, e)
-
-#thermal habitat bathymetry
-th <- getNOAA.bathy(lon1 = -77, lon2 = -65, lat1 = 35, lat2 = 45,
-              resolution = 10) -> nesbath
-
-#color palette for thermal habitat maps
-
-
 
 ```
 
@@ -414,8 +411,20 @@ finder <- function(data, match = match, factor = T){
   }
   
 }
+
 #themal habitat map function
-th_plot <- function(data, species, letter, z.max){
+th_plot <- function(data, letter, z.max, y.axis = T,
+                    legend = T, pos){
+  if (pos == 'topleft'){
+    par(mar=c(3.9, 2.8,3.5,0), mex = .3,  mgp = c(4, .35, 0))
+  } else if (pos == 'topright'){
+    par(mar=c(3.9, 0, 3.5, 2.8), mex = .3,  mgp = c(4, .35, 0))
+  } else if (pos == "bottomleft"){
+    par(mar=c(3.9,2.8,3.5,0), mex = .3,  mgp = c(4, .35, 0))
+  } else if (pos == "bottomright"){
+    par(mar=c(3.9, 0, 3.5, 2.8), mex = .3,  mgp = c(4, .35, 0))
+  }
+  
   data <- nc_open(data)
   
   #longitude
@@ -446,21 +455,35 @@ th_plot <- function(data, species, letter, z.max){
   #z.max <- as.numeric(z.max)
   colors <- matlab.like(120)
   #plot maps
-  plot(r, col=colors, ylim=c(35,45),
+  if (legend == T){
+      plot(r, col=colors, ylim=c(35,45),
        breaks=seq(0,z.max,length.out=length(colors)),
        zlim = c(0,z.max),
-       legend.width = 1.5,
+       legend.width = 2,
        axes=F, interpolate = F, las = 1,box = T,
        axis.args=list(at=seq(0, z.max, length.out = 5),
                       labels=round(seq(0,z.max,length.out = 5),1), 
                       cex.axis=0.8),
        legend.args=list(text=expression(paste("     Thermal \n      Habitat")),
-                        side=3, font=2, line=1, cex=.5))
+                        side=3, font=2, line=1, cex=.65))
+  } else {
+       plot(r, col=colors, ylim=c(35,45),
+       breaks=seq(0,z.max,length.out=length(colors)),
+       axes=F, interpolate = F, las = 1,box = T,legend = F)
+  }
+
   
   map("worldHires", xlim=c(-77,-65),ylim=c(35,45), fill=T,border=0,col="gray", add = T)
-  map.axes(cex.axis = .7)
   
-  plot(nesbath,deep=-200, shallow=-200, step=1,add=T,lwd=1.2,col="black",lty=3)
+  if (y.axis == T){
+    map.axes(cex.axis = .7)
+  } else if (y.axis == F){
+    axis(1,cex = .7)
+    box(lty = 'solid', col = 'black',lwd = 1)
+  }
+  
+  
+  contour(th,drawlabels = F,nlevels = 2,add=T, col = "gray",lty=2, lwd = .9)
   text(-75.5, 43.9, letter,cex = 1.5)
   #rm(r,proj)
 }
@@ -469,7 +492,7 @@ th_plot <- function(data, species, letter, z.max){
 
 ##Conceptual model 
 ```{r, fig.cap="Gulf of Maine and Georges Bank Ecosystem \\label{conceptual}", fig.height=6, fig.width=4, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
-knitr::include_graphics(file.path(image.dir, 'GBandGOM_simple.png'))
+knitr::include_graphics(file.path(image.dir, 'ne_conceptual_model.pdf'))
 
 ```
 
@@ -646,7 +669,7 @@ stargazer(df, summary = F, rownames = T, title = "Proportion of catch managed by
 # Human Dimensions
 
 
-**Table 3**: Proportion of landings and revenue derived from managed species in the Mid-Atlantic. 
+**Table 3**: Proportion of landings and revenue derived from managed species in New England. 
 ```{r prop_landings_rev_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Groups          | GOM Landings| GB Landings| GOM Revenue| GB Revenue|
@@ -662,9 +685,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 ## NEFMC seafood specific landings (red) and total commericial landings (black) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
 ### Gulf of Maine
-```{r seafood_landings_GOM,  fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos).",echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center',fig.pos='H'}
+```{r seafood_landings_GOM,  fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (left) and Georges Bank (right) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos).", echo = F, fig.show='hold',fig.height = 5.5, fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 
-## Ecosystem-wide and managed species total landings
+## Gulf of Maine cosystem-wide and managed species total landings
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
 soe.plot(SOE.data.2018, "Time","Apex Predator Landings GOM", stacked = "A",status = F,
@@ -691,11 +714,7 @@ soe.plot(SOE.data.2018, "Time", "Benthos Landings GOM", stacked = "E",status = F
          y.var2 = "Benthos NEFMC managed species sea food GOM", mean_line = T, cex.stacked = 2)
 soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
 
-```
-### Georges Bank
-```{r seafood_landings_GB,fig.cap="Total landings (black) and total landings managed by NEFMC (red) in Georges Bank (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos).", echo = F, warning = F, include = T,out.width='1\\linewidth', fig.width = 6,fig.height=7.5, fig.align='center',fig.pos='H'}
-
-## Ecosystem-wide and managed species total landings
+## Goerges Bank ecosystem-wide and managed species total landings
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
 soe.plot(SOE.data.2018, "Time","Apex Predator Landings GB", stacked = "A",status = F,
@@ -724,8 +743,9 @@ soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
 
 ```
 
+
 ## Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (A) and Georges Bank (B)
-```{r managed_landings_NE , fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (A) and Georges Bank (B).", echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4, fig.align = 'center'}
+```{r managed_landings_NE , fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (A) and Georges Bank (B).", echo=F, message=FALSE, warning=FALSE , fig.asp=.5, fig.align = 'center'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Total Landings GOM", stacked = "A",status = F,
@@ -736,16 +756,16 @@ soe.plot(SOE.data.2018, "Time", "Total Landings GB", stacked = "B",status = F,
          endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 =  "Total managed landings GB")
-soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
+soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T, rel.x.text = 1.2, rel.y.text = 1.2)
 ```
 
 ## New England recreational seafood landings
-```{r rec_catch_NE, fig.cap = "Recreational seafood landings in New England.",echo = F, message=F, include=T, warning=F, fig.width=7, fig.height=4, fig.align = 'center',fig.pos='H'}
+```{r rec_catch_NE, fig.cap = "Recreational seafood landings in New England.",echo = F, message=F, include=T, warning=F,fig.asp = 0.45, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Recreational Seafood NE", stacked = NA, status = F, full.trend = T,
          scale.axis = 10^6,end.start = 2007, suppressAxis = T)
-soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F)
+soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F, rel.x.text = 1.2, rel.y.text = 1.2)
 
 ```
 
@@ -753,8 +773,8 @@ soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F)
 
 ### Revenue change in Gulf of Maine and Georges Banks shown through aggregated price and volume indicators.
 ```{r 'Rev_Price_Vol_GOM_GB',fig.cap = "Revenue change in Gulf of Maine (A) and Georges Banks (B) shown through aggregated price and volume indicators." , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
-price_ind<-readPNG("Pr_Vol_GOM.png")
-vol_ind<-readPNG("Pr_Vol_GB.png")
+price_ind<-readPNG(file.path(image.dir, "Pr_Vol_GOM.png"))
+vol_ind<-readPNG(file.path(image.dir, "Pr_Vol_GB.png"))
 
 par(mar=c(0,0,0,0), xpd=NA, mgp=c(0,0,0), oma=c(0,0,0,0), ann=F, mfrow = c(1,2))
 plot.new()
@@ -772,8 +792,8 @@ text(1.22,.825, "B", cex=1.5)
 ```
 
 ```{r 'price_ind_GOM',fig.cap="Bennet indicator, price component (A) and volume component (B) by functional group\\label{Bennetspp1}." , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
-price_ind<-readPNG("GOM_PI.png")
-vol_ind<-readPNG("GOM_VI.png")
+price_ind<-readPNG(file.path(image.dir, "GOM_PI.png"))
+vol_ind<-readPNG(file.path(image.dir, "GOM_VI.png"))
 
 par(mar=c(0,0,0,0), xpd=NA, mgp=c(0,0,0), oma=c(0,0,0,0), ann=F, mfrow = c(1,2))
 plot.new()
@@ -790,8 +810,8 @@ text(1.22,.825, "B", cex=1.5)
 ```
 
 ```{r 'price_ind_GB',fig.cap="Bennet indicator, price component (A) and volume component (B) by functional group\\label{Bennetspp2}." , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
-price_ind<-readPNG("GB_PI.png")
-vol_ind<-readPNG("GB_VI.png")
+price_ind<-readPNG(file.path(image.dir, "GB_PI.png"))
+vol_ind<-readPNG(file.path(image.dir, "GB_VI.png"))
 
 par(mar=c(0,0,0,0), xpd=NA, mgp=c(0,0,0), oma=c(0,0,0,0), ann=F, mfrow = c(1,2))
 plot.new()
@@ -809,18 +829,18 @@ text(1.22,.825, "B", cex=1.5)
 
 \newpage
 
-```{r managed_revenue_NE , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}.", echo=F, message=FALSE, warning=FALSE , fig.width=7, fig.height=4, fig.align = 'center',fig.pos='H'}
+```{r managed_revenue_NE , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}.", echo=F, message=FALSE, warning=FALSE , fig.asp = 0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Total Revenue GOM", stacked = "A",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007, 
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 =  "Total managed revenue GOM", cex.stacked = 1.5)
 soe.plot(SOE.data.2018, "Time", "Total Revenue GB", stacked = "B",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007, 
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 =  "Total managed revenue GB", cex.stacked = 1.5)
-soe.stacked.axis("Time",expression("Revenue, 10"^6*"USD"), outer = T)
+soe.stacked.axis("Time",expression("Revenue, 10"^6*"USD"), outer = T, rel.x.text = 1.2, rel.y.text = 1.2)
 ```
 
 ## New England commercial fleet diversity
@@ -828,19 +848,19 @@ soe.stacked.axis("Time",expression("Revenue, 10"^6*"USD"), outer = T)
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","New England average fleet diversity", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis('Year', 'Fleet diversity', outer = F,rel.y.text = 0.9, y.line = 3)
+soe.stacked.axis('Year', 'Fleet diversity', outer = F,rel.y.text = 1.05,rel.x.text = 1.2, y.line = 3)
 soe.plot(SOE.data.2018,"Time","New England fleet count", stacked = "B",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis('Year', 'Fleet count', outer = F,rel.y.text = 0.9, y.line = 3)
+soe.stacked.axis('Year', 'Fleet count', outer = F,rel.y.text = 1.05,rel.x.text = 1.2, y.line = 3)
 ```
 
 ## New England revenue diversity
 
-```{r revenue diversity NE,fig.cap = "New England species revenue diversity.", echo = F, message=F, include=T, warning=F,  fig.asp=0.5, fig.align = 'center',fig.pos='H'}
+```{r revenue diversity NE,fig.cap = "New England species revenue diversity.", echo = F, message=F, include=T, warning=F,  fig.asp=0.45, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, 'Time', "New England commercial species diversity",stacked = NA, 
          endshade = T, full.trend = F, status = F,end.start = 2007, suppressAxis = T)
-soe.stacked.axis("Year","Shannon Index", outer = F)
+soe.stacked.axis("Year","Shannon Index", outer = F,rel.x.text = 1.2, rel.y.text = 1.2)
 ```
 
 ## New England recreational opportunities (A: Rec participation, B: Angler trips)
@@ -849,16 +869,16 @@ opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","North Atlantic Rec participation", stacked = "A",
          endshade = T, rel.y.num = 0.9, full.trend = T, scale.axis = 10^6, status = F,end.start = 2007, cex.stacked = 1.5)
 soe.plot(SOE.data.2018,"Time","North Atlantic angler trips", stacked = "B",
-         endshade = T, rel.y.num = 0.9, full.trend = T, scale.axis = 10^6, status = F,end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'), rel.y.text = 0.9)
+         endshade = T, rel.y.num = 0.9, full.trend = T, scale.axis = 10^6, status = F,end.start = 2008, cex.stacked = 1.5)
+soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'),rel.x.text = 1.2, rel.y.text = 1.2)
 ```
 
 
-
+## Harmful Algal Blooms
 ```{r NE_HAB, fig.cap="HAB-related shellfish bed closures in New England (2007-2016).", echo=F,message=FALSE, warning=FALSE ,fig.align='center', fig.asp=1.1,fig.width=6,fig.pos='H',strip.white=T}
 #get map data
-e  <- extent(-78.5, -64, 41, 45)
-coast1 <- crop(coast, e)
+e1  <- extent(-78.5, -64, 41, 45)
+coast1 <- crop(coast, e1)
 
 events <- SOE.data.2018[grepl("occurrence NE",SOE.data.2018$Var),]
 
@@ -1292,35 +1312,50 @@ soe.plot(SOE.data.2018, "Time","Spring_Ich_Shannon Diversity Index", stacked = "
          rel.y.num = 1.1, full.trend = F, end.start = 2006)
 soe.plot(SOE.data.2018, "Time","Fall_Ich_Shannon Diversity Index", stacked = "B",
          rel.y.num = 1.1, full.trend = F, end.start = 2006)
-soe.stacked.axis('Year', 'Shannon Index')
+soe.stacked.axis('Year', 'Shannon Index', rel.x.text = 1.2, rel.y.text = 1.2)
 
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 soe.plot(SOE.data.2018, "Time","larval species count spring", stacked = "C",
          rel.y.num = 1.1, full.trend = F, suppressAxis = T, end.start = 2006)
 soe.plot(SOE.data.2018, "Time","larval species count fall", stacked = "D",
          rel.y.num = 1.1, full.trend = F, end.start = 2006)
-soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5)
+soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5, rel.x.text = 1.2, rel.y.text = 1.2)
 
 ```
 
 \newpage
 
 
-```{r seas_scallop_maps,fig.cap="Sea scallop historical and current abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C). \\label{dists}" , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H', warning=F, message=F}
-#read images
-kde <-readPNG("sea_scallop_kde.png")
+```{r kdes_and_th_maps_MAB,fig.cap="Current and historical abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C) for sea scallop (top) and Atlantic cod (bottom). \\label{thermhab}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H', warning=F, message=F}
+#fill plot with images
 
-par(mar=c(2.5,2.8,2,2), xpd=NA, mgp=c(3,1,0), oma=c(0,1,0,0), ann=F, mfrow = c(1,3))
+kde1 <- readPNG(file.path(image.dir, "sea_scallop_kde.png"))
+kde2 <- readPNG(file.path(image.dir,"atlantic_cod_kde.png"))
+par(mar=c(2.5,2,2,2), xpd=NA, mgp=c(3,1,0), oma=c(0,1,0,0), ann=F, mfrow = c(2,3))
 plot.new()
 usr<-par("usr")
 
+par(mfg=c(1,1))
+rasterImage(kde1, usr[1], usr[3], usr[2], usr[4])
+text(.12,.95, "A", cex=1.5)
+par(mfg=c(2,1))
+rasterImage(kde2, usr[1], usr[3], usr[2], usr[4])
+text(.12,.95, "D", cex=1.5)
+par(mfg=c(1,2))
+th_plot(data = file.path(gis.dir, "Sea scallopfall_2.nc"),
+        letter = "B", z.max = 2.855913, y.axis = T, legend = F, pos = "topleft")
+par(mfg=c(1,3))
+th_plot(data = file.path(gis.dir, "Sea scallopfall_4.nc"), 
+        letter = "C", z.max =2.855913, y.axis = T, legend = T, pos = "topright")
 
 
-#fill plot with images
-rasterImage(kde, usr[1], usr[3], usr[2], usr[4])
-text(.12,.9, "A", cex=1.5)
-th_plot(data = "Sea scallopfall_2.nc", species = "sea scallop", letter = "B", z.max = 2.855913)
-th_plot(data = "Sea scallopfall_4.nc", species = "sea scallop", letter = "C", z.max = 2.855913)
+par(mfg=c(2,2))
+th_plot(data = file.path(gis.dir, "Atlantic codfall_2.nc"), 
+        letter = "E", z.max = 5.190186, y.axis = T, legend = F, pos = "bottomleft")
+par(mfg = c(2,3))
+th_plot(data = file.path(gis.dir,"Atlantic codfall_4.nc"), 
+        letter = "F", z.max = 5.190186, y.axis = T, legend = T, pos = "bottomright")
+
 
 ```
 
@@ -1346,23 +1381,7 @@ soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
 ```
 
 
-```{r atlantic cod_maps, echo=FALSE, fig.cap="Atlantic cod historical and current abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C). \\label{dists}", fig.height=2.75, fig.pos='H', fig.show='hold',warning=F, message=F,  fig.width=8}
-#read image
-kde <-readPNG("atlantic_cod_kde.png")
 
-par(mar=c(2.5,2.8,2,2), xpd=NA, mgp=c(3,1,0), oma=c(0,1,0,0), ann=F, mfrow = c(1,3))
-plot.new()
-usr<-par("usr")
-
-
-
-#fill plot with images
-rasterImage(kde, usr[1], usr[3], usr[2], usr[4])
-text(.12,.9, "A", cex=1.5)
-th_plot(data = "Atlantic codfall_2.nc", species = "atlantic cod", letter = "B", z.max = 5.190186)
-th_plot(data = "Atlantic codfall_4.nc", species = "atlantic cod", letter = "C", z.max = 5.190186)
-
-```
 
 ```{r atlantic cod_species_distributions_MAB, fig.cap="Atlantic cod mean depth and along-shelf distance trends (Top row: Spring, bottom row: Fall)",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
@@ -1398,53 +1417,100 @@ soe.plot(SOE.data.2018, "Time", "long term SST jan-jun", end.start = 2007,
 
 ```
 
-### SST anomaly maps
-```{r sst_anomaly_maps, fig.cap="Sea surface temperature anomalies in Fall (A), Winter (B), Spring (C), and Summer (D) 2017.\\label{dists}", fig.height=5.5, fig.pos='H', fig.show='hold', message=FALSE, warning=FALSE , fig.width=8}
+```{r sst_anomaly_maps,fig.cap="Sea surface temperature anomalies in Fall (A), Winter (B), Spring (C), and Summer (D) 2017. \\label{dists}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H'}
 if (map_figs == T){
-SST_plot <- function(raster_data, text){
+
+
+  
+#constants
+colors <- colorRampPalette(c("dodgerblue4",'blue', 'white', 'firebrick1',"firebrick4"))  
+color_levels=100   
+
+#SST map function
+SST_plot <- function(raster_data, text,pos = "left"){
+  
+  #adjusts par for legend placement 
+  if (pos == "right"){
+    par(mar = c(4.5,0,3,10), mex = .3,  mgp = c(4, .35, 0))
+  } else{
+     par(mar = c(4.1,5,3,6), mex = .3,  mgp = c(4, .35, 0))
+  }
+  
+  #read .nc and convert to raster
   d <- raster(raster_data, varname = "ANOM")
-  e  <- extent(-78.5, -64, 33, 46)
+  crs(d) <- map.crs
+  #crop data
   d <- crop(d, e)
   
-  colors <- colorRampPalette(c("dodgerblue4",'blue', 'white', 'firebrick1',"firebrick4"))  
-  color_levels=100 
+  #get zmax
   z.max=max(d[][is.finite(d[])])
 
-  par(mar = c(2,2,3.2,1))  
-  plot(d, col=colors(n=color_levels),xlim = c(-78,-64),ylim = c(34,45),
+  #plot raster
+  plot(d, col=colors(n=color_levels),
        breaks=seq(-z.max,z.max,length.out=color_levels+1),
-       legend.width = 1.5,
-       axes=F, interpolate = T, las = 1,box = FALSE,
-       axis.args=list(at=seq(-z.max, z.max, length.out = 5),
-                      labels=seq(-4,4,length.out = 5), 
-                      cex.axis=0.8),
-       legend.args=list(text=expression(paste('Temperature Anomaly (',degree,"C)")),
-                        side=4, font=2, line=2, cex=1))
+       legend.width = 1.5,bty ="L",axes=F,
+       interpolate = T, las = 1,box = FALSE,legend = FALSE, asp = 1)
+  #plot contour
+  contour(bathy,drawlabels = F,nlevels = 5,add=T)
+  #plot coastline
+  plot(coast, col = 'grey',add = T , lty=0)
+  #axes
+
   
-  contour(bathy,xlim = c(-78,-65),drawlabels = F,nlevels = 5,add=T)
-  plot(coast, col = 'grey',add = T)
+  if (pos == "left"){
+    axis(1, at = seq(-77,-65,2), labels = seq(-77,-65,2) , cex.axis = 0.7)
+    axis(2, cex.axis = 0.7)
+    abline(h = 34.95, lty = 1, lwd = 2)
+    abline(v =-77.2, lty = 1, lwd = 2)
+  } else {
+    axis(1, at = seq(-77,-65,2), labels = seq(-77,-65,2) ,
+         cex.axis = 0.7, pos = 34.9)
+    axis(2, cex.axis = 0.7, pos = -77.225)
+    abline(h = 34.9, lty = 1, lwd = 2)
+    abline(v =-77.225, lty = 1, lwd = 2)
+
+  }
+
+  #labels
+  text(-76,45,text,cex = 1.5)
+
   
-  axis(1, at = c(-75,-70,-65), labels = paste( c(-75,-70,-65) * -1, 'W'),col = NA, col.ticks = 1)
-  axis(2, at = axTicks(2), labels = paste(axTicks(2), 'N'), las = T, pos = -78.71,col = NA, col.ticks = 1)
-  
-  abline(v = -78.69,lwd =2)
-  arrows(-78.71,35,-65.75,35,angle = 180,lwd = 2.5)
-  text(-77.75,44.5,text,cex = 1.5)
 }
 
+#plot maps
+par(oma=c(0,0,0,0), mfrow = c(2,2))
+SST_plot("2017_Fall_SST_anomaly.nc","A")
+SST_plot("2017_Winter_SST_anomaly.nc","B",pos = "right")
+SST_plot("2017_Spring_SST_anomaly.nc","C")
+SST_plot("2017_Summer_SST_anomaly.nc","D",pos = "right") 
 
-sst_files <- list("2017_Fall_SST_anomaly.nc","2017_Winter_SST_anomaly.nc",
-                  "2017_Spring_SST_anomaly.nc","2017_Summer_SST_anomaly.nc")
-letters <- list("A","B","C","D")
+#plot only legend
+colors <- colorRampPalette(c("dodgerblue4",'blue', 'white', 'firebrick1',"firebrick4")) 
+color_levels=100 
+z.max=7.21
 
-opar<-par(mfrow=c(2,2), oma = c(0,0,0,1))
-for (i in 1:length(sst_files)){
-  SST_plot(sst_files[[i]],letters[[i]])
-}
-  
+#set new par
+par(mfrow=c(1, 1), mar=c(2, 5, 2, 0), new=FALSE)
+
+#any data
+d <- raster(matrix(runif(100), ncol=10))
+
+#legend plot
+plot(d, col=colors(n=color_levels),
+     breaks=seq(-z.max,z.max,length.out=color_levels+1),
+     legend.shrink = 1,
+     legend.width = 1,legend.only = T,
+     axes=F, interpolate = T, las = 1,box = FALSE,
+     axis.args=list(at=seq(-z.max, z.max, length.out = 5),
+                    labels=seq(-4,4,length.out = 5), 
+                    cex.axis=0.8),
+     legend.args=list(text=expression(paste('Temperature Anomaly (',degree,"C)")),
+                      side=4, font=2, line=2, cex=1))
 }
 
 ```
+
+
 
 # Ecosystem productivity
 
@@ -1982,6 +2048,20 @@ soe.plot(SOE.data.2018, "Time", "Calanus finmarchicus abundance anomaly GB",
          anomaly = T, stacked = "B", suppressAxis = T, cex.stacked = 1.5, full.trend = T)
 soe.stacked.axis("Year", "Abundance anomaly", rel.x.text = 1.2, rel.y.text = 1.2, 
                  y.line = 3.1, outer = F)
+```
+
+```{r chl_ppd_maps,fig.cap="Primary production (left) and chlorophyll (right) anomalies along the Northeast Shelf\\label{ppchlanom}" ,  fig.width = 8,fig.height = 4, fig.show='hold',fig.pos='H'}
+#read images
+#read images
+ppd <-readPNG(file.path(image.dir,'PPD_anom_NES.png'))
+chl <-readPNG(file.path(image.dir,'CHL_anom_NES.png'))
+par(mar=c(0,0,0,0), xpd=NA, mgp=c(0,0,0), oma=c(0,0,0,0), ann=F, mfrow = c(1,2))
+plot.new()
+usr<-par("usr")
+
+#fill plot with images
+rasterImage(ppd, usr[1], usr[3], usr[2], usr[4])
+rasterImage(chl, usr[1]+1.1, usr[3], usr[2]+1.1, usr[4])
 ```
 
 ```{r, NE zooplankton, fig.cap="\\textit{C. typicus} abundance anomaly (A), and small-large copepod index with primary productivity anomaly (B) in the Mid-Atlantic.",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', warning = F, message = F, fig.height = 6.2, fig.width=5}
