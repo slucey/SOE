@@ -324,7 +324,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
       year <- seq(x$X[1],x$X[length(x$X)],length.out = length(dat$time))
 
       # Make plot
-      if (lm_pred$fit[length(lm_pred$fit)] > (lm_pred$fit[1] + lm_pred$fit[1]*.1)){
+      if (lm_pred$fit[length(lm_pred$fit)] > lm_pred$fit[1]){
         lines(year, lm_pred$fit, col = main.pos, lwd = 7)
         points(x[, list(X, Value)], pch = 16, cex = point.cex)
         lines( x[, list(X, Value)], lwd = lwd)
@@ -332,21 +332,14 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
         if (line.forward == TRUE){
            lines(year, lm_pred$fit, col = main.pos, lwd = 7)
         }
-      } else if (lm_pred$fit[length(lm_pred$fit)] < (lm_pred$fit[1] - lm_pred$fit[1]*.1)){
+      } else if (lm_pred$fit[length(lm_pred$fit)] < lm_pred$fit[1]){
         lines(year, lm_pred$fit, col = main.neg, lwd = 7)
         points(x[, list(X, Value)], pch = 16, cex = point.cex)
         lines( x[, list(X, Value)], lwd = lwd)
         if (line.forward == TRUE){
            lines(year, lm_pred$fit, col = main.neg, lwd = 7)
         }
-      } else {
-        lines(year, lm_pred$fit, col = "#ffffbf", lwd = 7)
-        points(x[, list(X, Value)], pch = 16, cex = point.cex)
-        lines( x[, list(X, Value)], lwd = lwd)
-        if (line.forward == TRUE){
-           lines(year, lm_pred$fit, col = "#ffffbf", lwd = 7)
-        }
-        }
+      }
     }
     
     if (extra == TRUE){
@@ -372,25 +365,21 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
                                  se.fit = TRUE)
 
         year <- seq(x2$X2[1],x2$X2[length(x2$X2)],length.out =length(dat$time))
-
+   
     # Make plot
-        if (lm_pred$fit[length(lm_pred$fit)] > (lm_pred$fit[1] + lm_pred$fit[1]*.1)){
+        if (lm_pred$fit[length(lm_pred$fit)] > lm_pred$fit[1] ){
           lines(year, lm_pred$fit, col = main.pos, lwd = 7)
           points(x2[, list(X2, Value)], pch = 16, cex = point.cex, col = "indianred")
           lines( x2[, list(X2, Value)], lwd = lwd, col = "indianred")
-        } else if (lm_pred$fit[length(lm_pred$fit)] < (lm_pred$fit[1] - lm_pred$fit[1]*.1)){
+        } else if (lm_pred$fit[length(lm_pred$fit)] < lm_pred$fit[1]){
           lines(year, lm_pred$fit, col = main.neg, lwd = 7)
           points(x2[, list(X2, Value)], pch = 16, cex = point.cex, col = "indianred")
           lines( x2[, list(X2, Value)], lwd = lwd, col = "indianred")
-        } else {
-          lines(year, lm_pred$fit, col = "#ffffbf", lwd = 7)
-          points(x2[, list(X2, Value)], pch = 16, cex = point.cex, col = "indianred")
-          lines( x2[, list(X2, Value)], lwd = lwd, col = "indianred")
-        }
+        } 
      }
     }
 
-    }
+  }
 
 
  
@@ -2048,21 +2037,6 @@ box(lty = 'solid', col = 'black',lwd = 1.25)
 text(2,2.5*.95,"C", cex = 1.5)
 ```
 
-```{r calfin_anom_NE,fig.cap = "\\textit{C. finmarchicus} abundance anomaly in Gulf of Maine (A) and Georges Bank (B)",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F}
-
-#C. finmarchicus abundance anomaly
-opar <- par(mar = c(4,4.75,2,4))
-soe.plot(SOE.data.2018, "Time", "Calanus finmarchicus abundance anomaly GOM", 
-         anomaly = T, stacked = "A", cex.stacked = 1.5, full.trend = T)
-soe.stacked.axis("Year", "Abundance anomaly", rel.x.text = 1.2, rel.y.text = 1.2, 
-                 y.line = 3.2, outer = F)
-
-opar <- par(mar = c(4,4.75,2,4))
-soe.plot(SOE.data.2018, "Time", "Calanus finmarchicus abundance anomaly GB", 
-         anomaly = T, stacked = "B", suppressAxis = T, cex.stacked = 1.5, full.trend = T)
-soe.stacked.axis("Year", "Abundance anomaly", rel.x.text = 1.2, rel.y.text = 1.2, 
-                 y.line = 3.1, outer = F)
-```
 
 ```{r chl_ppd_maps,fig.cap="Primary production (left) and chlorophyll (right) anomalies along the Northeast Shelf\\label{ppchlanom}" ,  fig.width = 8,fig.height = 4, fig.show='hold',fig.pos='H'}
 #read images
@@ -2078,7 +2052,7 @@ rasterImage(ppd, usr[1], usr[3], usr[2], usr[4])
 rasterImage(chl, usr[1]+1.1, usr[3], usr[2]+1.1, usr[4])
 ```
 
-```{r, NE zooplankton, fig.cap="\\textit{C. typicus} abundance anomaly (A), and small-large copepod index with primary productivity anomaly (B) in the Mid-Atlantic.",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', warning = F, message = F, fig.height = 6.2, fig.width=5}
+```{r, NE zooplankton, fig.cap="Small-large copepod index with primary productivity anomaly in Gulf of Maine (A) and Georges Bank (B).",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', warning = F, message = F, fig.height = 6.2, fig.width=5}
 
 par(mfrow = c(2,1), mar = c(5,4,1,4))
 ###### Gulf of Maine #####
@@ -2134,6 +2108,31 @@ mtext(side = 1, "", cex = 1.2, text = "Year",line = 2.5)
 legend("bottomright",
          legend = c("Copepod Index", "Prim. Prod. Ratio"), col = c("black","springgreen2"),
          bty = "n", lwd = 3)
+```
+
+
+```{r, GOM_GB zooplankton, fig.cap="\\textit{Pseudocalanus spp.} (top row) and \\textit{C. finmarchicus} (bottom row) abundance anomalies in Gulf of Maine (left) and Georges Bank (right)",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+
+soe.plot(SOE.data.2018, "Time", "Pseudocalanus spp. abundance anomaly GOM", stacked = "A",
+         rel.y.num = 1.1,line.forward = T, cex.stacked = 1.5,end.start = 2006,
+         anomaly = T)
+soe.plot(SOE.data.2018, "Time", "Calanus finmarchicus abundance anomaly GOM", stacked = "B",
+         rel.y.num = 1.1, line.forward = T,cex.stacked = 1.5,end.start = 2006,
+         anomaly = T)
+soe.stacked.axis("Year", "Abundance anomaly")
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+soe.plot(SOE.data.2018, "Time", "Pseudocalanus spp. abundance anomaly GB", stacked = "C",
+         rel.y.num = 1.1,line.forward = T, cex.stacked = 1.5,end.start = 2006,
+         anomaly = T, suppressAxis = T)
+soe.plot(SOE.data.2018, "Time", "Calanus finmarchicus abundance anomaly GB", stacked = "D",
+         rel.y.num = 1.1, line.forward = T,cex.stacked = 1.5,end.start = 2006,
+         anomaly = T)
+soe.stacked.axis("Year", "Abundance anomaly")
+
 ```
 
 ```{r 'condition factor NE' , fig.cap="Groundfish condition, MAB", echo = F, out.height='10cm', fig.align='center',fig.pos='H'}
