@@ -492,8 +492,10 @@ th_plot <- function(data, letter, z.max, y.axis = T,
 
 ```
 
+#Introduction
 
-##Conceptual model 
+The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses.  An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highlighting relationships between focal species groups organized by New England Fishery Management Council (NEFMC) Fishery Management Plan (FMP), managed human activities, environmental drivers, habitats, and key ecological links (Fig. \ref{conceptual}). Here, human activities link to high level strategic management objectives. Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
+
 ```{r, fig.cap="Gulf of Maine and Georges Bank Ecosystem \\label{conceptual}", fig.height=6, fig.width=4, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 knitr::include_graphics(file.path(image.dir, 'ne_conceptual_model.pdf'))
 
@@ -501,7 +503,9 @@ knitr::include_graphics(file.path(image.dir, 'ne_conceptual_model.pdf'))
 
 \clearpage
 
-# Objectives
+# Executive Summary
+
+We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. 
 
 **Table 1**: New England ecosystem objectives
 ```{r obj_cats_NE, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -521,6 +525,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+**We also report single-species status relative to established objectives and reference points**. The New England Council (NEFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for XX of YY stocks and biomass (B) levels for ZZ of YY stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for XXX, likely high F rates for YYYYY, and likely low B status for ZZZZZ.
 
 ```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
