@@ -24,12 +24,12 @@ self_contained: yes
 #image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- "F:/SOE/SOE_data"
-image.dir <- "F:/SOE/SOE_data"
-gis.dir <- 'F:/soe/soe_data/usa_shape_files'
-# data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-# image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
-# gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
+#data.dir  <- "F:/SOE/SOE_data"
+#image.dir <- "F:/SOE/SOE_data"
+#gis.dir <- 'F:/soe/soe_data/usa_shape_files'
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
 
 #STOP HERE
 #Do you have the most updated version of the SOE.data.2018 dataset AND the necessary spatial data? Check the SOE_MAB google drive for most recent version.
@@ -1786,9 +1786,9 @@ text(2,2.5*.95,"C", cex = 1.5)
 
 ## SST
 opar <- par(mar = c(4, 5, 2, 5))
-doy <- as.numeric(SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 GBK",]$Time)
-val_2017 <- SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 GBK",]$Value
-val_LT <- SOE.data.2018[SOE.data.2018$Var == "sst mean long term GBK",]$Value
+doy <- as.numeric(SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 GB",]$Time)
+val_2017 <- SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 GB",]$Value
+val_LT <- SOE.data.2018[SOE.data.2018$Var == "sst mean long term GB",]$Value
 val_LT_sd <- SOE.data.2018[SOE.data.2018$Var == "sst sd long term GBK",]$Value
 
 
