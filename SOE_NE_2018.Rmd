@@ -884,6 +884,11 @@ soe.stacked.axis("Time",expression("Revenue, 10"^6*"USD"), outer = T, rel.x.text
 ```
 
 ## New England commercial fleet diversity
+
+Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Diversity estimates have been developed for fleets and species landed by vessels with New England species permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. This is coastwide rather than GOM or GB specific. 
+
+The fleet revenue diversity for individuals landing NEFMC FMP species shows a consistent downward trend across the entire time series. A declining trend in diversity indicates reliance on either a smaller number of resources, or a less diverse pool of resources but cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in New England. A count of the number of fleets actively landing NEFMC FMP species in each year is relatively consistent with the revenue diversity metric, with a consistent downward trend throughout the time series.
+
 ```{r fleet diversity NE, fig.cap = "New England commercial fleet diversity (A) and fleet count (B).", echo=F, message=FALSE, warning=FALSE, include=T, fig.asp=0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","New England average fleet diversity", stacked = "A",
@@ -895,6 +900,7 @@ soe.stacked.axis('Year', 'Fleet count', outer = F,rel.y.text = 1.05,rel.x.text =
 ```
 
 ## New England revenue diversity
+Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of NEFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
 
 ```{r revenue diversity NE,fig.cap = "New England species revenue diversity.", echo = F, message=F, include=T, warning=F,  fig.asp=0.45, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -903,7 +909,13 @@ soe.plot(SOE.data.2018, 'Time', "New England commercial species diversity",stack
 soe.stacked.axis("Year","Shannon Index", outer = F,rel.x.text = 1.2, rel.y.text = 1.2)
 ```
 
-## New England recreational opportunities (A: Rec participation, B: Angler trips)
+<!--This trend contrasts with the species diversity trends for the Gulf of Maine from survey data presented below, which indicate relatively low diversity during the mid-1990’s and higher diversity now (with a significantly increasing recent trend in both the fall and spring survey data). However, Georges Bank survey species diversity trends differ from Gulf of Maine in both seasons with less contrast between the mid-1990’s and the present. 
+
+Ultimately, diversity can be measured in numerous ways (for example, in numbers of vessels in each fleet component as opposed to revenue) and feedback from the Council as to how this should be defined is welcomed.-->
+
+## New England recreational opportunities
+Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Recreational fishing is important in the New England region, with many coastal communities from Cape Cod southward having high recreational dependence. Although there is a long-term trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
+
 ```{r recreation NE,fig.cap = "Recreational participation (A) and number of angler trips (B) in New England.", echo=F, message=FALSE, warning=FALSE, include=T,  fig.asp=0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","North Atlantic Rec participation", stacked = "A",
@@ -915,7 +927,12 @@ soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'),rel.
 
 
 ## Harmful Algal Blooms
-```{r NE_HAB, fig.cap="HAB-related shellfish bed closures in New England (2007-2016).", echo=F,message=FALSE, warning=FALSE ,fig.align='center', fig.asp=1.1,fig.width=6,fig.pos='H',strip.white=T}
+
+The seasonal occurrence of harmful algal blooms (HABs) in New England is responsible for fluxes of saxitoxin and domoic acid into shellfish beds, which can result in paralytic shellfish poisoning (PSP) and amnesic shellfish poisoning (ASP) respectively. Blooms of *Alexandrium fundyense* cause regular closures of shellfish beds from Maine to Massachusetts due to saxitoxin contamination, with at least 30 PSP-related closures occurring between 2007-2016 (Fig. \ref{HAB}). Average blue mussel saxitoxin content in Maine waters increased from 2014 to 2017, although the change was driven by anomalously high values at 2 of 18 sampling sites in 2017. The prevalence of saxitoxin in Maine blue mussel beds exhibits high interannual variability with evidence suggesting a decadal cycle of toxicity.
+
+Blooms of *Pseudo-nitzchia* species that produce domoic acid have become more common in the past decade. In fall 2016, *Pseudo-nitzchia* blooms caused closures of shellfish beds in Maine and Rhode Island. An unprecedented late-season *Pseudo-nitzchia* bloom resulted in the closure of shellfish harvesting in Casco Bay, ME in December 2017. Blooms of the dinoflagellate *Dinophysis* could also pose a threat to New England waters, with the first ever *Dinophysis* related waterway closure in Massachusetts occurring in 2015.
+
+```{r NE_HAB, fig.cap="HAB-related shellfish bed closures in New England (2007-2016).\\label{HAB}", echo=F,message=FALSE, warning=FALSE ,fig.align='center', fig.asp=1.1,fig.width=6,fig.pos='H',strip.white=T}
 #get map data
 e1  <- extent(-78.5, -64, 41, 45)
 coast1 <- crop(coast, e1)
@@ -975,6 +992,11 @@ text(-67.7,42.525, "2007-2016 Detections")
 ```
 
 ##Community social vulnerability, engagement and dependence on commercial fisheries
+
+The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing reliance and engagement, sea level rise risk, species vulnerability to climate change, and catch composition diversity.
+ 
+Here, we look at the extent to which commercial and recreational fishing reliance intersect with community social vulnerability in the New England region. Commercial fishing reliance is a measure of per capita pounds landed, value landed, commercial permits and commercial dealers in a community. Recreational reliance is a per capita measure of shore, private vessel and for-hire recreational fishing in a community. Social vulnerability represents social factors that can shape either an individual or community’s ability to adapt to change. There are many socially vulnerable communities in the New England region, but with varying degrees of commercial and/or recreational fishing reliance. While there are some communities that are both moderate to highly socially vulnerable and moderate to highly reliant on commercial fishing in Northern New England (Fig.\ref{commvulmap}), there are different communities in Southern New England that are both moderate to highly vulnerable and moderate to highly reliant on recreational fishing (Fig. \ref{commvulmap}).
+
 \newpage
 
 ```{r 'commercial_reliance_and_vulnerability NE' , fig.cap="Commercial (A) and recreational (B) reliance and social vulnerability in New England \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.show='hold', fig.width = 8,fig.height = 5.4,strip.white=T,fig.pos='H'}
@@ -1207,8 +1229,9 @@ text(-72.25,45.5, "B", cex = 1.5)
 }
 ```
 
+##Climate Vulnerability of Coastal Fishing Communities
+Assessment of the potential impacts of climate change on recreational and commercial fishermen and their communities has begun by linking social and economic indicators of community vulnerability and resilience to the climate vulnerability assessments of biological and ecological change expected to result from climate change New Bedford, the largest commercial fishing port in US (in terms of revenue) is heavily dependent on benthic species which are in turn highly vulnerable to climate change. Four of the top ports are dependent on an array of species, the majority of which are ranked as low to moderately vulnerable to climate change.
 
-### Species vulnerability
 ```{r 'species_vulnerability_NE' , fig.cap="Species vulnerability in Mid-Atlantic fishing communities \\label{sppvul}", echo = F, out.width = "450pt", fig.align='center', eval = T,fig.pos='H'}
 knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_NE.jpg'))
 ```
