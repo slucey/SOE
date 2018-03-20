@@ -641,7 +641,7 @@ Survey biomass trends for aggregated trophic groups are similar across spring an
 
 # Changes for 2018
 
-Indicators throughout the report have been updated with the most recent data, and in some cases replaced with more management-relevant indicators based on Council feedback from the 2017 report. In particular, new sections on species-specific habitat status and trends and climate projections of thermal habitat for key species have replaced last year's more general physical environment and climate sections. This report draws on a wider range of expertise and attempts to further link information across indicators to give an integrated overview of ecosystem status relevant to fishery management decision making.
+Indicators throughout the report have been updated with the most recent data, and in some cases replaced with more management-relevant indicators based on Council feedback from the 2017 report. In particular, new sections on species-specific habitat status and trends and climate projections of thermal habitat for key species have replaced last year’s more general physical environment and climate sections. This report draws on a wider range of expertise and attempts to further link information across indicators to give an integrated overview of ecosystem status relevant to fishery management decision making.
 
 Many metrics aggregate species by similar functional groups.  Species that comprise the functional groups are listed below. Relative to the 2017 report, these categories have been aggregated into fewer groups for simplification and clarity (Table 2).
 
@@ -666,7 +666,7 @@ Our assessment of indicator trends has changed this year.  In the 2017 time seri
 # Human Dimensions 
 
 ## Seafood production 
-Seafood production is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Both commercial and recreational fishing contributes to seafood production, the latter for personal consumption, and indicators for each of these human activities track management performance against this objective.  
+Seafood production is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Both commercial and recreational fishing contributes to seafood production, the latter for personal consumption, and indicators for each of these human activities track management performance against this objective.  
 
 Commercial landings include all seafood landings in the region, including species not managed by NEFMC. For example, category D, Benthivores, includes lobsters, which are a substantial portion of the landings and drive increases in landings and revenue. In 2016, NEFSC managed stocks made up from 5%-98% of total landings by category, as detailed below (Table 3). 
 
@@ -803,7 +803,7 @@ soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F, rel.x.t
 ```
 
 ## Commercial Fishery Revenue
-This indicator links the human activity of commercial fishing to the profits objective. The Bennet indicator is used to compare differences in revenue caused by changing quantities of landings and prices during the time period 1964-2016. Each year in the series is compared to an "average" year based on revenue during the entire period. Average revenue, landings and an implicit price (revenue/landings) is calculated for the time period. The volume indicator measures the contribution of changing quantities to revenue change and the price indicator measures the contribution of changing prices. The overall Bennet index is the sum of the volumen and price indicators in each year.
+This indicator links the human activity of commercial fishing to the profits objective. The Bennet indicator is used to compare differences in revenue caused by changing quantities of landings and prices during the time period 1964-2016. Each year in the series is compared to an “average” year based on revenue during the entire period. Average revenue, landings and an implicit price (revenue/landings) is calculated for the time period. The volume indicator measures the contribution of changing quantities to revenue change and the price indicator measures the contribution of changing prices. The overall Bennet index is the sum of the volumen and price indicators in each year.
 
 In the years between 1970 and 1990, Gulf of Maine revenue was generally below average (Fig. \ref{Bennet}A), and this was due to either lower volumes or lower prices depending on the year. After 1990, revenue was higher than average, before declining dramatically after 2000 mostly due to lower volumes. Revenue then fluctuated between 2008 and 2016, with some years being above average and some below. During most of these yearly cycles, changes in volume of Benthivores were responsible for the changes in overall volume (Fig. \ref{BennetGOM}A). Benthivores were also the group whose price difference was the primary reason for the changes in the overall price (Fig. \ref{BennetGOM}B).
 
@@ -845,7 +845,7 @@ text(.12,.825, "A", cex=1.5)
 text(1.22,.825, "B", cex=1.5)
 ```
 
-On Georges Bank, revenue showed a cyclical pattern which alternated between a positive and negative deviation from average revenue between 1964 and 2016 (Fig. \ref{Bennet}B) During periods of negative revenue growth, the decline was caused by lower volumes rather than lower prices. In most years, positive price growth helped offset any negative volume change. Before the 1980's positive Benthivore and Planktivore volumes were offset by negative Benthos volumes (Fig. \ref{BennetGB}B). The 1990's time period showed declining volumes of virtually all groups. Shortly after 2000, the Benthos group contributed positively to revenue, while the Benthivore group was a negative contributor, a reversal of the trend which existed prior to 1980.  The price indicator showed a different trend (Fig. \ref{BennetGB}A). Until the mid-1980's the Benthos group prices contributed positively to revenue gains compared to the average. The price trend for the Benthos group then turned negative, while the Benthivore group contributed positively to the price indicator.
+On Georges Bank, revenue showed a cyclical pattern which alternated between a positive and negative deviation from average revenue between 1964 and 2016 (Fig. \ref{Bennet}B) During periods of negative revenue growth, the decline was caused by lower volumes rather than lower prices. In most years, positive price growth helped offset any negative volume change. Before the 1980’s positive Benthivore and Planktivore volumes were offset by negative Benthos volumes (Fig. \ref{BennetGB}B). The 1990’s time period showed declining volumes of virtually all groups. Shortly after 2000, the Benthos group contributed positively to revenue, while the Benthivore group was a negative contributor, a reversal of the trend which existed prior to 1980.  The price indicator showed a different trend (Fig. \ref{BennetGB}A). Until the mid-1980’s the Benthos group prices contributed positively to revenue gains compared to the average. The price trend for the Benthos group then turned negative, while the Benthivore group contributed positively to the price indicator.
 
 ```{r 'price_ind_GB',fig.cap="Georges Bank Bennet indicator, price component (A) and volume component (B) by functional group\\label{BennetGB}." , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
 price_ind<-readPNG(file.path(image.dir, "GB_PI.png"))
@@ -898,7 +898,7 @@ soe.stacked.axis('Year', 'Fleet count', outer = F,rel.y.text = 1.05,rel.x.text =
 ```
 
 ## New England revenue diversity
-Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of NEFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990's, with much of the recent index relatively stable. 
+Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of NEFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
 
 ```{r revenue diversity NE,fig.cap = "New England species revenue diversity.", echo = F, message=F, include=T, warning=F,  fig.asp=0.45, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -907,12 +907,12 @@ soe.plot(SOE.data.2018, 'Time', "New England commercial species diversity",stack
 soe.stacked.axis("Year","Shannon Index", outer = F,rel.x.text = 1.2, rel.y.text = 1.2)
 ```
 
-<!--This trend contrasts with the species diversity trends for the Gulf of Maine from survey data presented below, which indicate relatively low diversity during the mid-1990's and higher diversity now (with a significantly increasing recent trend in both the fall and spring survey data). However, Georges Bank survey species diversity trends differ from Gulf of Maine in both seasons with less contrast between the mid-1990's and the present. 
+<!--This trend contrasts with the species diversity trends for the Gulf of Maine from survey data presented below, which indicate relatively low diversity during the mid-1990’s and higher diversity now (with a significantly increasing recent trend in both the fall and spring survey data). However, Georges Bank survey species diversity trends differ from Gulf of Maine in both seasons with less contrast between the mid-1990’s and the present. 
 
 Ultimately, diversity can be measured in numerous ways (for example, in numbers of vessels in each fleet component as opposed to revenue) and feedback from the Council as to how this should be defined is welcomed.-->
 
 ## New England recreational opportunities
-Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Recreational fishing is important in the New England region, with many coastal communities from Cape Cod southward having high recreational dependence. Although there is a long-term trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
+Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Recreational fishing is important in the New England region, with many coastal communities from Cape Cod southward having high recreational dependence. Although there is a long-term trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
 
 ```{r recreation NE,fig.cap = "Recreational participation (A) and number of angler trips (B) in New England.", echo=F, message=FALSE, warning=FALSE, include=T,  fig.asp=0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -991,7 +991,7 @@ text(-67.7,42.525, "2007-2016 Detections")
 ##Community social vulnerability, engagement and dependence on commercial fisheries
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing reliance and engagement, sea level rise risk, species vulnerability to climate change, and catch composition diversity.
  
-Here, we look at the extent to which commercial and recreational fishing reliance intersect with community social vulnerability in the New England region. Commercial fishing reliance is a measure of per capita pounds landed, value landed, commercial permits and commercial dealers in a community. Recreational reliance is a per capita measure of shore, private vessel and for-hire recreational fishing in a community. Social vulnerability represents social factors that can shape either an individual or community's ability to adapt to change. There are many socially vulnerable communities in the New England region, but with varying degrees of commercial and/or recreational fishing reliance. While there are some communities that are both moderate to highly socially vulnerable and moderate to highly reliant on commercial fishing in Northern New England (Fig.\ref{commvulmap}), there are different communities in Southern New England that are both moderate to highly vulnerable and moderate to highly reliant on recreational fishing (Fig. \ref{commvulmap}).
+Here, we look at the extent to which commercial and recreational fishing reliance intersect with community social vulnerability in the New England region. Commercial fishing reliance is a measure of per capita pounds landed, value landed, commercial permits and commercial dealers in a community. Recreational reliance is a per capita measure of shore, private vessel and for-hire recreational fishing in a community. Social vulnerability represents social factors that can shape either an individual or community’s ability to adapt to change. There are many socially vulnerable communities in the New England region, but with varying degrees of commercial and/or recreational fishing reliance. While there are some communities that are both moderate to highly socially vulnerable and moderate to highly reliant on commercial fishing in Northern New England (Fig.\ref{commvulmap}), there are different communities in Southern New England that are both moderate to highly vulnerable and moderate to highly reliant on recreational fishing (Fig. \ref{commvulmap}).
 
 \newpage
 
@@ -1270,7 +1270,7 @@ Sea turtles are known to be susceptible to climate and ecosystem changes, and th
 ## Right whale 
 North Atlantic right whales are among the most endangered large whale populations in the world. Changes in right whale trends can have implications for fisheries management where fisheries interact with these whales. Additional management restrictions could have a large impact on fishing times, gears, etc.
 
-Although the population increased steadily from 1990 to 2011, it has decreased recently. From Pace et al 2017: "The probability that the population's trajectory post-2010 was a decline was estimated at 99.99%." Reduced survival rates of adult females and diverging abundance trends between sexes have also been observed. Further, right whale distribution has changed since 2010. The reasons for these changes is unclear, but changes in climate and primary prey (Calanus finmarchicus) are suspected. Not yet reflected in this trend are the 17 right whale deaths observed in 2017, 5 due to vessel strike (1 in US waters, 4 in Canadian waters), 3 from entanglement (2 in Canadian gear, 1 in unknown gear), and the rest from unknown causes. 
+Although the population increased steadily from 1990 to 2011, it has decreased recently. From Pace et al 2017: “The probability that the population’s trajectory post-2010 was a decline was estimated at 99.99%.” Reduced survival rates of adult females and diverging abundance trends between sexes have also been observed. Further, right whale distribution has changed since 2010. The reasons for these changes is unclear, but changes in climate and primary prey (Calanus finmarchicus) are suspected. Not yet reflected in this trend are the 17 right whale deaths observed in 2017, 5 due to vessel strike (1 in US waters, 4 in Canadian waters), 3 from entanglement (2 in Canadian gear, 1 in unknown gear), and the rest from unknown causes. 
 
 ```{r rw_abundance, fig.cap="Right whale population estimate\\label{rightwh}",echo = F, message=F, include=T, warning=F, fig.asp=0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -1393,7 +1393,7 @@ soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5, rel.x.text = 1.2, r
 ## Species distribution
 Spatial distribution can change for a variety of different reasons.  In the U.S. Northeast Shelf, species distributions have changed over time but the direction and rate of movement is not consistent among some of the key species. Two species of particular interest to the NEFMC are sea scallops and Atlantic cod. Sea scallops show no clear trend in average along-shelf distance or depth in surveys, indicating a generally stable distribution (Fig. \ref{asdscall}). In contrast, Atlantic cod average depth and along shelf distance has been increasing (Fig. \ref{asdcod}), indicating shifting distribution. 
 
-```{r sea_scallop_species_distributions_MAB, fig.cap="Sea scallop mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)\\label{asdscall}",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+```{r sea_scallop_species_distributions_NE, fig.cap="Sea scallop mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)\\label{asdscall}",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 
@@ -1415,7 +1415,7 @@ soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
 ```
 
 
-```{r atlantic cod_species_distributions_MAB, fig.cap="Atlantic cod mean depth and along-shelf distance trends (Top row: Spring, bottom row: Fall)\\label{asdcod}",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+```{r atlantic cod_species_distributions_NE, fig.cap="Atlantic cod mean depth and along-shelf distance trends (Top row: Spring, bottom row: Fall)\\label{asdcod}",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 
@@ -1441,7 +1441,7 @@ Looking in more detail at the NEFSC bottom-trawl data, sea scallops have shifted
 
 Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for these resource species.  Thermal habitat for individual species can then be projected using global climate models. While thermal habitat is only part of the picture, and species may adapt to new thermal regimes, these projections indicate the potential for key species to thrive or not over the coming decades where further ocean warming is expected.  Thermal habitat area for both sea scallops and cod is projected to decline over the next 40 years of continued ocean warming (Fig. \ref{thermhab}B-C and D-F).  However, the projected thermal habitat area decline is much more substantial for cod than for sea scallops.  It is important to note that these projections do not account for changes in other critical factors such as ocean acidification (scallops), fisheries mortality, new species interactions, and bottom-up forcing (i.e. changes in lower trophic levels).  The projections shown here are for fall only but spring projections are also available.
 
-```{r kdes_and_th_maps_MAB,fig.cap="Current and historical abundance estimates (left), current thermal habitat estimate (center), and 20-40 year thermal habitat projection (right) for sea scallop (A-C) and Atlantic cod (D-F). \\label{thermhab}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H', warning=F, message=F}
+```{r kdes_and_th_maps_NE,fig.cap="Current and historical abundance estimates (left), current thermal habitat estimate (center), and 20-40 year thermal habitat projection (right) for sea scallop (A-C) and Atlantic cod (D-F). \\label{thermhab}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H', warning=F, message=F}
 #fill plot with images
 
 kde1 <- readPNG(file.path(image.dir, "sea_scallop_kde.png"))
@@ -1494,7 +1494,7 @@ soe.plot(SOE.data.2018, "Time", "long term sst", end.start = 2007,
 
 ```
 
-Relative to the 1981-2017 mean, the Gulf of Maine experienced above average sea surface temperatures (SSTs) throughout most of  2017 (particularly in the summer) with the exception of the spring when SSTs were only slightly above average (Figure 25). However, Georges Bank SSTs were substantially cooler than average in the spring and summer.  Georges Bank also had slight cooling in the winter whereas fall SSTs were predominately above average (Figure 25).  In figures 26A and 27A, the long term daily mean SST (1981-2016) is shown as a black line with gray shaded areas representing plus and minus one standard deviation from the long term daily mean. The SSTs for 2017 that were above the mean are shown in red and below the mean in blue. Last winter was characterized by well above average temperatures in both areas, however, the Gulf of Maine remained warm into the summer months where Georges Bank was relatively cool. Both areas experienced extremely warm fall temperature conditions, where SST was close to  2�C above average.
+Relative to the 1981-2017 mean, the Gulf of Maine experienced above average sea surface temperatures (SSTs) throughout most of  2017 (particularly in the summer) with the exception of the spring when SSTs were only slightly above average (Figure 25). However, Georges Bank SSTs were substantially cooler than average in the spring and summer.  Georges Bank also had slight cooling in the winter whereas fall SSTs were predominately above average (Figure 25).  In figures 26A and 27A, the long term daily mean SST (1981-2016) is shown as a black line with gray shaded areas representing plus and minus one standard deviation from the long term daily mean. The SSTs for 2017 that were above the mean are shown in red and below the mean in blue. Last winter was characterized by well above average temperatures in both areas, however, the Gulf of Maine remained warm into the summer months where Georges Bank was relatively cool. Both areas experienced extremely warm fall temperature conditions, where SST was close to  2°C above average.
 
 ```{r sst_anomaly_maps,fig.cap="Sea surface temperature anomalies in Winter (A), Spring (B), Summer (C), and Fall (D) 2017. \\label{dists}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H'}
 if (map_figs == T){
@@ -2130,7 +2130,7 @@ rasterImage(ppd, usr[1], usr[3], usr[2], usr[4])
 rasterImage(chl, usr[1]+1.1, usr[3], usr[2]+1.1, usr[4])
 ```
 
-There are coherent patterns between the primary production anomaly and the copepod size index for both GB and GOM (Fig. 29). While the trends were in opposite direction early in the time series (1998-2002), increasing PP generally led to an increase in the copepod size index after 2002, when an anomalous period of high abundance of small copepods ended. This period of high abundance of small copepods began in the early 1990's and was attributed to a prolonged influx of scotian shelf waters affecting productivity in the GOM, and can be seen in the time series of Pseudocalanus spp. in the GOM (Fig 30) .  The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, Calanus finmarchicus. The small copepods are most important during the autumn while Calanus finmarchicus dominates early in the year following the spring phytoplankton bloom. Pseudocalanus spp., an important copepod genus linked to early stage survival of cod and haddock, exhibits a long-term decline in abundance on GB as well as low abundance from 2002-2014 in the GOM (Fig 30). In the GOM, Calanus abundance was at or below average between 2009-2014, and the most recent data for 2015 show an above average abundance level. On GB, Calanus abundance has been below average since 2008. Calanus are the principal prey of North Atlantic right whales; reductions in Calanus populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
+There are coherent patterns between the primary production anomaly and the copepod size index for both GB and GOM (Fig. 29). While the trends were in opposite direction early in the time series (1998-2002), increasing PP generally led to an increase in the copepod size index after 2002, when an anomalous period of high abundance of small copepods ended. This period of high abundance of small copepods began in the early 1990’s and was attributed to a prolonged influx of scotian shelf waters affecting productivity in the GOM, and can be seen in the time series of Pseudocalanus spp. in the GOM (Fig 30) .  The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, Calanus finmarchicus. The small copepods are most important during the autumn while Calanus finmarchicus dominates early in the year following the spring phytoplankton bloom. Pseudocalanus spp., an important copepod genus linked to early stage survival of cod and haddock, exhibits a long-term decline in abundance on GB as well as low abundance from 2002-2014 in the GOM (Fig 30). In the GOM, Calanus abundance was at or below average between 2009-2014, and the most recent data for 2015 show an above average abundance level. On GB, Calanus abundance has been below average since 2008. Calanus are the principal prey of North Atlantic right whales; reductions in Calanus populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
 
 
 ```{r, NE zooplankton, fig.cap="Small-large copepod index with primary productivity anomaly in Gulf of Maine (A) and Georges Bank (B).",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', warning = F, message = F, fig.height = 6.2, fig.width=5}
@@ -2218,9 +2218,9 @@ soe.stacked.axis("Year", "Abundance anomaly")
 
 ### Groundfish condition
 
-Fish condition is measured as the weight per length-a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while yellowtail flounder remain thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
+Fish condition is measured as the weight per length–a measure of “fatness”. This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while yellowtail flounder remain thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
 
-```{r 'condition factor NE' , fig.cap="Groundfish condition, MAB", echo = F, out.height='10cm', fig.align='center',fig.pos='H'}
+```{r 'condition factor NE' , fig.cap="Condition, or weight per length, of New England groundfish species", echo = F, out.height='10cm', fig.align='center',fig.pos='H'}
 knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition_2018.jpg'))
 ```
 
@@ -2228,7 +2228,7 @@ knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition_2018.jpg'))
 
 The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are no clear long term trends in this indicator when aggregated across all species in the Gulf of Maine and Georges Bank.
 
-```{r groundfish productivity, fig.cap="Groundfish productivity (A: MAFMC managed species, B: Commercial MAB Species)", echo = F, out.width='9.2cm', out.height='9.2cm', fig.show='hold', fig.align = 'center',fig.pos='H'}
+```{r groundfish productivity, fig.cap="Groundfish productivity (A: NEFMC managed species, B: Commercial Species in New England)", echo = F, out.width='9.2cm', out.height='9.2cm', fig.show='hold', fig.align = 'center',fig.pos='H'}
 ## Functions for plotting
 library(ggplot2)
 library(rpart)
