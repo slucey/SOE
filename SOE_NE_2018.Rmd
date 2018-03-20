@@ -1476,9 +1476,15 @@ th_plot(data = file.path(gis.dir,"Atlantic codfall_4.nc"),
 
 A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html.
 
-# Sea-surface temperatures
+# Ecosystem Conditions and Productivity
 
-### Long-term SSTs
+Productivity of the system can be influenced by many factors.  Temperature affects the behavior and physiology of marine organisms while changes in productivity and species composition at the base of the food web can influence juvenile survival. In this section we report temperature and lower trophic level  production trends and annual cycles for the most recent year.  We also look at fish productivity through recruitment and fish condition.
+
+## Observed ocean conditions
+
+### Long-term ocean temperature
+Sea surface temperature (SST) measurements have been collected on the Northeast Continental Shelf since the mid-1800s. The highest mean annual temperature in this time series was recorded in 2012, as the ecosystem warmed above the levels last seen in the late 1940s. The 2017 datum is the sixth highest temperature in the time series. The positive trend over the full time series (1856-2016) is significant, and the trend over the most recent decade of the time series is even greater.
+
 ```{r long_term_sst,fig.cap="Long-term sea surface temperatures on the Northeast Continental Shelf",  echo=F, message=FALSE, warning=FALSE , fig.height=2.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time", "long term SST jan-jun", end.start = 2007, 
@@ -1487,6 +1493,8 @@ soe.plot(SOE.data.2018, "Time", "long term SST jan-jun", end.start = 2007,
          y.label = expression(paste("Mean SST (",degree,"C)")))
 
 ```
+
+Relative to the 1981-2017 mean, the Gulf of Maine experienced above average sea surface temperatures (SSTs) throughout most of  2017 (particularly in the summer) with the exception of the spring when SSTs were only slightly above average (Figure 25). However, Georges Bank SSTs were substantially cooler than average in the spring and summer.  Georges Bank also had slight cooling in the winter whereas fall SSTs were predominately above average (Figure 25).  In figures 26A and 27A, the long term mean SST (1860-2017?) is shown as a dark gray line with areas representing plus and minus one and two standard deviations of the mean as progressive shades of gray, respectively. The SSTs for 2017 that were above the mean are shown in red and below the mean in blue. Last winter was characterized by well above average temperatures in both areas, however, the Gulf of Maine remained warm into the summer months where Georges Bank was relatively cool. Both areas experienced extremely warm fall temperature conditions, where SST was close to  2°C above average.
 
 ```{r sst_anomaly_maps,fig.cap="Sea surface temperature anomalies in Fall (A), Winter (B), Spring (C), and Summer (D) 2017. \\label{dists}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H'}
 if (map_figs == T){
@@ -1581,9 +1589,12 @@ plot(d, col=colors(n=color_levels),
 
 ```
 
+##Patterns in the lower trophic levels
+Zooplankton provide a critical link between phytoplankton at the base of the food web, and higher trophic organisms such as fish, mammals, and birds. Changes in the species composition and biomass of the zooplankton community have a great potential to affect recruitment success and fisheries productivity, and climate change may be the most important pathway for these changes to manifest. Therefore these indices are relevant to both productivity and trophic structure objectives.
+
+Chlorophyll a (CHL), an index for phytoplankton biomass, was below average in 2017, including during the spring bloom period in both GB and GOM.  Conversely, primary production (PP) was at or above average during most of 2017 and there has been an upward in annual trend PP since 2004.  The above average PP rates in the fall could be due to the above average temperatures supporting increased remineralization of nutrients and regenerated production by smaller phytoplankton species.  This suggests that while overall PP may be increasing, not all of excess PP may be available to higher trophic levels. 
 
 
-# Ecosystem productivity
 
 ```{r SST_PPD_CHL_GOM, fig.cap="SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon) in Gulf of Maine", echo = F, out.width=c('6.5cm','6.5cm','6.5cm'), out.height=c('7cm','7cm','7cm'), fig.show='hold',fig.ncol = 3,fig.pos='H'}
 
@@ -2120,6 +2131,9 @@ rasterImage(ppd, usr[1], usr[3], usr[2], usr[4])
 rasterImage(chl, usr[1]+1.1, usr[3], usr[2]+1.1, usr[4])
 ```
 
+There are coherent patterns between the primary production anomaly and the copepod size index for both GB and GOM (Fig. 29). While the trends were in opposite direction early in the time series (1998-2002), increasing PP generally led to an increase in the copepod size index after 2002, when an anomalous period of high abundance of small copepods ended. This period of high abundance of small copepods began in the early 1990’s and was attributed to a prolonged influx of scotian shelf waters affecting productivity in the GOM, and can be seen in the time series of Pseudocalanus spp. in the GOM (Fig 30) .  The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, Calanus finmarchicus. The small copepods are most important during the autumn while Calanus finmarchicus dominates early in the year following the spring phytoplankton bloom. Pseudocalanus spp., an important copepod genus linked to early stage survival of cod and haddock, exhibits a long-term decline in abundance on GB as well as low abundance from 2002-2014 in the GOM (Fig 30). In the GOM, Calanus abundance was at or below average between 2009-2014, and the most recent data for 2015 show an above average abundance level. On GB, Calanus abundance has been below average since 2008. Calanus are the principal prey of North Atlantic right whales; reductions in Calanus populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
+
+
 ```{r, NE zooplankton, fig.cap="Small-large copepod index with primary productivity anomaly in Gulf of Maine (A) and Georges Bank (B).",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', warning = F, message = F, fig.height = 6.2, fig.width=5}
 
 par(mfrow = c(2,1), mar = c(5,4,1,4))
@@ -2203,13 +2217,17 @@ soe.stacked.axis("Year", "Abundance anomaly")
 
 ```
 
+### Groundfish condition
+
+Fish condition is measured as the weight per length–a measure of “fatness”. This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while yellowtail flounder remain thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
+
 ```{r 'condition factor NE' , fig.cap="Groundfish condition, MAB", echo = F, out.height='10cm', fig.align='center',fig.pos='H'}
 knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition_2018.jpg'))
 ```
 
 ### Groundfish productivity
 
-The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. 
+The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are no clear long term trends in this indicator when aggregated across all species in the Gulf of Maine and Georges Bank.
 
 ```{r groundfish productivity, fig.cap="Groundfish productivity (A: MAFMC managed species, B: Commercial MAB Species)", echo = F, out.width='9.2cm', out.height='9.2cm', fig.show='hold', fig.align = 'center',fig.pos='H'}
 ## Functions for plotting
@@ -2354,3 +2372,18 @@ plot_stackbarcpts_single(YEAR = bar_dat$Time,
                          label = "B",
                          y.text = 10)
 ```
+
+#Work in Progress
+
+##Forage fish energy content
+Work is in progress to address changes in forage fish energy content, which links observed changes in the plankton to resource and protected species condition, reproductive success, and population dynamics. A collaborative project between UMASS Dartmouth Biology Department (Dr. Ken Oliveira, M.S student Kelcie Bean) and NEFSC Population Biology Branch (Mark Wuenschel) is underway to evaluate energy content of forage species.  The study focuses on the following species; Atlantic herring, alewife, silver hake, butterfish, round herring, northern sandlance, menhaden, Atlantic mackerel, longfin squid, and northern shortfin squid.  Samples are being analyzed from the 2017 spring bottom trawl survey (n=1200), 2017 fall bottom trawl survey (n=1000), and from NEFSC study Fleet (n=400).  The percentage dry weight (water content) will be measured, as a predictor of energy density, and subsamples are being analyzed to determine remaining proximate composition (lipid, protein, ash) from which total energy can be calculated.  Samples from multiple seasons, and regions will enable evaluation of spatial and temporal patterns in energy content of forage. These current estimates will also be compared to historical estimates of forage energy content in the region (where available), to evaluate if long-term changes have occurred.  This study is more of an up to date 'snapshot' on the energy content of forage fishes, and not a time series per se; however, we hope the results will provide justification for and establish practical methods (e.g. % dry weight) to monitor energy content of key species on a routine basis. 
+
+#Research recommendations 
+filled in after internal and SSC review
+
+#Acknowledgements
+
+**Editors:** Sarah Gaichas, Sean Hardison, Sean Lucey
+
+**Contributors:** Donald Anderson, Lisa Colburn, Geret DePiper, Deb Duarte, Kevin Friedland, Sarah Gaichas, Heather Haas, Sean Hardison, Kim Hyde, Loren Kellogg, Kristin Kleisner, Sean Lucey, Ryan Morse, Chris Orphanides, Charles Perretti, Vincent Saba, Laurel Smith, John Walden, Harvey Walsh, Mark Wuenschel
+
