@@ -630,13 +630,19 @@ plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 
 ```
 
-**Performance against human dimensions objectives is mixed, with declines in seafood production, recreational opportunities, and revenue diversity**. Benthivores have driven recent revenue volatility in both GOM and GB. On GB, this coincides with a flip from benthivore to benthos dominated revenue stream, along with a decline in seafood production. In GOM, total seafood production has been relatively stable. Recreational participation and commercial fleet diversity in NE has seen a continuing decline, and commercial species diversity at the permit level is near an all-time low. Overall, the increasing dominance of benthos could indicate issues in diversity and resilience of the biological system. Low diversity and reduced resilience threatens high-value port communities like New Bedford, the port with the highest valued landings in the US, primarily composed of climate-vulnerable benthos. 
+**Performance against human dimensions objectives is mixed, with declines in seafood production, recreational opportunities, and revenue diversity**. Benthivores have driven recent revenue volatility in both GOM and GB. On GB, this coincides with a flip from benthivore to benthos dominated revenue stream, along with a decline in seafood production. In GOM, total seafood production has been relatively stable. Recreational participation and commercial fleet diversity in NE has seen a continuing decline, and commercial species diversity at the permit level is near an all-time low. Overall, the increasing dominance of benthos could indicate issues in diversity and resilience of the biological system. **Low diversity and reduced resilience threatens high-value port communities like New Bedford, the port with the highest valued landings in the US, primarily composed of climate-vulnerable benthos**. 
 
-## Changes for 2018
+**Fisheries are currently meeting objectives with respect to protected species bycatch reduction, but climate and ecosystem changes may upset this balance**. Fisheries interactions with harbor porpoise have decreased due to management measures, but climate driven distribution changes for sea turtles may lead to future fishery interactions and potential regulations. In addition, the most endangered species in the system (North Atlantic right whale) may be declining over the most recent few years after a slow but steady increase. **Ecosystem conditions combined with changing distributions may be contributing to the decline and observed unusual mortality event for right whales in 2017**.
 
+Survey biomass trends for aggregated trophic groups are similar across spring and fall and between the Gulf of Maine and Georges Bank. At the lowest trophic level, both **forage fish and benthos, including commercial shellfish, show long term biomass increases** in both seasons. Both **benthivores and piscivores at higher trophic levels have stable or increasing trends** depending on the season sampled, in particular during the most recent decade. However, these **biomass increases are largely driven by non-commercial species**. Species diversity has increased in the Gulf of Maine, but remained stable or decreased on Georges Bank depending on the season sampled.
 
-# Species Groupings
+**Additional indicators in this report suggest a note of caution for the aggregate productivity of fish species in the region** (fish condition declined and recovered for some species). These changes in fish productivity may be linked to observed patterns in plankton communities, to changes in habitat, or both.  While there are few clear long-term trends at the bottom of the food web in New England, changes in species composition and shifts in seasonal timing may have a greater impact on upper trophic levels. Temperature is increasing in long term sea surface records as well as surface and bottom measurements from surveys. The seasonal temperature signal also shows sustained warming. **Warming waters have impacts on the ecosystem that can be complex due to differential impacts at the species level, including observed shifts in species distribution and changes in productivity as thermal habitats shift.** 
 
+# Changes for 2018
+
+Indicators throughout the report have been updated with the most recent data, and in some cases replaced with more management-relevant indicators based on Council feedback from the 2017 report. In particular, new sections on species-specific habitat status and trends and climate projections of thermal habitat for key species have replaced last year’s more general physical environment and climate sections. This report draws on a wider range of expertise and attempts to further link information across indicators to give an integrated overview of ecosystem status relevant to fishery management decision making.
+
+Many metrics aggregate species by similar functional groups.  Species that comprise the functional groups are listed below. Relative to the 2017 report, these categories have been aggregated into fewer groups for simplification and clarity (Table 2).
 
 **Table 2**: New England feeding guilds.
 ```{r species_groupings_NE, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -652,7 +658,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-
+Our assessment of indicator trends has changed this year.  In the 2017 time series plots, monotonic (but not necessarily linear) trends were assessed for both the full time series and the most recent 10 years (shaded dark grey background). Recent simulation analysis suggest that statistical significance tests are unreliable for short time series, but reliable for longer ones. Therefore, similar to 2017, we indicate significant increasing long term trends with orange lines, while significant decreasing long term trends have purple lines.  However, we no longer indicate significant trends for the most recent period but rather discuss recent/current status and trend of each indicator relative to the full time series.  Time series mean is indicated with a dashed line and the final ten years of the time series are highlighted through a grey background. 
 
 \clearpage
 
