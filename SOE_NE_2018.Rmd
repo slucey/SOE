@@ -50,7 +50,8 @@ library(dplyr);library(nlme);library(AICcmodavg)
 library(colorRamps);library(Hmisc);library(rgdal)
 library(maps);library(mapdata);library(raster)
 library(grid);library(stringr);library(png)
-library(ncdf4);library(marmap); library(magick)
+library(ncdf4);library(marmap); library(magick); 
+library(knitr)
 
 
 
@@ -652,7 +653,7 @@ tabl <- "
 | A: **Apex predator** (Highest trophic level)   |  4  | shark (Unc.), swordfish, yellowfin and bluefin tuna |
 | B: **Piscivore** (Eat fish)                    |  23 | monkfish, winter and thorny skates, silver and offshore hake, Atlantic cod, halibut, fourspot flounder, spiny dogfish, summer flounder, bluefish, striped bass, weakfish|
 | C: **Planktivore** (Eat plankton)              |  16 |  Atlantic herring, butterfish, Atlantic mackerel, menhaden, river herrings, shad, white hake, longfin and shortfin squids, searobins, sculpin, lumpfish |
-| E: **Benthivores** (Eat bottom dwellers)       |  25 | lobster, haddock, yellowtail, winter, and witch flounders,barnoor skate, ocean pout, black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, other crabs |
+| E: **Benthivores** (Eat bottom dwellers)       |  25 | lobster, haddock, yellowtail, winter, and witch flounders, barndoor skate, ocean pout, black sea bass, scup, tilefish, tautog, cunner, blue crab, red crab, other crabs |
 | F: **Benthos**  (Filter feeders)               |  9  |   scallops, surfclam, quahog, mussels, whelks, conchs, sand dollars and urchins |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
@@ -667,11 +668,12 @@ Our assessment of indicator trends has changed this year.  In the 2017 time seri
 ## Seafood production 
 Seafood production is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Both commercial and recreational fishing contributes to seafood production, the latter for personal consumption, and indicators for each of these human activities track management performance against this objective.  
 
-Commercial landings include all seafood landings in the region, including species not managed by NEFMC. For example, category D, Benthivores, includes lobsters, which are a substantial portion of the landings and drive increases in landings and revenue. Over the most recent 5 years, NEFSC managed stocks made up from 5%-100% of total landings by category, as detailed below (Table 3). This indicator is being refined to eventually distinguish landings sold for human consumption versus other uses.
+Commercial landings include all seafood landings in the region, including species not managed by NEFMC. For example, category D, Benthivores, includes lobsters, which are a substantial portion of the landings and drive increases in landings and revenue. In 2016, NEFSC managed stocks made up from 5%-98% of total landings by category, as detailed below (Table 3). 
 
-```{r prop_table_NE,echo = F, results = 'asis', fig.width=5, eval=F, fig.align = 'center',eval = F}
-#Use this to create table of proportion of landings/revenue derived from NEFMC species (produces latex. Set eval = F)
-library(stargazer)
+```{r prop_table_NE,echo = F, results = 'asis', fig.width=5, fig.align = 'center'}
+#Use this to create table of proportion of landings/revenue derived from NEFMC species (stargazer produces latex. Set eval = F)
+#library(stargazer)
+#convert to kable
 gom_landings <- SOE.data.2018[grepl("GOM Landings 2016", SOE.data.2018$Var),]$Value
 joint_gom_landings <- SOE.data.2018[grepl("GOM Joint Landings 2016", SOE.data.2018$Var),]$Value
 
@@ -684,7 +686,7 @@ joint_gom_revenue <- SOE.data.2018[grepl("GOM Joint Revenue 2016", SOE.data.2018
 gb_revenue <- SOE.data.2018[grepl("GB Revenue 2016", SOE.data.2018$Var),]$Value
 joint_gb_revenue <- SOE.data.2018[grepl("GB Joint Revenue 2016", SOE.data.2018$Var),]$Value
 
- df <- data.frame(Groups = c("Piscivore","Benthivore","Planktivore","Benthos"),
+ df <- data.frame(Groups = c("Piscivore","Planktivore","Benthivore","Benthos"),
                   gom_landings = gom_landings+joint_gom_landings,
                   gb_landings = gb_landings+joint_gb_landings,
                  
@@ -694,10 +696,12 @@ joint_gb_revenue <- SOE.data.2018[grepl("GB Joint Revenue 2016", SOE.data.2018$V
 
 names(df) <- c("Groups", "GOM Landings", "GB Landings", "GOM Revenue",
                 "GB Revenue")
-stargazer(df, summary = F, rownames = T, title = "Proportion of catch managed by NEFMC (2016)", header = F)
+
+kable(df, digits=2, caption = "Proportion managed by NEFMC")
+#stargazer(df, summary = F, rownames = T, title = "Proportion of catch managed by NEFMC (2016)", header = F)
 ```
 
-**Table 3**: Proportion of landings and revenue derived from managed species in New England. 
+<!--**Table 3**: Proportion of landings and revenue derived from managed species in New England. 
 ```{r prop_landings_rev_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Groups          | GOM Landings| GB Landings| GOM Revenue| GB Revenue|
@@ -709,10 +713,11 @@ tabl <- "
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
+-->
 
-Figure \ref{landings} shows the removals for human consumption both at the entire EPU level as well as those removals managed by the NEFMC.
+Figure \ref{landings} shows the removals for human consumption both at the entire EPU level as well as those removals managed by the NEFMC. Landings of piscivores have decreased over the long term in both systems. Benthos landings show no long term trends in either system. Other groups have a decreasing landings trend in either GOM or GB. 
 
-```{r seafood_landings_GOM,  fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (left) and Georges Bank (right) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos).", echo = F, fig.show='hold',fig.height = 5.5, fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+```{r seafood_landings_GOM,  fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (left) and Georges Bank (right) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos).\\label{landings}", echo = F, fig.show='hold',fig.height = 5.5, fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 
 ## Gulf of Maine cosystem-wide and managed species total landings
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
@@ -770,7 +775,7 @@ soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
 
 ```
 
-Total commercial seafood landings from all species and from NEFMC managed species indicate total seafood production in the GOM and GB. 
+Total commercial seafood landings from all species and from NEFMC managed species indicate total seafood production in the GOM and GB, which has declined over the long term. 
 
 ```{r managed_landings_NE , fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (A) and Georges Bank (B).", echo=F, message=FALSE, warning=FALSE , fig.asp=.5, fig.align = 'center'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -786,7 +791,8 @@ soe.plot(SOE.data.2018, "Time", "Total Landings GB", stacked = "B",status = F,
 soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T, rel.x.text = 1.2, rel.y.text = 1.2)
 ```
 
-## New England recreational seafood landings
+Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish. This trend is also declining. 
+
 ```{r rec_catch_NE, fig.cap = "Recreational seafood landings in New England.",echo = F, message=F, include=T, warning=F,fig.asp = 0.45, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
 
@@ -798,8 +804,12 @@ soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F, rel.x.t
 
 ## Commercial Fishery Revenue
 
-### Revenue change in Gulf of Maine and Georges Banks shown through aggregated price and volume indicators.
-```{r 'Rev_Price_Vol_GOM_GB',fig.cap = "Revenue change in Gulf of Maine (A) and Georges Banks (B) shown through aggregated price and volume indicators." , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
+This indicator links the human activity of commercial fishing to the profits objective. The Bennet indicator is used to compare differences in revenue caused by changing quantities of landings and prices during the time period 1964-2016. Each year in the series is compared to an “average” year based on revenue during the entire period. Average revenue, landings and an implicit price (revenue/landings) is calculated for the time period. The volume indicator measures the contribution of changing quantities to revenue change and the price indicator measures the contribution of changing prices. The overall Bennet index is the sum of the volumen and price indicators in each year.
+
+In the years between 1970 and 1990, Gulf of Maine revenue was generally below average (Fig. \ref{Bennet}A), and this was due to either lower volumes or lower prices depending on the year. After 1990, revenue was higher than average, before declining dramatically after 2000 mostly due to lower volumes. Revenue then fluctuated between 2008 and 2016, with some years being above average and some below. During most of these yearly cycles, changes in volume of Benthivores were responsible for the changes in overall volume (Fig. \ref{BennetGOM}A). Benthivores were also the group whose price difference was the primary reason for the changes in the overall price (Fig. \ref{BennetGOM}B).
+
+
+```{r 'Rev_Price_Vol_GOM_GB',fig.cap = "Revenue change in Gulf of Maine (A) and Georges Banks (B) shown through aggregated price and volume indicators.\\label{Bennet}" , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
 price_ind<-readPNG(file.path(image.dir, "Pr_Vol_GOM.png"))
 vol_ind<-readPNG(file.path(image.dir, "Pr_Vol_GB.png"))
 
@@ -818,7 +828,7 @@ text(1.22,.825, "B", cex=1.5)
 
 ```
 
-```{r 'price_ind_GOM',fig.cap="Bennet indicator, price component (A) and volume component (B) by functional group\\label{Bennetspp1}." , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
+```{r 'price_ind_GOM',fig.cap="Gulf of Maine Bennet indicator, price component (A) and volume component (B) by functional group\\label{BennetGOM}." , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
 price_ind<-readPNG(file.path(image.dir, "GOM_PI.png"))
 vol_ind<-readPNG(file.path(image.dir, "GOM_VI.png"))
 
@@ -836,7 +846,9 @@ text(.12,.825, "A", cex=1.5)
 text(1.22,.825, "B", cex=1.5)
 ```
 
-```{r 'price_ind_GB',fig.cap="Bennet indicator, price component (A) and volume component (B) by functional group\\label{Bennetspp2}." , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
+On Georges Bank, revenue showed a cyclical pattern which alternated between a positive and negative deviation from average revenue between 1964 and 2016 (Fig. \ref{Bennet}B) During periods of negative revenue growth, the decline was caused by lower volumes rather than lower prices. In most years, positive price growth helped offset any negative volume change. Before the 1980’s positive Benthivore and Planktivore volumes were offset by negative Benthos volumes (Fig. \ref{BennetGB}B). The 1990’s time period showed declining volumes of virtually all groups. Shortly after 2000, the Benthos group contributed positively to revenue, while the Benthivore group was a negative contributor, a reversal of the trend which existed prior to 1980.  The price indicator showed a different trend (Fig. \ref{BennetGB}A). Until the mid-1980’s the Benthos group prices contributed positively to revenue gains compared to the average. The price trend for the Benthos group then turned negative, while the Benthivore group contributed positively to the price indicator.
+
+```{r 'price_ind_GB',fig.cap="Georges Bank Bennet indicator, price component (A) and volume component (B) by functional group\\label{BennetGB}." , fig.width = 8,fig.height = 2.75, fig.show='hold',fig.pos='H'}
 price_ind<-readPNG(file.path(image.dir, "GB_PI.png"))
 vol_ind<-readPNG(file.path(image.dir, "GB_VI.png"))
 
@@ -854,6 +866,8 @@ text(.12,.825, "A", cex=1.5)
 text(1.22,.825, "B", cex=1.5)
 ```
 
+## Ecosystem-wide and Managed Species Total Revenue
+Average total revenue from NEFMC managed species ranges from 3-93% of total revenue from commercial fishing in the region in 2016 (Fig. \ref{totcommrev}).
 
 ```{r managed_revenue_NE , fig.cap="Total revenue by region and NEFMC managed species\\label{totcommrev}.", echo=F, message=FALSE, warning=FALSE , fig.asp = 0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
