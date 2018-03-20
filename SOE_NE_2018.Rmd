@@ -50,7 +50,7 @@ library(dplyr);library(nlme);library(AICcmodavg)
 library(colorRamps);library(Hmisc);library(rgdal)
 library(maps);library(mapdata);library(raster)
 library(grid);library(stringr);library(png)
-library(ncdf4);library(marmap)
+library(ncdf4);library(marmap); library(magick)
 
 
 
@@ -505,7 +505,7 @@ knitr::include_graphics(file.path(image.dir, 'ne_conceptual_model.pdf'))
 
 # Executive Summary
 
-We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. 
+We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices (Table 1). We take a place-based approach and report indicators separately where possible and relevant for the two ecosystems under New England Council management: Georges Bank (GB) and Gulf of Maine (GOM; Fig. \ref{map}).
 
 **Table 1**: New England ecosystem objectives
 ```{r obj_cats_NE, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -523,6 +523,13 @@ tabl <- "
 | Habitat                  | Thermal habitat projections, estimated habitat occurrence |
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+
+```{r, fig.cap="Gulf of Maine (GOM) and Georges Bank (GB) spatial extent \\label{map}", fig.height=6, fig.width=4, out.width='0.9\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
+image_read(file.path(image.dir,"NEshelfEcoRegionsALL.png")) %>%
+image_trim()
+
 ```
 
 **We also report single-species status relative to established objectives and reference points**. The New England Council (NEFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for XX of YY stocks and biomass (B) levels for ZZ of YY stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for XXX, likely high F rates for YYYYY, and likely low B status for ZZZZZ.
@@ -622,6 +629,8 @@ plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 #if(saveplots) dev.off()
 
 ```
+
+**Performance against human dimensions objectives is mixed, with declines in seafood production, recreational opportunities, and revenue diversity**. Benthivores have driven recent revenue volatility in both GOM and GB. On GB, this coincides with a flip from benthivore to benthos dominated revenue stream, along with a decline in seafood production. In GOM, total seafood production has been relatively stable. Recreational participation and commercial fleet diversity in NE has seen a continuing decline, and commercial species diversity at the permit level is near an all-time low. Overall, the increasing dominance of benthos could indicate issues in diversity and resilience of the biological system. Low diversity and reduced resilience threatens high-value port communities like New Bedford, the port with the highest valued landings in the US, primarily composed of climate-vulnerable benthos. 
 
 ## Changes for 2018
 
