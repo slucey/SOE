@@ -14,7 +14,7 @@ output:
 fontsize: 11pt
 header-includes: 
 - \usepackage{float}
-geometry: margin=1cm
+geometry: margin=1cm, footskip=.5cm
 self_contained: yes
 
 ---
