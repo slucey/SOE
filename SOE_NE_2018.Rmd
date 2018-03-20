@@ -1289,8 +1289,14 @@ points(up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2
 
 #Resource Species
 
-### Survey biomass (GOM)
-```{r spring_fall_survey_biomass_GOM, fig.cap="Fall (left) and Spring (right) Gulf of Maine survey biomass (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)",  echo = F, fig.show='hold', fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+Patterns for groups of species that feed on similar prey can indicate how overall ecosystem conditions are changing, and provide context for individual species stock assessments. This information is from NEFSC bottom trawl surveys in spring and fall. 
+
+## Trends in Biomass
+Biomass across trophic levels shows similar trends between the Gulf of Maine and Georges Bank. In the Gulf of Maine, forage fish (including herring), show long term increases in both seasons. Fall surveys show increasing trends for all groups (Fig. \ref{GOMbio}). On Georges Bank, all groups other than piscivores show increasing trends in survey biomass for both seasons (piscivores have an increasing trend only during the fall; Fig. \ref(GBbio)). 
+
+These survey biomass trends are in contrast with the long term decreasing landings trends shown above. Survey biomass includes non-commercial species, while landings do not. Landings are also affected by management as well as underlying biomass of stocks.
+
+```{r spring_fall_survey_biomass_GOM, fig.cap="Fall (left) and Spring (right) Gulf of Maine survey biomass (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)\\label{GOMbio}",  echo = F, fig.show='hold', fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
@@ -1326,8 +1332,8 @@ soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 
 ```
 
-### Survey biomass (GB)
-```{r spring_fall_survey_biomass_GB, fig.cap="Fall (left) and Spring (right) Georges Bank survey biomass (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)",  echo = F, fig.show='hold', fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+
+```{r spring_fall_survey_biomass_GB, fig.cap="Fall (left) and Spring (right) Georges Bank survey biomass (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)\\label{GBbio}",  echo = F, fig.show='hold', fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
@@ -1364,8 +1370,7 @@ soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 ```
 
 ## Species composition
-
-Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Diversity (here estimated using data from NOAA NEFSC Oceans and Climate branch public dataset for 45 abundant and well-identified ichthyoplankton taxa (Walsh et al. 2015))  shows a decrease for one season (spring), suggesting that survey timing may be interacting with changes in spawn timing or migration of adult fish (see above) as well as a potential change in ichthyoplankton availability due to adult fish distribution shifts (see below).  The decrease in spring ichthyoplankton diversity coincides with an increase in the spring abundance of sand lance (Ammodytes spp.) larvae, an important prey species (Richardson et al. 2014).  Walsh et al. (2015) documented a significant seasonal shift from winter to spring based on annual relative proportions from 1977-1987 to 1999-2008. 
+Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Diversity (here estimated using data from NOAA NEFSC Oceans and Climate branch public dataset for 45 abundant and well-identified ichthyoplankton taxa shows a decrease for one season (spring), suggesting that survey timing may be interacting with changes in spawn timing or migration of adult fish (see above) as well as a potential change in ichthyoplankton availability due to adult fish distribution shifts (see below).  The decrease in spring ichthyoplankton diversity coincides with an increase in the spring abundance of sand lance (*Ammodytes* spp.) larvae, an important prey species.  Researchers documented a significant seasonal shift from winter to spring based on annual relative proportions from 1977-1987 to 1999-2008. 
 
 ```{r larval_diversity, fig.cap="Ichthyoplankton Shannon diversity and species counts in the Spring (Top row) and Fall (bottom row)",echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
@@ -1385,10 +1390,58 @@ soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5, rel.x.text = 1.2, r
 
 ```
 
-\newpage
+## Species distribution
+Spatial distribution can change for a variety of different reasons.  In the U.S. Northeast Shelf, species distributions have changed over time but the direction and rate of movement is not consistent among some of the key species. Two species of particular interest to the NEFMC are sea scallops and Atlantic cod. Sea scallops show no clear trend in average along-shelf distance or depth in surveys, indicating a generally stable distribution (Fig. \ref{asdscall}). In contrast, Atlantic cod average depth and along shelf distance has been increasing (Fig. \ref{asdcod}), indicating shifting distribution. 
+
+```{r sea_scallop_species_distributions_MAB, fig.cap="Sea scallop mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)\\label{asdscall}",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 
-```{r kdes_and_th_maps_MAB,fig.cap="Current and historical abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C) for sea scallop (top) and Atlantic cod (bottom). \\label{thermhab}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H', warning=F, message=F}
+soe.plot(SOE.data.2018, "Time", "sea scallop spring mean depth", stacked = "A",
+         rel.y.num = 1.1, x.start = 1963, end.start = 2007, cex.stacked = 1.5)
+soe.plot(SOE.data.2018, "Time", "sea scallop fall mean depth", stacked = "B",
+         rel.y.num = 1.1, line.forward = T, end.start = 2007, cex.stacked = 1.5)
+soe.stacked.axis("Year", "Mean depth, m")
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+soe.plot(SOE.data.2018, "Time", "sea scallop spring mean along-shelf dist", 
+         stacked = "C", rel.y.num = 1.1, suppressAxis = T, 
+         line.forward = T, tol = 0.15, x.start = 1963, end.start = 2007, cex.stacked = 1.5)
+soe.plot(SOE.data.2018, "Time", "sea scallop fall mean along-shelf dist", 
+         stacked = "D", rel.y.num = 1.1, tol = 0.15, end.start = 2007, cex.stacked = 1.5)
+soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
+
+```
+
+
+```{r atlantic cod_species_distributions_MAB, fig.cap="Atlantic cod mean depth and along-shelf distance trends (Top row: Spring, bottom row: Fall)\\label{asdcod}",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+
+soe.plot(SOE.data.2018, "Time", "atlantic cod spring mean depth", stacked = "A",
+         rel.y.num = 1.1, x.start = 1963, end.start = 2007, line.forward = T, cex.stacked = 1.5)
+soe.plot(SOE.data.2018, "Time", "atlantic cod fall mean depth", stacked = "B",
+         rel.y.num = 1.1, line.forward = T, end.start = 2007, cex.stacked = 1.5)
+soe.stacked.axis("Year", "Mean depth, m")
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
+
+soe.plot(SOE.data.2018, "Time", "atlantic cod spring mean along-shelf dist", 
+         stacked = "C", rel.y.num = 1.1, suppressAxis = T, extra = F,
+         line.forward = T, tol = 0.15, x.start = 1963, end.start = 2007, cex.stacked = 1.5)
+soe.plot(SOE.data.2018, "Time", "atlantic cod fall mean along-shelf dist", 
+         stacked = "D", rel.y.num = 1.1, tol = 0.15, end.start = 2007,
+          line.forward = T, cex.stacked = 1.5)
+soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
+
+```
+
+Looking in more detail at the NEFSC bottom-trawl data, sea scallops have shifted away from the northern flank of Georges Bank and are now more abundant along the Great South Channel (Fig. \ref{thermhab}A).  Cod abundance has shifted into the southwestern Gulf of Maine and is now nearly absent in southern New England waters off the coastlines of Long Island, Connecticut, and Rhode Island (Fig. \ref{thermhab}D).
+
+Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for these resource species.  Thermal habitat for individual species can then be projected using global climate models. While thermal habitat is only part of the picture, and species may adapt to new thermal regimes, these projections indicate the potential for key species to thrive or not over the coming decades where further ocean warming is expected.  Thermal habitat area for both sea scallops and cod is projected to decline over the next 40 years of continued ocean warming (Fig. \ref{thermhab}B-C and D-F).  However, the projected thermal habitat area decline is much more substantial for cod than for sea scallops.  It is important to note that these projections do not account for changes in other critical factors such as ocean acidification (scallops), fisheries mortality, new species interactions, and bottom-up forcing (i.e. changes in lower trophic levels).  The projections shown here are for fall only but spring projections are also available.
+
+```{r kdes_and_th_maps_MAB,fig.cap="Current and historical abundance estimates (left), current thermal habitat estimate (center), and 20-40 year thermal habitat projection (right) for sea scallop (A-C) and Atlantic cod (D-F). \\label{thermhab}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H', warning=F, message=F}
 #fill plot with images
 
 kde1 <- readPNG(file.path(image.dir, "sea_scallop_kde.png"))
@@ -1421,51 +1474,7 @@ th_plot(data = file.path(gis.dir,"Atlantic codfall_4.nc"),
 
 ```
 
-```{r sea_scallop_species_distributions_MAB, fig.cap="Sea scallop mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
-
-
-soe.plot(SOE.data.2018, "Time", "sea scallop spring mean depth", stacked = "A",
-         rel.y.num = 1.1, x.start = 1963, end.start = 2007, cex.stacked = 1.5)
-soe.plot(SOE.data.2018, "Time", "sea scallop fall mean depth", stacked = "B",
-         rel.y.num = 1.1, line.forward = T, end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis("Year", "Mean depth, m")
-
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
-
-soe.plot(SOE.data.2018, "Time", "sea scallop spring mean along-shelf dist", 
-         stacked = "C", rel.y.num = 1.1, suppressAxis = T, 
-         line.forward = T, tol = 0.15, x.start = 1963, end.start = 2007, cex.stacked = 1.5)
-soe.plot(SOE.data.2018, "Time", "sea scallop fall mean along-shelf dist", 
-         stacked = "D", rel.y.num = 1.1, tol = 0.15, end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
-
-```
-
-
-
-
-```{r atlantic cod_species_distributions_MAB, fig.cap="Atlantic cod mean depth and along-shelf distance trends (Top row: Spring, bottom row: Fall)",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
-
-
-soe.plot(SOE.data.2018, "Time", "atlantic cod spring mean depth", stacked = "A",
-         rel.y.num = 1.1, x.start = 1963, end.start = 2007, line.forward = T, cex.stacked = 1.5)
-soe.plot(SOE.data.2018, "Time", "atlantic cod fall mean depth", stacked = "B",
-         rel.y.num = 1.1, line.forward = T, end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis("Year", "Mean depth, m")
-
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
-
-soe.plot(SOE.data.2018, "Time", "atlantic cod spring mean along-shelf dist", 
-         stacked = "C", rel.y.num = 1.1, suppressAxis = T, extra = F,
-         line.forward = T, tol = 0.15, x.start = 1963, end.start = 2007, cex.stacked = 1.5)
-soe.plot(SOE.data.2018, "Time", "atlantic cod fall mean along-shelf dist", 
-         stacked = "D", rel.y.num = 1.1, tol = 0.15, end.start = 2007,
-          line.forward = T, cex.stacked = 1.5)
-soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
-
-```
+A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html.
 
 # Sea-surface temperatures
 
