@@ -662,6 +662,13 @@ Our assessment of indicator trends has changed this year.  In the 2017 time seri
 
 \clearpage
 
+# Human Dimensions 
+
+## Seafood production 
+Seafood production is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Both commercial and recreational fishing contributes to seafood production, the latter for personal consumption, and indicators for each of these human activities track management performance against this objective.  
+
+Commercial landings include all seafood landings in the region, including species not managed by NEFMC. For example, category D, Benthivores, includes lobsters, which are a substantial portion of the landings and drive increases in landings and revenue. Over the most recent 5 years, NEFSC managed stocks made up from 5%-100% of total landings by category, as detailed below (Table 3). This indicator is being refined to eventually distinguish landings sold for human consumption versus other uses.
+
 ```{r prop_table_NE,echo = F, results = 'asis', fig.width=5, eval=F, fig.align = 'center',eval = F}
 #Use this to create table of proportion of landings/revenue derived from NEFMC species (produces latex. Set eval = F)
 library(stargazer)
@@ -689,8 +696,6 @@ names(df) <- c("Groups", "GOM Landings", "GB Landings", "GOM Revenue",
                 "GB Revenue")
 stargazer(df, summary = F, rownames = T, title = "Proportion of catch managed by NEFMC (2016)", header = F)
 ```
-# Human Dimensions
-
 
 **Table 3**: Proportion of landings and revenue derived from managed species in New England. 
 ```{r prop_landings_rev_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -704,35 +709,34 @@ tabl <- "
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
-#Seafood production
 
-## NEFMC seafood specific landings (red) and total commericial landings (black) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos)
-### Gulf of Maine
+Figure \ref{landings} shows the removals for human consumption both at the entire EPU level as well as those removals managed by the NEFMC.
+
 ```{r seafood_landings_GOM,  fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (left) and Georges Bank (right) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos).", echo = F, fig.show='hold',fig.height = 5.5, fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 
 ## Gulf of Maine cosystem-wide and managed species total landings
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
 soe.plot(SOE.data.2018, "Time","Apex Predator Landings GOM", stacked = "A",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0, cex.stacked = 2)
 
 soe.plot(SOE.data.2018, "Time", "Piscivore Landings GOM", stacked = "B",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 = "Piscivore NEFMC managed species sea food GOM", mean_line = T, cex.stacked = 2)
 
 
 soe.plot(SOE.data.2018, "Time", "Planktivore Landings GOM", stacked = "C",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 ="Planktivore NEFMC managed species sea food GOM", mean_line = T, cex.stacked = 2)
 soe.plot(SOE.data.2018, "Time", "Benthivore Landings GOM", stacked = "D",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 = "Benthivore NEFMC managed species sea food GOM", mean_line = T, cex.stacked = 2)
 soe.plot(SOE.data.2018, "Time", "Benthos Landings GOM", stacked = "E",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 = "Benthos NEFMC managed species sea food GOM", mean_line = T, cex.stacked = 2)
 soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
@@ -741,42 +745,42 @@ soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
 soe.plot(SOE.data.2018, "Time","Apex Predator Landings GB", stacked = "A",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007,
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0, cex.stacked = 2)
 
 soe.plot(SOE.data.2018, "Time", "Piscivore Landings GB", stacked = "B",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 = "Piscivore NEFMC managed species sea food GB", mean_line = T, cex.stacked = 2)
 
 
 soe.plot(SOE.data.2018, "Time", "Planktivore Landings GB", stacked = "C",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 ="Planktivore NEFMC managed species sea food GB", mean_line = T, cex.stacked = 2)
 soe.plot(SOE.data.2018, "Time", "Benthivore Landings GB", stacked = "D",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 = "Benthivore NEFMC managed species sea food GB", mean_line = T, cex.stacked = 2)
 soe.plot(SOE.data.2018, "Time", "Benthos Landings GB", stacked = "E",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 = "Benthos NEFMC managed species sea food GB", mean_line = T, cex.stacked = 2)
 soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T)
 
 ```
 
+Total commercial seafood landings from all species and from NEFMC managed species indicate total seafood production in the GOM and GB. 
 
-## Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (A) and Georges Bank (B)
 ```{r managed_landings_NE , fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (A) and Georges Bank (B).", echo=F, message=FALSE, warning=FALSE , fig.asp=.5, fig.align = 'center'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Total Landings GOM", stacked = "A",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 =  "Total managed landings GOM")
 soe.plot(SOE.data.2018, "Time", "Total Landings GB", stacked = "B",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 =  "Total managed landings GB")
 soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), outer = T, rel.x.text = 1.2, rel.y.text = 1.2)
@@ -850,17 +854,16 @@ text(.12,.825, "A", cex=1.5)
 text(1.22,.825, "B", cex=1.5)
 ```
 
-\newpage
 
-```{r managed_revenue_NE , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}.", echo=F, message=FALSE, warning=FALSE , fig.asp = 0.5, fig.align = 'center',fig.pos='H'}
+```{r managed_revenue_NE , fig.cap="Total revenue by region and NEFMC managed species\\label{totcommrev}.", echo=F, message=FALSE, warning=FALSE , fig.asp = 0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Total Revenue GOM", stacked = "A",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 =  "Total managed revenue GOM", cex.stacked = 1.5)
 soe.plot(SOE.data.2018, "Time", "Total Revenue GB", stacked = "B",status = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007, 
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007, x.start = 1964,
          ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
          y.var2 =  "Total managed revenue GB", cex.stacked = 1.5)
 soe.stacked.axis("Time",expression("Revenue, 10"^6*"USD"), outer = T, rel.x.text = 1.2, rel.y.text = 1.2)
