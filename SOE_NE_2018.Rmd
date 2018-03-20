@@ -803,7 +803,6 @@ soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F, rel.x.t
 ```
 
 ## Commercial Fishery Revenue
-
 This indicator links the human activity of commercial fishing to the profits objective. The Bennet indicator is used to compare differences in revenue caused by changing quantities of landings and prices during the time period 1964-2016. Each year in the series is compared to an “average” year based on revenue during the entire period. Average revenue, landings and an implicit price (revenue/landings) is calculated for the time period. The volume indicator measures the contribution of changing quantities to revenue change and the price indicator measures the contribution of changing prices. The overall Bennet index is the sum of the volumen and price indicators in each year.
 
 In the years between 1970 and 1990, Gulf of Maine revenue was generally below average (Fig. \ref{Bennet}A), and this was due to either lower volumes or lower prices depending on the year. After 1990, revenue was higher than average, before declining dramatically after 2000 mostly due to lower volumes. Revenue then fluctuated between 2008 and 2016, with some years being above average and some below. During most of these yearly cycles, changes in volume of Benthivores were responsible for the changes in overall volume (Fig. \ref{BennetGOM}A). Benthivores were also the group whose price difference was the primary reason for the changes in the overall price (Fig. \ref{BennetGOM}B).
@@ -884,7 +883,6 @@ soe.stacked.axis("Time",expression("Revenue, 10"^6*"USD"), outer = T, rel.x.text
 ```
 
 ## New England commercial fleet diversity
-
 Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Diversity estimates have been developed for fleets and species landed by vessels with New England species permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. This is coastwide rather than GOM or GB specific. 
 
 The fleet revenue diversity for individuals landing NEFMC FMP species shows a consistent downward trend across the entire time series. A declining trend in diversity indicates reliance on either a smaller number of resources, or a less diverse pool of resources but cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in New England. A count of the number of fleets actively landing NEFMC FMP species in each year is relatively consistent with the revenue diversity metric, with a consistent downward trend throughout the time series.
@@ -927,7 +925,6 @@ soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'),rel.
 
 
 ## Harmful Algal Blooms
-
 The seasonal occurrence of harmful algal blooms (HABs) in New England is responsible for fluxes of saxitoxin and domoic acid into shellfish beds, which can result in paralytic shellfish poisoning (PSP) and amnesic shellfish poisoning (ASP) respectively. Blooms of *Alexandrium fundyense* cause regular closures of shellfish beds from Maine to Massachusetts due to saxitoxin contamination, with at least 30 PSP-related closures occurring between 2007-2016 (Fig. \ref{HAB}). Average blue mussel saxitoxin content in Maine waters increased from 2014 to 2017, although the change was driven by anomalously high values at 2 of 18 sampling sites in 2017. The prevalence of saxitoxin in Maine blue mussel beds exhibits high interannual variability with evidence suggesting a decadal cycle of toxicity.
 
 Blooms of *Pseudo-nitzchia* species that produce domoic acid have become more common in the past decade. In fall 2016, *Pseudo-nitzchia* blooms caused closures of shellfish beds in Maine and Rhode Island. An unprecedented late-season *Pseudo-nitzchia* bloom resulted in the closure of shellfish harvesting in Casco Bay, ME in December 2017. Blooms of the dinoflagellate *Dinophysis* could also pose a threat to New England waters, with the first ever *Dinophysis* related waterway closure in Massachusetts occurring in 2015.
@@ -992,7 +989,6 @@ text(-67.7,42.525, "2007-2016 Detections")
 ```
 
 ##Community social vulnerability, engagement and dependence on commercial fisheries
-
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing reliance and engagement, sea level rise risk, species vulnerability to climate change, and catch composition diversity.
  
 Here, we look at the extent to which commercial and recreational fishing reliance intersect with community social vulnerability in the New England region. Commercial fishing reliance is a measure of per capita pounds landed, value landed, commercial permits and commercial dealers in a community. Recreational reliance is a per capita measure of shore, private vessel and for-hire recreational fishing in a community. Social vulnerability represents social factors that can shape either an individual or community’s ability to adapt to change. There are many socially vulnerable communities in the New England region, but with varying degrees of commercial and/or recreational fishing reliance. While there are some communities that are both moderate to highly socially vulnerable and moderate to highly reliant on commercial fishing in Northern New England (Fig.\ref{commvulmap}), there are different communities in Southern New England that are both moderate to highly vulnerable and moderate to highly reliant on recreational fishing (Fig. \ref{commvulmap}).
@@ -1264,6 +1260,9 @@ points(pbi,   type  = "l", lty = 1, col = adjustcolor("red", .5), lwd = 3)
 points(lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
 points(up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
 ```
+
+##Grey seals
+The number of grey seals (*Halichoerus grypus*) in U.S. waters has risen dramatically in the last 2 decades, with few being observed in the early 1990s to at least 25,000 on a single Massachusetts beach in 2016. Roughly 30,000 - 40,000 gray seals were estimated in southeastern Massachusetts in 2015, using correction factors applied to seal counts visible in Google Earth imagery. As of 2016, the size of the grey seal population in Canada, which is part of the same stock as the grey seals in the U.S., was estimated to be roughly 425,000, and increasing by 4% a year. Pups born on Muskeget Island, currently the largest pupping site for gray seals in the U.S., were first observed in 1988 and now number over 3,500. Trends in pup production at U.S. colonies appear to be increasing, and it is likely that U.S. pup production is being supplemented each year by animals from Canada. Fisheries interactions have increased over the past 2 decades, with fewer than 10 total estimated grey seal interactions in 1993, to over 1000 in 2014.
 
 ## Sea Turtles
 Sea turtles are known to be susceptible to climate and ecosystem changes, and their distribution is influenced by water temperature. Sea turtle diets contain a considerable amount of  gelatinous zooplankton, which are also influenced by changes in the pelagic ecosystem. At present, management measures to reduce sea turtle-fishery interactions are limited to the regions with historical observations of sea turtles and based on historical ocean temperature distributions. However, changes in climate may cause turtles to shift northward into areas with heavy fishing, possibly resulting in increased bycatch, and necessitating new management measures. 
