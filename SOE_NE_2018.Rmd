@@ -497,7 +497,7 @@ th_plot <- function(data, letter, z.max, y.axis = T,
 
 The purpose of this report is to provide **ecosystem-scale information for fishery managers** to consider along with existing species-scale analyses.  An overview of ecosystem relationships as represented by **a conceptual model helps place more detailed species-level management in context** by highlighting relationships between focal species groups organized by New England Fishery Management Council (NEFMC) Fishery Management Plan (FMP), managed human activities, environmental drivers, habitats, and key ecological links (Fig. \ref{conceptual}). Here, human activities link to high level strategic management objectives. Many components of the conceptual model are represented by indicators in this report, and key paths connecting components and objectives are highlighted.
 
-```{r, fig.cap="Gulf of Maine and Georges Bank Ecosystem \\label{conceptual}", fig.height=6, fig.width=4, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
+```{r, fig.cap="Gulf of Maine and Georges Bank Ecosystem \\label{conceptual}", fig.height=6, fig.width=4, out.width='\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, fig.pos='H', eval = T}
 knitr::include_graphics(file.path(image.dir, 'ne_conceptual_model.pdf'))
 
 ```
@@ -1591,10 +1591,10 @@ plot(d, col=colors(n=color_levels),
 ##Patterns in the lower trophic levels
 Zooplankton provide a critical link between phytoplankton at the base of the food web, and higher trophic organisms such as fish, mammals, and birds. Changes in the species composition and biomass of the zooplankton community have a great potential to affect recruitment success and fisheries productivity, and climate change may be the most important pathway for these changes to manifest. Therefore these indices are relevant to both productivity and trophic structure objectives.
 
-Chlorophyll a (CHL), an index for phytoplankton biomass, was below average in 2017, including during the spring bloom period in both GB and GOM.  Conversely, primary production (PP) was at or above average during most of 2017 and there has been an upward in annual trend PP since 2004.  The above average PP rates in the fall could be due to the above average temperatures supporting increased remineralization of nutrients and regenerated production by smaller phytoplankton species.  This suggests that while overall PP may be increasing, not all of excess PP may be available to higher trophic levels. 
+Chlorophyll a (CHL), an index for phytoplankton biomass, was below average in 2017, including during the spring bloom period in both GB and GOM (Figs. \ref{tempPPGOM} and \ref{tempPPGB}).  Conversely, primary production (PP) was at or above average during most of 2017 and there has been an upward in annual trend PP since 2004.  The above average PP rates in the fall could be due to the above average temperatures supporting increased remineralization of nutrients and regenerated production by smaller phytoplankton species.  This suggests that while overall PP may be increasing, not all of excess PP may be available to higher trophic levels. 
 
 
-```{r SST_PPD_CHL_GOM, fig.cap="SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon) in Gulf of Maine",echo = F, fig.show='hold', fig.align='default',warning = F, message = F,fig.pos='H',fig.height = 2.75,fig.width = 8}
+```{r SST_PPD_CHL_GOM, fig.cap="SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon) in Gulf of Maine\\label{tempPPGOM}",echo = F, fig.show='hold', fig.align='default',warning = F, message = F,fig.pos='H',fig.height = 2.75,fig.width = 8}
 ## SST
 par(mar = c(4, 4, 2, 1), mfrow = c(1,3))
 doy <- as.numeric(SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 GOM",]$Time)
@@ -1854,7 +1854,7 @@ text(2,2.5*.95,"C", cex = 1.5)
 
 ```
 
-```{r SST_PPD_CHL_GB, fig.cap="SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon) in Georges Bank",echo = F, fig.show='hold', fig.align='default',warning = F, message = F,fig.pos='H',fig.height = 2.75,fig.width = 8}
+```{r SST_PPD_CHL_GB, fig.cap="SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon) in Georges Bank \\label{tempPPGB}",echo = F, fig.show='hold', fig.align='default',warning = F, message = F,fig.pos='H',fig.height = 2.75,fig.width = 8}
 ## SST
 par(mar = c(4, 4, 2, 1), mfrow = c(1,3))
 doy <- as.numeric(SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 GB",]$Time)
@@ -2114,8 +2114,9 @@ text(2,2.5*.95,"C", cex = 1.5)
 
 ```
 
+Spatial patterns in primary production and chlorophyll fpr 2017 are shown as difference from the long term mean (Fig. \ref{ppchlanom}). 
 
-```{r chl_ppd_maps,fig.cap="Primary production (left) and chlorophyll (right) anomalies along the Northeast Shelf\\label{ppchlanom}" ,  fig.width = 8,fig.height = 4, fig.show='hold',fig.pos='H'}
+```{r chl_ppd_maps,fig.cap="Primary production (left) and chlorophyll (right) anomalies along the Northeast Shelf\\label{ppchlanom}",  fig.width = 8,fig.height = 4, fig.show='hold',fig.pos='H'}
 #read images
 #read images
 ppd <-readPNG(file.path(image.dir,'PPD_anom_NES.png'))
@@ -2129,12 +2130,14 @@ rasterImage(ppd, usr[1], usr[3], usr[2], usr[4])
 rasterImage(chl, usr[1]+1.1, usr[3], usr[2]+1.1, usr[4])
 ```
 
-There are coherent patterns between the primary production anomaly and the copepod size index for both GB and GOM (Fig. 29). While the trends were in opposite direction early in the time series (1998-2002), increasing PP generally led to an increase in the copepod size index after 2002, when an anomalous period of high abundance of small copepods ended. This period of high abundance of small copepods began in the early 1990’s and was attributed to a prolonged influx of scotian shelf waters affecting productivity in the GOM, and can be seen in the time series of Pseudocalanus spp. in the GOM (Fig 30) .  The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, Calanus finmarchicus. The small copepods are most important during the autumn while Calanus finmarchicus dominates early in the year following the spring phytoplankton bloom. Pseudocalanus spp., an important copepod genus linked to early stage survival of cod and haddock, exhibits a long-term decline in abundance on GB as well as low abundance from 2002-2014 in the GOM (Fig 30). In the GOM, Calanus abundance was at or below average between 2009-2014, and the most recent data for 2015 show an above average abundance level. On GB, Calanus abundance has been below average since 2008. Calanus are the principal prey of North Atlantic right whales; reductions in Calanus populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
+There are coherent patterns between the primary production anomaly and the copepod size index for both GB and GOM (Fig. \ref{ppcope}). While the trends were in opposite direction early in the time series (1998-2002), increasing PP generally led to an increase in the copepod size index after 2002, when an anomalous period of high abundance of small copepods ended. This period of high abundance of small copepods began in the early 1990’s and was attributed to a prolonged influx of Scotian shelf waters affecting productivity in the GOM, and can be seen in the time series of *Pseudocalanus* spp. in the GOM (Fig. \ref{calabund}).  
+
+The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, *Calanus finmarchicus*. The small copepods are most important during the autumn while *Calanus finmarchicus* dominates early in the year following the spring phytoplankton bloom. *Pseudocalanus* spp., an important copepod genus linked to early stage survival of cod and haddock, exhibits a long-term decline in abundance on GB as well as low abundance from 2002-2014 in the GOM (Fig. \ref{calabund}). In the GOM, *Calanus* abundance was at or below average between 2009-2014, and the most recent data for 2015 show an above average abundance level. On GB, *Calanus* abundance has been below average since 2008. *Calanus* are the principal prey of North Atlantic right whales; reductions in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web.
 
 
-```{r, NE zooplankton, fig.cap="Small-large copepod index with primary productivity anomaly in Gulf of Maine (A) and Georges Bank (B).",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', warning = F, message = F, fig.height = 6.2, fig.width=5}
+```{r, NE zooplankton, fig.cap="Small-large copepod index with primary productivity anomaly in Gulf of Maine (A) and Georges Bank (B).\\label{ppcope}",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', warning = F, message = F, out.width='.49\\linewidth'}
 
-par(mfrow = c(2,1), mar = c(5,4,1,4))
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 ###### Gulf of Maine #####
 
 #small-large copepod index
@@ -2163,6 +2166,7 @@ legend("bottomright",
          bty = "n", lwd = 3)
 
 ######### Georges Bank ######
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 #small-large copepod index
 GB_prim_prod <- finder(SOE.data.2018, "annual ppd ratio anomaly GB")
@@ -2191,7 +2195,7 @@ legend("bottomright",
 ```
 
 
-```{r, GOM_GB zooplankton, fig.cap="\\textit{Pseudocalanus spp.} (top row) and \\textit{C. finmarchicus} (bottom row) abundance anomalies in Gulf of Maine (left) and Georges Bank (right)",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+```{r, GOM_GB zooplankton, fig.cap="\\textit{Pseudocalanus spp.} (top row) and \\textit{C. finmarchicus} (bottom row) abundance anomalies in Gulf of Maine (left) and Georges Bank (right)\\label{calabund}",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 
