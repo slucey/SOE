@@ -24,12 +24,12 @@ self_contained: yes
 #image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- "F:/SOE/SOE_data"
-image.dir <- "F:/SOE/SOE_data"
-gis.dir <- 'F:/soe/soe_data/usa_shape_files'
-# data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-# image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
-# gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
+#data.dir  <- "F:/SOE/SOE_data"
+#image.dir <- "F:/SOE/SOE_data"
+#gis.dir <- 'F:/soe/soe_data/usa_shape_files'
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
 
 #STOP HERE
 #Do you have the most updated version of the SOE.data.2018 dataset AND the necessary spatial data? Check the SOE_MAB google drive for most recent version.
@@ -50,8 +50,8 @@ library(dplyr);library(nlme);library(AICcmodavg)
 library(colorRamps);library(Hmisc);library(rgdal)
 library(maps);library(mapdata);library(raster)
 library(grid);library(stringr);library(png)
-library(ncdf4);library(marmap)
-
+library(ncdf4);library(marmap); library(magick);
+library(knitr)
 
 
 #get map data and set constants
@@ -633,7 +633,7 @@ plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 
 **Performance against human dimensions objectives is mixed, with declines in seafood production, recreational opportunities, and revenue diversity**. Benthivores have driven recent revenue volatility in both GOM and GB. On GB, this coincides with a flip from benthivore to benthos dominated revenue stream, along with a decline in seafood production. In GOM, total seafood production has been relatively stable. Recreational participation and commercial fleet diversity in NE has seen a continuing decline, and commercial species diversity at the permit level is near an all-time low. Overall, the increasing dominance of benthos could indicate issues in diversity and resilience of the biological system. **Low diversity and reduced resilience threatens high-value port communities like New Bedford, the port with the highest valued landings in the US, primarily composed of climate-vulnerable benthos**. 
 
-**Fisheries are currently meeting objectives with respect to protected species bycatch reduction, but climate and ecosystem changes may upset this balance**. Fisheries interactions with harbor porpoise have decreased due to management measures, but climate driven distribution changes for sea turtles may lead to future fishery interactions and potential regulations. In addition, the most endangered species in the system (North Atlantic right whale) may be declining over the most recent few years after a slow but steady increase. **Ecosystem conditions combined with changing distributions may be contributing to the decline and observed unusual mortality event for right whales in 2017**.
+**Fisheries are currently meeting objectives with respect to protected species bycatch reduction, but climate and ecosystem changes may upset this balance**. Fisheries interactions with harbor porpoise have decreased due to management measures, but have increased with grey seals as that population has increased. Further, climate driven distribution changes for sea turtles may lead to future fishery interactions and potential regulations. In addition, the most endangered species in the system (North Atlantic right whale) may be declining over the most recent few years after a slow but steady increase. **Ecosystem conditions combined with changing distributions may be contributing to the decline and observed unusual mortality event for right whales in 2017**.
 
 Survey biomass trends for aggregated trophic groups are similar across spring and fall and between the Gulf of Maine and Georges Bank. At the lowest trophic level, both **forage fish and benthos, including commercial shellfish, show long term biomass increases** in both seasons. Both **benthivores and piscivores at higher trophic levels have stable or increasing trends** depending on the season sampled, in particular during the most recent decade. However, these **biomass increases are largely driven by non-commercial species**. Species diversity has increased in the Gulf of Maine, but remained stable or decreased on Georges Bank depending on the season sampled.
 
@@ -1235,7 +1235,7 @@ knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_NE.jpg'))
 
 # Protected species-fishery interactions
 
-Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgeon, all sea turtle species, and 5 baleen whales. Fishery management objectives for protected species generally focus on reducing interactions between resource and protected species; here we report on the current status of these interactions as well as indicating the potential for future interactions driven by observed and predicted ecosystem changes in the Mid-Atlantic region. 
+Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgeon, all sea turtle species, and 5 baleen whales. Fishery management objectives for protected species generally focus on reducing interactions between resource and protected species; here we report on the current status of these interactions as well as indicating the potential for future interactions driven by observed and predicted ecosystem changes in the New England region. 
 
 ## Harbor porpoise
 Harbor porpoise bycatch has resulted in fisheries closures in the past, but current bycatch levels demonstrate that management measures have been effective, reducing this fishery interaction. The 5-year mean bycatch has been below the maximum permitted level (Potential Biological Removal, PBR) since 2011 (Fig. \ref{harbporp}), and the most recent annual bycatch estimate is one of the lowest in the time series. Increased compliance and reduced fishing effort are thought to contribute to low bycatch estimates. There should be an updated harbor porpoise abundance estimate this year. Recent analyses have examined regional harbor porpoise diet, however, the impact of ecosystem changes on bycatch, population, or distribution remain unclear.
@@ -1292,7 +1292,7 @@ points(up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2
 Patterns for groups of species that feed on similar prey can indicate how overall ecosystem conditions are changing, and provide context for individual species stock assessments. This information is from NEFSC bottom trawl surveys in spring and fall. 
 
 ## Trends in Biomass
-Biomass across trophic levels shows similar trends between the Gulf of Maine and Georges Bank. In the Gulf of Maine, forage fish (including herring), show long term increases in both seasons. Fall surveys show increasing trends for all groups (Fig. \ref{GOMbio}). On Georges Bank, all groups other than piscivores show increasing trends in survey biomass for both seasons (piscivores have an increasing trend only during the fall; Fig. \ref(GBbio)). 
+Biomass across trophic levels shows similar trends between the Gulf of Maine and Georges Bank. In the Gulf of Maine, forage fish (including herring), show long term increases in both seasons. Fall surveys show increasing trends for all groups (Fig. \ref{GOMbio}). On Georges Bank, all groups other than piscivores show increasing trends in survey biomass for both seasons (piscivores have an increasing trend only during the fall; Fig. \ref{GBbio}). 
 
 These survey biomass trends are in contrast with the long term decreasing landings trends shown above. Survey biomass includes non-commercial species, while landings do not. Landings are also affected by management as well as underlying biomass of stocks.
 
@@ -1391,7 +1391,7 @@ soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5, rel.x.text = 1.2, r
 ```
 
 ## Species distribution
-Spatial distribution can change for a variety of different reasons.  In the U.S. Northeast Shelf, species distributions have changed over time but the direction and rate of movement is not consistent among some of the key species. Two species of particular interest to the NEFMC are sea scallops and Atlantic cod. Sea scallops show no clear trend in average along-shelf distance or depth in surveys, indicating a generally stable distribution (Fig. \ref{asdscall}). In contrast, Atlantic cod average depth and along shelf distance has been increasing (Fig. \ref{asdcod}), indicating shifting distribution. 
+Spatial distribution can change for a variety of different reasons.  In the U.S. Northeast Shelf, species distributions have changed over time but the direction and rate of movement is not consistent among some of the key species. Two species of particular interest to the NEFMC are sea scallops and Atlantic cod. Sea scallops show no clear trend in average along-shelf distance or depth in surveys, indicating a generally stable distribution (Fig. \ref{asdscall}). In contrast, Atlantic cod average depth and along shelf distance has been increasing (Fig. \ref{asdcod}), indicating shifting distribution. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html.
 
 ```{r sea_scallop_species_distributions_NE, fig.cap="Sea scallop mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)\\label{asdscall}",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
@@ -1439,7 +1439,7 @@ soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
 
 Looking in more detail at the NEFSC bottom-trawl data, sea scallops have shifted away from the northern flank of Georges Bank and are now more abundant along the Great South Channel (Fig. \ref{thermhab}A).  Cod abundance has shifted into the southwestern Gulf of Maine and is now nearly absent in southern New England waters off the coastlines of Long Island, Connecticut, and Rhode Island (Fig. \ref{thermhab}D).
 
-Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for these resource species.  Thermal habitat for individual species can then be projected using global climate models. While thermal habitat is only part of the picture, and species may adapt to new thermal regimes, these projections indicate the potential for key species to thrive or not over the coming decades where further ocean warming is expected.  Thermal habitat area for both sea scallops and cod is projected to decline over the next 40 years of continued ocean warming (Fig. \ref{thermhab}B-C and D-F).  However, the projected thermal habitat area decline is much more substantial for cod than for sea scallops.  It is important to note that these projections do not account for changes in other critical factors such as ocean acidification (scallops), fisheries mortality, new species interactions, and bottom-up forcing (i.e. changes in lower trophic levels).  The projections shown here are for fall only but spring projections are also available.
+Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for these resource species.  Thermal habitat for individual species can then be projected using global climate models. While thermal habitat is only part of the picture, and species may adapt to new thermal regimes, these projections indicate the potential for key species to thrive or not over the coming decades where further ocean warming is expected.  Thermal habitat area for both sea scallops and cod is projected to decline over the next 40 years of continued ocean warming (Fig. \ref{thermhab}B-C and D-F).  However, the projected thermal habitat area decline is much more substantial for cod than for sea scallops.  It is important to note that these projections do not account for changes in other critical factors such as ocean acidification (scallops), fisheries mortality, new species interactions, and bottom-up forcing (i.e. changes in lower trophic levels).  The projections shown here are for fall only but spring projections are also available. Observed distribution maps for more species are available at http://www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html. Animations of thernal habitat projections for more species are available at https://www.nefsc.noaa.gov/ecosys/climate-change/projected-thermal-habitat/. 
 
 ```{r kdes_and_th_maps_NE,fig.cap="Current and historical abundance estimates (left), current thermal habitat estimate (center), and 20-40 year thermal habitat projection (right) for sea scallop (A-C) and Atlantic cod (D-F). \\label{thermhab}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H', warning=F, message=F}
 #fill plot with images
@@ -1474,7 +1474,6 @@ th_plot(data = file.path(gis.dir,"Atlantic codfall_4.nc"),
 
 ```
 
-A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html.
 
 # Ecosystem Conditions and Productivity
 
