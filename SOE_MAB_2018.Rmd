@@ -1,21 +1,22 @@
 ---
-  title: "State of the Ecosystem - Mid-Atlantic Bight"
+title: "State of the Ecosystem - Mid-Atlantic Bight"
 author: "Northeast Fisheries Science Center"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 graphics: yes
 output:
   pdf_document:
-  includes:
-  in_header: preamble-latex.tex
-keep_tex: yes
-pandoc_args: --latex-engine=xelatex
-html_document:
-  toc: yes
-word_document:
-  toc: no
+    toc: no
+    fig_caption: true
+  html_document:
+    toc: yes
+  word_document:
+    toc: no
 fontsize: 11pt
+header-includes: 
+- \usepackage{float}
 geometry: margin=1cm, footskip=.5cm
 self_contained: yes
+
 
 ---
 ```{r Directory and Data Set-up, echo=F, message=F, warning=FALSE, paged.print=TRUE}
@@ -23,12 +24,12 @@ self_contained: yes
 #image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- "F:/SOE/SOE_data"
-image.dir <- "F:/SOE/SOE_data"
-gis.dir <- 'F:/soe/soe_data/usa_shape_files'
-# data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-# image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
-# gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
+#data.dir  <- "F:/SOE/SOE_data"
+#image.dir <- "F:/SOE/SOE_data"
+#gis.dir <- 'F:/soe/soe_data/usa_shape_files'
+ data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+ image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+ gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
 
 #STOP HERE
 #Do you have the most updated version of the SOE.data.2018 dataset AND the necessary spatial data? Check the SOE_MAB google drive for most recent version.
@@ -49,9 +50,8 @@ library(dplyr);library(nlme);library(AICcmodavg)
 library(colorRamps);library(Hmisc);library(rgdal)
 library(maps);library(mapdata);library(raster)
 library(grid);library(stringr);library(png)
-library(ncdf4);library(marmap)
-
-
+library(ncdf4);library(marmap); library(magick);
+library(knitr)
 
 
 #get map data and set constants
@@ -510,7 +510,7 @@ knitr::include_graphics(file.path(image.dir, 'SOE_MAB_ConceptMod.png'))
 
 # Executive Summary
 
-We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. 
+We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. We report indicators separately where possible and relevant for the ecosystem primarily under Mid-Atlantic Council management: the Mid-Atlanti Bight (MAB; Fig. \ref{map}). 
 
 **Table 1**: Mid-Atlantic ecosystem objectives
 ```{r obj_cats_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -530,7 +530,14 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+```{r map, fig.cap="Mid Atlantic Bight (MAB) spatial extent \\label{map}", fig.height=6, fig.width=4, out.width='0.9\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
+image_read(file.path(image.dir,"NEshelfEcoRegionsALL.png")) %>%
+image_trim()
+
+```
+
 **We also report single-species status relative to established objectives and reference points**. The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for 11 of 14 stocks and biomass (B) levels for 13 of 14 stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for summer flounder, likely high F rates for Atlantic mackerel and blueline tilefish, and likely low B status for Atlantic mackerel. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
+
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T,fig.pos='H'}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
 
@@ -642,7 +649,6 @@ interannual variability in recent years, driven primarily by increases in prices
 Indicators throughout the report have been updated with the most recent data, and in some cases replaced with more management-relevant indicators based on Council feedback from the 2017 report. In particular, new sections on species-specific habitat status and trends and climate projections of thermal habitat for key species have replaced last year’s more general physical environment and climate sections. This report draws on a wider range of expertise and attempts to further link information across indicators to give an integrated overview of ecosystem status relevant to fishery management decision making.
 
 Many metrics aggregate species by similar functional groups.  Species that comprise the functional groups are listed below. Relative to the 2017 report, these categories have been aggregated into fewer groups for simplification and clarity.
-\newpage
 
 **Table 2**: Mid-Atlantic feeding guilds.
 ```{r species_groupings_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
