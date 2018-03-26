@@ -510,7 +510,7 @@ knitr::include_graphics(file.path(image.dir, 'SOE_MAB_ConceptMod.png'))
 
 # Executive Summary
 
-We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. We report indicators separately where possible and relevant for the ecosystem primarily under Mid-Atlantic Council management: the Mid-Atlanti Bight (MAB; Fig. \ref{map}). 
+We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. We report indicators separately where possible and relevant for the ecosystem primarily under Mid-Atlantic Council management: the Mid-Atlantic Bight (MAB; Fig. \ref{map}). 
 
 **Table 1**: Mid-Atlantic ecosystem objectives
 ```{r obj_cats_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -536,7 +536,7 @@ image_trim()
 
 ```
 
-**We also report single-species status relative to established objectives and reference points**. The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for 11 of 14 stocks and biomass (B) levels for 13 of 14 stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for summer flounder, likely high F rates for Atlantic mackerel and blueline tilefish, and likely low B status for Atlantic mackerel. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
+**We also report single-species status relative to established objectives and reference points**. The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for 11 of 14 stocks and biomass (B) levels for 13 of 14 stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for summer flounder and Atlantic mackerel, likely high F rates for blueline tilefish, and low B status for Atlantic mackerel. *Atlantic mackerel status is from the assessment report.*
 
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T,fig.pos='H'}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -586,9 +586,9 @@ for (i in 1:n.stocks){
 # create new matrix for plotting
 xx <- as.data.frame(cbind(decoder[,2:8],Frat,Brat,my.col))
 newlist <- as.factor(decoder$Code)
-others <- as.factor("7 Skates")
+others <- as.factor(c("7 Skates", "B. Tilefish"))
 sppcodes <- unlist(list(newlist, others))
-MA.unknown <- sppcodes[c(1,3,4,47,48)] #mackerel, Loligo, Illex, monkfish unknown
+MA.unknown <- sppcodes[c(51,3,4,47,48)] #mackerel, Loligo, Illex, monkfish unknown
 #MA.unknown <- decoder$Code[c(1,3,4,8)] #BSB known
 #NE.unknown <- c(decoder$Code[c(14,23,33)],"7 Skates")
 NE.overfished <- sppcodes[c(17,19)] # GB cod, halibut
