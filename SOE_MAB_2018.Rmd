@@ -510,7 +510,7 @@ knitr::include_graphics(file.path(image.dir, 'SOE_MAB_ConceptMod.png'))
 
 # Executive Summary
 
-We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. We report indicators separately where possible and relevant for the ecosystem primarily under Mid-Atlantic Council management: the Mid-Atlantic Bight (MAB; Fig. \ref{map}). 
+We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices. We report indicators at the spatial scale of either the Mid-Atlantic Bight (MAB; Fig. \ref{map}), for Mid Atlantic states, or Northeast US coastwide where appropriate. Indicator spatial scale is noted in each section heading.
 
 **Table 1**: Mid-Atlantic ecosystem objectives
 ```{r obj_cats_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -530,13 +530,13 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-```{r map, fig.cap="Mid Atlantic Bight (MAB) spatial extent \\label{map}", fig.height=6, fig.width=4, out.width='0.9\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
+```{r map, fig.cap="Mid Atlantic Bight (MAB) spatial extent \\label{map}", fig.height=6, fig.width=4, out.width='0.8\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 image_read(file.path(image.dir,"NEshelfEcoRegionsALL.png")) %>%
 image_trim()
 
 ```
 
-**We also report single-species status relative to established objectives and reference points**. The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species level for fishing mortality (F) rates for 11 of 14 stocks and biomass (B) levels for 13 of 14 stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for summer flounder and Atlantic mackerel, likely high F rates for blueline tilefish, and low B status for Atlantic mackerel. *Atlantic mackerel status is from the assessment report.*
+**We also report single-species status relative to established objectives and reference points**. The Mid Atlantic Council (MAFMC) is meeting objectives at the managed species (stockwide) level for fishing mortality (F) rates for 8 of 15 stocks and biomass (B) levels for 11 of 15 stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates for summer flounder and Atlantic mackerel, low B status for Atlantic mackerel, and likely high F rates for blueline tilefish. Three stocks (*Illex* squid, Northern and Southern monkfish) have unknown status for both F and B, blueline tilefish for B, and longfin squid have unknown F status.
 
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T,fig.pos='H'}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -668,13 +668,13 @@ Our assessment of indicator trends has changed this year.  In the 2017 time seri
 
 # Human Dimensions 
 
-## Seafood production 
+## Seafood production (MAB)
 
 Seafood production is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Both commercial and recreational fishing contributes to seafood production, the latter for personal consumption, and indicators for each of these human activities track management performance against this objective. 
 
-The MAFMC only manages a portion of the total commercial landings that occur in the region.  For example, blue crabs represent a substantial portion of category D (Benthivores) landings. Therefore in 2016, MAFMC accounted for 15% of the Benthivore landings and 12% of the revenue generated from those landings. 
+The MAFMC only manages a portion of the total commercial landings that occur in the MAB region.  For example, blue crabs represent a substantial portion of category D (Benthivores) landings. Therefore in 2016, MAFMC accounted for 15% of the Benthivore landings and 12% of the revenue generated from those landings in the MAB. 
 
-**Table 3**: Proportion of landings and revenue derived from managed species in the Mid-Atlantic. 
+**Table 3**: Proportion of landings and revenue derived from managed species in the Mid-Atlantic region. 
 ```{r prop_landings_rev_MAB, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Groups          | MAB Landings| MAB Revenue|
@@ -687,7 +687,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Figure \ref{landings} shows the removals for human consumption both at the entire EPU level as well as those removals managed by the MAFMC.  Landings for managed species are all trending up in recent years, but only Benthivore landings are above the long term-mean. There is a significant decline in MAFMC-managed landings of benthos. We note that time series at the Mid-Atlantic regional scale may not include all state landings prior to 1994. 
+Figure \ref{landings} shows the removals for human consumption of trophic groups including both all species landed in the MAB as well as the subset of those removals managed by the MAFMC.  Landings for managed species are all trending up in recent years, but only Benthivore landings are above the long term-mean. There is a significant decline in MAFMC-managed landings of benthos. We note that time series at the Mid-Atlantic regional scale may not include all state landings prior to 1994. 
 
 ```{r seafood_landings_MAB, fig.cap="MAFMC seafood specific landings (red) and total commericial landings (black). A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos \\label{landings}",echo = F, warning = F, include = T, fig.asp=0.78, fig.align='center',fig.pos='H'}
 
@@ -722,7 +722,7 @@ soe.stacked.axis("Year", expression("Landings, 10"^3*"metric tons"), x.line = 2.
 
 ```
 
-Total commercial seafood landings from all species and from MAFMC managed species indicate total seafood production. Years prior to 1977 included foreign landings, so we begin the time series in 1986. Recent landings are all domestic fisheries. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
+Total commercial seafood landings from all species and from MAFMC managed species in teh MAB indicate total seafood production. Years prior to 1977 included foreign landings, so we begin the time series in 1986. Recent landings are all domestic fisheries. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
 
 
 ```{r managed_landings , fig.cap="Total commercial seafood landings (black), MAFMC managed seafood landings (red)", echo=F, message=FALSE, warning=FALSE , fig.asp=0.35, fig.align = 'center',fig.pos='H'}
@@ -737,7 +737,7 @@ soe.plot(SOE.data.2018, "Time", "Total Landings MAB", rel.y.text = 1,
 
 ```
 
-Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
+Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish in the Mid-Atlantic.
 
 
 ```{r rec_catch_MAB, fig.cap="Total recreational harvest  \\label{recfood}", echo = F, message=F, include=T, warning=F, fig.asp=0.35, fig.align = 'center',fig.pos='H'}
@@ -749,7 +749,7 @@ soe.plot(SOE.data.2018, "Time", "Recreational Seafood MA", scale.axis = 10^6,
          y.line = 2.5, y.label = expression("Fish caught, 10"^6 *" n"))
 ```
 
-## Commercial Fishery Revenue
+## Commercial Fishery Revenue (MAB)
 
 This indicator links the human activity of commercial fishing to the profits objective. This year we present the “Bennet Indicator” which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000. Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennetspp}A).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennetspp}B). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups.
 
@@ -785,8 +785,8 @@ knitr::include_graphics(file.path(image.dir, 'vol_ind_MAB.png'))
 \newpage
 -->
 
-## Ecosystem-wide and Managed Species Total Revenue
-Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the region over the last 5 years (Fig. \ref{totcommrev}). 
+## Ecosystem-wide and Managed Species Total Revenue (MAB)
+Average total revenue from MAFMC managed species ranges from 17-21% of total revenue from commercial fishing in the Mid Atlantic region over the last 5 years (Fig. \ref{totcommrev}).
 
 ```{r managed_revenue , fig.cap="Total revenue by region and MAFMC managed species\\label{totcommrev}", echo = F, message=F, include=T, warning=F ,  fig.asp=0.35, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -798,7 +798,7 @@ soe.plot(SOE.data.2018, "Time", "Total Revenue MAB", rel.y.num = 1.1,
          y.label = expression("Revenue, 10"^6*'USD'), rel.y.text = 1)
 ```
 
-## Commercial Fleet Diversity
+## Commercial Fleet Diversity (coastwide, Mid Atlantic permits)
 
 Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Diversity estimates have been developed for fleets and species landed by vessels with Mid-Atlantic permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. 
 
@@ -830,7 +830,7 @@ soe.plot(SOE.data.2018, 'Time', "Mid-Atlantic commercial species diversity",
          rel.y.text = 1, rel.y.num = 1, y.line = 2.5, x.line = 2, full.trend = F)
 ```
 
-## Recreational Opportunities 
+## Recreational Opportunities (Mid Atlantic states)
 
 Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
 
@@ -847,7 +847,7 @@ soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'),
                  rel.x.text = 1, rel.y.text = 1, y.line = 2.5)
 ```
 
-## Mariculture
+## Mariculture (Mid Atlantic states)
 
 Aquaculture indicators address both seafood production and possibly habitat objectives in that planted bivalves such as oysters provide both habitat structure and contribute locally to improved water quality at high densities. Individual states collect and report aquaculture data by surveying commercial farmers, and at this time, data in the Mid-Atlantic are available for Virginia, Maryland, and New Jersey. From the reported data, Virginia is the largest producer of oysters, although oyster aquaculture is increasing overall throughout the Mid-Atlantic. Hard-clam production data from Virginia show no changes in overall trend. 
 
@@ -890,7 +890,7 @@ legend(2006, 40000000, legend = c("New Jersey",
 
 ```
 
-## Harmful Algal Blooms
+## Harmful Algal Blooms (Chesapeake Bay)
 
 Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic region is sparse. In the lower Chesapeake Bay, annual blooms of the dinoflagellate *Cochlodinium polykrikoides* have been observed for several decades and more recently, blooms of *Alexandrium monilatum*, a toxin-producing dinoflagellate common to the Gulf of Mexico, have invaded the region. Both dinoflagellate species have been associated with fish kills either directly or indirectly, the latter due to the prevalence of hypoxic waters following a bloom. Available data regarding the incidence of algal bloom events in Chesapeake Bay (both harmful and otherwise) show that there has been an increase in the number of reported bloom events within the past three years, with the most notable contributors being *C. polykrikoides* and *A. monilatum*.  The average number of cells in reported *C. polykrikoides* blooms increased dramatically from >3,500,000 cells per liter in 2016 to >35,000,000 cells per liter in 2017; all reported within the vicinity of the York River mouth. Fish exposed to *C. polykrikoides* cell concentrations >300,000 cells per liter will experience near total mortality in as little as 1 hour of exposure. 
 
@@ -905,7 +905,7 @@ soe.plot(SOE.data.2018, "Time", "HAB events at VDH threshold", mean_line = F, re
          x.label = 'Year', y.label = 'Algal Bloom Events, n', rel.y.text = 1, y.line = 2.5)
 ```
 
-##Community social vulnerability, engagement and dependence on commercial fisheries
+##Community social vulnerability, engagement and dependence on commercial fisheries (Mid Atlantic states)
 
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing reliance and engagement, sea level rise risk, species vulnerability to climate change, and catch composition diversity.
 
@@ -1151,7 +1151,7 @@ text(-77.1,42, "B", cex = 1.5)
 ```
 
 
-##Climate Vulnerability of Coastal Fishing Communities
+##Climate Vulnerability of Coastal Fishing Communities (Mid Atlantic states)
 
 Six key Mid-Atlantic fishing communities were evaluated for their dependence on species vulnerable to climate change and catch composition diversity (Fig. \ref{sppvul}). Five of the six communities had a majority of revenue from species highly vulnerable to climate change.
 
@@ -1164,7 +1164,7 @@ knitr::include_graphics(file.path(image.dir, 'Sp_vulnerability_MAB.jpg'))
 
 Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgeon, all sea turtle species, and 5 baleen whales. Fishery management objectives for protected species generally focus on reducing interactions between resource and protected species; here we report on the current status of these interactions as well as indicating the potential for future interactions driven by observed and predicted ecosystem changes in the Mid-Atlantic region. 
 
-## Harbor porpoise
+## Harbor porpoise (coastwide)
 Harbor porpoise bycatch has resulted in fisheries closures in the past, but current bycatch levels demonstrate that management measures have been effective, reducing this fishery interaction. The 5-year mean bycatch has been below the maximum permitted level (Potential Biological Removal, PBR) since 2011 (Fig. \ref{harbporp}), and the most recent annual bycatch estimate is one of the lowest in the time series. Increased compliance and reduced fishing effort are thought to contribute to low bycatch estimates. There should be an updated harbor porpoise abundance estimate this year. Recent analyses have examined regional harbor porpoise diet, however, the impact of ecosystem changes on bycatch, population, or distribution remain unclear.
 
 ```{r harbor_porpoise, fig.cap="Harbor porpoise bycatch estimated compared with PBR \\label{harbporp}", echo = F, message=F, include=T, warning=F, fig.asp=0.5, fig.align = 'center',fig.pos='H'}
@@ -1188,10 +1188,10 @@ points(lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2
 points(up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
 ```
 
-## Sea Turtles
+## Sea Turtles (coastwide)
 Sea turtles are known to be susceptible to climate and ecosystem changes, and their distribution is influenced by water temperature. Sea turtle diets contain a considerable amount of  gelatinous zooplankton, which are also influenced by changes in the pelagic ecosystem. At present, management measures to reduce sea turtle-fishery interactions are limited to the regions with historical observations of sea turtles and based on historical ocean temperature distributions. However, changes in climate may cause turtles to shift northward into areas with heavy fishing, possibly resulting in increased bycatch, and necessitating new management measures. 
 
-## Right whale 
+## Right whale (coastwide)
 North Atlantic right whales are among the most endangered large whale populations in the world. Changes in right whale trends can have implications for fisheries management where fisheries interact with these whales. Additional management restrictions could have a large impact on fishing times, gears, etc.
 
 Although the population increased steadily from 1990 to 2011, it has decreased recently. From Pace et al 2017: “The probability that the population’s trajectory post-2010 was a decline was estimated at 99.99%.” Reduced survival rates of adult females and diverging abundance trends between sexes have also been observed. Further, right whale distribution has changed since 2010. The reasons for these changes is unclear, but changes in climate and primary prey (Calanus finmarchicus) are suspected. Not yet reflected in this trend are the 17 right whale deaths observed in 2017, 5 due to vessel strike (1 in US waters, 4 in Canadian waters), 3 from entanglement (2 in Canadian gear, 1 in unknown gear), and the rest from unknown causes. 
@@ -1215,9 +1215,9 @@ points(up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2
 
 Patterns for groups of species that feed on similar prey can indicate how overall ecosystem conditions are changing, and provide context for individual species stock assessments. This information is from NEFSC bottom trawl surveys in spring and fall. We note that the Mid-Atlantic region was not sampled by the 2017 fall bottom trawl survey due to vessel repairs so the fall time series have not changed from the 2017 report. 
 
-## Trends in Biomass
+## Trends in Biomass (MAB)
 
-Biomass across trophic levels shows different trends between the fall and spring NEFSC trawl surveys, with no groups having similar significant trends across seasons. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in fall, but not a significant trend in spring. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled, decreasing in fall and increasing in spring. 
+Biomass across trophic levels shows different trends between the fall and spring NEFSC trawl surveys in the MAB, with no groups having similar significant trends across seasons. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in fall, but not a significant trend in spring. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled, decreasing in fall and increasing in spring. 
 
 ```{r fall_survey_MAB, fig.cap="Fall (left) and Spring (right) MAB Survey Biomass (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)",  echo = F, fig.show='hold', fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 
@@ -1273,7 +1273,7 @@ Seasonally divergent aggregate biomass trends require further investigation. The
 <!-- soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T) -->
 <!-- ``` -->
 
-## Species composition
+## Species composition (coastwide)
 
 Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Diversity (here estimated using data from NOAA NEFSC Oceans and Climate branch public dataset for 45 abundant and well-identified ichthyoplankton taxa shows a decrease for one season (spring), suggesting that survey timing may be interacting with changes in spawn timing or migration of adult fish (see above) as well as a potential change in ichthyoplankton availability due to adult fish distribution shifts (see below).  The decrease in spring ichthyoplankton diversity coincides with an increase in the spring abundance of sand lance (*Ammodytes* spp.) larvae, an important prey species.  Researchers documented a significant seasonal shift from winter to spring based on annual relative proportions from 1977-1987 to 1999-2008. 
 
@@ -1295,7 +1295,7 @@ soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5)
 
 ```
 
-## Species distribution
+## Species distribution (coastwide)
 
 Spatial distribution can change for a variety of different reasons resulting in distributions that have changed over time for some species more than for others. Two species of particular interest to the MAFMC are black sea bass and summer flounder.  Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions while summer flounder have expanded inshore (Fig. \ref{asd}; Fig. \ref{thermhab}). Recent work looking at multiple factors that are associated with a species’ prefered habitat show an increase in potential habitat for both species most notably in the spring (Fig. \ref{occupancy}).  Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for resource species.
 
@@ -1380,7 +1380,7 @@ soe.stacked.axis("Year", expression("Habitat Area, 10"^3*" km"^2), y.line = 2.5)
 
 A full suite of the current distribution maps is available at www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html.  While the full suite of thermal habitat projections can be found at  www.nefsc.noaa.gov/ecosys/climate-change/projected-thermal-habitat/
 
-### Incoming species
+### Incoming species (coastwide)
 
 New species may be entering the Mid Atlantic ecosystem. Fishery observer records indicate that southern kingfish sightings have increased since 2014 when species validation methods were implemented, but this increasing trend has been in place since 2010. Further information from fishermen on new and uncommon species is welcome for this report. 
 
@@ -1446,7 +1446,7 @@ Productivity of the system can be influenced by many factors.  Temperature affec
 
 ## Observed ocean conditions
 
-### Long-term ocean temperature
+### Long-term ocean temperature (coastwide)
 
 Sea surface temperature (SST) measurements have been collected on the Northeast Continental Shelf since the mid-1800s. The highest mean annual temperature in this time series was recorded in 2012, as the ecosystem warmed above the levels last seen in the late 1940s. The 2017 datum is the sixth highest temperature in the time series. The positive trend over the full time series (1856-2016) is significant, and the trend over the most recent decade of the time series is even greater.
 
@@ -1459,7 +1459,7 @@ soe.plot(SOE.data.2018, "Time", "long term sst", end.start = 2007,
 
 ```
 
-### Annual cycles (2017) in ocean temperature and primary production 
+### Annual cycles (2017) in ocean temperature and primary production (MAB)
 
 The Mid-Atlantic experienced above average sea surface temperatures (SSTs) during 2017. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one  standard deviation of the mean as a shade of gray,. SSTs for 2017 that were above the mean are shown in red and below the mean in blue. Last winter was characterized by well above average temperatures in the Mid-Atlantic that transitioned to generally moderate conditions during summer. The Bight returned to warm conditions during October and remained above average for the balance of the year.
 
@@ -1821,7 +1821,7 @@ plot(d, col=colors(n=color_levels),
 
 ```
 
-##Patterns in the lower trophic levels
+##Patterns in the lower trophic levels (MAB)
 
 Chlorophyll a (CHL), an index for phytoplankton biomass, was above average in 2017, but there has been no distinct trend over the time series.   Primary production (PP) was also above average during most of 2017 throughout the MAB and has had an upward trend since 2004.  The high PP rates in the summer are likely due to increased remineralization of nutrients and regenerated production by smaller phytoplankton species.  This suggests that while overall PP may be increasing, not all of excess PP may be available to higher trophic levels. 
 
@@ -1880,7 +1880,7 @@ legend("bottomright",
 
 
 
-### Groundfish condition
+### Groundfish condition (coastwide)
 
 Fish condition is measured as the weight per length–a measure of “fatness”. This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while black sea bass, goosefish and male spiny dogfish remain thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
 
@@ -1889,7 +1889,7 @@ Fish condition is measured as the weight per length–a measure of “fatness”
 knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition_2018.jpg'))
 ```
 
-### Groundfish productivity
+### Groundfish productivity (MAB)
 
 The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed species in the Mid-Atlantic.
 
@@ -2042,16 +2042,18 @@ plot_stackbarcpts_single(YEAR = bar_dat$Time,
 
 #Work in Progress
 
-##Forage fish energy content
+##Forage fish energy content (coastwide)
 
 Work is in progress to address changes in forage fish energy content, which links observed changes in the plankton to resource and protected species condition, reproductive success, and population dynamics. A collaborative project between UMASS Dartmouth Biology Department (Dr. Ken Oliveira, M.S student Kelcie Bean) and NEFSC Population Biology Branch (Mark Wuenschel) is underway to evaluate energy content of forage species.  The study focuses on the following species; Atlantic herring, alewife, silver hake, butterfish, round herring, northern sandlance, menhaden, Atlantic mackerel, longfin squid, and northern shortfin squid.  Samples are being analyzed from the 2017 spring bottom trawl survey (n=1200), 2017 fall bottom trawl survey (n=1000), and from NEFSC study Fleet (n=400).  The percentage dry weight (water content) will be measured, as a predictor of energy density, and subsamples are being analyzed to determine remaining proximate composition (lipid, protein, ash) from which total energy can be calculated.  Samples from multiple seasons, and regions will enable evaluation of spatial and temporal patterns in energy content of forage. These current estimates will also be compared to historical estimates of forage energy content in the region (where available), to evaluate if long-term changes have occurred.  This study is more of an up to date 'snapshot' on the energy content of forage fishes, and not a time series per se; however, we hope the results will provide justification for and establish practical methods (e.g. % dry weight) to monitor energy content of key species on a routine basis. 
 
-##Management Complexity
+##Management Complexity (Mid Atlantic)
 
 Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.  This could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified.
 
-#Research recommendations 
-filled in after internal and SSC review
+#Research Recommendations 
+The SSC reviewed a draft of this report in March 2018, and requested a clearer definition of “Mid Atlantic” be included in the report (such as a map--*included in this revision*).  Further, some important ecosystem dynamics happen at larger scales than the Mid Atlantic, so the SSC requested more rationale for the scale of indicators, and that indicators specific to the Mid-Atlantic region be clearly delineated from indicators representing a larger region. *Indicator scale has been included in section headings in this revision.* The SSC noted that some work had been done between the US and Canada to assemble survey information on species throughout the continental shelf across the international border and suggested that this information be examined and included if available and relevant. *This will be taken up as possible over the coming year.*
+
+The SSC commented that the indicators presented in the report generally align with the overall objectives, that the objectives are the right ones to look at, and that this is a good starting point; however, there may be better indicators than the ones presented.  For example, gross revenue is just a proxy for economic performance, which could be refined.  Similarly, recreational participation is driven by both management and other influences well outside MAFMC management, such as availability of leisure time and competing recreational opportunities.  As such, the SSC encourages more in-depth analysis of the social and economic indicators in the report. *This will be taken up as possible over the coming year.*
 
 #Acknowledgements
 
