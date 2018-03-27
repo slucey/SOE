@@ -676,23 +676,30 @@ Commercial landings include all seafood landings in the region, including specie
 #library(stargazer)
 #convert to kable
 gom_landings <- SOE.data.2018[grepl("GOM Landings 2016", SOE.data.2018$Var),]$Value
+gom_landings <- gom_landings[c(1,3,2,4)]
 joint_gom_landings <- SOE.data.2018[grepl("GOM Joint Landings 2016", SOE.data.2018$Var),]$Value
+joint_gom_landings <- joint_gom_landings[c(1,3,2,4)]
 
 gb_landings <- SOE.data.2018[grepl("GB Landings 2016", SOE.data.2018$Var),]$Value
+gb_landings <- gb_landings[c(1,3,2,4)]
+
 joint_gb_landings <- SOE.data.2018[grepl("GB Joint Landings 2016", SOE.data.2018$Var),]$Value
+joint_gb_landings <- joint_gb_landings[c(1,3,2,4)]
 
 gom_revenue <- SOE.data.2018[grepl("GOM Revenue 2016", SOE.data.2018$Var),]$Value
 joint_gom_revenue <- SOE.data.2018[grepl("GOM Joint Revenue 2016", SOE.data.2018$Var),]$Value
+gom_revenue <- gom_revenue[c(1,3,2,4)]
 
 gb_revenue <- SOE.data.2018[grepl("GB Revenue 2016", SOE.data.2018$Var),]$Value
 joint_gb_revenue <- SOE.data.2018[grepl("GB Joint Revenue 2016", SOE.data.2018$Var),]$Value
+joint_gom_revenue <- joint_gom_revenue[c(1,3,2,4)]
 
- df <- data.frame(Groups = c("Piscivore","Planktivore","Benthivore","Benthos"),
-                  gom_landings = gom_landings+joint_gom_landings,
-                  gb_landings = gb_landings+joint_gb_landings,
+df <- data.frame(Groups = c("Piscivore","Planktivore","Benthivore","Benthos"),
+                 gom_landings = gom_landings+joint_gom_landings,
+                 gb_landings = gb_landings+joint_gb_landings,
                  
-                  gom_revenue = gom_revenue + joint_gom_revenue,
-                  gb_revenue = gb_revenue + joint_gb_revenue) 
+                 gom_revenue = gom_revenue + joint_gom_revenue,
+                 gb_revenue = gb_revenue + joint_gb_revenue)
                  
 
 names(df) <- c("Groups", "GOM Landings", "GB Landings", "GOM Revenue",
