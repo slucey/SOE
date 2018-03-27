@@ -1219,7 +1219,7 @@ Patterns for groups of species that feed on similar prey can indicate how overal
 
 Biomass across trophic levels shows different trends between the fall and spring NEFSC trawl surveys in the MAB, with no groups having similar significant trends across seasons. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in fall, but not a significant trend in spring. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled, decreasing in fall and increasing in spring. 
 
-```{r fall_survey_MAB, fig.cap="Fall (left) and Spring (right) MAB Survey Biomass (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)",  echo = F, fig.show='hold', fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+```{r fall_survey_MAB, fig.cap="Fall (left) and spring (right) MAB Survey Biomass (A: Piscivore, B: Planktivore, C: Benthivore, D: Benthos)",  echo = F, fig.show='hold', fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
@@ -1275,9 +1275,9 @@ Seasonally divergent aggregate biomass trends require further investigation. The
 
 ## Species composition (coastwide)
 
-Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Diversity (here estimated using data from NOAA NEFSC Oceans and Climate branch public dataset for 45 abundant and well-identified ichthyoplankton taxa shows a decrease for one season (spring), suggesting that survey timing may be interacting with changes in spawn timing or migration of adult fish (see above) as well as a potential change in ichthyoplankton availability due to adult fish distribution shifts (see below).  The decrease in spring ichthyoplankton diversity coincides with an increase in the spring abundance of sand lance (*Ammodytes* spp.) larvae, an important prey species.  Researchers documented a significant seasonal shift from winter to spring based on annual relative proportions from 1977-1987 to 1999-2008. 
+Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Diversity here is estimated using data from the NOAA NEFSC Oceans and Climate branch public dataset for 45 abundant and well-identified ichthyoplankton taxa, and shows a decrease for one season (spring), suggesting that survey timing may be interacting with changes in spawn timing or migration of adult fish, as well as a potential change in ichthyoplankton availability due to adult fish distribution shifts (see below).  The decrease in spring ichthyoplankton diversity coincides with an increase in the spring abundance of sand lance (*Ammodytes* spp.) larvae, an important prey species.  Researchers documented a significant seasonal shift from winter to spring based on annual relative proportions from 1977-1987 to 1999-2008. 
 
-```{r larval_diversity, fig.cap="Ichthyoplankton Shannon diversity and species counts in the Spring (Top row) and Fall (bottom row)",echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+```{r larval_diversity, fig.cap="Ichthyoplankton Shannon diversity and species counts in the spring (Top row) and fall (bottom row)",echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 soe.plot(SOE.data.2018, "Time","Spring_Ich_Shannon Diversity Index", stacked = "A",
@@ -1299,7 +1299,7 @@ soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5)
 
 Spatial distribution can change for a variety of different reasons resulting in distributions that have changed over time for some species more than for others. Two species of particular interest to the MAFMC are black sea bass and summer flounder.  Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions while summer flounder have expanded inshore (Fig. \ref{asd}; Fig. \ref{thermhab}). Recent work looking at multiple factors that are associated with a species’ prefered habitat show an increase in potential habitat for both species most notably in the spring (Fig. \ref{occupancy}).  Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for resource species.
 
-```{r sf_species_distributions_MAB,fig.cap="Black sea bass (left) and summer flounder (right) along shelf distance trends (Top row: Spring, bottom row: Fall) \\label{asd}", out.width=c('9.5cm','9.5cm'),  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+```{r sf_species_distributions_MAB,fig.cap="Black sea bass (left) and summer flounder (right) along shelf distance trends (Top row: spring, bottom row: fall) \\label{asd}", out.width=c('9.5cm','9.5cm'),  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 soe.plot(SOE.data.2018, "Time", "black sea bass spring mean along-shelf dist", 
@@ -1321,7 +1321,7 @@ soe.stacked.axis("Year", "Mean along-shelf distance, km", y.line = 3.0)
 ```
 
 
-Thermal habitat for individual species can then be projected using global climate models (Fig. \ref{thermhab}). While thermal habitat is only part of the picture, and species may adapt to new thermal regimes, these projections indicate the potential for key species to thrive or not over the coming decades where further ocean warming is expected.  Black sea bass thermal habitat is reduced in the projection while for summer flounder thermal habitat continues to expand and move further offshore in the  MAB. The projections shown here are for fall only but spring projections are also available.
+Thermal habitat for individual species can then be projected using global climate models (Fig. \ref{thermhab}). While thermal habitat is only part of the picture, and species may adapt to new thermal regimes, these projections indicate the potential for key species to thrive or not over the coming decades, where further ocean warming is expected.  Black sea bass thermal habitat is projected to decline, while summer flounder thermal habitat continues to expand and move further offshore in the  MAB. The projections shown here are for fall only, but spring projections are also available.
 
 
 ```{r kdes_and_th_maps_MAB,fig.cap="Current and historical abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C) for black sea bass (top) and summer flounder (bottom). \\label{thermhab}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H', warning=F, message=F}
@@ -1360,7 +1360,7 @@ th_plot(data = file.path(gis.dir,"Summer Flounderfall_4.nc"),
 
 
 
-```{r occupancy_MAB, fig.cap="Summer flounder (left) and black sea bass (right) modeled shelf habitat trends (Top row: Spring, bottom row: Fall) \\label{occupancy}", out.width=c('9.5cm','9.5cm'),  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+```{r occupancy_MAB, fig.cap="Summer flounder (left) and black sea bass (right) modeled shelf habitat trends (Top row: spring, bottom row: fall) \\label{occupancy}", out.width=c('9.5cm','9.5cm'),  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
 
 soe.plot(SOE.data.2018, "Time", "summer flounder spring occupancy", stacked = "A",
@@ -1378,7 +1378,7 @@ soe.plot(SOE.data.2018, "Time", "black sea bass fall occupancy", stacked = "D",
 soe.stacked.axis("Year", expression("Habitat Area, 10"^3*" km"^2), y.line = 2.5)
 ```
 
-A full suite of the current distribution maps is available at www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html.  While the full suite of thermal habitat projections can be found at  www.nefsc.noaa.gov/ecosys/climate-change/projected-thermal-habitat/
+A full suite of the current distribution maps is available at www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html, and all thermal habitat projections can be found at  www.nefsc.noaa.gov/ecosys/climate-change/projected-thermal-habitat/
 
 ### Incoming species (coastwide)
 
@@ -1461,7 +1461,7 @@ soe.plot(SOE.data.2018, "Time", "long term sst", end.start = 2007,
 
 ### Annual cycles (2017) in ocean temperature and primary production (MAB)
 
-The Mid-Atlantic experienced above average sea surface temperatures (SSTs) during 2017. In the graph, the long term mean SST is shown as a dark gray line with areas representing plus and minus one  standard deviation of the mean as a shade of gray,. SSTs for 2017 that were above the mean are shown in red and below the mean in blue. Last winter was characterized by well above average temperatures in the Mid-Atlantic that transitioned to generally moderate conditions during summer. The Bight returned to warm conditions during October and remained above average for the balance of the year.
+The Mid-Atlantic experienced above average sea surface temperatures (SSTs) during 2017. In the figure below, the long term mean SST is shown as a black line with areas representing plus and minus one standard deviation of the mean as a shade of gray. SSTs for 2017 that were above the mean are shown in red and below the mean in blue, with emphasis added when the temperature exceeded or decreased below one standard deviation of the mean. Last winter was characterized by well above average temperatures in the Mid-Atlantic that transitioned to generally moderate conditions during summer. The Bight returned to warm conditions during October and remained above average for the balance of the year.
 
 ```{r SST_PPD_CHL_MAB, fig.cap="SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon) in the Mid-Atlantic",echo = F, fig.show='hold', fig.align='default',warning = F, message = F,fig.pos='H',fig.height = 2.75,fig.width = 8}
 ## SST
@@ -1728,7 +1728,7 @@ text(2,2.5*.95,"C", cex = 1.5)
 
 While sea surface temperature in the U.S. NES was warmer than average for 2017, there were some regions that experienced cooler than average conditions in some seasons.  For most of the year the southern Mid-Atlantic Bight was cooler than average despite the entire U.S. NES region being above average.
 
-```{r sst_anomaly_maps,fig.cap="Sea surface temperature anomalies in Winter (A), Spring (B), Summer (C), and Fall (D) 2017. \\label{dists}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H'}
+```{r sst_anomaly_maps,fig.cap="Sea surface temperature anomalies in winter (A), spring (B), summer (C), and fall (D) 2017. \\label{dists}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H'}
 if (map_figs == T){
 
 
@@ -1839,7 +1839,7 @@ rasterImage(ppd, usr[1], usr[3], usr[2], usr[4])
 rasterImage(chl, usr[1]+1.1, usr[3], usr[2]+1.1, usr[4])
 ```
 
-There is a coherent pattern between the primary production anomaly and the copepod size index for the MAB, with distinct peaks in production centered around 2002, 2010, and 2015, when the copepod size index was positive. The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, Calanus finmarchicus. Additionally, Centropages typicus, an important copepod in the MAB, exhibits a long-term decline in abundance, with negative anomaly observations  beginning in the early 2000’s.
+There is a coherent pattern between the primary production anomaly and the copepod size index for the MAB, with distinct peaks in production centered around 2002, 2010, and 2015, when the copepod size index was positive. The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, *Calanus finmarchicus*. Additionally, *Centropages typicus*, an important copepod in the MAB, exhibits a long-term decline in abundance, with negative anomaly observations  beginning in the early 2000’s.
 
 ```{r, MAB zooplankton, fig.cap="\\textit{C. typicus} abundance anomaly (A), and small-large copepod index with primary productivity anomaly (B) in the Mid-Atlantic.",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F}
 
@@ -1882,7 +1882,7 @@ legend("bottomright",
 
 ### Groundfish condition (coastwide)
 
-Fish condition is measured as the weight per length–a measure of “fatness”. This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while black sea bass, goosefish and male spiny dogfish remain thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
+Fish condition is measured as the weight per length–a measure of “fatness”. This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Between 2010-2013 many species started to have better condition, while black sea bass, goosefish and male spiny dogfish remained thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
 
 
 ```{r 'condition factor MAB' , fig.cap="Groundfish condition, MAB", echo = F, out.height='10cm', fig.align='center',fig.pos='H'}
@@ -2059,5 +2059,5 @@ The SSC commented that the indicators presented in the report generally align wi
 
 **Editors:** Sarah Gaichas, Sean Hardison, Sean Lucey
 
-**Contributors:** Donald Anderson, Lisa Colburn, Geret DePiper, Deb Duarte, Kevin Friedland, Sarah Gaichas, Heather Haas, Sean Hardison, Mike Hammil, Kimberly Hyde, Loren Kellogg, Kristin Kleisner, Dave Kulis, Sean Lucey, Chris Melrose, Ryan Morse, Kimberly Murray, Chris Orphanides, Charles Perretti, Vincent Saba, Laurel Smith, John Walden, Harvey Walsh, Mark Wuenschel
+**Contributors:** Donald Anderson, Amani Bassyouni, Lisa Calvo, Lisa Colburn, Geret DePiper, Deb Duarte, Kevin Friedland, Sarah Gaichas, Heather Haas, Sean Hardison, Mike Hammil, Kimberly Hyde, Loren Kellogg, Kristin Kleisner, Dave Kulis, Sean Lucey, Chris Melrose, Ryan Morse, Kimberly Murray, Chris Orphanides, Charles Perretti, Karl Roscher, Vincent Saba, Laurel Smith, John Walden, Harvey Walsh, Mark Wuenschel
 
