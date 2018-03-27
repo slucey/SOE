@@ -24,9 +24,9 @@ self_contained: yes
 #image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- "F:/SOE/SOE_data"
-#image.dir <- "F:/SOE/SOE_data"
-#gis.dir <- 'F:/soe/soe_data/usa_shape_files'
+# data.dir  <- "F:/SOE/SOE_data"
+# image.dir <- "F:/SOE/SOE_data"
+# gis.dir <- 'F:/soe/soe_data/usa_shape_files'
 data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
 image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
 gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
@@ -718,7 +718,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Figure \ref{landings} shows the removals for human consumption both at the entire EPU level as well as those removals managed by the NEFMC. Landings of piscivores have decreased over the long term in both systems. Benthos landings show no long term trends in either system. Other groups have a decreasing landings trend in either GOM or GB. 
 
-```{r seafood_landings_GOM,  fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (left) and Georges Bank (right) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos).\\label{landings}", echo = F, fig.show='hold',fig.height = 5.5, fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
+```{r seafood_landings_GOM,  fig.cap = "Total landings (black) and total seafood specific landings managed by NEFMC (red) in Gulf of Maine (left) and Georges Bank (right) (A: Apex predators, B: Piscivore, C: Planktivore, D: Benthivore, E: Benthos).\\label{landings}", echo = F, fig.show='hold',fig.height = 5.5, fig.align='default',out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 
 ## Gulf of Maine cosystem-wide and managed species total landings
 opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
@@ -2388,5 +2388,5 @@ filled in after internal and SSC review
 
 **Editors:** Sarah Gaichas, Sean Hardison, Sean Lucey
 
-**Contributors:** Donald Anderson, Lisa Colburn, Geret DePiper, Deb Duarte, Kevin Friedland, Sarah Gaichas, Heather Haas, Sean Hardison, Kimberly Hyde, Loren Kellogg, Kristin Kleisner, Sean Lucey, Chris Melrose, Ryan Morse, Kimberly Murray, Chris Orphanides, Charles Perretti, Vincent Saba, Laurel Smith, John Walden, Harvey Walsh, Mark Wuenschel
+**Contributors:** Donald Anderson, Lisa Colburn, Geret DePiper, Deb Duarte, Kevin Friedland, Sarah Gaichas, Heather Haas, Mike Hammill, Sean Hardison, Kimberly Hyde, Loren Kellogg, Kristin Kleisner, David Kulis, Sean Lucey, Chris Melrose, Ryan Morse, Kimberly Murray, Chris Orphanides, Charles Perretti, Vincent Saba, Laurel Smith, Mark Terceiro, John Walden, Harvey Walsh, Mark Wuenschel
 
