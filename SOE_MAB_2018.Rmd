@@ -1886,7 +1886,7 @@ legend("bottomright",
 Fish condition is measured as the weight per length–a measure of “fatness”. This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Between 2010-2013 many species started to have better condition, while black sea bass, goosefish and male spiny dogfish remained thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
 
 
-```{r 'condition factor MAB' , fig.cap="Groundfish condition, MAB", echo = F, out.height='10cm', fig.align='center',fig.pos='H'}
+```{r 'condition factor MAB' , fig.cap="Groundfish condition, MAB", echo = F, out.height='7cm', fig.align='center',fig.pos='H'}
 knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition_2018.jpg'))
 ```
 
