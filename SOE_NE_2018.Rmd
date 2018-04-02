@@ -533,7 +533,7 @@ image_trim()
 
 ```
 
-**We also report single-species status relative to established objectives and reference points**. The New England Council (NEFMC) is meeting objectives at the managed species level for fishing mortality (F) rates and biomass (B) levels for 15 of 38 stocks relative to established reference points (Fig. \ref{KOBE}). The exceptions include high F rates and low B status for GOM cod, Southern New England and Cape Cod/GOM yellowtail flounders, low B status for Atlantic wolfish, ocean pout, Southern New England winter and Northern windowpane flounders, likely low B status for GB Atlantic cod, halibut, and witch flounder, and unknown status for 13 stocks.
+**We also report single-species status relative to established objectives and reference points**. The New England Council (NEFMC) is meeting objectives at the managed species level for fishing mortality (F) rates and biomass (B) levels for 21 of 38 stocks relative to established reference points (Fig. \ref{KOBE}; note that barndoor, clearnose, little, rosette, smooth, and winter skate stocks have good B and F status according to index based methods, but fishing mortality rates cannot be calculated). The exceptions include high F rates and low B status for GOM cod, Southern New England and Cape Cod/GOM yellowtail flounders, low B status for thorny skates, Atlantic wolfish, ocean pout, Southern New England winter and Northern windowpane flounders, likely low B status for GB Atlantic cod, halibut, and witch flounder, and unknown status for 13 stocks.
 
 ```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", fig.height=8, fig.width=11, out.width='0.85\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -588,8 +588,8 @@ sppcodes <- unlist(list(newlist, others))
 MA.unknown <- sppcodes[c(1,3,4,47,48)] #mackerel, Loligo, Illex, monkfish unknown
 #MA.unknown <- decoder$Code[c(1,3,4,8)] #BSB known
 #NE.unknown <- c(decoder$Code[c(14,23,33)],"7 Skates")
-NE.overfished <- sppcodes[c(17,19,35)] # GB cod, halibut, witch
-NE.unknown <- sppcodes[c(14,23,33,37,47,48,50)] #Red deepsea crab,  Offshore hake, GOM winter flounder, GB YT,2 monkfish, 7 skates unknown
+NE.overfished <- sppcodes[c(17,19,35,44)] # GB cod, halibut, witch, thorny skate
+NE.unknown <- sppcodes[c(14,23,33,37,47,48)] #Red deepsea crab,  Offshore hake, GOM winter flounder, GB YT,2 monkfish, 7 skates unknown
 my.col[50] <- NE.col
 
 
