@@ -320,7 +320,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
       lm_pred <- AICcmodavg::predictSE(lm_out$model, 
                                  newdata = newdata,
                                  se.fit = TRUE)
-
+      lm_pred$fit[lm_pred$fit < 0] <- 0
       year <- seq(x$X[1],x$X[length(x$X)],length.out = length(dat$time))
 
       # Make plot
@@ -363,7 +363,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
         lm_pred <- AICcmodavg::predictSE(lm_out$model, 
                                  newdata = newdata,
                                  se.fit = TRUE)
-
+        lm_pred$fit[lm_pred$fit < 0] <- 0
         year <- seq(x2$X2[1],x2$X2[length(x2$X2)],length.out =length(dat$time))
    
     # Make plot
