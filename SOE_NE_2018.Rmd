@@ -533,7 +533,7 @@ image_trim()
 
 ```
 
-**We also report single-species status relative to established objectives and reference points**. The New England Council (NEFMC) is meeting objectives at the managed species level for fishing mortality (F) rates and biomass (B) levels for 21 of 38 stocks relative to established reference points (Fig. \ref{KOBE}; note that barndoor, clearnose, little, rosette, smooth, and winter skate stocks have good B and F status according to index based methods, but fishing mortality rates cannot be calculated). The exceptions include high F rates and low B status for GOM cod, Southern New England and Cape Cod/GOM yellowtail flounders, low B status for thorny skates, Atlantic wolfish, ocean pout, Southern New England winter and Northern windowpane flounders, likely low B status for GB Atlantic cod, halibut, and witch flounder, and unknown status for 13 stocks.
+**We also report single-species status relative to established objectives and reference points**. The New England Council (NEFMC) is meeting objectives at the managed species level for fishing mortality (F) rates and biomass (B) levels for 20 of 38 stocks relative to established reference points (Fig. \ref{KOBE}; note that barndoor, clearnose, little, rosette, smooth, and winter skate stocks have good B and F status according to index based methods, but fishing mortality rates cannot be calculated for this plot). Five stocks have low B status but good F status: thorny skates, Atlantic wolfish, ocean pout, Southern New England winter flounder and Northern windowpane flounder. Another three stocks have low B status with indeterminate F status: GB Atlantic cod, halibut, and witch flounder. Four stocks have F rates exceeding the limits and low B status:  GOM cod, southern red hake, Southern New England and Cape Cod/GOM yellowtail flounders. Assessment-based status for GB yellowtail flounder is unknown, but NMFS-determined stock status is overfished with  overfishing ocurring. The remaining five stocks have unknown status for B and F.
 
 ```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", fig.height=8, fig.width=11, out.width='0.85\\linewidth', fig.align='center', echo = F, message = FALSE, warning = FALSE, eval = T}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -588,8 +588,8 @@ sppcodes <- unlist(list(newlist, others))
 MA.unknown <- sppcodes[c(1,3,4,47,48)] #mackerel, Loligo, Illex, monkfish unknown
 #MA.unknown <- decoder$Code[c(1,3,4,8)] #BSB known
 #NE.unknown <- c(decoder$Code[c(14,23,33)],"7 Skates")
-NE.overfished <- sppcodes[c(17,19,35,44)] # GB cod, halibut, witch, thorny skate
-NE.unknown <- sppcodes[c(14,23,33,37,47,48)] #Red deepsea crab,  Offshore hake, GOM winter flounder, GB YT,2 monkfish, 7 skates unknown
+NE.overfished <- sppcodes[c(17,19,35)] # GB cod, halibut, witch, thorny skate
+NE.unknown <- sppcodes[c(14,23,33,47,48)] #Red deepsea crab,  Offshore hake, GOM winter flounder, GB YT,2 monkfish, 7 skates unknown
 my.col[50] <- NE.col
 
 
@@ -625,7 +625,7 @@ plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
    title(expression(phantom("NEFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
    title(expression(phantom("NEFMC and Joint") * " Stocks"), col.main="black")
    legend('topright',legend=NE.overfished,pch=NA,text.col=my.col[c(17,19,35)], title="Overfished, F \nStatus Unknown",title.col = "black", bty="n", text.width=strwidth("Offshore Hake"), inset=c(0,.05))
-   legend('right',legend=NE.unknown,pch=NA,text.col=my.col[c(14,23,33,37,47,48,50)],title="Unknown Status", title.col = "black",bty="n")
+   legend('right',legend=NE.unknown,pch=NA,text.col=my.col[c(14,23,33,47,48)],title="Unknown Status", title.col = "black",bty="n")
    text(NEBO$Brat,NEBO$Frat,labels=NEBO$Code,pos=NEBO$my.pos3,col=my.col[12:49],cex=0.8)
 #if(saveplots) savePlot("NEFMC_Joint_stocks.png", type='png')
 #if(saveplots) dev.off()
@@ -662,7 +662,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Our assessment of indicator trends has changed this year.  In the 2017 time series plots, monotonic (but not necessarily linear) trends were assessed for both the full time series and the most recent 10 years (shaded dark grey background). Recent simulation analysis suggest that statistical significance tests are unreliable for short time series, but reliable for longer ones. Therefore, similar to 2017, we indicate significant increasing long term trends with orange lines, while significant decreasing long term trends have purple lines.  However, we no longer indicate significant trends for the most recent period but rather discuss recent/current status and trend of each indicator relative to the full time series.  Time series mean is indicated with a dashed line and the final ten years of the time series are highlighted through a grey background. 
 
-\clearpage
+<!--\clearpage-->
 
 # Human Dimensions 
 
