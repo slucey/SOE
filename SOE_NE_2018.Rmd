@@ -505,7 +505,7 @@ knitr::include_graphics(file.path(image.dir, 'ne_conceptual_model.pdf'))
 
 # Executive Summary
 
-We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices (Table 1). We take a place-based approach and report indicators separately where possible and relevant for the two ecosystems under New England Council management: Georges Bank (GB) and Gulf of Maine (GOM; Fig. \ref{map}). Where the spatial scale of indicators exceeds the ecosystem-level, we specify in section headings that indicators refer either to all of New England or to the entire northeast coast. 
+We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices (Table 1). We take a place-based approach and report indicators separately where possible and relevant for the two ecosystems under New England Council management: Georges Bank (GB) and Gulf of Maine (GOM; Fig. \ref{map}). Given that not all indicators refer specifically to Gulf of Maine or Georges Bank, we further specify the scope of the indicators in respective section headings as referring to all of New England or the US Northeast coastwide. 
 
 **Table 1**: New England ecosystem objectives
 ```{r obj_cats_NE, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
