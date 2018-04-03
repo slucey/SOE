@@ -4,11 +4,11 @@ author: "Northeast Fisheries Science Center"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 graphics: yes
 output:
-  html_document:
-    toc: yes
   pdf_document:
     toc: no
     fig_caption: true
+  html_document:
+    toc: yes
   word_document:
     toc: no
 fontsize: 11pt
@@ -23,12 +23,12 @@ self_contained: yes
 #image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- "F:/SOE/SOE_data"
-image.dir <- "F:/SOE/SOE_data"
-gis.dir <- 'F:/soe/soe_data/usa_shape_files'
-# data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-# image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
-# gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
+#data.dir  <- "F:/SOE/SOE_data"
+#image.dir <- "F:/SOE/SOE_data"
+#gis.dir <- 'F:/soe/soe_data/usa_shape_files'
+ data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+ image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+ gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
 
 #STOP HERE
 #Do you have the most updated version of the SOE.data.2018 dataset AND the necessary spatial data? Check the SOE_MAB google drive for most recent version.
@@ -2397,11 +2397,11 @@ Work is in progress to address changes in forage fish energy content, which link
 
 ##Management Complexity (New England)
 
-Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.  This could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified.
+Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.  This could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the code of federal regulations). 
 
 #Research recommendations 
 
-The Mid-Atlantic Fishery Management Council SSC reviewed a draft of the State of the Ecosystem report for the Mid-Atlantic Bight, and requested that clearer definitions of regional components be included. Those changes are reflected in the New England version of the document, including a regional ecosystem map and section headings reflecting the scope of indicators. The SSC noted that some work had been done between the US and Canada to assemble survey information on species throughout the continental shelf across the international border and suggested that this information be examined and included if available and relevant. *This will be taken up as possible over the coming year.*
+The Mid-Atlantic Fishery Management Council SSC reviewed a draft of the State of the Ecosystem report for the Mid-Atlantic Bight, and requested that clearer definitions of regional components be included. Those changes are reflected in the New England version of the document, including a regional ecosystem map and section headings reflecting the scope of indicators. The SSC noted prior work between the US and Canada assembling survey data on continental shelf species across the international border and suggested that this information be examined and included if available and relevant. *This will be taken up as possible over the coming year.*
 
 The SSC commented that the indicators presented in the report for the Mid-Atlantic, which are nearly identical to those in the New England document, generally align with the overall objectives, that the objectives are the right ones to look at, and that this is a good starting point. However, there may be better indicators than the ones presented.  For example, gross revenue is just a proxy for economic performance, which could be refined.  Similarly, recreational participation is driven by both management and other influences well outside council management, such as availability of leisure time and competing recreational opportunities.  As such, the MAFMC SSC encourages more in-depth analysis of the social and economic indicators in the report. *This will be taken up as possible over the coming year.*
 
