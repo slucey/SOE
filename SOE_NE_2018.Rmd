@@ -4,11 +4,11 @@ author: "Northeast Fisheries Science Center"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 graphics: yes
 output:
+  html_document:
+    toc: yes
   pdf_document:
     toc: no
     fig_caption: true
-  html_document:
-    toc: yes
   word_document:
     toc: no
 fontsize: 11pt
@@ -16,7 +16,6 @@ header-includes:
 - \usepackage{float}
 geometry: margin=1cm, footskip=.5cm
 self_contained: yes
-
 ---
 
 ```{r Directory and Data Set-up, echo=F, message=F, warning=FALSE, paged.print=TRUE}
@@ -24,12 +23,12 @@ self_contained: yes
 #image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-# data.dir  <- "F:/SOE/SOE_data"
-# image.dir <- "F:/SOE/SOE_data"
-# gis.dir <- 'F:/soe/soe_data/usa_shape_files'
-data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
-image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
-gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
+data.dir  <- "F:/SOE/SOE_data"
+image.dir <- "F:/SOE/SOE_data"
+gis.dir <- 'F:/soe/soe_data/usa_shape_files'
+# data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+# image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+# gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
 
 #STOP HERE
 #Do you have the most updated version of the SOE.data.2018 dataset AND the necessary spatial data? Check the SOE_MAB google drive for most recent version.
@@ -320,7 +319,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
       lm_pred <- AICcmodavg::predictSE(lm_out$model, 
                                  newdata = newdata,
                                  se.fit = TRUE)
-      lm_pred$fit[lm_pred$fit < 0] <- 0
+      
       year <- seq(x$X[1],x$X[length(x$X)],length.out = length(dat$time))
 
       # Make plot
@@ -363,7 +362,7 @@ soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
         lm_pred <- AICcmodavg::predictSE(lm_out$model, 
                                  newdata = newdata,
                                  se.fit = TRUE)
-        lm_pred$fit[lm_pred$fit < 0] <- 0
+        
         year <- seq(x2$X2[1],x2$X2[length(x2$X2)],length.out =length(dat$time))
    
     # Make plot
@@ -506,7 +505,7 @@ knitr::include_graphics(file.path(image.dir, 'ne_conceptual_model.pdf'))
 
 # Executive Summary
 
-We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices (Table 1). We take a place-based approach and report indicators separately where possible and relevant for the two ecosystems under New England Council management: Georges Bank (GB) and Gulf of Maine (GOM; Fig. \ref{map}).
+We have organized this report using a proposed set of **ecosystem-scale objectives** derived from US legislation and current management practices (Table 1). We take a place-based approach and report indicators separately where possible and relevant for the two ecosystems under New England Council management: Georges Bank (GB) and Gulf of Maine (GOM; Fig. \ref{map}). Where the spatial scale of indicators exceeds the ecosystem-level, we specify in section headings that indicators refer either to all of New England or to the entire northeast coast. 
 
 **Table 1**: New England ecosystem objectives
 ```{r obj_cats_NE, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -666,7 +665,7 @@ Our assessment of indicator trends has changed this year.  In the 2017 time seri
 
 # Human Dimensions 
 
-## Seafood production 
+## Seafood production (GOM and GB)
 Seafood production is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Both commercial and recreational fishing contributes to seafood production, the latter for personal consumption, and indicators for each of these human activities track management performance against this objective.  
 
 Commercial landings include all seafood landings in the region, including species not managed by NEFMC. For example, category D, Benthivores, includes lobsters, which are a substantial portion of the landings and drive increases in landings and revenue. In 2016, NEFSC managed stocks made up from 5%-98% of total landings by category, as detailed below (Table 3). 
@@ -810,7 +809,7 @@ soe.stacked.axis("Time",expression("Fish caught, 10"^6*" n"), outer = F, rel.x.t
 
 ```
 
-## Commercial Fishery Revenue
+## Commercial Fishery Revenue (GOM and GB)
 This indicator links the human activity of commercial fishing to the profits objective. The Bennet indicator is used to compare differences in revenue caused by changing quantities of landings and prices during the time period 1964-2016. Each year in the series is compared to an “average” year based on revenue during the entire period. Average revenue, landings and an implicit price (revenue/landings) is calculated for the time period. The volume indicator measures the contribution of changing quantities to revenue change and the price indicator measures the contribution of changing prices. The overall Bennet index is the sum of the volumen and price indicators in each year.
 
 In the years between 1970 and 1990, Gulf of Maine revenue was generally below average (Fig. \ref{Bennet}A), and this was due to either lower volumes or lower prices depending on the year. After 1990, revenue was higher than average, before declining dramatically after 2000 mostly due to lower volumes. Revenue then fluctuated between 2008 and 2016, with some years being above average and some below. During most of these yearly cycles, changes in volume of Benthivores were responsible for the changes in overall volume (Fig. \ref{BennetGOM}A). Benthivores were also the group whose price difference was the primary reason for the changes in the overall price (Fig. \ref{BennetGOM}B).
@@ -873,7 +872,7 @@ text(.12,.825, "A", cex=1.5)
 text(1.22,.825, "B", cex=1.5)
 ```
 
-## Ecosystem-wide and Managed Species Total Revenue
+## Ecosystem-wide and Managed Species Total Revenue (GOM and GB)
 Average total revenue from NEFMC managed species ranges from 3-93% of total revenue from commercial fishing in the region in 2016 (Fig. \ref{totcommrev}).
 
 ```{r managed_revenue_NE , fig.cap="Total revenue by region and NEFMC managed species\\label{totcommrev}.", echo=F, message=FALSE, warning=FALSE , fig.asp = 0.5, fig.align = 'center',fig.pos='H'}
@@ -890,7 +889,7 @@ soe.plot(SOE.data.2018, "Time", "Total Revenue GB", stacked = "B",status = F,
 soe.stacked.axis("Time",expression("Revenue, 10"^6*"USD"), outer = T, rel.x.text = 1.2, rel.y.text = 1.2)
 ```
 
-## New England commercial fleet diversity
+## Commercial fleet diversity (coastwide, New England permits)
 Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Diversity estimates have been developed for fleets and species landed by vessels with New England species permits. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). The metric presented assesses the diversity of the overarching fleet, in terms of all revenue generated. This is coastwide rather than GOM or GB specific. 
 
 The fleet revenue diversity for individuals landing NEFMC FMP species shows a consistent downward trend across the entire time series. A declining trend in diversity indicates reliance on either a smaller number of resources, or a less diverse pool of resources but cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in New England. A count of the number of fleets actively landing NEFMC FMP species in each year is relatively consistent with the revenue diversity metric, with a consistent downward trend throughout the time series.
@@ -899,13 +898,15 @@ The fleet revenue diversity for individuals landing NEFMC FMP species shows a co
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data.2018, "Time","New England average fleet diversity", stacked = "A",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis('Year', 'Fleet diversity', outer = F,rel.y.text = 1.05,rel.x.text = 1.2, y.line = 3)
+
 soe.plot(SOE.data.2018,"Time","New England fleet count", stacked = "B",
          endshade = T, rel.y.num = 1.1, full.trend = F, status = F,end.start = 2007, cex.stacked = 1.5)
-soe.stacked.axis('Year', 'Fleet count', outer = F,rel.y.text = 1.05,rel.x.text = 1.2, y.line = 3)
+
+soe.stacked.axis('Year', 'Commercial fleet diversity', y.line = 2.5, 
+                 rel.x.text = 1, rel.y.text = 1)
 ```
 
-## New England revenue diversity
+## Revenue diversity (New England)
 Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of NEFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
 
 ```{r revenue diversity NE,fig.cap = "New England species revenue diversity.", echo = F, message=F, include=T, warning=F,  fig.asp=0.45, fig.align = 'center',fig.pos='H'}
@@ -919,7 +920,7 @@ soe.stacked.axis("Year","Shannon Index", outer = F,rel.x.text = 1.2, rel.y.text 
 
 Ultimately, diversity can be measured in numerous ways (for example, in numbers of vessels in each fleet component as opposed to revenue) and feedback from the Council as to how this should be defined is welcomed.-->
 
-## New England recreational opportunities
+## Recreational opportunities (New England)
 Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Recreational fishing is important in the New England region, with many coastal communities from Cape Cod southward having high recreational dependence. Although there is a long-term trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
 
 ```{r recreation NE,fig.cap = "Recreational participation (A) and number of angler trips (B) in New England.", echo=F, message=FALSE, warning=FALSE, include=T,  fig.asp=0.5, fig.align = 'center',fig.pos='H'}
@@ -932,12 +933,12 @@ soe.stacked.axis('Year', expression('Recreational Participation, 10'^6*'n'),rel.
 ```
 
 
-## Harmful Algal Blooms
+## Harmful Algal Blooms (New England)
 The seasonal occurrence of harmful algal blooms (HABs) in New England is responsible for fluxes of saxitoxin and domoic acid into shellfish beds, which can result in paralytic shellfish poisoning (PSP) and amnesic shellfish poisoning (ASP) respectively. Blooms of *Alexandrium fundyense* cause regular closures of shellfish beds from Maine to Massachusetts due to saxitoxin contamination, with at least 30 PSP-related closures occurring between 2007-2016 (Fig. \ref{HAB}). Average blue mussel saxitoxin content in Maine waters increased from 2014 to 2017, although the change was driven by anomalously high values at 2 of 18 sampling sites in 2017. The prevalence of saxitoxin in Maine blue mussel beds exhibits high interannual variability with evidence suggesting a decadal cycle of toxicity.
 
 Blooms of *Pseudo-nitzchia* species that produce domoic acid have become more common in the past decade. In fall 2016, *Pseudo-nitzchia* blooms caused closures of shellfish beds in Maine and Rhode Island. An unprecedented late-season *Pseudo-nitzchia* bloom resulted in the closure of shellfish harvesting in Casco Bay, ME in December 2017. Blooms of the dinoflagellate *Dinophysis* could also pose a threat to New England waters, with the first ever *Dinophysis* related waterway closure in Massachusetts occurring in 2015.
 
-```{r NE_HAB, fig.cap="HAB-related shellfish bed closures in New England (2007-2016).\\label{HAB}", echo=F,message=FALSE, warning=FALSE ,fig.align='center', fig.asp=1.1,fig.width=6,fig.pos='H',strip.white=T}
+```{r NE_HAB, fig.cap="Regional HAB-related shellfish bed closures in New England (2007-2016).\\label{HAB}", echo=F,message=FALSE, warning=FALSE ,fig.align='center', fig.asp=1.1,fig.width=6,fig.pos='H',strip.white=T}
 #get map data
 e1  <- extent(-78.5, -64, 41, 45)
 coast1 <- crop(coast, e1)
@@ -996,7 +997,7 @@ text(-67.7,42.525, "2007-2016 Detections")
 
 ```
 
-##Community social vulnerability, engagement and dependence on commercial fisheries
+##Community social vulnerability, engagement and dependence on commercial fisheries (New England)
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing reliance and engagement, sea level rise risk, species vulnerability to climate change, and catch composition diversity.
  
 Here, we look at the extent to which commercial and recreational fishing reliance intersect with community social vulnerability in the New England region. Commercial fishing reliance is a measure of per capita pounds landed, value landed, commercial permits and commercial dealers in a community. Recreational reliance is a per capita measure of shore, private vessel and for-hire recreational fishing in a community. Social vulnerability represents social factors that can shape either an individual or community’s ability to adapt to change. There are many socially vulnerable communities in the New England region, but with varying degrees of commercial and/or recreational fishing reliance. While there are some communities that are both moderate to highly socially vulnerable and moderate to highly reliant on commercial fishing in Northern New England (Fig.\ref{commvulmap}), there are different communities in Southern New England that are both moderate to highly vulnerable and moderate to highly reliant on recreational fishing (Fig. \ref{commvulmap}).
@@ -1233,7 +1234,7 @@ text(-72.25,45.5, "B", cex = 1.5)
 }
 ```
 
-##Climate Vulnerability of Coastal Fishing Communities
+##Climate Vulnerability of Coastal Fishing Communities (New England)
 Assessment of the potential impacts of climate change on recreational and commercial fishermen and their communities has begun by linking social and economic indicators of community vulnerability and resilience to the climate vulnerability assessments of biological and ecological change expected to result from climate change New Bedford, the largest commercial fishing port in US (in terms of revenue) is heavily dependent on benthic species which are in turn highly vulnerable to climate change. Four of the top ports are dependent on an array of species, the majority of which are ranked as low to moderately vulnerable to climate change.
 
 ```{r 'species_vulnerability_NE' , fig.cap="Species vulnerability in Mid-Atlantic fishing communities \\label{sppvul}", echo = F, out.width = "450pt", fig.align='center', eval = T,fig.pos='H'}
@@ -1245,7 +1246,7 @@ knitr::include_graphics(file.path(image.dir, 'Species_vulnerability_NE.jpg'))
 
 Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgeon, all sea turtle species, and 5 baleen whales. Fishery management objectives for protected species generally focus on reducing interactions between resource and protected species; here we report on the current status of these interactions as well as indicating the potential for future interactions driven by observed and predicted ecosystem changes in the New England region. 
 
-## Harbor porpoise
+## Harbor porpoise (coastwide)
 Harbor porpoise bycatch has resulted in fisheries closures in the past, but current bycatch levels demonstrate that management measures have been effective, reducing this fishery interaction. The 5-year mean bycatch has been below the maximum permitted level (Potential Biological Removal, PBR) since 2011 (Fig. \ref{harbporp}), and the most recent annual bycatch estimate is one of the lowest in the time series. Increased compliance and reduced fishing effort are thought to contribute to low bycatch estimates. There should be an updated harbor porpoise abundance estimate this year. Recent analyses have examined regional harbor porpoise diet, however, the impact of ecosystem changes on bycatch, population, or distribution remain unclear.
 
 ```{r harbor_porpoise, fig.cap="Harbor porpoise bycatch estimated compared with PBR \\label{harbporp}", echo = F, message=F, include=T, warning=F, fig.asp=0.5, fig.align = 'center',fig.pos='H'}
@@ -1269,13 +1270,13 @@ points(lw_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2
 points(up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .9), lwd = 2.5)
 ```
 
-##Grey seals
+##Grey seals (coastwide)
 The number of grey seals (*Halichoerus grypus*) in U.S. waters has risen dramatically in the last 2 decades, with few being observed in the early 1990s to at least 25,000 on a single Massachusetts beach in 2016. Roughly 30,000 - 40,000 gray seals were estimated in southeastern Massachusetts in 2015, using correction factors applied to seal counts visible in Google Earth imagery. As of 2016, the size of the grey seal population in Canada, which is part of the same stock as the grey seals in the U.S., was estimated to be roughly 425,000, and increasing by 4% a year. Pups born on Muskeget Island, currently the largest pupping site for gray seals in the U.S., were first observed in 1988 and now number over 3,500. Trends in pup production at U.S. colonies appear to be increasing, and it is likely that U.S. pup production is being supplemented each year by animals from Canada. Fisheries interactions have increased over the past 2 decades, with fewer than 10 total estimated grey seal interactions in 1993, to over 1000 in 2014.
 
-## Sea Turtles
+## Sea Turtles (coastwide)
 Sea turtles are known to be susceptible to climate and ecosystem changes, and their distribution is influenced by water temperature. Sea turtle diets contain a considerable amount of  gelatinous zooplankton, which are also influenced by changes in the pelagic ecosystem. At present, management measures to reduce sea turtle-fishery interactions are limited to the regions with historical observations of sea turtles and based on historical ocean temperature distributions. However, changes in climate may cause turtles to shift northward into areas with heavy fishing, possibly resulting in increased bycatch, and necessitating new management measures. 
 
-## Right whale 
+## Right whale (coastwide)
 North Atlantic right whales are among the most endangered large whale populations in the world. Changes in right whale trends can have implications for fisheries management where fisheries interact with these whales. Additional management restrictions could have a large impact on fishing times, gears, etc.
 
 Although the population increased steadily from 1990 to 2011, it has decreased recently. From Pace et al 2017: “The probability that the population’s trajectory post-2010 was a decline was estimated at 99.99%.” Reduced survival rates of adult females and diverging abundance trends between sexes have also been observed. Further, right whale distribution has changed since 2010. The reasons for these changes is unclear, but changes in climate and primary prey (Calanus finmarchicus) are suspected. Not yet reflected in this trend are the 17 right whale deaths observed in 2017, 5 due to vessel strike (1 in US waters, 4 in Canadian waters), 3 from entanglement (2 in Canadian gear, 1 in unknown gear), and the rest from unknown causes. 
@@ -1299,7 +1300,7 @@ points(up_CI, type  = "l", lty = 2, col = adjustcolor("darkorange", .6), lwd = 2
 
 Patterns for groups of species that feed on similar prey can indicate how overall ecosystem conditions are changing, and provide context for individual species stock assessments. This information is from NEFSC bottom trawl surveys in spring and fall. 
 
-## Trends in Biomass
+## Trends in Biomass (GOM and GB)
 Biomass across trophic levels shows similar trends between the Gulf of Maine and Georges Bank. In the Gulf of Maine, forage fish (including herring), show long term increases in both seasons. Fall surveys show increasing trends for all groups (Fig. \ref{GOMbio}). On Georges Bank, all groups other than piscivores show increasing trends in survey biomass for both seasons (piscivores have an increasing trend only during the fall; Fig. \ref{GBbio}). 
 
 These survey biomass trends are in contrast with the long term decreasing landings trends shown above. Survey biomass includes non-commercial species, while landings do not. Landings are also affected by management as well as underlying biomass of stocks.
@@ -1309,32 +1310,33 @@ These survey biomass trends are in contrast with the long term decreasing landin
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Piscivore Fall Biomass Index GOM", stacked = "A",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1,end.start = 2007, cex.stacked = 2)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1,end.start = 2008, cex.stacked = 2)
 
 soe.plot(SOE.data.2018, "Time", "Planktivore Fall Biomass Index GOM", stacked = "B",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1,end.start = 2007, cex.stacked = 2)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1,end.start = 2008, cex.stacked = 2)
 
 soe.plot(SOE.data.2018, "Time", "Benthivore Fall Biomass Index GOM", stacked = "C",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1,end.start = 2007, cex.stacked = 2)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1,end.start = 2008, cex.stacked = 2,
+         y.lower = 0)
 
 soe.plot(SOE.data.2018, "Time", "Benthos Fall Biomass Index GOM", stacked = "D",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1,end.start = 2007, cex.stacked = 2)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1,end.start = 2008, cex.stacked = 2)
 
 soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 
 opar <- par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(4, 6.5, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "Piscivore Spring Biomass Index GOM", stacked = "A",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1, cex.stacked = 2)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1, cex.stacked = 2,end.start = 2007)
 
 soe.plot(SOE.data.2018, "Time", "Planktivore Spring Biomass Index GOM", stacked = "B",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1, cex.stacked = 2)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1, cex.stacked = 2,end.start = 2007)
 
 soe.plot(SOE.data.2018, "Time", "Benthivore Spring Biomass Index GOM", stacked = "C",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1, cex.stacked = 2)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1, cex.stacked = 2,end.start = 2007)
 
 soe.plot(SOE.data.2018, "Time", "Benthos Spring Biomass Index GOM", stacked = "D",status  = F,
-         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1, cex.stacked = 2)
+         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 1, cex.stacked = 2, end.start = 2007)
 
 soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 
@@ -1377,7 +1379,8 @@ soe.stacked.axis("Time",expression("Biomass, kg tow"^-1*''), outer = T)
 
 ```
 
-## Species composition
+## Species composition (coastwide)
+
 Diversity in species composition mainly addresses objectives related to ecosystem structure and stability; maintaining diversity can provide the capacity to adapt to change at the ecosystem level and for dependent fishing communities. Diversity (here estimated using data from NOAA NEFSC Oceans and Climate branch public dataset for 45 abundant and well-identified ichthyoplankton taxa shows a decrease for one season (spring), suggesting that survey timing may be interacting with changes in spawn timing or migration of adult fish (see above) as well as a potential change in ichthyoplankton availability due to adult fish distribution shifts (see below).  The decrease in spring ichthyoplankton diversity coincides with an increase in the spring abundance of sand lance (*Ammodytes* spp.) larvae, an important prey species.  Researchers documented a significant seasonal shift from winter to spring based on annual relative proportions from 1977-1987 to 1999-2008. 
 
 ```{r larval_diversity, fig.cap="Ichthyoplankton Shannon diversity and species counts in the Spring (Top row) and Fall (bottom row)",echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
@@ -1398,7 +1401,8 @@ soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5, rel.x.text = 1.2, r
 
 ```
 
-## Species distribution
+## Species distribution (coastwide)
+
 Spatial distribution can change for a variety of different reasons.  In the U.S. Northeast Shelf, species distributions have changed over time but the direction and rate of movement is not consistent among some of the key species. Two species of particular interest to the NEFMC are sea scallops and Atlantic cod. Sea scallops show no clear trend in average along-shelf distance or depth in surveys, indicating a generally stable distribution (Fig. \ref{asdscall}). In contrast, Atlantic cod average depth and along shelf distance has been increasing (Fig. \ref{asdcod}), indicating shifting distribution. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html.
 
 ```{r sea_scallop_species_distributions_NE, fig.cap="Sea scallop mean depth and along shelf distance trends (Top row: Spring, bottom row: Fall)\\label{asdscall}",  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
@@ -1489,7 +1493,8 @@ Productivity of the system can be influenced by many factors.  Temperature affec
 
 ## Observed ocean conditions
 
-### Long-term ocean temperature
+### Long-term ocean temperature (coastwide)
+
 Sea surface temperature (SST) measurements have been collected on the Northeast Continental Shelf since the mid-1800s. The highest mean annual temperature in this time series was recorded in 2012, as the ecosystem warmed above the levels last seen in the late 1940s. The 2017 datum is the sixth highest temperature in the time series. The positive trend over the full time series (1856-2016) is significant, and the trend over the most recent decade of the time series is even greater.
 
 ```{r long_term_sst,fig.cap="Long-term sea surface temperatures on the Northeast Continental Shelf",  echo=F, message=FALSE, warning=FALSE , fig.height=2.5, fig.align = 'center',fig.pos='H'}
@@ -1597,12 +1602,13 @@ plot(d, col=colors(n=color_levels),
 ```
 
 ##Patterns in the lower trophic levels
+
 Zooplankton provide a critical link between phytoplankton at the base of the food web, and higher trophic organisms such as fish, mammals, and birds. Changes in the species composition and biomass of the zooplankton community have a great potential to affect recruitment success and fisheries productivity, and climate change may be the most important pathway for these changes to manifest. Therefore these indices are relevant to both productivity and trophic structure objectives.
 
 Chlorophyll a (CHL), an index for phytoplankton biomass, was below average in 2017, including during the spring bloom period in both GB and GOM (Figs. \ref{tempPPGOM} and \ref{tempPPGB}).  Conversely, primary production (PP) was at or above average during most of 2017 and there has been an upward in annual trend PP since 2004.  The above average PP rates in the fall could be due to the above average temperatures supporting increased remineralization of nutrients and regenerated production by smaller phytoplankton species.  This suggests that while overall PP may be increasing, not all of excess PP may be available to higher trophic levels. 
 
 
-```{r SST_PPD_CHL_GOM, fig.cap="SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon) in Gulf of Maine\\label{tempPPGOM}",echo = F, fig.show='hold', fig.align='default',warning = F, message = F,fig.pos='H',fig.height = 2.75,fig.width = 8}
+```{r SST_PPD_CHL_GOM, fig.cap="Sea-surface temperature (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against the long-term mean (black line) and +/- 1 standard deviation (grey polygon) in Gulf of Maine\\label{tempPPGOM}",echo = F, fig.show='hold', fig.align='default',warning = F, message = F,fig.pos='H',fig.height = 2.75,fig.width = 8}
 ## SST
 par(mar = c(4, 4, 2, 1), mfrow = c(1,3))
 doy <- as.numeric(SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 GOM",]$Time)
@@ -1862,7 +1868,7 @@ text(2,2.5*.95,"C", cex = 1.5)
 
 ```
 
-```{r SST_PPD_CHL_GB, fig.cap="SST (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against long-term mean (black line) and +/- 1 standard deviation (grey polygon) in Georges Bank \\label{tempPPGB}",echo = F, fig.show='hold', fig.align='default',warning = F, message = F,fig.pos='H',fig.height = 2.75,fig.width = 8}
+```{r SST_PPD_CHL_GB, fig.cap="Sea-surface temperature (A), primary production (B), and Chl a (C) over 2017 (colored polygons) compared against the long-term mean (black line) and +/- 1 standard deviation (grey polygon) in Georges Bank \\label{tempPPGB}",echo = F, fig.show='hold', fig.align='default',warning = F, message = F,fig.pos='H',fig.height = 2.75,fig.width = 8}
 ## SST
 par(mar = c(4, 4, 2, 1), mfrow = c(1,3))
 doy <- as.numeric(SOE.data.2018[SOE.data.2018$Var == "sst mean 2017 GB",]$Time)
@@ -2122,7 +2128,7 @@ text(2,2.5*.95,"C", cex = 1.5)
 
 ```
 
-Spatial patterns in primary production and chlorophyll fpr 2017 are shown as difference from the long term mean (Fig. \ref{ppchlanom}). 
+Spatial patterns in primary production and chlorophyll for 2017 are shown as difference from the long term mean (Fig. \ref{ppchlanom}). 
 
 ```{r chl_ppd_maps,fig.cap="Primary production (left) and chlorophyll (right) anomalies along the Northeast Shelf\\label{ppchlanom}",  fig.width = 8,fig.height = 4, fig.show='hold',fig.pos='H'}
 #read images
@@ -2227,7 +2233,7 @@ soe.stacked.axis("Year", "Abundance anomaly")
 
 ```
 
-### Groundfish condition
+### Groundfish condition (coastwide)
 
 Fish condition is measured as the weight per length–a measure of “fatness”. This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while yellowtail flounder remain thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
 
@@ -2235,7 +2241,7 @@ Fish condition is measured as the weight per length–a measure of “fatness”
 knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition_2018.jpg'))
 ```
 
-### Groundfish productivity
+### Groundfish productivity (GOM and GB)
 
 The amount of small fish relative to larger fish of the same species from the NEFSC surey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There are no clear long term trends in this indicator when aggregated across all species in the Gulf of Maine and Georges Bank.
 
@@ -2385,11 +2391,19 @@ plot_stackbarcpts_single(YEAR = bar_dat$Time,
 
 #Work in Progress
 
-##Forage fish energy content
+##Forage fish energy content (coastwide)
+
 Work is in progress to address changes in forage fish energy content, which links observed changes in the plankton to resource and protected species condition, reproductive success, and population dynamics. A collaborative project between UMASS Dartmouth Biology Department (Dr. Ken Oliveira, M.S student Kelcie Bean) and NEFSC Population Biology Branch (Mark Wuenschel) is underway to evaluate energy content of forage species.  The study focuses on the following species; Atlantic herring, alewife, silver hake, butterfish, round herring, northern sandlance, menhaden, Atlantic mackerel, longfin squid, and northern shortfin squid.  Samples are being analyzed from the 2017 spring bottom trawl survey (n=1200), 2017 fall bottom trawl survey (n=1000), and from NEFSC study Fleet (n=400).  The percentage dry weight (water content) will be measured, as a predictor of energy density, and subsamples are being analyzed to determine remaining proximate composition (lipid, protein, ash) from which total energy can be calculated.  Samples from multiple seasons, and regions will enable evaluation of spatial and temporal patterns in energy content of forage. These current estimates will also be compared to historical estimates of forage energy content in the region (where available), to evaluate if long-term changes have occurred.  This study is more of an up to date 'snapshot' on the energy content of forage fishes, and not a time series per se; however, we hope the results will provide justification for and establish practical methods (e.g. % dry weight) to monitor energy content of key species on a routine basis. 
 
+##Management Complexity (New England)
+
+Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.  This could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified.
+
 #Research recommendations 
-filled in after internal and SSC review
+
+The Mid-Atlantic Fishery Management Council SSC reviewed a draft of the State of the Ecosystem report for the Mid-Atlantic Bight, and requested that clearer definitions of regional components be included. Those changes are reflected in the New England version of the document, including a regional ecosystem map and section headings reflecting the scope of indicators. The SSC noted that some work had been done between the US and Canada to assemble survey information on species throughout the continental shelf across the international border and suggested that this information be examined and included if available and relevant. *This will be taken up as possible over the coming year.*
+
+The SSC commented that the indicators presented in the report for the Mid-Atlantic, which are nearly identical to those in the New England document, generally align with the overall objectives, that the objectives are the right ones to look at, and that this is a good starting point. However, there may be better indicators than the ones presented.  For example, gross revenue is just a proxy for economic performance, which could be refined.  Similarly, recreational participation is driven by both management and other influences well outside council management, such as availability of leisure time and competing recreational opportunities.  As such, the MAFMC SSC encourages more in-depth analysis of the social and economic indicators in the report. *This will be taken up as possible over the coming year.*
 
 #Acknowledgements
 
