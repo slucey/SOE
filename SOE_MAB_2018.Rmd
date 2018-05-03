@@ -16,21 +16,19 @@ fontsize: 11pt
 header-includes: 
 - \usepackage{float}
 geometry: margin=1cm, footskip=.5cm
-self_contained: yes
-
-
+self_contained: no
 ---
 ```{r Directory and Data Set-up, echo=F, message=F, warning=FALSE, paged.print=TRUE}
 #data.dir  <- '/home/slucey/EcoAP/SOE/2018'
 #image.dir <- '/home/slucey/EcoAP/SOE/2018/images'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- "F:/SOE/SOE_data"
-#image.dir <- "F:/SOE/SOE_data"
-#gis.dir <- 'F:/soe/soe_data/usa_shape_files'
- data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
- image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
- gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
+data.dir  <- "c:/users/sean.hardison/documents/soe_compile"
+image.dir <- "c:/users/sean.hardison/documents/soe_compile/images"
+gis.dir <- 'c:/users/sean.hardison/documents/soe_compile/gis'
+# data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018'
+# image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/images'
+# gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2018/usa_shape_files'
 
 #STOP HERE
 #Do you have the most updated version of the SOE.data.2018 dataset AND the necessary spatial data? Check the SOE_MAB google drive for most recent version.
@@ -49,7 +47,7 @@ map_figs <- T
 library(Kendall);library(data.table);library(zoo)
 library(dplyr);library(nlme);library(AICcmodavg)
 library(colorRamps);library(Hmisc);library(rgdal)
-library(maps);library(mapdata);library(raster)
+library(maps);library(raster);library(mapdata)
 library(grid);library(stringr);library(png)
 library(ncdf4);library(marmap); library(magick);
 library(knitr)
@@ -65,7 +63,7 @@ coast <- readOGR(gis.dir, 'NES_LME_coast', verbose = F)
 coast <- spTransform(coast,map.crs)
 
 #bathymetry
-bathy <- raster('NES_bathymetry.tif')
+bathy <- raster(paste0(gis.dir,"/NES_bathymetry.tif"))
 e  <- extent(-78.5, -64, 33, 45)
 bathy <- crop(bathy, e)
 
@@ -897,7 +895,7 @@ Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic regi
 
 Blooms of *C. polykrikoides* and *Auerococcus anophagefferens* (responsible for “brown tides”) occur regularly in the Long Island Sound region, with the most extensive and longest-lasting brown tide event ever recorded occurring in 2017. Long Island also has annual blooms of *Alexandrium catenella*, which has become more prevalent over the last few decades, though it was known to exist in the region more than 40 years ago. Blooms of toxic *Dinophysis* species have also been recorded in Long Island for the first time in recent years, though there have not been any official closures by state regulators.
 
-```{r hab_MAB, fig.cap="Occurrence of all blooms at concentrations warranting action by the Virginia Department of Health (black), and occurrence of \\textit{C. polykrikoides} in Chesapeake Bay at cell concentrations >300,000 cells per L (red).", echo = F, warning = F, include = T,fig.asp=0.5, fig.align='center',fig.pos='H'}
+```{r hab_MAB, fig.cap="Occurrence of all blooms at concentrations warranting action by the Virginia Department of Health (5e6 cells per L) (black), and occurrence of \\textit{C. polykrikoides} in Chesapeake Bay at cell concentrations >3e5 cells per L (red).", echo = F, warning = F, include = T,fig.asp=0.5, fig.align='center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, "Time", "HAB events at VDH threshold", mean_line = F, rel.y.num = 1.1, 
@@ -1168,7 +1166,7 @@ Protected species include marine mammals (under the Marine Mammal Protection Act
 ## Harbor porpoise (coastwide)
 Harbor porpoise bycatch has resulted in fisheries closures in the past, but current bycatch levels demonstrate that management measures have been effective, reducing this fishery interaction. The 5-year mean bycatch has been below the maximum permitted level (Potential Biological Removal, PBR) since 2011 (Fig. \ref{harbporp}), and the most recent annual bycatch estimate is one of the lowest in the time series. Increased compliance and reduced fishing effort are thought to contribute to low bycatch estimates. There should be an updated harbor porpoise abundance estimate this year. Recent analyses have examined regional harbor porpoise diet, however, the impact of ecosystem changes on bycatch, population, or distribution remain unclear.
 
-```{r harbor_porpoise, fig.cap="Harbor porpoise bycatch estimated compared with PBR \\label{harbporp}", echo = F, message=F, include=T, warning=F, fig.asp=0.5, fig.align = 'center',fig.pos='H', out.width='0.5\\linewidth'}
+```{r harbor_porpoise, fig.cap="Harbor porpoise bycatch estimated compared with PBR \\label{harbporp}", echo = F, message=F, include=T, warning=F, fig.width=6,fig.height=2.5, fig.align = 'center',fig.pos='H',out.extra='trim={0cm 0.5cm 0cm 0cm}'}
 opar <- par(mar = c(4, 6, 2, 6))
 #Harbor porpoise bycatch - Dropped mean line for clarity
 soe.plot(SOE.data.2018, 'Time', "Harbor porpoise bycatch estimates",            
@@ -1177,7 +1175,7 @@ soe.plot(SOE.data.2018, 'Time', "Harbor porpoise bycatch estimates",
          y.label = 'Harbor Porpoise Bycatch, n', rel.y.text = 1)
 
 legend(2000, 2250, legend = "Potential Biological Removal", col = adjustcolor("red", .5), lwd = 3,
-       bty = "n")
+       bty = "n", cex = 0.9)
 
 #credible intervals and PBI
 lw_CI <- SOE.data.2018[Var == 'Harbor porpoise bycatch 2.5 CI',  list(Time, Value)]
@@ -1197,7 +1195,7 @@ North Atlantic right whales are among the most endangered large whale population
 
 Although the population increased steadily from 1990 to 2011, it has decreased recently. From Pace et al 2017: “The probability that the population’s trajectory post-2010 was a decline was estimated at 99.99%.” Reduced survival rates of adult females and diverging abundance trends between sexes have also been observed. Further, right whale distribution has changed since 2010. The reasons for these changes is unclear, but changes in climate and primary prey (Calanus finmarchicus) are suspected. Not yet reflected in this trend are the 17 right whale deaths observed in 2017, 5 due to vessel strike (1 in US waters, 4 in Canadian waters), 3 from entanglement (2 in Canadian gear, 1 in unknown gear), and the rest from unknown causes. 
 
-```{r rw_abundance, fig.cap="Right whale population estimate\\label{rightwh}",echo = F, message=F, include=T, warning=F, fig.asp=0.5, fig.align = 'center', fig.pos='H', out.width='0.5\\linewidth'}
+```{r rw_abundance, fig.cap="Right whale population estimate\\label{rightwh}",echo = F, message=F, include=T, warning=F, fig.align = 'center', fig.pos='H', fig.width=6,fig.height=2.5,out.extra='trim={0cm 0.5cm 0cm 0cm}'}
 opar <- par(mar = c(4, 6, 2, 6))
 
 soe.plot(SOE.data.2018, 'Time', "right_whale_median", rel.y.num = 1.2, 
@@ -1379,68 +1377,23 @@ soe.plot(SOE.data.2018, "Time", "black sea bass fall occupancy", stacked = "D",
 soe.stacked.axis("Year", expression("Habitat Area, 10"^3*" km"^2), y.line = 2.5)
 ```
 
-A full suite of the current distribution maps is available at www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html, and all thermal habitat projections can be found at  www.nefsc.noaa.gov/ecosys/climate-change/projected-thermal-habitat/
+A full suite of the current distribution maps is available at www.nefsc.noaa.gov/ecosys/current-conditions/ kernel-density.html, and all thermal habitat projections can be found at  www.nefsc.noaa.gov/ecosys/climate-change/projected-thermal-habitat/.
 
 ### Incoming species (coastwide)
 
 New species may be entering the Mid Atlantic ecosystem. Fishery observer records indicate that southern kingfish sightings have increased since 2014 when species validation methods were implemented, but this increasing trend has been in place since 2010. Further information from fishermen on new and uncommon species is welcome for this report. 
 
-```{r southern kingfish, fig.cap="Southern kingfish occurrences in the observer database", echo=F,message=FALSE, warning=FALSE ,fig.align='center', fig.asp=.95,fig.width=6,fig.pos='H'}
+```{r southern kingfish png 2, fig.cap="Southern kingfish occurrences in the observer database", echo=F,fig.show='hold',fig.pos='H',out.extra='trim={0cm 2.25cm 0cm 1cm},clip',fig.align='center', fig.asp=1}
 if(map_figs){
+  
+sk_map <- readPNG(file.path(image.dir, "southern_kingfish.png"))
+plot.new()
+usr<-par("usr")
 
+rasterImage(sk_map, usr[1], usr[3], usr[2], usr[4])
 
-sk.dat <- SOE.data.2018[grepl("Lat",SOE.data.2018$Units) & grepl("Southern Kingfish",SOE.data.2018$Var),]
-lon <- sk.dat[as.numeric(sk.dat$Value) < 0,]$Value
-lat <- sk.dat[as.numeric(sk.dat$Value) > 0,]$Value
-
-#create data.frame
-df <- data.frame(year = sk.dat$Time,
-                 lon = lon,
-                 lat = lat)
-
-#set color palette
-colors1 <- adjustcolor(matlab.like2(8),.5)
-colors2 <- adjustcolor(matlab.like2(8),.5)
-colors3 <- adjustcolor(matlab.like2(8),.5)
-colors4 <- adjustcolor(matlab.like2(8),1)
-colors <- c(colors1[1:2], colors2[3:4], colors3[5:6],colors4[7:8])
-
-#map values to colors
-df <- df %>% arrange(year) %>% mutate(colors = plyr::mapvalues(year, from = c("2010","2011","2012","2013",
-                                                                              "2014","2015","2016","2017"),
-                                                               to = c(colors)))
-colors <- df$colors
-
-
-#projection
-map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
-               +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
-
-
-
-#data.frame to sp object
-coordinates(df) <- ~lon+lat
-df@proj4string <- map.crs
-df <- spTransform(df, map.crs)
-
-#plot
-par(fig = c(0,1,0,1))
-plot(coast, xlim = c(-76,-73), ylim = c(35,40.5),col = "grey")
-plot(df, pch = 16, col = colors, add = T, cex = 2.5)
-
-
-occur <- SOE.data.2018[SOE.data.2018$Var == "Southern Kingfish observer sightings",]$Value
-time <- SOE.data.2018[SOE.data.2018$Var == "Southern Kingfish observer sightings",]$Time
-
-ts <- zoo(occur,time)
-par(fig = c(0.5,1, 0.1, .5), new = T, bty = "l",mar = c(5,6,3,1)) 
-barplot(occur,time, col = matlab.like2(8), xlab = c("Time"),ylab = "S. Kingfish Occurrence, n",
-        cex.lab = 1, las = 1, cex.axis = 1)
-axis(1,at = seq(1250,18500,length.out = 8),labels = c("2010","2011","2012","2013",
-                                            "2014","2015","2016","2017"), cex.axis=1)
 }
 ```
-
 # Ecosystem Conditions and Productivity
 
 Productivity of the system can be influenced by many factors.  Temperature affects the behavior and physiology of marine organisms while changes in productivity and species composition at the base of the food web can influence juvenile survival. In this section we report temperature and lower trophic level  production trends and annual cycles for the most recent year.  We also look at fish productivity through recruitment and fish condition.
@@ -1826,7 +1779,7 @@ plot(d, col=colors(n=color_levels),
 
 Chlorophyll a (CHL), an index for phytoplankton biomass, was above average in 2017, but there has been no distinct trend over the time series.   Primary production (PP) was also above average during most of 2017 throughout the MAB and has had an upward trend since 2004.  The high PP rates in the summer are likely due to increased remineralization of nutrients and regenerated production by smaller phytoplankton species.  This suggests that while overall PP may be increasing, not all of excess PP may be available to higher trophic levels. 
 
-```{r chl_ppd_maps,fig.cap="Primary production and chlorophyll anomaly maps \\label{ppchlanom}" ,  fig.width = 8,fig.height = 4, fig.show='hold',fig.pos='H'}
+```{r chl_ppd_maps,fig.cap="Primary production and chlorophyll anomaly maps \\label{ppchlanom}" ,  fig.width = 7,fig.height = 4, fig.show='hold',fig.pos='H'}
 #read images
 #read images
 ppd <-readPNG(file.path(image.dir,'PPD_anom_MAB.png'))
