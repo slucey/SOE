@@ -1,5 +1,6 @@
 #HAB data processing steps for Mid-Atlantic State of the Ecosystem Report 2017-2018
-#Please contact Sean Hardison (sean.hardison@noaa.gov) for underlying data
+#Please contact Sean Hardison (sean.hardison@noaa.gov) for underlying data. Processed data 
+#can be found at the NEFSC ERDDAP page (http://comet.nefsc.noaa.gov/erddap)
 
 #Many thanks to both VIMS and ODU labs for their sampling efforts, as well as to the 
 #Virginia Department of Health for supplying the data for this work. 
