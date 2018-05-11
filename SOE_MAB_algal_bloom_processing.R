@@ -14,9 +14,9 @@ library(data.table);library(tidyr)
 #----------------------------2007-2012 HAB Data----------------------------#
 HAB_2007_2012 <- read_excel("HAB_data_2007-2012.xlsx")
 HAB_2007_2012$date <- as.character(HAB_2007_2012$date)
-HAB_2007_2012 <- HAB_2007_2012 %>% filter(cells_per_ml != "NA") %>%
+HAB_2007_2012 <- HAB_2007_2012 %>% filter(!is.na(cells_per_ml)) %>%
   dplyr::rename(cells_per_L = cells_per_ml) %>%
-  filter(date != "NA") %>%
+  filter(!is.na(date)) %>%
   mutate(cells_per_L = cells_per_L * 1000, year = format(as.POSIXct(date), "%Y")) %>% 
   mutate(Longitude = abs(as.numeric(Longitude)))
 
@@ -34,7 +34,7 @@ HAB1 <- data.frame(Date = as.POSIXct(HAB_2007_2012$date),
 
 HAB_2013 <- read_excel("Algal Bloom Results - VIMS 28July2013_KSR.xlsx",skip = 6)
 
-HAB_2013 <- HAB_2013 %>% filter(cells_per_ml != "NA") %>%
+HAB_2013 <- HAB_2013 %>% filter(!is.na(cells_per_ml)) %>%
   dplyr::rename(cells_per_L = cells_per_ml) %>%
   mutate(cells_per_L = cells_per_L*1000, year = "2013") %>%
   mutate(decimalLongitude = abs(as.numeric(decimalLongitude)))
