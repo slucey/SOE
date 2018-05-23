@@ -34,15 +34,15 @@ bibliography: My_Library.bib
 #gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
-gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+#gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- './data'
 #image.dir <- './images'
 #gis.dir <- './usa_shape_files'
-#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
-#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
-#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
 PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {  
@@ -210,18 +210,42 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 ```
 
 #Introduction
-The Mid-Atlantic Council approved an Ecosystem Approach to Fisheries Management (EAFM) Guidance Document in 2017 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management.  Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them.  Because there are so many possible ecosystem interactions to consider, risk assessment was adopted as the first step to identify a subset of high priority interactions.  
+Fishery managers worldwide are evaluating methods for incorporating climate, habitat, ecological, social, and economic factors into current operations in order to implement Ecosystem Approaches to Fishery Management (EAFM). While this can seem overwhelming, it is possible to take practical steps towards EAFM implementation that make use of existing information and provide managers with valuable strategic advice. Here, we describe the process used by the U.S. Mid-Atlantic Fishery Management Council (MAFMC) to develop an ecosystem-level risk assessment, the initial step proposed in their recently adopted EAFM policy guidance. 
 
-This report documents the use of ecosystem indicators within the Mid-Atlantic Council’s EAFM initial risk assessment. This risk assessment will help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, the purpose of this document is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account.  
+Council process background in the US. briefly. Stakeholders, co-management. Mid-Atlantic process getting to this point briefly. Visioning, workshops, EAFM white papers, EAFM policy guidance. National policy on EAFM/EBFM. 
+
+The Mid-Atlantic Council approved an Ecosystem Approach to Fisheries Management (EAFM) Guidance Document in 2017 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management (http://www.mafmc.org/s/EAFM_Guidance-Doc_2017-02-07.pdf).  Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them [@gaichas_framework_2016].  Because there are so many possible ecosystem interactions to consider, risk assessment was adopted as the first step to identify a subset of high priority interactions [@holsman_ecosystem-based_2017]. 
+
+This paper describes the process, methods, and ecosystem indicators used to develop the Mid-Atlantic Council’s initial EAFM risk assessment. This risk assessment will help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, the purpose of the EAFM risk assessment is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account. We provide this example to illustrate that ecosystem-level risk assessment is a transparent and accessible tool that can be adapted to a wide range of resource management systems and available information, and is therefore a promising way forward in the implementation of EAFM.  
+
+#Methods
+Series of publicly accessible meetings in 2016-2017 to develop the risk assessment, combined with existing ecosystem reporting efforts, data, and expert knowledge. The general approach was for Council staff and analysts to develop prototypes after discussion with Council members, advisors, and stakeholders, which the Council committee and then full Council would adjust and refine. This iterative approach allowed the risk assessment to develop fairly quickly to meet management timeframes. 
+
+July 2016: initial meeting with Council Ecosystem and Ocean Planning committee to review prototype risk table by species, 
+• August 2017 Council Meeting: Identified draft risk elements for matrix of managed species.
+• September 12 EOP/Advisors Meeting: further refinement of list, including level of application (species, species/sector, ecosystem)
+• October 6 EOP/Advisors Webinar: EOP Consensus on Risk Elements, with preview of available indicators/information to evaluate risk
+• October 11 Council Meeting: Agreed on list of risk elements.
+• December 1 EOP Committee-initial review of “ranking criteria” matrices (applying data to rank within each individual element, not across elements). Updates to ranking criteria
+• December 2017 Council Meeting: Council initial agreement on ranking criteria of elements, results of risk assessment based on those criteria
 
 A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements or risk rankings may change as conditions change or new information becomes available. Thus, the EAFM Risk Assessment will be a dynamic and evolving process that will be revisited and updated in future years.
 
+Clarify exactly what we are assessing and why 
+What are we measuring = Risk Elements 
+Why are we measuring it = Risk Definition
+How are we measuring it = Indicators Used
+How is risk evaluated = Risk Criteria
+
+Risk Categories: Ecological, Economic, Social, Food Production, Management. These categories align roughly with management objectives for US fisheries as specified in an integrated ecosystem assessment context [@depiper_operationalizing_2017]. Therefore, ecosytem indicators had already been identified and presented for many of the general management objectives in the region prior to development of the risk assessment (http://www.mafmc.org/s/Tab02_2017-04_State-of-the-Ecosystem-and-EAFM.pdf). 
+
 The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented in the table below. 
 
-In the following sections, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. For trend-based risk definitions, a Mann-Kendall test for monotonic trends is used to test significance (p<0.05) of both long term and recent trends. Autocorrelation in the time series was addressed by prewhitening the data as suggested by [@yue_influence_2002]. 
+In the following sections, we describe each risk element in more detail along with Council-specified definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a risk categorization based on the indicator is presented. For trend-based risk definitions, a Mann-Kendall test for monotonic trends is used to test significance (p<0.05) of both long term and recent trends. Autocorrelation in the time series was addressed by prewhitening the data as suggested by [@yue_influence_2002]. 
 
-At the end of the document, we summarize risk ranking results across elements in three tables.
+At the end of the results section, we summarize risk ranking results across elements in three tables.
 
+#Results
 <!--[TABLE with general objectives and current status and or trend]--> 
 ```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1679,6 +1703,14 @@ risk.eco %>%
 
 ```
 
+#Discussion
+Risk assessment is relatively easy and useful. Cite Holsman, DePiper, other IEA stuff. How does ours compare?
+
+Risk assessment will be used to lead into other aspects of IEA loop. In the Mid, could use the risk assessment to prioritize. Three ways, examples from WGNARS.
+
+Specify a conceptual model (black sea bass example?), leads into MSE. Cite MSE lit, another tangible way to implement EAFM/EBFM.
+
+The Mid will use this and you can too. As with many other regions, natural resource management challenges are mounting in the Mid-Atlantic, from climate change to increasing needs for food and recreational opportunties to increasing uses of ocean areas (wind farm proposals). This process is doable alongside the current management system, adds value now and for future planning. 
 
 #References
 
