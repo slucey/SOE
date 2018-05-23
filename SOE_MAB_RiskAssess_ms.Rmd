@@ -229,7 +229,15 @@ July 2016: initial meeting with Council Ecosystem and Ocean Planning committee t
 • December 1 EOP Committee-initial review of “ranking criteria” matrices (applying data to rank within each individual element, not across elements). Updates to ranking criteria
 • December 2017 Council Meeting: Council initial agreement on ranking criteria of elements, results of risk assessment based on those criteria
 
+As the process evolved, the following definitions were established to clarify each component of the analysis for all involved. 
+
 A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements or risk rankings may change as conditions change or new information becomes available. Thus, the EAFM Risk Assessment will be a dynamic and evolving process that will be revisited and updated in future years.
+
+**Risk Definition**
+
+**Indicator**
+
+**Risk Ranking Criteria** were developed iteratively between analysts and the Council to use the available indicator(s)
 
 Clarify exactly what we are assessing and why 
 What are we measuring = Risk Elements 
@@ -239,15 +247,13 @@ How is risk evaluated = Risk Criteria
 
 Risk Categories: Ecological, Economic, Social, Food Production, Management. These categories align roughly with management objectives for US fisheries as specified in an integrated ecosystem assessment context [@depiper_operationalizing_2017]. Therefore, ecosytem indicators had already been identified and presented for many of the general management objectives in the region prior to development of the risk assessment (http://www.mafmc.org/s/Tab02_2017-04_State-of-the-Ecosystem-and-EAFM.pdf). 
 
-The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented in the table below. 
-
-In the following sections, we describe each risk element in more detail along with Council-specified definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a risk categorization based on the indicator is presented. For trend-based risk definitions, a Mann-Kendall test for monotonic trends is used to test significance (p<0.05) of both long term and recent trends. Autocorrelation in the time series was addressed by prewhitening the data as suggested by [@yue_influence_2002]. 
-
-At the end of the results section, we summarize risk ranking results across elements in three tables.
+The Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented in as the first result of this assessment. In the following results sections, we describe each risk element in more detail along with Council-specified definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a risk categorization based on the indicator is presented. For trend-based risk definitions, a Mann-Kendall test for monotonic trends is used to test significance (p<0.05) of both long term and recent trends. Autocorrelation in the time series was addressed by prewhitening the data as suggested by [@yue_influence_2002]. At the end of the results section, we summarize risk ranking results across elements in three tables.
 
 #Results
+After several iterations with stakeholders and analysts, the Council settled on 25 Risk Elements for evaluation in this assessment (Table \ref{riskel}). Eight additional risk elements were considered by the Council, but ultimately removed from this initial assessment. These elements required either further specification, improved data availability, clearer interpretability, or some combination of these factors. The elements that were put aside at present are still of interest to the Council, and may be addressed in future assessments as information improves.
+
 <!--[TABLE with general objectives and current status and or trend]--> 
-```{r riskel, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r riskel, tab.cap="Risk Elements, Risk Definitions, and Indicators Used\\label{riskel}", echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Element         | Definition: Risk to what?                        |  Indicators used                                 |
 |:-------------------------------------|:-------------------------------------------------|:-------------------------------------------------|
@@ -297,10 +303,21 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
+Risk criteria for each element are described in individual sections below, and summarized in Table \ref{allcriteria}. 
+
+```{r allcriteria, tab.cap="Risk Ranking Criteria used for each Risk Element\\label{allcriteria}", echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+all<-read.table("riskrankingcriteria.txt", sep="|", header=T, strip.white = T)
+names(all) <- c("Element", "Ranking", "Criteria")
+allwide <- all %>% spread(Ranking, Criteria)
+kable(allwide, format = "latex", booktabs = T)
+
+```
+
 # Ecological Elements
 
 ##Assessment Performance
-This element is applied at the species level. The elements below describe risks according to our best understanding of stock status, but assessment methods and data quality shape our understanding. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations. The MAFMC risk policy accounts for scientific uncertainty in assessments, with methods for determining scientific uncertainty currently being refined by the Scientific and Statistical Committee. Ranking for this risk element will be adjusted if necessary to ensure consistency with SSC methods in the future. 
+This element is applied at the species level. Risk elements below (F status and B status) describe risks according to our best understanding of stock status, but assessment methods and data quality shape our understanding. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations. The MAFMC risk policy accounts for scientific uncertainty in assessments, with methods for determining scientific uncertainty currently being refined by the Scientific and Statistical Committee. Ranking for this risk element will be adjusted if necessary to ensure consistency with SSC methods in the future. 
 
 ```{r riskass, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1704,11 +1721,13 @@ risk.eco %>%
 ```
 
 #Discussion
-Risk assessment is relatively easy and useful. Cite Holsman, DePiper, other IEA stuff. How does ours compare?
+Risk assessment is relatively easy and useful. Cite Holsman, DePiper, other IEA stuff. How does ours compare? 
+
+Can always improve. Statistical analysis of time series, indicator selection, all can be updated in future iterations of the risk assessment. 
 
 Risk assessment will be used to lead into other aspects of IEA loop. In the Mid, could use the risk assessment to prioritize. Three ways, examples from WGNARS.
 
-Specify a conceptual model (black sea bass example?), leads into MSE. Cite MSE lit, another tangible way to implement EAFM/EBFM.
+Next steps in the MAFMC process. Specify a conceptual model (black sea bass example?), leads into MSE. Cite MSE lit, another tangible way to implement EAFM/EBFM.
 
 The Mid will use this and you can too. As with many other regions, natural resource management challenges are mounting in the Mid-Atlantic, from climate change to increasing needs for food and recreational opportunties to increasing uses of ocean areas (wind farm proposals). This process is doable alongside the current management system, adds value now and for future planning. 
 
