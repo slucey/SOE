@@ -1,16 +1,17 @@
 ---
 title: "Implementing Ecosystem Approaches to Fishery Management: Risk Assessment in the US Mid-Atlantic"
 author:
-- name: S. Gaichas, G. DePiper 
+- name: Sarah K. Gaichas, Geret S. DePiper 
   affiliation: NOAA NMFS Northeast Fisheries Science Center, Woods Hole, MA, USA
-- name: R. Seagraves, B. Muffley, M. Sabo
+- name: Richard J. Seagraves, Brandon Muffley, Mary Sabo
   affiliation: Mid-Atlantic Fishery Management Council, Dover, DE, USA
-- name: L. Colburn
+- name: Lisa Colburn
   affiliation: NOAA NMFS Northeast Fisheries Science Center, Narragansset, RI, USA
-- name: A. Loftus
+- name: Andrew Loftus
   affiliation: Annapolis, MD, USA
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 abstract: Fishery managers worldwide are evaluating methods for incorporating climate, habitat, ecological, social, and economic factors into current operations in order to implement Ecosystem Approaches to Fishery Management (EAFM). While this can seem overwhelming, it is possible to take practical steps towards EAFM implementation that make use of existing information and provide managers with valuable strategic advice. Here, we describe the process used by the U.S. Mid-Atlantic Fishery Management Council (MAFMC) to develop an ecosystem-level risk assessment, the initial step proposed in their recently adopted EAFM policy guidance. The MAFMC first defined five types of risk elements (ecological, economic, social, food production, management) and identified which management objectives aligned with each element. Based on an existing ecosystem status report for the region and other existing sources (including expert opinion), potential ecological, social, economic, and management indicators were identified for each risk element. Finally, low, low-moderate, moderate-high, and high risk criteria were defined for each indicator, and the indicator data were used to score each risk element using the criteria. The risk assessment highlights certain species and certain management issues as posing higher cumulative risks to meeting MAFMC management objectives when considering a broad range of ecological, social, and economic factors. Tabular color coded summaries of risk assessment results will be used by MAFMC to prioritize further EAFM analyses as well as research plans over the coming five years. As ecosystem reporting and operational EAFM continue to evolve in future years, MAFMC forsees integrating these efforts so that ecosystem indicators are refined to meet the needs of fishery managers in identifying and managing risks to achieving ecological, social, and economic fishery objectives. Overall, ecosystem indicator-based risk assessment is a method that can be adapted to a wide range of resource management systems and available information, and therefore a promising way forward in the implementation of EAFM. 
+keywords: ecosystem approach, natural resource management, risk assessment, fisheries, integrated ecosystem assessment, ecosystem indicators, economic indicators, management objectives
 output:
   pdf_document:
     includes:
@@ -304,103 +305,6 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Current assessment results for all MAFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for surfclams, ocean quahogs, scup, black sea bass, and butterfish. Bluefish, golden tilefish, and spiny dogfish F status is in the low risk category, and B risk is in the low-moderate risk category. Summer flounder F status is in the high risk category and B status is in the low-moderate risk category. F and B status for northern and southern goosefish stocks were formerly in the low risk categories, but a recent assessment update was unable to determine status, so we provisionally rank them low-moderate risk (unknown but weight of evidence supports lower risk). Longfin squid B is above the established B threshold, and both squid stocks have unknown F status, but F is difficult to estimate because it is very low relative to natural mortality, so they are also ranked low-moderate risk. Blueline tilefish are high risk for F status and have unknown B status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for B status. Finally, Atlantic mackerel has moderate-high risk for both F and B status due both to failed assessment/unknown status and indications from recent analyses. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
 
-```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', echo = F, message = FALSE, warning = FALSE}
-#knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
-
-dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
-
-stocks <- unique(dat$Entity.Name)
-n.stocks <- length(stocks)
-
-decoder <- read.csv(file.path(data.dir,"2017decoder.csv"))
-# set up the headers for most.recent structure - will contain oldest Assessment.Year
-most.recent <- dat[1,]
-most.recent <- most.recent[-1,]
-
-for (i in 1:n.stocks){
-  temp <- dat[dat$Entity.Name == decoder$Entity.Name[i],]
-  most.recent <- rbind(most.recent,temp[temp$Assessment.Year == max(temp$Assessment.Year),])
-}
-#cbind(n.stocks,length(most.recent[,1]))
-
-# get the max of F.Flimit and F.Fmsy and the max of B.Blimit and B.Bmsy
-Frat <- most.recent$F.Fmsy
-Brat <- most.recent$B.Bmsy
-#Frat[6] <- most.recent$F.Flimit[6]  # Ocean Quahog use Flimit because no Fmsy
-#Frat[18] <- 0.88  # hardwire average of the two GOM models for GOM cod
-#Brat[18] <- 0.155 # hardwire average of the two GOM models for GOM cod
-#model averages have been calculated and included in F/Fmsy column in 2017assess.csv
-#cbind(most.recent$Entity.Name,most.recent$F.Flimit,most.recent$F.Fmsy)
-
-# figure out appropriate range for axes WARNING HARD CODED
-#max(Frat,na.rm=T)
-#max(Brat,na.rm=T)
-x.r <- c(0,3)
-y.r <- c(0,3)
-
-# set some colors
-my.col <- rep(NA,n.stocks)
-MA.col <- "blue"
-NE.col <- "blue"
-BO.col <- "purple"
-for (i in 1:n.stocks){
-  if(decoder$Council[i] == "MAFMC") my.col[i] <- MA.col
-  if(decoder$Council[i] == "NEFMC") my.col[i] <- NE.col
-  if(decoder$Council[i] == "Both")  my.col[i] <- BO.col
-}
-
-# create new matrix for plotting
-xx <- as.data.frame(cbind(decoder[,2:8],Frat,Brat,my.col))
-newlist <- as.factor(decoder$Code)
-others <- as.factor("7 Skates")
-sppcodes <- unlist(list(newlist, others))
-MA.unknown <- sppcodes[c(1,3,4,47,48)] #mackerel, Loligo, Illex, monkfish unknown
-#MA.unknown <- decoder$Code[c(1,3,4,8)] #BSB known
-#NE.unknown <- c(decoder$Code[c(14,23,33)],"7 Skates")
-NE.overfished <- sppcodes[c(17,19)] # GB cod, halibut
-NE.unknown <- sppcodes[c(14,23,33,35,37,47,48,50)] #Red deepsea crab,  Offshore hake, GOM winter flounder, Witch flounder, GB YT,2 monkfish, 7 skates unknown
-
-
-# break out the Councils
-MA <- xx[xx$Council == "MAFMC",]
-NE <- xx[xx$Council == "NEFMC",]
-BO <- xx[xx$Council == "Both",]
-MABO<-rbind(MA, BO)
-NEBO<-rbind(NE, BO)
-
-#if(saveplots) png(file = "MAFMC_joint_stocks_2017.png",  units="in", width = 6, height = 6, res=1200)
-plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,col=my.col[c(1:11,47:49)])
-  abline(v=0.5,lty=2)
-  abline(v=1,lty=3)
-  abline(h=1,lty=2)
-  title(expression("MAFMC " * phantom("and Joint Stocks")), col.main="blue")
-  title(expression(phantom("MAFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
-  title(expression(phantom("MAFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
-  title(expression(phantom("MAFMC and Joint") * " Stocks"), col.main="black")  
-  legend('topright',legend=MA.unknown,pch=NA,text.col=my.col[c(1,3,4,47,48)], title="Unknown Status", title.col = "black")
-  text(MABO$Brat,MABO$Frat,labels=MABO$Code,pos=MABO$my.pos3,col=my.col[c(1:11,47:49)],cex=0.8)
-#if(saveplots) savePlot("MAFMC_Joint_stocks.png", type='png')
-#if(saveplots) dev.off()
-
-#if(saveplots) pdf(file = "NEFMC_joint_stocks.pdf",  width = 6, height = 6)
-#if(saveplots) png(file = "NEFMC_joint_stocks.png",  units="in", width = 6, height = 9, res=1200)
-# plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,col=my.col[12:49])
-#    abline(v=0.5,lty=2)
-#    abline(v=1,lty=3)
-#    abline(h=1,lty=2)
-#    title(expression("NEFMC " * phantom("and Joint Stocks")), col.main="blue")
-#    title(expression(phantom("NEFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
-#    title(expression(phantom("NEFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
-#    title(expression(phantom("NEFMC and Joint") * " Stocks"), col.main="black")  
-#    legend('topright',legend=NE.overfished,pch=NA,title="Overfished, F \nStatus Unknown",bty="n", text.width=strwidth("Offshore Hake"), inset=c(0,.05))
-#    legend('right',legend=NE.unknown,pch=NA,title="Unknown Status", bty="n")
-#    text(NEBO$Brat,NEBO$Frat,labels=NEBO$Code,pos=NEBO$my.pos3,col=my.col[12:49],cex=0.8)
-#if(saveplots) savePlot("NEFMC_Joint_stocks.png", type='png')
-#if(saveplots) dev.off()
-
-```
-
-
 ##Food Web (MAFMC Predators)
 This element is applied at the species level. This element ranks the risks of not achieving OY due to predator interactions between MAFMC managed species. To rank these risks, the "importance" of each species as predator must be assessed. There are not clear standardized threshold to define this. Diet information can be used to develop thresholds: an important predator of MAFMC managed species can be defined as having more than a threshold level of MAFMC managed species in the diet by weight. "Dependent" predators warranting a high risk ranking would have a majority (>50%) of diet from an individual MAFMC managed species. 
 
@@ -479,15 +383,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 For primary production and fish productivity, the spatial scale of analysis is the Mid-Atlantic Ecosystem Production Unit, as indicated in Figure \ref{EPUmap}. 
 
-```{r, fig.cap="Northeast US Ecosystem Production units. \\label{EPUmap}", echo = F, out.width='0.9\\linewidth'}
-image_read(file.path(image.dir,"NEshelfEcoRegionsALL.png")) %>%
-image_trim()
-
-```
-
 ###Primary production  
-Primary production has fluctuated recently with current conditions near average. 
-
+Primary production has fluctuated recently with current conditions near average. The observed stability in system productivity is in contrast to an apparent shift in the timing of the bloom cycle in the Mid-Atlantic. Comparing remote sensing information from the 1970-80s to recent information suggest that winter productivity was higher in the MAB and that the spring bloom we see today was not as prominent. This change in phytoplankton seasonal biomass may be related to the changes seen in the zooplankton community (see below) suggesting a grazing effect; but, whatever the mechanism associated with these changes, shifts in timing of low trophic level production can affect resource fish species and their early life history stages that feed on zooplankton.
+<!--
 ```{r, fig.cap="Primary production \\label{pp}", echo = F, fig.height=2}
 
 opar <- par(mar = c(4, 6, 2, 6))
@@ -497,18 +395,17 @@ soe.plot(SOE.data, 'Time', 'MAB PPD', x.label = 'Year',
 
 ```
 
-The observed stability in system productivity is in contrast to an apparent shift in the timing of the bloom cycle in the Mid-Atlantic. Comparing remote sensing information from the 1970-80s to recent information suggest that winter productivity was higher in the MAB and that the spring bloom we see today was not as prominent. This change in phytoplankton seasonal biomass may be related to the changes seen in the zooplankton community (see below) suggesting a grazing effect; but, whatever the mechanism associated with these changes, shifts in timing of low trophic level production can affect resource fish species and their early life history stages that feed on zooplankton.
-
 ```{r, fig.cap="Comparison of 1970-80s annual primary productivity cycle (black) with 1997-present (orange) \\label{PPcycle}", out.width='0.7\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'PPbloomtiming.png'))
 
 ```
+-->
 
 ###Zooplankton  
 <!--Zooplankton provide a critical link between phytoplankton at the base of the food web, and higher trophic organisms such as fish, mammals, and birds. Changes in the species compostion and biomass of the zooplankton community have a great potential to affect recruitment success and fisheries productivity, and climate change may be the most important pathway for these changes to manifest. Therefore these indices are relevant to both productivity and trophic structure objectives.-->  
 
 Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume suggest that overall zooplankton production has not changed over time. However, the dominant species of zooplankton in the MAB, *Centropages typicus* shows a seasonal shift in abundance, suggesting a change in timing of zooplankton reproductive cycles, which may be impacting fish species such as mackerel.
-
+<!--
 ```{r , fig.cap="A: Centropages typicus spring, B: Centropages typicus fall \\label{Ctyp}", echo = F, fig.height=3}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Centropages typicus spring', stacked = 'A', tol = 0.03,
@@ -520,25 +417,30 @@ soe.stacked.axis('Year', expression('thousands per 100 m' ^ 3), rel.y.text = 1.1
                  y.line = 3)
 
 ```
+-->
 
 ###Fish condition
 Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while black sea bass remain thinner for their length on average.  
+<!--
 ```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, out.width='0.7\\linewidth'}
 #I will get the actual code here eventually but just don't have time right now
 knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition.jpg'))
 
 ```
+-->
 
 ###Fish productivity
 The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed and unmanaged species in the Mid-Atlantic. The plot includes black sea bass, butterfish, clearnose skate, fourspot flounder, little skate, scup, spiny dogfish, summer flounder, thorny skate, windowpane, winter flounder, and winter skate.
 
+<!--
 ```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for species in the MAB. Annual anomalies shown are the average of spring and fall anomalies. \\label{fishprodsurvey}", echo = F, fig.align='center', out.width='0.7\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'FishProdMAB.pdf'))
 #knitr::include_graphics(file.path(image.dir, 'fishprodlegend.pdf'))
 
 ```
+-->
 
-To summarize, primary production shows no trend (although the seasonal timing of primary production may be changing). Similarly, there are no trends in overall zooplankton abundance, but a dominant Mid-Atlantic species shows different trends by season, possibly also indicating a shift in timing. Fish condition showed a drop across all species in the early 2000s, but most species appear to have recovered. There is a decreasing trend in aggregate numbers of small fish per large fish. This one clear trend, along with changes in timing at lower trophic levels, suggest a low-moderate risk of changing ecosystem productivity in the Mid-Atlantic region. 
+To summarize, primary production shows no trend (although the seasonal timing of primary production may be changing). Similarly, there are no trends in overall zooplankton abundance, but a dominant Mid-Atlantic species shows different trends by season, possibly also indicating a shift in timing. Fish condition showed a drop across all species in the early 2000s, but most species appear to have recovered. There is a decreasing trend in aggregate numbers of small fish per large fish (Fig. \ref{ecoprod}). This one clear trend, along with changes in timing at lower trophic levels, suggest a low-moderate risk of changing ecosystem productivity in the Mid-Atlantic region. 
 
 <!--
 ##Population diversity
@@ -600,12 +502,13 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 -->
 
-Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here (Fig. \ref{NEVAvul}). 
-
+Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here. <!--(Fig. \ref{NEVAvul}).--> 
+<!--
 ```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species \\label{NEVAvul}", out.width='\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'NEVAvulmid.png'))
 
 ```
+-->
 
 While this risk assessment focuses on overall vulnerability to impacts of climate, not all impacts will be negative. Some MAFMC managed species may benefit from projected future climate conditions, including black sea bass, bluefish, butterfish, longfin squid, and shortfin squid [@hare_vulnerability_2016]. 
 
@@ -626,15 +529,16 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 -->
 
 All Mid-Atlantic species with the exception of golden tilefish had either high or very high risk of distribution shifts in the Northeast US. 
-
+<!--
 ```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species distribution shift risk \\label{NEVAshift}", out.width='0.8\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'NEVAshiftmid.png'))
 
 ```
+-->
 
 ###Historical vs. Current Distribution Maps
 Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. 
-
+<!--
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
 knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
@@ -646,54 +550,11 @@ opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 ```
-
+-->
 A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
 ###Changes in Along Shelf Position
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from squids.  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
-
-```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, echo = F, message = FALSE, warning = FALSE}
-#knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
-#out.width='\\linewidth'
-
-#SOE.data[Var %like% "ASDIST"]
-opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-
-soe.plot(SOE.data, 'Time', 'BLACK SEA BASS ASDIST',    stacked = 'A', scale.axis = 100, 
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER ASDIST',   stacked = 'B', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SCUP ASDIST',              stacked = 'C', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'BUTTERFISH ASDIST',        stacked = 'D', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL ASDIST', stacked = 'E', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'LONGFIN SQUID ASDIST',     stacked = 'F', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID ASDIST', stacked = 'G', 
-         scale.axis = 100, rel.y.num = 0.9)
-soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.text = 1.5)
-
-#opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-
-#soe.plot(SOE.data, 'Time', 'BLACK SEA BASS DTEOC',    stacked = 'A', scale.axis = 100, 
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER DTEOC',   stacked = 'B', scale.axis = 100,
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'SCUP DTEOC',              stacked = 'C', scale.axis = 100,
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'BUTTERFISH DTEOC',        stacked = 'D', scale.axis = 100,
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL DTEOC', stacked = 'E', scale.axis = 100,
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'LONGFIN SQUID DTEOC',     stacked = 'F', scale.axis = 100,
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID DTEOC', stacked = 'G', 
-#         scale.axis = 100, rel.y.num = 0.9)
-#soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
-
-```
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from squids (Fig. \ref{shifts}).  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 ##Estuarine and Coastal Habitat
 This element is applied at the species level. Risk of not achieving OY due to threats to estuarine and nearshore coastal habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Here, we include estuarine and nearshore coastal habitat in the term "estuarine" below. Water and habitat quality assessments produced for Chesapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered in the future.
@@ -732,7 +593,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Habitat models using both static and dynamics variables have been developed for many of the resource species on the Northeast Shelf. These models estimate spring and fall habitat for the time series 1992 to 2016 reflecting the use of the ecosystem based on the NEFSC bottom trawl survey. The variables evaluated for use in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. The random forest approach differentiates variables with strong predictive power and was used to reduce the variable set to 11 variables for each species. The models were used to estimate fall habitat scores over the entire shelf over the time series.
 
 <!--Spring and fall habitat trends for Northeast Shelf species over the time period 1992 to 2016 were evaluated using the number square km in a single habitat interval from habitat modeling.  Fall indices for MAFMC species are below, with spring on the following page. *mapping linear model slope estimates for grid locations constrained to the segment of the shelf used by each species. These segments were estimated as a 99% kernel density shapes based on occurrence of each species during the study period.* -->
-
+<!--
 ```{r, fig.cap="Shifts in modeled species fall habitat area over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid, H: Dogfish, I: Goosefish  \\label{shifts}", fig.height=9, echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
 #out.width='\\linewidth'
@@ -762,8 +623,8 @@ soe.plot(SOE.data, 'Time', 'GOOSEFISH Max Habitat Index Fall', stacked = 'I',
 soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.text = 1.5)
 
 ```
-
-*This experimental habitat index is still being studied and improved, so  habitat risk rankings based on this are considered preliminary by the EOP.* 
+-->
+*This experimental habitat index is still being studied and improved, so habitat risk rankings based on this are considered preliminary by the EOP, and are not included in the final risk assessment.* 
 
 Overall, black sea bass, summer flounder, and scup have long term increasing trends in fall offshore habitat, and dogfish, butterfish, Atlantic mackerel and longfin squid have short term increasing trends. Goosefish has no significant trend in fall offshore habitat. Therefore, these species rank low risk for this element. However, shortfin squid has a long term and a short term decreasing trend in offshore habitat. Therefore, shortfin squid ranks high risk for this element. 
 
@@ -787,8 +648,8 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 -->
 
-This is aggregate commercial revenue for MAFMC managed species. There is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
-
+This is aggregate commercial revenue for MAFMC managed species (Fig. \ref{econinds}, Upper left). There is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
+<!--
 ```{r ComProfAgg, fig.cap="Aggregate Mid-Atlantic managed species revenue  \\label{comprofagg}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
 
@@ -802,6 +663,7 @@ allrev[, EPU := 'ALL']
 
 soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", x.start = 1986, rel.y.num = 0.8, rel.y.text = 1)
 ```
+-->
 
 ##Marine Recreational Angler Days/Trips
 This element is applied at both the fleet level and at the ecosystem level where it would apply equally to all recreationally fished species. Angler days and trips are proxies for the welfare (value) generated from recreational fishing. Risk of not maximizing fishery value is evaluated using the number of marine recreational fishing angler-days and number of marine recreational trips, in aggregate.
@@ -819,8 +681,8 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 -->
 
-Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation  in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
-
+Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation  in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices (Fig. \ref{econinds}, Lower left). 
+<!--
 ```{r RecParticipation, fig.cap="A: number of anglers, B: number of trips \\label{recreation}", echo = F, fig.height=3.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'Mid-Atlantic Rec participation', x.end = 2016,
@@ -832,6 +694,7 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
                  rel.y.text = .8)
 
 ```
+-->
 
 These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). This is a national trend likely due to shifting demographics and general economic dynamics, among other issues.
 
@@ -852,7 +715,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 -->
 
 This diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
- 
+<!-- 
 ```{r, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=2.5}
 
 # opar <- par(mar = c(4, 6, 2, 6))
@@ -879,8 +742,9 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', 
 
 
 ```
+-->
 
-This index shows no significant trend, which would suggest a low risk to fishery business resilience based on diversity in species revenue. 
+This index shows no significant trend, which would suggest a low risk to fishery business resilience based on diversity in species revenue (Fig. \ref{econinds}, Upper right). 
 
 <!--
 ##Fishery Resilience (2)
@@ -936,7 +800,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 The number of shoreside support businesses were tallied for all Mid-Atlantic states in two categories: number of companies (Quarterly Census of Employment and Wages. Obtained September 27, 2017. US Department of Labor, Bureau of Labor Statistics. https://www.bls.gov/cew/home.htm) and number of non-employer entities Nonemployer Statistics.” Obtained September 28, 2017. U.S. Census Bureau.
 https://www.census.gov/programs-surveys/nonemployer-statistics.html), which we consider separately. Nonemployer entities are businesses that have no paid employees (i.e. the owner is the workforce), while the shoreside support companies include all businesses with paid employees. Some state level data was not included due to confidentiality. 
-
+<!--
 ```{r Shoresupp1, fig.cap="Shoreside support businesses: Number of Companies  \\label{shoresupp1}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
@@ -964,8 +828,9 @@ allent[, Units := 'Number']
 soe.plot(allent, 'Time', 'Mid-Atlantic Nonemployer Entities', rel.y.num = 0.8, x.label = 'Year', y.label = 'Number of Businesses', rel.y.text = 1)
 
 ```
+-->
 
-The number of shoreside support companies that include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states shows a significant long term and short term decrease, which on its own represents moderate-high risk to fishery resilience. However, the number of non-employer entities which include seafood preparation and packaging and seafood markets shows a long term increase. Trends in other shoreside fishery supporting businesses such as gear manufacturers and welding companies are not included here due to aggregation of the statistics.  
+The number of shoreside support companies that include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states shows a significant long term and short term decrease, which on its own represents moderate-high risk to fishery resilience. However, the number of non-employer entities which include seafood preparation and packaging and seafood markets shows a long term increase (Fig. \ref{econinds}, Lower right). Trends in other shoreside fishery supporting businesses such as gear manufacturers and welding companies are not included here due to aggregation of the statistics.  
 
 <!--
 ##Fishery Resilience (5)
@@ -1077,7 +942,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 -->
 
 A declining trend in diversity indicates a less diverse fleet is currently active in MAFMC-managed fisheries. However, it cannot distinguish whether specialization (by choice), or alternatively stovepiping (constrained choices), is occurring in the Northeastern Large Marine Ecosystem, rather merely that the fleet composition is changing, which might warrant additional scrutiny. 
-
+<!--
 ```{r FleetDiversity, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
 
 load(file.path(data.dir, 'altfleetdiv_data.RData'))
@@ -1089,6 +954,7 @@ soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y
 
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
+-->
 <!--
 At the request of the EOP and advisors, the diversity metrics were also calculated giving less weight to the scallop and clam fleets. However, the overall trends are very similar. 
 
@@ -1140,138 +1006,11 @@ Sea level rise is predicted to have variable impacts on coastal communities. The
 
 Mid-Atlantic fishing communities with total landings value of $100,000 or more were mapped for their dependence on species vulnerable to climate change and catch composition diversity (Simpson Reciprocal Index). A number of communities in southern New Jersey, Maryland and Virginia are highly dependent on species such as clams that are highly vulnerable to climate change while displaying low catch composition diversity. Communities with this situation are considered more vulnerable to climate change in general.
 
-```{r Read GIS files, echo = F, results = 'hide'}
-coast <- readOGR(gis.dir, 'NES_LME_coast')
-coast <- spTransform(coast, CRS('+init=epsg:4326'))
-```
-
-```{r CommunityRisk, fig.cap="Risks from sea level rise (A), reliance on climate-vulnerable species (B), and catch diversity (C) \\label{commrisk}", echo = F, fig.height = 3.8, fig.width = 9}
-#knitr::include_graphics(file.path(image.dir, 'MidClimateRisk.png'))
-#Risk maps
-sea.col <- 'light blue'
-point.cex <- c(0.6, 1.0, 1.2, 1.4)
-opar<- par(mfrow = c(1, 3), mar = c(0, 0, 0, 0), oma = c(3, 4.2, 1, 1))
-
-#Sea Level Rise
-plot(0, 0, xlim = c(-77, -70), ylim = c(35, 42), xlab = '', ylab = '', axes = F,
-     typ = 'n')
-
-#Add background
-u <- par('usr')
-rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
-
-#Add coast  
-plot(coast, col = 'wheat', add = T)
-box()
-
-axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
-                                          expression('70'* degree * ' W'),
-                                          expression('65'* degree * ' W')), 
-     cex.axis = 1.5)
-axis(2, at = c(35, 40, 45), labels = c(expression(35 * degree * ' N'),
-                                       expression(40 * degree * ' N'),
-                                       expression(45 * degree * ' N')), las = T,
-     cex.axis = 1.5)
-
-#Add points
-points(risk[SLR_NE1 == 1, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
-       bg = 'light green', cex = point.cex[1])
-points(risk[SLR_NE1 == 2, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
-       bg = 'green', cex = point.cex[2])
-points(risk[SLR_NE1 == 3, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
-       bg = 'yellow', cex = point.cex[3])
-points(risk[SLR_NE1 == 4, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
-       bg = 'red', cex = point.cex[4])
-
-#Add Label
-text(u[1], u[4], labels = 'A', cex = 2, adj = c(-0.5, 1.5))
-
-a <- legend('bottomright', 
-            legend = c('High', 'Medium/High', 'Moderate', 'Low'), bty = 'n',
-            pch = 21, pt.bg = c('red', 'yellow', 'green', 'light green'), 
-            pt.cex = point.cex[4:1], cex = 1.5, y.intersp = 1)
-
-#Species Risk
-point.cex <- c(0.0, 1.0, 1.5, 2.0)
-plot(0, 0, xlim = c(-77, -70), ylim = c(35, 42), xlab = '', ylab = '', axes = F,
-     typ = 'n')
-
-#Add background
-u <- par('usr')
-rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
-
-#Add coast  
-plot(coast, col = 'wheat', add = T)
-box()
-
-axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
-                                          expression('70'* degree * ' W'),
-                                          expression('65'* degree * ' W')),
-     cex.axis = 1.5)
-
-#Add points
-for(i in 2:4){
-    points(risk[SpeciesVul == 'Mixed' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)], 
-           pch = 21, bg = 'white', cex = point.cex[i])
-    points(risk[SpeciesVul == 'Low' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)], 
-           pch = 21, bg = 'green', cex = point.cex[i])
-    points(risk[SpeciesVul == 'Moderate' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)],
-           pch = 21, bg = 'blue', cex = point.cex[i])
-    points(risk[SpeciesVul == 'High/Very High' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)],
-           pch = 21, bg = 'red', cex = point.cex[i])
-}
-
-a <- legend('bottomright', 
-            legend = c('High/Very High', 'Moderate', 'Low', 'Mixed', '', 
-                       '< $1M', '$1M - $10M', '> $10M'), bty = 'n',
-            pch = 21, pt.bg = c('red', 'blue', 'green', 'white', rep('white', 4)), 
-            pt.cex = c(rep(point.cex[3], 4), 0, point.cex[2:4]), cex = 1.5)
-
-#Add Label
-text(u[1], u[4], labels = 'B', cex = 2, adj = c(-0.5, 1.5))
-
-#Catch Diversity
-plot(0, 0, xlim = c(-77, -70), ylim = c(35, 42), xlab = '', ylab = '', axes = F,
-     typ = 'n')
-
-#Add background
-u <- par('usr')
-rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
-
-#Add coast  
-plot(coast, col = 'wheat', add = T)
-box()
-
-axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
-                                          expression('70'* degree * ' W'),
-                                          expression('65'* degree * ' W')),
-     cex.axis = 1.5)
-
-#Add points
-points(risk[Simpson >= 1 & Simpson < 2.5, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
-       bg = 'red', cex = point.cex[4])
-points(risk[Simpson >= 2.5 & Simpson < 5, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
-       bg = 'yellow', cex = point.cex[3])
-points(risk[Simpson >= 5, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
-       bg = 'green', cex = point.cex[2])
-
-#Add Label
-text(u[1], u[4], labels = 'C', cex = 2, adj = c(-0.5, 1.5))
-
-a <- legend('bottomright', 
-            legend = c('Low', 'Moderate', 'High'), bty = 'n',
-            pch = 21, pt.bg = c('red', 'yellow', 'green'), 
-            pt.cex = point.cex[4:2], cex = 1.5, y.intersp = 1)
-
-```
-
-While the maps provides an overview of the social and climate indicator results for the Mid-Atlantic coastal communities, Table \ref{community} identifies Mid-Atlantic communities that are most highly dependent on both commercial and recreational fishing. The varying vulnerability level to social factors, gentrification pressure, and climate change in these communities provide a more comprehensive profile and should be taken into account in the decision making process for fishery management. 
+While the maps provide an overview of the social and climate indicator results for the Mid-Atlantic coastal communities, Table \ref{community} identifies Mid-Atlantic communities that are most highly dependent on both commercial and recreational fishing. The varying vulnerability level to social factors, gentrification pressure, and climate change in these communities provide a more comprehensive profile and should be taken into account in the decision making process for fishery management. 
 
 As a preliminary risk assessment, rankings from Table \ref{community} of MedHigh or High were tallied for social vulnerability and gentrification pressure, along with rankings of High risk from sea level rise, High/Very High species vulnerability, and rankings of Low catch composition diversity. Four of these communities (20%) have three or more of these high risk rankings, so we rank overall social-cultural risk as low-moderate for these Mid-Atlantic communities.
 
 More information on Northeast coastal communities is available here: http://www.nefsc.noaa.gov/read/socialsci/communityProfiles.html 
-
-\clearpage
 
 #Food Production Elements
 
@@ -1291,8 +1030,8 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 -->
 
-This is commercial seafood landings from MAFMC managed species. Because this is total landings, years prior to 1977 do include foreign landings (in particular, of Atlantic mackerel, which account for much of the observed spike). Recent landings are all domestic fisheries. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
-
+This is commercial seafood landings from MAFMC managed species (Fig. \ref{seafood}, Left). Because this is total landings, years prior to 1977 do include foreign landings (in particular, of Atlantic mackerel, which account for much of the observed spike). Recent landings are all domestic fisheries. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
+<!--
 ```{r ComFoodAgg, fig.cap="Aggregate Mid-Atlantic managed species landings  \\label{comfoodagg}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
 
@@ -1306,7 +1045,7 @@ allland[, EPU := 'ALL']
 
 soe.plot(allland, 'Time', 'MAFMC Landings', x.label="Year", y.label="Commercial Landings Metric Tons", rel.y.num = 1, rel.y.text = 0.8 )
 ```
-
+-->
 
 ##Recreational/Subsistence Food Provision
 This element is applied at the ecosystem level. This element describes the risk of not maintaining personal food production. Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
@@ -1324,8 +1063,8 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 -->
 
-This is total recreational harvest (all species) in the Mid-Atlantic region.
-
+This is total recreational harvest (all species) in the Mid-Atlantic region (Fig. \ref{seafood}, Right).
+<!--
 ```{r RecFood, fig.cap="A: Total recreational harvest, B: Harvest per angler  \\label{recfood}", echo = F, fig.height=3.5}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'Total_Harvest', rel.y.num = 0.8, stacked = 'A')
@@ -1333,6 +1072,7 @@ soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'Harvest.per.Angler', rel.y.num = 0
 
 soe.stacked.axis('Year', 'N Recreationally Harvested Fish',rel.y.text = 1)
 ```
+--> 
 
 This significant long term decrease in both recreational landings and recreational landings per angler represents a moderate-high risk to food production.
 
@@ -1475,18 +1215,21 @@ Risk assessment will be used to lead into other aspects of IEA loop. In the Mid,
 
 Next steps in the MAFMC process. Specify a conceptual model (black sea bass example?), leads into MSE. Cite MSE lit, another tangible way to implement EAFM/EBFM.
 
-The Mid will use this and you can too. As with many other regions, natural resource management challenges are mounting in the Mid-Atlantic, from climate change to increasing needs for food and recreational opportunties to increasing uses of ocean areas (wind farm proposals). This process is doable alongside the current management system, adds value now and for future planning. 
+The Mid will use this and you can too. As with many other regions, natural resource management challenges are mounting in the Mid-Atlantic, from climate change to increasing needs for food and recreational opportunties to increasing uses of ocean areas (wind farm proposals). This process is doable alongside the current management system, adds value now and for future planning. This EAFM risk assessment highlights certain species and certain management issues as posing higher cumulative risks to meeting MAFMC management objectives when considering a broad range of ecological, social, and economic factors. The tabular color coded summaries of risk assessment results will be used by MAFMC to prioritize further EAFM analyses as well as research plans over the coming five years. As ecosystem reporting and operational EAFM continue to evolve in future years, MAFMC forsees integrating these efforts so that ecosystem indicators are refined to meet the needs of fishery managers in identifying and managing risks to achieving ecological, social, and economic fishery objectives. Overall, ecosystem indicator-based risk assessment is a method that can be adapted to a wide range of resource management systems and available information, and therefore a promising way forward in the implementation of EAFM. 
 
 #Data Availability Statement
 
 #Author Contributions
+SKG, GSD, and RJS planned and executed the overall project, led the ecological, economic, food production, and management analyses, edited the full paper, and wrote individual sections. BM and MS coordinated and recorded meetings to reach decisions, facilitated communication with the Council committee and advisors, and contributed to management analyses. BM wrote the detailed management results. LC led the social analysis and contributed to writing that section. AL placed the project in context during Council meetings and contributed to the introducton and discussion sections.
 
 #Funding
+This work was prepared by employees of the Mid-Atlantic Fishery Management Council and the US Federal Government (Department of Commerce, National Oceanic and Atmospheric Administration) as part of their official duties. AL was funded by the Mid-Atlantic Fishery Management Council.
 
 #Acknowledgements
-We gratefully acknowledge the members of the Mid Atlantic Fishery Management Council, in particular the members of the Ecosystem and Ocean Planning Committee, and the Advisors to the Ecosystem and Ocean Planning Committee. As chair of the Ecosystem and Ocean Planning Committee, Warren Elliott was instrumental in moving this project forward to achieve the results reported here. *name all committee members and advisors who participated* 
+We gratefully acknowledge the members of the Mid Atlantic Fishery Management Council, in particular the members of the Ecosystem and Ocean Planning Committee, and the Advisors to the Ecosystem and Ocean Planning Committee. As chair of the Ecosystem and Ocean Planning Committee, Warren Elliott was instrumental in moving this project forward to achieve the results reported here. *name all committee members and advisors who participated* Mid Atlantic Council Staff members *name everyone* contributed rankings of the management elements by species and sector. Northeast Fisheries Science Center staff contributed to development and presentation of the ecosystem indicators used in this analysis: Kevin Friedland, Sean Hardison, Kimberly Hyde, Sean Lucey, Ryan Morse, Charles Perretti, Vincent Saba, and Laurel Smith. *add others* 
 
 #Supplementary Material
+*Table with rationale for management element rankings, figures we couldn't fit*
 
 #References
 <div id="refs"></div>
@@ -1494,7 +1237,444 @@ We gratefully acknowledge the members of the Mid Atlantic Fishery Management Cou
 \newpage
 #Figures
 
+```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.9\\linewidth', echo = F, message = FALSE, warning = FALSE}
+#knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
+
+dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
+
+stocks <- unique(dat$Entity.Name)
+n.stocks <- length(stocks)
+
+decoder <- read.csv(file.path(data.dir,"2017decoder.csv"))
+# set up the headers for most.recent structure - will contain oldest Assessment.Year
+most.recent <- dat[1,]
+most.recent <- most.recent[-1,]
+
+for (i in 1:n.stocks){
+  temp <- dat[dat$Entity.Name == decoder$Entity.Name[i],]
+  most.recent <- rbind(most.recent,temp[temp$Assessment.Year == max(temp$Assessment.Year),])
+}
+#cbind(n.stocks,length(most.recent[,1]))
+
+# get the max of F.Flimit and F.Fmsy and the max of B.Blimit and B.Bmsy
+Frat <- most.recent$F.Fmsy
+Brat <- most.recent$B.Bmsy
+#Frat[6] <- most.recent$F.Flimit[6]  # Ocean Quahog use Flimit because no Fmsy
+#Frat[18] <- 0.88  # hardwire average of the two GOM models for GOM cod
+#Brat[18] <- 0.155 # hardwire average of the two GOM models for GOM cod
+#model averages have been calculated and included in F/Fmsy column in 2017assess.csv
+#cbind(most.recent$Entity.Name,most.recent$F.Flimit,most.recent$F.Fmsy)
+
+# figure out appropriate range for axes WARNING HARD CODED
+#max(Frat,na.rm=T)
+#max(Brat,na.rm=T)
+x.r <- c(0,3)
+y.r <- c(0,3)
+
+# set some colors
+my.col <- rep(NA,n.stocks)
+MA.col <- "blue"
+NE.col <- "blue"
+BO.col <- "purple"
+for (i in 1:n.stocks){
+  if(decoder$Council[i] == "MAFMC") my.col[i] <- MA.col
+  if(decoder$Council[i] == "NEFMC") my.col[i] <- NE.col
+  if(decoder$Council[i] == "Both")  my.col[i] <- BO.col
+}
+
+# create new matrix for plotting
+xx <- as.data.frame(cbind(decoder[,2:8],Frat,Brat,my.col))
+newlist <- as.factor(decoder$Code)
+others <- as.factor("7 Skates")
+sppcodes <- unlist(list(newlist, others))
+MA.unknown <- sppcodes[c(1,3,4,47,48)] #mackerel, Loligo, Illex, monkfish unknown
+#MA.unknown <- decoder$Code[c(1,3,4,8)] #BSB known
+#NE.unknown <- c(decoder$Code[c(14,23,33)],"7 Skates")
+NE.overfished <- sppcodes[c(17,19)] # GB cod, halibut
+NE.unknown <- sppcodes[c(14,23,33,35,37,47,48,50)] #Red deepsea crab,  Offshore hake, GOM winter flounder, Witch flounder, GB YT,2 monkfish, 7 skates unknown
+
+
+# break out the Councils
+MA <- xx[xx$Council == "MAFMC",]
+NE <- xx[xx$Council == "NEFMC",]
+BO <- xx[xx$Council == "Both",]
+MABO<-rbind(MA, BO)
+NEBO<-rbind(NE, BO)
+
+#if(saveplots) png(file = "MAFMC_joint_stocks_2017.png",  units="in", width = 6, height = 6, res=1200)
+plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,col=my.col[c(1:11,47:49)])
+  abline(v=0.5,lty=2)
+  abline(v=1,lty=3)
+  abline(h=1,lty=2)
+  title(expression("MAFMC " * phantom("and Joint Stocks")), col.main="blue")
+  title(expression(phantom("MAFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
+  title(expression(phantom("MAFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
+  title(expression(phantom("MAFMC and Joint") * " Stocks"), col.main="black")  
+  legend('topright',legend=MA.unknown,pch=NA,text.col=my.col[c(1,3,4,47,48)], title="Unknown Status", title.col = "black")
+  text(MABO$Brat,MABO$Frat,labels=MABO$Code,pos=MABO$my.pos3,col=my.col[c(1:11,47:49)],cex=0.8)
+#if(saveplots) savePlot("MAFMC_Joint_stocks.png", type='png')
+#if(saveplots) dev.off()
+
+#if(saveplots) pdf(file = "NEFMC_joint_stocks.pdf",  width = 6, height = 6)
+#if(saveplots) png(file = "NEFMC_joint_stocks.png",  units="in", width = 6, height = 9, res=1200)
+# plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,col=my.col[12:49])
+#    abline(v=0.5,lty=2)
+#    abline(v=1,lty=3)
+#    abline(h=1,lty=2)
+#    title(expression("NEFMC " * phantom("and Joint Stocks")), col.main="blue")
+#    title(expression(phantom("NEFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
+#    title(expression(phantom("NEFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
+#    title(expression(phantom("NEFMC and Joint") * " Stocks"), col.main="black")  
+#    legend('topright',legend=NE.overfished,pch=NA,title="Overfished, F \nStatus Unknown",bty="n", text.width=strwidth("Offshore Hake"), inset=c(0,.05))
+#    legend('right',legend=NE.unknown,pch=NA,title="Unknown Status", bty="n")
+#    text(NEBO$Brat,NEBO$Frat,labels=NEBO$Code,pos=NEBO$my.pos3,col=my.col[12:49],cex=0.8)
+#if(saveplots) savePlot("NEFMC_Joint_stocks.png", type='png')
+#if(saveplots) dev.off()
+
+```
+
 \newpage
+
+
+```{r, fig.cap="Northeast US Ecosystem Production units. \\label{EPUmap}", echo = F, out.width='0.9\\linewidth'}
+image_read(file.path(image.dir,"NEshelfEcoRegionsALL.png")) %>%
+image_trim()
+
+```
+
+\newpage
+
+```{r,  echo = F, fig.show='hold', fig.align='center', out.width='0.49\\linewidth', message = FALSE, warning = FALSE}
+
+#pp
+opar <- par(mar = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'MAB PPD', x.label = 'Year', 
+         y.label = expression('Production, gC m'^-2 * ' d'^1), 
+         rel.y.num = 0.8, rel.y.text = 1)
+
+#ppcycle
+#knitr::include_graphics(file.path(image.dir, 'PPbloomtiming.png'))
+
+#Ctypicus
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'Centropages typicus spring', stacked = 'A', tol = 0.03,
+         rel.y.num = 0.9, scale.axis = 10^3)
+soe.plot(SOE.data, 'Time', 'Centropages typicus fall', stacked = 'B', tol = 0.03, 
+         rel.y.num = 0.9, scale.axis = 10^3)
+
+soe.stacked.axis('Year', expression('thousands per 100 m' ^ 3), rel.y.text = 1.1,
+                 y.line = 3)
+
+#fishcond
+#knitr::include_graphics(file.path(image.dir, 'MAFMC_Fish_Condition.jpg'))
+
+#fishprod
+#knitr::include_graphics(file.path(image.dir, 'FishProdMAB.pdf'))
+#knitr::include_graphics(file.path(image.dir, 'fishprodlegend.pdf'))
+
+knitr::include_graphics(file.path(image.dir, c('MAFMC_Fish_Condition.jpg', 'FishProdMAB.pdf')))
+
+```
+
+```{r, fig.cap="(Top right) Primary production in the Mid Atlantic Bight; (Top left) A: Centropages typicus spring, B: Centropages typicus fall; (Bottom right) Fish condition, weight/length; (Bottom left) Fish productivity: Anomalies of recruit abundance per spawner biomass for species in the MAB. Annual anomalies shown are the average of spring and fall anomalies. \\label{ecoprod}",, fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
+
+```
+
+\newpage
+
+
+```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, out.width='0.8\\linewidth', echo = F, message = FALSE, warning = FALSE}
+#knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
+#out.width='\\linewidth'
+
+#SOE.data[Var %like% "ASDIST"]
+opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+soe.plot(SOE.data, 'Time', 'BLACK SEA BASS ASDIST',    stacked = 'A', scale.axis = 100, 
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER ASDIST',   stacked = 'B', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'SCUP ASDIST',              stacked = 'C', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'BUTTERFISH ASDIST',        stacked = 'D', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL ASDIST', stacked = 'E', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'LONGFIN SQUID ASDIST',     stacked = 'F', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID ASDIST', stacked = 'G', 
+         scale.axis = 100, rel.y.num = 0.9)
+soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.text = 1.5)
+
+#opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+#soe.plot(SOE.data, 'Time', 'BLACK SEA BASS DTEOC',    stacked = 'A', scale.axis = 100, 
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER DTEOC',   stacked = 'B', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'SCUP DTEOC',              stacked = 'C', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'BUTTERFISH DTEOC',        stacked = 'D', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL DTEOC', stacked = 'E', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'LONGFIN SQUID DTEOC',     stacked = 'F', scale.axis = 100,
+#         rel.y.num = 0.9)
+#soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID DTEOC', stacked = 'G', 
+#         scale.axis = 100, rel.y.num = 0.9)
+#soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
+
+```
+
+\newpage
+
+```{r, fig.show='hold', fig.align='center', out.width='0.49\\linewidth',  echo = F, message = FALSE, warning = FALSE}
+
+#fig.cap="Aggregate Mid-Atlantic managed species revenue  \\label{comprofagg}",
+opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
+
+aggrev <- SOE.data[Var %like% "MAFMC Revenue"]
+setkey(aggrev, Time)
+allrev <- aggrev[, sum(Value, na.rm = T), by = key(aggrev)]
+setnames(allrev, 'V1', 'Value')
+allrev[, Var := paste('MAFMC Revenue')]
+allrev[, Units := 'USD']
+allrev[, EPU := 'ALL']
+
+soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", x.start = 1986, rel.y.num = 0.8, rel.y.text = 1)
+
+#fig.cap="Diversity in species revenue \\label{fleetsppdiv}"
+# using new diversity data calcualted with 2017 and separating scallops/clams
+load(file.path(data.dir, 'altfleetdiv_data.RData'))
+altfleetdiv.data <- altfleetdiv.data[altfleetdiv.data$Time < 2017,]
+
+opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic commercial species diversity', x.end = 2016, rel.y.num = 0.8, x.label = 'Year', y.label = 'Shannon index', rel.y.text = 1)
+
+#fig.cap="A: number of anglers, B: number of trips \\label{recreation}",
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'Mid-Atlantic Rec participation', x.end = 2016,
+         scale.axis = 10^6, rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'Mid-Atlantic angler trips', x.end = 2016,
+         scale.axis = 10^6, rel.y.num = 0.8, stacked = 'B')
+
+soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
+                 rel.y.text = .8)
+
+#fig.cap="Shoreside support businesses: Number of Companies  \\label{shoresupp1}"
+opar <- par(mfrow = c(2, 1), mar = c(1, 0, 1, 0), oma = c(4, 6, 2, 6))
+
+aggcomp <- SOE.data[Units %like% "Number of Companies"]
+setkey(aggcomp, Time, EPU)
+allcomp <- aggcomp[, sum(Value, na.rm = T), by = key(aggcomp)]
+setnames(allcomp, 'V1', 'Value')
+allcomp[, Var := paste('Mid-Atlantic Companies')]
+allcomp[, Units := 'Number']
+
+soe.plot(allcomp, 'Time', 'Mid-Atlantic Companies', rel.y.num = 0.8, x.label = 'Year', y.label = 'Number of Businesses', rel.y.text = 1)
+
+#fig.cap="Shoreside support businesses: Number of Nonemployer entities  \\label{shoresupp2}"
+#opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+
+aggent <- SOE.data[Units %like% "Number of Nonemployer establishments"]
+setkey(aggent, Time, EPU)
+allent <- aggent[, sum(Value, na.rm = T), by = key(aggent)]
+setnames(allent, 'V1', 'Value')
+allent[, Var := paste('Mid-Atlantic Nonemployer Entities')]
+allent[, Units := 'Number']
+
+soe.plot(allent, 'Time', 'Mid-Atlantic Nonemployer Entities', rel.y.num = 0.8, x.start = 2001, x.label = 'Year', y.label = 'Number of Businesses', rel.y.text = 1)
+
+```
+
+```{r, fig.cap="(Top left) Aggregate Mid-Atlantic managed species revenue; (Top right) Diversity in species revenue; (Bottom left) Recreational participation: A: number of anglers, B: number of trips; (Bottom right) Shoreside support businesses: Number of Companies (upper) and Number of Nonemployer entities (lower) \\label{econinds}", fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
+
+```
+
+\newpage
+
+```{r Read GIS files, echo = F, results = 'hide'}
+coast <- readOGR(gis.dir, 'NES_LME_coast')
+coast <- spTransform(coast, CRS('+init=epsg:4326'))
+```
+
+```{r , echo = F, out.width=c('0.49\\linewidth', '\\linewidth'), fig.show='hold', fig.align='center'}
+
+#fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}",
+load(file.path(data.dir, 'altfleetdiv_data.RData'))
+altfleetdiv.data <- altfleetdiv.data[altfleetdiv.data$Time < 2017,]
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(6, 6, 2, 6))
+soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic fleet count', rel.y.num = 0.8, stacked = 'A')
+soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity', rel.y.num = 0.8, stacked = 'B')
+
+soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
+
+#ig.cap="Risks from sea level rise (A), reliance on climate-vulnerable species (B), and catch diversity (C) \\label{commrisk}"
+#knitr::include_graphics(file.path(image.dir, 'MidClimateRisk.png'))
+#Risk maps
+sea.col <- 'light blue'
+point.cex <- c(0.6, 1.0, 1.2, 1.4)
+opar<- par(mfrow = c(1, 3), mar = c(0, 0, 0, 0), oma = c(3, 4.2, 5, 1))
+
+#Sea Level Rise
+plot(0, 0, xlim = c(-77, -70), ylim = c(35, 42), xlab = '', ylab = '', axes = F,
+     typ = 'n')
+
+#Add background
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
+
+#Add coast  
+plot(coast, col = 'wheat', add = T)
+box()
+
+axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
+                                          expression('70'* degree * ' W'),
+                                          expression('65'* degree * ' W')), 
+     cex.axis = 1.5)
+axis(2, at = c(35, 40, 45), labels = c(expression(35 * degree * ' N'),
+                                       expression(40 * degree * ' N'),
+                                       expression(45 * degree * ' N')), las = T,
+     cex.axis = 1.5)
+
+#Add points
+points(risk[SLR_NE1 == 1, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'light green', cex = point.cex[1])
+points(risk[SLR_NE1 == 2, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'green', cex = point.cex[2])
+points(risk[SLR_NE1 == 3, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'yellow', cex = point.cex[3])
+points(risk[SLR_NE1 == 4, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'red', cex = point.cex[4])
+
+#Add Label
+text(u[1], u[4], labels = 'A', cex = 2, adj = c(-0.5, 1.5))
+
+a <- legend('bottomright', 
+            legend = c('High', 'Medium/High', 'Moderate', 'Low'), bty = 'n',
+            pch = 21, pt.bg = c('red', 'yellow', 'green', 'light green'), 
+            pt.cex = point.cex[4:1], cex = 1.5, y.intersp = 1)
+
+#Species Risk
+point.cex <- c(0.0, 1.0, 1.5, 2.0)
+plot(0, 0, xlim = c(-77, -70), ylim = c(35, 42), xlab = '', ylab = '', axes = F,
+     typ = 'n')
+
+#Add background
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
+
+#Add coast  
+plot(coast, col = 'wheat', add = T)
+box()
+
+axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
+                                          expression('70'* degree * ' W'),
+                                          expression('65'* degree * ' W')),
+     cex.axis = 1.5)
+
+#Add points
+for(i in 2:4){
+    points(risk[SpeciesVul == 'Mixed' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)], 
+           pch = 21, bg = 'white', cex = point.cex[i])
+    points(risk[SpeciesVul == 'Low' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)], 
+           pch = 21, bg = 'green', cex = point.cex[i])
+    points(risk[SpeciesVul == 'Moderate' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)],
+           pch = 21, bg = 'blue', cex = point.cex[i])
+    points(risk[SpeciesVul == 'High/Very High' & ValueRank == i, list(PRIMARY_LO, PRIMARY_LA)],
+           pch = 21, bg = 'red', cex = point.cex[i])
+}
+
+a <- legend('bottomright', 
+            legend = c('High/Very High', 'Moderate', 'Low', 'Mixed', '', 
+                       '< $1M', '$1M - $10M', '> $10M'), bty = 'n',
+            pch = 21, pt.bg = c('red', 'blue', 'green', 'white', rep('white', 4)), 
+            pt.cex = c(rep(point.cex[3], 4), 0, point.cex[2:4]), cex = 1.5)
+
+#Add Label
+text(u[1], u[4], labels = 'B', cex = 2, adj = c(-0.5, 1.5))
+
+#Catch Diversity
+plot(0, 0, xlim = c(-77, -70), ylim = c(35, 42), xlab = '', ylab = '', axes = F,
+     typ = 'n')
+
+#Add background
+u <- par('usr')
+rect(u[1], u[3], u[2], u[4], border = NA, col = sea.col)
+
+#Add coast  
+plot(coast, col = 'wheat', add = T)
+box()
+
+axis(1, at = c(-75, -70, -65), labels = c(expression('75'* degree * ' W'), 
+                                          expression('70'* degree * ' W'),
+                                          expression('65'* degree * ' W')),
+     cex.axis = 1.5)
+
+#Add points
+points(risk[Simpson >= 1 & Simpson < 2.5, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'red', cex = point.cex[4])
+points(risk[Simpson >= 2.5 & Simpson < 5, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'yellow', cex = point.cex[3])
+points(risk[Simpson >= 5, list(PRIMARY_LO, PRIMARY_LA)], pch = 21,
+       bg = 'green', cex = point.cex[2])
+
+#Add Label
+text(u[1], u[4], labels = 'C', cex = 2, adj = c(-0.5, 1.5))
+
+a <- legend('bottomright', 
+            legend = c('Low', 'Moderate', 'High'), bty = 'n',
+            pch = 21, pt.bg = c('red', 'yellow', 'green'), 
+            pt.cex = point.cex[4:2], cex = 1.5, y.intersp = 1)
+
+```
+
+```{r, fig.cap="Fishing community resilience: (Top) Fleet diversity--A: fleet count, B: average fleet diversity; (Bottom) Risks from sea level rise (A), reliance on climate-vulnerable species (B), and catch diversity (C) \\label{commrisk}", fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
+
+```
+
+\newpage
+
+```{r , fig.show='hold', fig.align='center', out.width='0.49\\linewidth',  echo = F, message = FALSE, warning = FALSE}
+
+#fig.cap="Aggregate Mid-Atlantic managed species landings  \\label{comfoodagg}"
+opar <- par(mfrow = c(1, 1), mar = c(4, 0, 4, 0), oma = c(4, 6, 2, 2))
+
+aggland <- SOE.data[Var %like% "MAFMC Landings"]
+setkey(aggland, Time)
+allland <- aggland[, sum(Value, na.rm = T), by = key(aggland)]
+setnames(allland, 'V1', 'Value')
+allland[, Var := paste('MAFMC Landings')]
+allland[, Units := 'Metric tons']
+allland[, EPU := 'ALL']
+
+soe.plot(allland, 'Time', 'MAFMC Landings', x.label="Year", y.label="Commercial Landings Metric Tons", rel.y.num = 1, rel.y.text = 0.8 )
+
+#"A: Total recreational harvest, B: Harvest per angler  \\label{recfood}"
+
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'Total_Harvest', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data[EPU %like% "MAB"], 'Time', 'Harvest.per.Angler', rel.y.num = 0.8, stacked = 'B')
+
+soe.stacked.axis('Year', 'N Recreationally Harvested Fish',rel.y.text = 1)
+```
+
+
+```{r, fig.cap="Seafood production: (Left) Aggregate Mid-Atlantic managed species commercial landings; (Right) A: Total recreational harvest, B: Harvest per angler \\label{seafood}", fig.height=0.05}
+opar<-par(mar=c(0,0,0,0))
+plot(0,0,typ='n',axes=F,xlab='',ylab='')
+
+```
+
+\newpage
+
 #Tables
 
 ```{r riskel, tab.cap="Risk Elements, Definitions, and Indicators Used\\label{riskel}", echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
