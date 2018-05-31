@@ -34,9 +34,12 @@ bibliography: My_Library.bib
 #data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
 #image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
 #gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
-data.dir  <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAdata'
-image.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAimages'
-gis.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAusa_shape_files'
+#data.dir  <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAdata'
+#image.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAimages'
+#gis.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAusa_shape_files'
+data.dir  <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAdata'
+image.dir <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAimages'
+gis.dir <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAusa_shape_files'
 PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {  
@@ -206,15 +209,15 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 #Introduction
 The Mid-Atlantic Council approved an Ecosystem Approach to Fisheries Management (EAFM) Guidance Document in 2017 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management.  Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them.  Because there are so many possible ecosystem interactions to consider, risk assessment was adopted as the first step to identify a subset of high priority interactions.  
 
-**This report documents a potential use of ecosystem indicators for Georges Bank using the same framework as the Mid-Atlantic Council’s EAFM initial risk assessment**(reviewed in December 2017, available at http://www.mafmc.org/s/SOE_MAB_RiskAssess-6cgk.pdf). **This is intended as an example, not a finished assessment. To complete an actual assessment for Georges Bank and Gulf of Maine would require interation with the New England Council, its committees and advisors.** 
+**This report documents a potential use of ecosystem indicators for Georges Bank using the same framework as the Mid-Atlantic Council’s EAFM initial risk assessment** (reviewed in December 2017, available at http://www.mafmc.org/s/SOE_MAB_RiskAssess-6cgk.pdf). **This is intended as an example, not a finished assessment. To complete an actual assessment for Georges Bank and Gulf of Maine would require interation with the New England Council, its committees and advisors.** 
 
 A risk assessment could help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, risk assessment tailored to the New England region could provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account.  
 
-A **Risk Element** is an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements or risk rankings may change as conditions change or new information becomes available. Thus, an EBFM Risk Assessment can be a dynamic and evolving process that will be revisited and updated in future years.
+The Mid-Atlantic Council defined a **Risk Element** as an aspect that may threaten achieving the biological, economic, or social objectives that the Council desires from a fishery. By that definition, some risk elements or risk rankings may change as conditions change or new information becomes available. Thus, an EBFM Risk Assessment can be a dynamic and evolving process that will be revisited and updated in future years.
 
 The Mid-Atlantic Council selected a range of risk elements to be evaluated at either the managed species level, the species and sector level, or the ecosystem level. An overview of the risk elements with definitions and associated indicators as adopted by the MAFMC is presented in Table \ref{elements}. 
 
-In the following sections, we describe each risk element in more detail along with proposed definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. **New England and or Georges Bank indicators have been substituted for the original Mid-Atlantic indicators.** For trend-based risk definitions, a Mann-Kendall test for monotonic trends is used to test significance (p<0.05) of both long term and recent trends. Autocorrelation in the time series was addressed by prewhitening the data as suggested by [@yue_influence_2002]. 
+In the following sections, we describe each risk element in more detail along with MAFMC definitions of low, low-moderate, moderate-high, and high risk. Indicators are then shown for each risk element and a preliminary risk categorization based on the indicator is presented. **New England and or Georges Bank indicators have been substituted for the original Mid-Atlantic indicators where possible.** For trend-based risk definitions, a Mann-Kendall test for monotonic trends is used to test significance (p<0.05) of both long term and recent trends. Autocorrelation in the time series was addressed by prewhitening the data as suggested by [@yue_influence_2002]. 
 
 At the end of the document, we summarize risk ranking results across elements in three tables.
 
@@ -271,8 +274,8 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 # Ecological Elements
 
-##Assessment Performance *need to update from NE SOE*
-This element is applied at the species level. The elements below describe risks according to our best understanding of stock status, but assessment methods and data quality shape our understanding. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations. <!--The MAFMC risk policy accounts for scientific uncertainty in assessments, with methods for determining scientific uncertainty currently being refined by the Scientific and Statistical Committee. Ranking for this risk element will be adjusted if necessary to ensure consistency with SSC methods in the future. -->
+##Assessment Performance
+This element is applied at the species level. The elements below describe risks according to our best understanding of stock status, but assessment methods and data quality shape our understanding. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations.
 
 ```{r riskass, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -286,7 +289,11 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Stocks with low risk due to assessment performance include <!--ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because it is assessed with the data limited methods (DLM) toolbox. *Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment was peer-reviewed in November 2017 which may change this ranking.*-->
+*Members of the New England Council's Scientific and Statistical Committee would be most qualified to rank species for this risk element. This preliminary characterization is based on review of NE SSC minutes from late 2017.*
+
+Stocks with low risk due to assessment performance include sea scallops, Atlantic herring, GB haddock, American plaice (?), white hake (?)
+Stocks with low-moderate risk for this element include GB winter flounder (accepted assessment, troubling diagnostics), windowpane(?), Acadian redfish (accepted assessment, retrospective pattern), 
+Stocks with high risk due to assessment performance include those where OFL could not be determined: GB yellowtail flounder, witch flounder, and Atlantic halbut. High risk was also assigned to stocks using empirical methods (due to rejected assessments): GB cod, 
 
 ##F status and B status *need to update from NE SOE*
 These elements are applied at the species level. Fishing mortality (F) rates and biomass (B) levels relative to established reference points from assessments indicate the level of risk to achieving OY. Risk level definitions for F and B are below.
