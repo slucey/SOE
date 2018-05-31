@@ -644,8 +644,8 @@ knitr::include_graphics(file.path(image.dir, 'NEVAshiftNE.png'))
 Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. 
 
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
-knitr::include_graphics(file.path(image.dir, 'black-sea-bass-kd.png'))
-knitr::include_graphics(file.path(image.dir, 'longfin-squid-kd.png'))
+knitr::include_graphics(file.path(image.dir, 'acadian-redfish-kd.png'))
+knitr::include_graphics(file.path(image.dir, 'yellowtail-flounder-kd.png'))
 
 ```
 
@@ -657,49 +657,47 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
 A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
-###Changes in Along Shelf Position *update with NE species*
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several MAFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution aside from squids.  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
+###Changes in Along Shelf Position
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several NEFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution.  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
-```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, echo = F, message = FALSE, warning = FALSE}
+```{r, fig.cap="Shifts in species distribution over time; A: Yellowtail flounder, B: Winter flounder, C: Cod, D: Haddock, E: Atlantic herring, F: Acadian redfish \\label{shifts}", fig.height=8, fig.show='hold', out.width='.49\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
 #out.width='\\linewidth'
 
 #SOE.data[Var %like% "ASDIST"]
-opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-soe.plot(SOE.data, 'Time', 'BLACK SEA BASS ASDIST',    stacked = 'A', scale.axis = 100, 
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER ASDIST',   stacked = 'B', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SCUP ASDIST',              stacked = 'C', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'BUTTERFISH ASDIST',        stacked = 'D', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL ASDIST', stacked = 'E', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'LONGFIN SQUID ASDIST',     stacked = 'F', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID ASDIST', stacked = 'G', 
+soe.plot(SOE.data, 'Time', 'YELLOWTAIL FLOUNDER ASDIST', stacked = 'A',  
          scale.axis = 100, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'WINTER FLOUNDER ASDIST', stacked = 'B', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC COD ASDIST', stacked = 'C', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'HADDOCK ASDIST', stacked = 'D', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC HERRING ASDIST', stacked = 'E', scale.axis = 100,
+         rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ACADIAN REDFISH ASDIST', stacked = 'F', scale.axis = 100,
+         rel.y.num = 0.9)
+
 soe.stacked.axis('Year', expression('Along shelf distance, 10'^2*' km'), rel.y.text = 1.5)
 
-#opar <- par(mfrow = c(7, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+opar <- par(mfrow = c(6, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-#soe.plot(SOE.data, 'Time', 'BLACK SEA BASS DTEOC',    stacked = 'A', scale.axis = 100, 
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER DTEOC',   stacked = 'B', scale.axis = 100,
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'SCUP DTEOC',              stacked = 'C', scale.axis = 100,
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'BUTTERFISH DTEOC',        stacked = 'D', scale.axis = 100,
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL DTEOC', stacked = 'E', scale.axis = 100,
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'LONGFIN SQUID DTEOC',     stacked = 'F', scale.axis = 100,
-#         rel.y.num = 0.9)
-#soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID DTEOC', stacked = 'G', 
-#         scale.axis = 100, rel.y.num = 0.9)
-#soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
+soe.plot(SOE.data, 'Time', 'YELLOWTAIL FLOUNDER DTEOC', stacked = 'A', 
+         scale.axis = 1, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'WINTER FLOUNDER DTEOC', stacked = 'B',
+         scale.axis = 1, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC COD DTEOC', stacked = 'C', 
+         scale.axis = 1, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'HADDOCK DTEOC', stacked = 'D', 
+         scale.axis = 1, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ATLANTIC HERRING DTEOC', stacked = 'E', 
+         scale.axis = 1, rel.y.num = 0.9)
+soe.plot(SOE.data, 'Time', 'ACADIAN REDFISH DTEOC', stacked = 'F', 
+         scale.axis = 1, rel.y.num = 0.9)
+
+soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
 
 ```
 
@@ -1087,21 +1085,7 @@ soe.plot(SOE.data, 'Time', 'New England average fleet diversity', rel.y.num = 0.
 
 soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 ```
-<!--
-At the request of the EOP and advisors, the diversity metrics were also calculated giving less weight to the scallop and clam fleets. However, the overall trends are very similar. 
 
-```{r Fleet Diversity collapsing the scallop and clam fleets, fig.cap="A: fleet count, B: average fleet diversity  \\label{fleetdiv}", echo = F, fig.height=3.5}
-
-load(file.path(data.dir, 'altfleetdiv_data.RData'))
-altfleetdiv.data <- altfleetdiv.data[altfleetdiv.data$Time < 2017,]
-
-opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic fleet count scallop clam collapsed', rel.y.num = 0.8, stacked = 'A')
-soe.plot(altfleetdiv.data, 'Time', 'Mid-Atlantic average fleet diversity scallop clam collapsed', rel.y.num = 0.8, stacked = 'B')
-
-soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
-```
--->
 There is a long term decrease in the fleet count metric. Therefore this element ranks moderate-high risk. <!--The number of fleets in New England seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.-->
 
 ##Community Vulnerability *update from NE SOE, change map borders*
