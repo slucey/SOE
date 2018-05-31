@@ -206,7 +206,7 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 #Introduction
 The Mid-Atlantic Council approved an Ecosystem Approach to Fisheries Management (EAFM) Guidance Document in 2017 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management.  Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them.  Because there are so many possible ecosystem interactions to consider, risk assessment was adopted as the first step to identify a subset of high priority interactions.  
 
-**This report documents a potential use of ecosystem indicators for Georges Bank using the same framework as the Mid-Atlantic Council’s EAFM initial risk assessment**(reviewed in December 2017, available at ). **This is intended as an example, not a finished assessment. To complete an actual assessment for Georges Bank and Gulf of Maine would require interation with the New England Council, its committees and advisors.** 
+**This report documents a potential use of ecosystem indicators for Georges Bank using the same framework as the Mid-Atlantic Council’s EAFM initial risk assessment**(reviewed in December 2017, available at http://www.mafmc.org/s/SOE_MAB_RiskAssess-6cgk.pdf). **This is intended as an example, not a finished assessment. To complete an actual assessment for Georges Bank and Gulf of Maine would require interation with the New England Council, its committees and advisors.** 
 
 A risk assessment could help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, risk assessment tailored to the New England region could provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account.  
 
@@ -272,7 +272,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 # Ecological Elements
 
 ##Assessment Performance *need to update from NE SOE*
-This element is applied at the species level. The elements below describe risks according to our best understanding of stock status, but assessment methods and data quality shape our understanding. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations. The MAFMC risk policy accounts for scientific uncertainty in assessments, with methods for determining scientific uncertainty currently being refined by the Scientific and Statistical Committee. Ranking for this risk element will be adjusted if necessary to ensure consistency with SSC methods in the future. 
+This element is applied at the species level. The elements below describe risks according to our best understanding of stock status, but assessment methods and data quality shape our understanding. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations. <!--The MAFMC risk policy accounts for scientific uncertainty in assessments, with methods for determining scientific uncertainty currently being refined by the Scientific and Statistical Committee. Ranking for this risk element will be adjusted if necessary to ensure consistency with SSC methods in the future. -->
 
 ```{r riskass, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -286,7 +286,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Stocks with low risk due to assessment performance include ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because it is assessed with the data limited methods (DLM) toolbox. *Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment was peer-reviewed in November 2017 which may change this ranking.*
+Stocks with low risk due to assessment performance include <!--ocean quahog, surf clam, summer flounder, scup, black sea bass, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innacurate ageing methods, so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks high risk for assessment type because it is assessed with the data limited methods (DLM) toolbox. *Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment was peer-reviewed in November 2017 which may change this ranking.*-->
 
 ##F status and B status *need to update from NE SOE*
 These elements are applied at the species level. Fishing mortality (F) rates and biomass (B) levels relative to established reference points from assessments indicate the level of risk to achieving OY. Risk level definitions for F and B are below.
@@ -315,7 +315,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Current assessment results for all MAFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for surfclams, ocean quahogs, scup, black sea bass, and butterfish. Bluefish, golden tilefish, and spiny dogfish F status is in the low risk category, and B risk is in the low-moderate risk category. Summer flounder F status is in the high risk category and B status is in the low-moderate risk category. F and B status for northern and southern goosefish stocks were formerly in the low risk categories, but a recent assessment update was unable to determine status, so we provisionally rank them low-moderate risk (unknown but weight of evidence supports lower risk). Longfin squid B is above the established B threshold, and both squid stocks have unknown F status, but F is difficult to estimate because it is very low relative to natural mortality, so they are also ranked low-moderate risk. Blueline tilefish are high risk for F status and have unknown B status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for B status. Finally, Atlantic mackerel has moderate-high risk for both F and B status due both to failed assessment/unknown status and indications from recent analyses. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*
+Current assessment results for all NEFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for <!--surfclams, ocean quahogs, scup, black sea bass, and butterfish. Bluefish, golden tilefish, and spiny dogfish F status is in the low risk category, and B risk is in the low-moderate risk category. Summer flounder F status is in the high risk category and B status is in the low-moderate risk category. F and B status for northern and southern goosefish stocks were formerly in the low risk categories, but a recent assessment update was unable to determine status, so we provisionally rank them low-moderate risk (unknown but weight of evidence supports lower risk). Longfin squid B is above the established B threshold, and both squid stocks have unknown F status, but F is difficult to estimate because it is very low relative to natural mortality, so they are also ranked low-moderate risk. Blueline tilefish are high risk for F status and have unknown B status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for B status. Finally, Atlantic mackerel has moderate-high risk for both F and B status due both to failed assessment/unknown status and indications from recent analyses. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*-->
 
 ```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.65\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -348,8 +348,8 @@ Brat <- most.recent$B.Bmsy
 # figure out appropriate range for axes WARNING HARD CODED
 #max(Frat,na.rm=T)
 #max(Brat,na.rm=T)
-x.r <- c(0,3)
-y.r <- c(0,3)
+x.r <- c(0,7)
+y.r <- c(0,3.5)
 
 # set some colors
 my.col <- rep(NA,n.stocks)
@@ -370,8 +370,9 @@ sppcodes <- unlist(list(newlist, others))
 MA.unknown <- sppcodes[c(1,3,4,47,48)] #mackerel, Loligo, Illex, monkfish unknown
 #MA.unknown <- decoder$Code[c(1,3,4,8)] #BSB known
 #NE.unknown <- c(decoder$Code[c(14,23,33)],"7 Skates")
-NE.overfished <- sppcodes[c(17,19)] # GB cod, halibut
-NE.unknown <- sppcodes[c(14,23,33,35,37,47,48,50)] #Red deepsea crab,  Offshore hake, GOM winter flounder, Witch flounder, GB YT,2 monkfish, 7 skates unknown
+NE.overfished <- sppcodes[c(17,19,35)] # GB cod, halibut, witch, thorny skate
+NE.unknown <- sppcodes[c(14,23,33,47,48)] #Red deepsea crab,  Offshore hake, GOM winter flounder, GB YT,2 monkfish, 7 skates unknown
+my.col[50] <- NE.col
 
 
 # break out the Councils
@@ -382,32 +383,32 @@ MABO<-rbind(MA, BO)
 NEBO<-rbind(NE, BO)
 
 #if(saveplots) png(file = "MAFMC_joint_stocks_2017.png",  units="in", width = 6, height = 6, res=1200)
-plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,col=my.col[c(1:11,47:49)])
-  abline(v=0.5,lty=2)
-  abline(v=1,lty=3)
-  abline(h=1,lty=2)
-  title(expression("MAFMC " * phantom("and Joint Stocks")), col.main="blue")
-  title(expression(phantom("MAFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
-  title(expression(phantom("MAFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
-  title(expression(phantom("MAFMC and Joint") * " Stocks"), col.main="black")  
-  legend('topright',legend=MA.unknown,pch=NA,text.col=my.col[c(1,3,4,47,48)], title="Unknown Status", title.col = "black")
-  text(MABO$Brat,MABO$Frat,labels=MABO$Code,pos=MABO$my.pos3,col=my.col[c(1:11,47:49)],cex=0.8)
+# plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,col=my.col[c(1:11,47:49)])
+#   abline(v=0.5,lty=2)
+#   abline(v=1,lty=3)
+#   abline(h=1,lty=2)
+#   title(expression("MAFMC " * phantom("and Joint Stocks")), col.main="blue")
+#   title(expression(phantom("MAFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
+#   title(expression(phantom("MAFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
+#   title(expression(phantom("MAFMC and Joint") * " Stocks"), col.main="black")  
+#   legend('topright',legend=MA.unknown,pch=NA,text.col=my.col[c(1,3,4,47,48)], title="Unknown Status", title.col = "black")
+#   text(MABO$Brat,MABO$Frat,labels=MABO$Code,pos=MABO$my.pos3,col=my.col[c(1:11,47:49)],cex=0.8)
 #if(saveplots) savePlot("MAFMC_Joint_stocks.png", type='png')
 #if(saveplots) dev.off()
 
 #if(saveplots) pdf(file = "NEFMC_joint_stocks.pdf",  width = 6, height = 6)
 #if(saveplots) png(file = "NEFMC_joint_stocks.png",  units="in", width = 6, height = 9, res=1200)
-# plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,col=my.col[12:49])
-#    abline(v=0.5,lty=2)
-#    abline(v=1,lty=3)
-#    abline(h=1,lty=2)
-#    title(expression("NEFMC " * phantom("and Joint Stocks")), col.main="blue")
-#    title(expression(phantom("NEFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
-#    title(expression(phantom("NEFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
-#    title(expression(phantom("NEFMC and Joint") * " Stocks"), col.main="black")  
-#    legend('topright',legend=NE.overfished,pch=NA,title="Overfished, F \nStatus Unknown",bty="n", text.width=strwidth("Offshore Hake"), inset=c(0,.05))
-#    legend('right',legend=NE.unknown,pch=NA,title="Unknown Status", bty="n")
-#    text(NEBO$Brat,NEBO$Frat,labels=NEBO$Code,pos=NEBO$my.pos3,col=my.col[12:49],cex=0.8)
+plot(NEBO$Brat,NEBO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,col=my.col[12:49])
+   abline(v=0.5,lty=2)
+   abline(v=1,lty=3)
+   abline(h=1,lty=2)
+   title(expression("NEFMC " * phantom("and Joint Stocks")), col.main="blue")
+   title(expression(phantom("NEFMC ") * "and " * phantom("Joint Stocks")), col.main="black")
+   title(expression(phantom("NEFMC and ") * "Joint" * phantom(" Stocks")), col.main="purple")
+   title(expression(phantom("NEFMC and Joint") * " Stocks"), col.main="black")
+   legend('topright',legend=NE.overfished,pch=NA,text.col=my.col[c(17,19,35)], title="Overfished, F \nStatus Unknown",title.col = "black", bty="n", text.width=strwidth("Offshore Hake"), inset=c(0,.05))
+   legend('right',legend=NE.unknown,pch=NA,text.col=my.col[c(14,23,33,47,48)],title="Unknown Status", title.col = "black",bty="n")
+   text(NEBO$Brat,NEBO$Frat,labels=NEBO$Code,pos=NEBO$my.pos3,col=my.col[12:49],cex=0.8)
 #if(saveplots) savePlot("NEFMC_Joint_stocks.png", type='png')
 #if(saveplots) dev.off()
 
