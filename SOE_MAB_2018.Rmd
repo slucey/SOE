@@ -38,8 +38,10 @@ load(file.path(data.dir, "SOE_data_2018.Rdata"))
 # latex figure folder
 knitr::opts_chunk$set(echo = FALSE, fig.path = './iea_figs_ne/')
 
-#The map_figs option can be set to FALSE to skip making maps on the fly (they will be missing). Or TRUE to make them. 
+#The map_figs option can be set to FALSE to skip making maps on the fly (they will be missing). Or TRUE to make them. Some printers have issues with how knitr compiles maps in this document. Turn printer_friendly to TRUE to load maps from .png files. Image files can be found on the google drive directory /SOE_figures/images/. Email sean.hardison@noaa.gov for copies of these images.
+
 map_figs <- T
+printer_friendly <- F
 
 ```
 
@@ -416,7 +418,7 @@ finder <- function(data, match = match, factor = T){
   
 }
 
-#thermal habitat map function
+
 #thermal habitat map function
 th_plot <- function(data, letter, z.max, y.axis = T,
                     legend = T, pos){
@@ -641,11 +643,11 @@ interannual variability in recent years, driven primarily by increases in prices
 
 **Biomass of resource species changes seasonally in this dynamic system.**  Survey biomass trends for aggregated trophic groups of resource species differ in the fall and spring. Larval survey data indicates species diversity has increased in the spring, but no similar shift has been witnessed in the fall. At the lowest trophic level, benthos, including commercial shellfish, show long term increases in both seasons. In contrast, piscivores at higher trophic levels have conflicting long term trends depending on the season sampled. Seasonally divergent aggregate trends require further investigation.
 
-**Additional indicators in this report suggest a note of caution for the aggregate productivity of fish species in the region** (fish condition declined and recovered for some species while survey based aggregate “recruitment” has declined overall). These changes in fish productivity may be linked to observed patterns in plankton communities, to changes in habitat, or both.  While there are some long-term productivity trends at the bottom of the food web in the Mid Atlantic, changes in species composition and shifts in seasonal timing may have a greater impact on upper trophic levels. Temperature is increasing in long term sea surface records as well as surface and bottom measurements from surveys. The seasonal temperature signal also shows sustained warming. **Warming waters have impacts on the ecosystem that can be complex due to differential impacts at the species level, including observed shifts in species distribution and changes in productivity as thermal habitats shift.** 
+**Additional indicators in this report suggest a note of caution for the aggregate productivity of fish species in the region** (fish condition declined and recovered for some species while survey based aggregate "recruitment"" has declined overall). These changes in fish productivity may be linked to observed patterns in plankton communities, to changes in habitat, or both.  While there are some long-term productivity trends at the bottom of the food web in the Mid Atlantic, changes in species composition and shifts in seasonal timing may have a greater impact on upper trophic levels. Temperature is increasing in long term sea surface records as well as surface and bottom measurements from surveys. The seasonal temperature signal also shows sustained warming. **Warming waters have impacts on the ecosystem that can be complex due to differential impacts at the species level, including observed shifts in species distribution and changes in productivity as thermal habitats shift.** 
 
 #Changes for 2018
 
-Indicators throughout the report have been updated with the most recent data, and in some cases replaced with more management-relevant indicators based on Council feedback from the 2017 report. In particular, new sections on species-specific habitat status and trends and climate projections of thermal habitat for key species have replaced last year’s more general physical environment and climate sections. This report draws on a wider range of expertise and attempts to further link information across indicators to give an integrated overview of ecosystem status relevant to fishery management decision making.
+Indicators throughout the report have been updated with the most recent data, and in some cases replaced with more management-relevant indicators based on Council feedback from the 2017 report. In particular, new sections on species-specific habitat status and trends and climate projections of thermal habitat for key species have replaced last year's more general physical environment and climate sections. This report draws on a wider range of expertise and attempts to further link information across indicators to give an integrated overview of ecosystem status relevant to fishery management decision making.
 
 Many metrics aggregate species by similar functional groups.  Species that comprise the functional groups are listed below. Relative to the 2017 report, these categories have been aggregated into fewer groups for simplification and clarity.
 
@@ -669,7 +671,7 @@ Our assessment of indicator trends has changed this year.  In the 2017 time seri
 
 ## Seafood production (MAB)
 
-Seafood production is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Both commercial and recreational fishing contributes to seafood production, the latter for personal consumption, and indicators for each of these human activities track management performance against this objective. 
+Seafood production is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Both commercial and recreational fishing contributes to seafood production, the latter for personal consumption, and indicators for each of these human activities track management performance against this objective. 
 
 The MAFMC only manages a portion of the total commercial landings that occur in the MAB region.  For example, blue crabs represent a substantial portion of category D (Benthivores) landings. Therefore in 2016, MAFMC accounted for 15% of the Benthivore landings and 12% of the revenue generated from those landings in the MAB. 
 
@@ -750,7 +752,7 @@ soe.plot(SOE.data.2018, "Time", "Recreational Seafood MA", scale.axis = 10^6,
 
 ## Commercial Fishery Revenue (MAB)
 
-This indicator links the human activity of commercial fishing to the profits objective. This year we present the “Bennet Indicator” which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000. Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennetspp}A).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennetspp}B). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups.
+This indicator links the human activity of commercial fishing to the profits objective. This year we present the "Bennet Indicator" which attributes changes in revenue to the combination of changes in price and changes in landings volume for each species. Prior to 2000, revenue was generally negative compared to average (Fig. \ref{Bennet}). In most years prior to 2000, this was caused by lower prices. After 2000, there were periods of positive and negative revenue gain. Prices were generally positive after the year 2000. Between 1990 and 2000, prices for all feeding guild groups were negative compared to the average (Fig. \ref{Bennetspp}A).  After the year 2000, increases in prices for the benthos group contributed the most to revenue increases, while the Benthivore group had both years of positive and negative contribution to revenue gain. Between 1990 and 2005 there were positive volumes for most feeding guilds (Fig. \ref{Bennetspp}B). After 2005, volumes were usually negative caused mainly by declines in the benthos and Benthivore groups.
 
 ```{r 'Rev_Price_Vol_MAB', fig.cap="Bennet indicator, all species aggregated \\label{Bennet}", echo = F, out.width = "450pt", fig.align='center',fig.pos='H'}
 knitr::include_graphics(file.path(image.dir, 'Rev_Price_Vol_MAB.png'))
@@ -817,9 +819,9 @@ soe.stacked.axis('Year', 'Commercial fleet diversity', y.line = 2.5,
                  rel.x.text = 1, rel.y.text = 1)
 ```
 
-Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable.
+Another diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of MAFMC FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990's, with much of the recent index relatively stable.
 
-<!--This trend contrasts with the species diversity trends from survey data presented below, which indicate relatively low diversity during the mid1990’s and higher diversity now (with a significantly increasing recent trend in the spring survey data). Ultimately diversity can be measured in numerous ways (for example, in numbers of vessels in each fleet component as opposed to revenue) and feedback from the Council as to how this should be defined is welcomed.--> 
+<!--This trend contrasts with the species diversity trends from survey data presented below, which indicate relatively low diversity during the mid1990's and higher diversity now (with a significantly increasing recent trend in the spring survey data). Ultimately diversity can be measured in numerous ways (for example, in numbers of vessels in each fleet component as opposed to revenue) and feedback from the Council as to how this should be defined is welcomed.--> 
 
 ```{r revenue diversity MAB, fig.cap="Diversity in species revenue\\label{revdiv}", echo = F, message=F, include=T, warning=F,  fig.asp=0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -831,7 +833,7 @@ soe.plot(SOE.data.2018, 'Time', "Mid-Atlantic commercial species diversity",
 
 ## Recreational Opportunities (Mid Atlantic states)
 
-Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of “benefits to the nation” under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
+Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
 
 ```{r recreation MAB, fig.cap="(A) Number of anglers and (B) number of trips", echo=F, message=FALSE, warning=FALSE, include=T,  fig.asp=0.5, fig.align = 'center',fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -893,7 +895,7 @@ legend(2006, 40000000, legend = c("New Jersey",
 
 Harmful algal bloom (HAB) data on the continental shelf of the Mid-Atlantic region is sparse. In the lower Chesapeake Bay, annual blooms of the dinoflagellate *Cochlodinium polykrikoides* have been observed for several decades and more recently, blooms of *Alexandrium monilatum*, a toxin-producing dinoflagellate common to the Gulf of Mexico, have invaded the region. Both dinoflagellate species have been associated with fish kills either directly or indirectly, the latter due to the prevalence of hypoxic waters following a bloom. Available data regarding the incidence of algal bloom events in Chesapeake Bay (both harmful and otherwise) show that there has been an increase in the number of reported bloom events within the past three years, with the most notable contributors being *C. polykrikoides* and *A. monilatum*.  The average number of cells in reported *C. polykrikoides* blooms increased dramatically from >3,500,000 cells per liter in 2016 to >35,000,000 cells per liter in 2017; all reported within the vicinity of the York River mouth. Fish exposed to *C. polykrikoides* cell concentrations >300,000 cells per liter will experience near total mortality in as little as 1 hour of exposure. 
 
-Blooms of *C. polykrikoides* and *Auerococcus anophagefferens* (responsible for “brown tides”) occur regularly in the Long Island Sound region, with the most extensive and longest-lasting brown tide event ever recorded occurring in 2017. Long Island also has annual blooms of *Alexandrium catenella*, which has become more prevalent over the last few decades, though it was known to exist in the region more than 40 years ago. Blooms of toxic *Dinophysis* species have also been recorded in Long Island for the first time in recent years, though there have not been any official closures by state regulators.
+Blooms of *C. polykrikoides* and *Auerococcus anophagefferens* (responsible for "brown tides") occur regularly in the Long Island Sound region, with the most extensive and longest-lasting brown tide event ever recorded occurring in 2017. Long Island also has annual blooms of *Alexandrium catenella*, which has become more prevalent over the last few decades, though it was known to exist in the region more than 40 years ago. Blooms of toxic *Dinophysis* species have also been recorded in Long Island for the first time in recent years, though there have not been any official closures by state regulators.
 
 ```{r hab_MAB, fig.cap="Occurrence of all blooms at concentrations warranting action by the Virginia Department of Health (5e6 cells per L) (black), and occurrence of \\textit{C. polykrikoides} in Chesapeake Bay at cell concentrations >3e5 cells per L (red).", echo = F, warning = F, include = T,fig.asp=0.5, fig.align='center',fig.pos='H'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -913,9 +915,12 @@ Here, we look at the extent to which commercial and recreational fishing relianc
 \newpage
 
 
-```{r 'commercial_reliance_and_vulnerability MAB' , fig.cap="Commercial (A) and recreational (B) reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.show='hold', fig.width = 8,fig.height = 5.4,strip.white=T,fig.pos='H'}
+```{r 'commercial_reliance_and_vulnerability_MAB' , fig.cap="Commercial (A) and recreational (B) reliance and social vulnerability (MAB) \\label{commvulmap}",echo = F, message=F, include=T, warning=F, fig.show='hold', fig.width = 8,fig.height = 5.4,strip.white=T,fig.pos='H'}
 par(mfrow=c(1,2), mar = c(2,2.85,1,1))
 if(map_figs){
+  if (!printer_friendly){
+  
+
 
 cat1 <- SOE.data.2018[SOE.data.2018$Var == "social vulnerability MAB",]$Value
 cat2 <- SOE.data.2018[SOE.data.2018$Var == "commercial reliance MAB",]$Value
@@ -1143,13 +1148,23 @@ text(-72.4,35.6, "Social Vulnerability", cex = .75)
 text(-77.1,42, "B", cex = 1.5)
 
 
+  }
+
 }
-
-
 
 ```
 
+```{r comm_reliance_and_vuln_MAB_pf, echo=F,fig.cap="Commercial (A) and recreational (B) reliance and social vulnerability (MAB) \\label{commvulmap}", fig.width=8, fig.height=6.2, fig.pos='H', fig.show='hold', message=FALSE, warning=F,fig.align='center',out.extra='trim={1cm 2.45cm 0cm 0cm},clip'}
+if(map_figs){
+  if (printer_friendly){
+  crv_map <- suppressWarnings(readPNG(file.path(image.dir, "commercial_reliance_and_vulnerability MAB.png"), info = F))
+usr<-par("usr")
+plot.new()
+rasterImage(crv_map, usr[1], usr[3], usr[2], usr[4])
 
+  }
+}
+```
 ##Climate Vulnerability of Coastal Fishing Communities (Mid Atlantic states)
 
 Six key Mid-Atlantic fishing communities were evaluated for their dependence on species vulnerable to climate change and catch composition diversity (Fig. \ref{sppvul}). Five of the six communities had a majority of revenue from species highly vulnerable to climate change.
@@ -1193,7 +1208,7 @@ Sea turtles are known to be susceptible to climate and ecosystem changes, and th
 ## Right whale (coastwide)
 North Atlantic right whales are among the most endangered large whale populations in the world. Changes in right whale trends can have implications for fisheries management where fisheries interact with these whales. Additional management restrictions could have a large impact on fishing times, gears, etc.
 
-Although the population increased steadily from 1990 to 2011, it has decreased recently. From Pace et al 2017: “The probability that the population’s trajectory post-2010 was a decline was estimated at 99.99%.” Reduced survival rates of adult females and diverging abundance trends between sexes have also been observed. Further, right whale distribution has changed since 2010. The reasons for these changes is unclear, but changes in climate and primary prey (Calanus finmarchicus) are suspected. Not yet reflected in this trend are the 17 right whale deaths observed in 2017, 5 due to vessel strike (1 in US waters, 4 in Canadian waters), 3 from entanglement (2 in Canadian gear, 1 in unknown gear), and the rest from unknown causes. 
+Although the population increased steadily from 1990 to 2011, it has decreased recently. From Pace et al 2017: "The probability that the population's trajectory post-2010 was a decline was estimated at 99.99%." Reduced survival rates of adult females and diverging abundance trends between sexes have also been observed. Further, right whale distribution has changed since 2010. The reasons for these changes is unclear, but changes in climate and primary prey (Calanus finmarchicus) are suspected. Not yet reflected in this trend are the 17 right whale deaths observed in 2017, 5 due to vessel strike (1 in US waters, 4 in Canadian waters), 3 from entanglement (2 in Canadian gear, 1 in unknown gear), and the rest from unknown causes. 
 
 ```{r rw_abundance, fig.cap="Right whale population estimate\\label{rightwh}",echo = F, message=F, include=T, warning=F, fig.align = 'center', fig.pos='H', fig.width=6,fig.height=2.5,out.extra='trim={0cm 0.5cm 0cm 0cm}'}
 opar <- par(mar = c(4, 6, 2, 6))
@@ -1296,7 +1311,7 @@ soe.stacked.axis('Year', 'Species Present, n', y.line = 2.5)
 
 ## Species distribution (coastwide)
 
-Spatial distribution can change for a variety of different reasons resulting in distributions that have changed over time for some species more than for others. Two species of particular interest to the MAFMC are black sea bass and summer flounder.  Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions while summer flounder have expanded inshore (Fig. \ref{asd}; Fig. \ref{thermhab}). Recent work looking at multiple factors that are associated with a species’ prefered habitat show an increase in potential habitat for both species most notably in the spring (Fig. \ref{occupancy}).  Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for resource species.
+Spatial distribution can change for a variety of different reasons resulting in distributions that have changed over time for some species more than for others. Two species of particular interest to the MAFMC are black sea bass and summer flounder.  Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions while summer flounder have expanded inshore (Fig. \ref{asd}; Fig. \ref{thermhab}). Recent work looking at multiple factors that are associated with a species' prefered habitat show an increase in potential habitat for both species most notably in the spring (Fig. \ref{occupancy}).  Other work using temperature data from the NEFSC trawl survey developed thermal habitat preference for resource species.
 
 ```{r sf_species_distributions_MAB,fig.cap="Black sea bass (left) and summer flounder (right) along shelf distance trends (Top row: spring, bottom row: fall) \\label{asd}", out.width=c('9.5cm','9.5cm'),  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(3.5, 5, 2, 4))
@@ -1325,7 +1340,8 @@ Thermal habitat for individual species can then be projected using global climat
 
 ```{r kdes_and_th_maps_MAB,fig.cap="Current and historical abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C) for black sea bass (top) and summer flounder (bottom). \\label{thermhab}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H', warning=F, message=F}
 #fill plot with images
-
+if(map_figs){
+  if (!printer_friendly){
 kde1 <- readPNG(file.path(image.dir, "black_sea_bass_kde.png"))
 kde2 <- readPNG(file.path(image.dir,"summer_flounder_kde.png"))
 par(mar=c(2.5,2,2,2), xpd=NA, mgp=c(3,1,0), oma=c(0,1,0,0), ann=F, mfrow = c(2,3))
@@ -1352,11 +1368,27 @@ th_plot(data = file.path(gis.dir, "Summer Flounderfall_2.nc"),
 par(mfg = c(2,3))
 th_plot(data = file.path(gis.dir,"Summer Flounderfall_4.nc"),
         letter = "F", z.max = 2.5, y.axis = T, legend = T, pos = "bottomright")
+  
+  }
+  
+}
 
 
 ```
 
+```{r kdes_and_th_maps_MAB_pf, echo=F,fig.cap="Current and historical abundance estimates (A), current thermal habitat estimate (B), and 20-40 year thermal habitat projection (C) for black sea bass (top) and summer flounder (bottom). \\label{thermhab}", fig.width=8.55, fig.height=7, fig.pos='H', fig.show='hold', message=FALSE, warning=F,fig.align='center',out.extra='trim={1cm 2.45cm 1cm 1.75cm},clip'}
+if(map_figs){
+  if(printer_friendly){
 
+th_map <- suppressWarnings(readPNG(file.path(image.dir, "kdes_and_th_maps_MAB.png"), info = F))
+usr<-par("usr")
+plot.new()
+rasterImage(th_map, usr[1], usr[3], usr[2], usr[4])
+
+  }
+
+}
+```
 
 
 ```{r occupancy_MAB, fig.cap="Summer flounder (left) and black sea bass (right) modeled shelf habitat trends (Top row: spring, bottom row: fall) \\label{occupancy}", out.width=c('9.5cm','9.5cm'),  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F,fig.pos='H'}
@@ -1382,15 +1414,73 @@ A full suite of the current distribution maps is available at www.nefsc.noaa.gov
 ### Incoming species (coastwide)
 
 New species may be entering the Mid Atlantic ecosystem. Fishery observer records indicate that southern kingfish sightings have increased since 2014 when species validation methods were implemented, but this increasing trend has been in place since 2010. Further information from fishermen on new and uncommon species is welcome for this report. 
-
-```{r southern kingfish png 2, fig.cap="Southern kingfish occurrences in the observer database", echo=F,fig.show='hold',fig.pos='H',out.extra='trim={0cm 2.25cm 0cm 1cm},clip',fig.align='center', fig.asp=1}
+```{r southern kingfish, fig.cap="Southern kingfish occurrences in the observer database", echo=F,message=FALSE, warning=FALSE ,fig.align='center', fig.asp=.95,fig.width=6,fig.pos='H'}
 if(map_figs){
-  
+  if (!printer_friendly){
+    sk.dat <- SOE.data.2018[grepl("Lat",SOE.data.2018$Units) & grepl("Southern Kingfish",SOE.data.2018$Var),]
+lon <- sk.dat[as.numeric(sk.dat$Value) < 0,]$Value
+lat <- sk.dat[as.numeric(sk.dat$Value) > 0,]$Value
+
+#create data.frame
+df <- data.frame(year = sk.dat$Time,
+                 lon = lon,
+                 lat = lat)
+
+#set color palette
+colors1 <- adjustcolor(matlab.like2(8),.5)
+colors2 <- adjustcolor(matlab.like2(8),.5)
+colors3 <- adjustcolor(matlab.like2(8),.5)
+colors4 <- adjustcolor(matlab.like2(8),1)
+colors <- c(colors1[1:2], colors2[3:4], colors3[5:6],colors4[7:8])
+
+#map values to colors
+df <- df %>% arrange(year) %>% mutate(colors = plyr::mapvalues(year, from = c("2010","2011","2012","2013",
+                                                                              "2014","2015","2016","2017"),
+                                                               to = c(colors)))
+colors <- df$colors
+
+
+#projection
+map.crs <- CRS("+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0
+               +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
+
+
+
+#data.frame to sp object
+coordinates(df) <- ~lon+lat
+df@proj4string <- map.crs
+df <- spTransform(df, map.crs)
+
+#plot
+par(fig = c(0,1,0,1))
+plot(coast, xlim = c(-76,-73), ylim = c(35,40.5),col = "grey")
+plot(df, pch = 16, col = colors, add = T, cex = 2.5)
+
+
+occur <- SOE.data.2018[SOE.data.2018$Var == "Southern Kingfish observer sightings",]$Value
+time <- SOE.data.2018[SOE.data.2018$Var == "Southern Kingfish observer sightings",]$Time
+
+ts <- zoo(occur,time)
+par(fig = c(0.5,1, 0.1, .5), new = T, bty = "l",mar = c(5,6,3,1)) 
+barplot(occur,time, col = matlab.like2(8), xlab = c("Time"),ylab = "S. Kingfish Occurrence, n",
+        cex.lab = 1, las = 1, cex.axis = 1)
+axis(1,at = seq(1250,18500,length.out = 8),labels = c("2010","2011","2012","2013",
+                                            "2014","2015","2016","2017"), cex.axis=1)
+  }
+}
+```
+
+```{r southern_kingfish_pf, fig.cap="Southern kingfish occurrences in the observer database", echo=F,fig.show='hold',fig.pos='H',out.extra='trim={0cm 2.25cm 0cm 1cm},clip',fig.align='center', fig.asp=1}
+if(map_figs){
+  if (printer_friendly){
+
 sk_map <- readPNG(file.path(image.dir, "southern_kingfish.png"))
 plot.new()
 usr<-par("usr")
 
 rasterImage(sk_map, usr[1], usr[3], usr[2], usr[4])
+
+  }
 
 }
 ```
@@ -1684,10 +1774,8 @@ While sea surface temperature in the U.S. NES was warmer than average for 2017, 
 
 ```{r sst_anomaly_maps,fig.cap="Sea surface temperature anomalies in winter (A), spring (B), summer (C), and fall (D) 2017. \\label{dists}" , fig.width = 8,fig.height = 5.5, fig.show='hold',fig.pos='H'}
 if (map_figs == T){
-
-
-  
-#constants
+  if (!printer_friendly){
+    #constants
 colors <- colorRampPalette(c("dodgerblue4",'blue', 'white', 'firebrick1',"firebrick4"))  
 color_levels=100   
 
@@ -1771,10 +1859,25 @@ plot(d, col=colors(n=color_levels),
                     cex.axis=0.8),
      legend.args=list(text=expression(paste('Temperature Anomaly (',degree,"C)")),
                       side=4, font=2, line=2, cex=1))
+  }
+
 }
 
 ```
 
+```{r sst_anomaly_maps_pf, echo=F,fig.cap="Sea surface temperature anomalies in winter (A), spring (B), summer (C), and fall (D) 2017. \\label{dists}", fig.width=9, fig.height=6.75, fig.pos='H', fig.show='hold', message=FALSE, warning=F,fig.align='center',out.extra='trim={1cm 2.45cm 1cm 1cm},clip'}
+if(map_figs){
+  if(printer_friendly){
+
+sst_map <- suppressWarnings(readPNG(file.path(image.dir, "sst_anomaly_maps.png"), info = F))
+usr<-par("usr")
+plot.new()
+rasterImage(sst_map, usr[1], usr[3], usr[2], usr[4])
+
+  }
+
+}
+```
 ##Patterns in the lower trophic levels (MAB)
 
 Chlorophyll a (CHL), an index for phytoplankton biomass, was above average in 2017, but there has been no distinct trend over the time series.   Primary production (PP) was also above average during most of 2017 throughout the MAB and has had an upward trend since 2004.  The high PP rates in the summer are likely due to increased remineralization of nutrients and regenerated production by smaller phytoplankton species.  This suggests that while overall PP may be increasing, not all of excess PP may be available to higher trophic levels. 
@@ -1793,7 +1896,7 @@ rasterImage(ppd, usr[1], usr[3], usr[2], usr[4])
 rasterImage(chl, usr[1]+1.1, usr[3], usr[2]+1.1, usr[4])
 ```
 
-There is a coherent pattern between the primary production anomaly and the copepod size index for the MAB, with distinct peaks in production centered around 2002, 2010, and 2015, when the copepod size index was positive. The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, *Calanus finmarchicus*. Additionally, *Centropages typicus*, an important copepod in the MAB, exhibits a long-term decline in abundance, with negative anomaly observations  beginning in the early 2000’s.
+There is a coherent pattern between the primary production anomaly and the copepod size index for the MAB, with distinct peaks in production centered around 2002, 2010, and 2015, when the copepod size index was positive. The copepod size index relates the abundance anomaly of small bodied copepods to the abundance of a large bodied copepod, *Calanus finmarchicus*. Additionally, *Centropages typicus*, an important copepod in the MAB, exhibits a long-term decline in abundance, with negative anomaly observations  beginning in the early 2000s.
 
 ```{r, MAB zooplankton, fig.cap="\\textit{C. typicus} abundance anomaly (A), and small-large copepod index with primary productivity anomaly (B) in the Mid-Atlantic.",echo = F, warning = F, include = T,  fig.show='hold', fig.align='default', out.width='.49\\linewidth',warning = F, message = F}
 
@@ -1836,7 +1939,7 @@ legend("bottomright",
 
 ### Groundfish condition (coastwide)
 
-Fish condition is measured as the weight per length–a measure of “fatness”. This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Between 2010-2013 many species started to have better condition, while black sea bass, goosefish and male spiny dogfish remained thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
+Fish condition is measured as the weight per length-a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Between 2010-2013 many species started to have better condition, while black sea bass, goosefish and male spiny dogfish remained thinner for their length on average. This matches the trend in small-large copepods, perhaps reflecting changing nutrition across many species contributing to changes in condition. 
 
 
 ```{r 'condition factor MAB' , fig.cap="Groundfish condition, MAB", echo = F, out.height='7cm', fig.align='center',fig.pos='H'}
@@ -2005,7 +2108,7 @@ Work is in progress to address changes in forage fish energy content, which link
 Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries.  This could be evaluated by quantifying the number of regulations and/or the frequency of regulatory changes (based on evaluation of the Code of federal regulations). In terms of recreational fisheries, the magnitude and frequency of change of management measures (size and bag limits, seasons, etc.) could also be evaluated/quantified.
 
 #Research Recommendations 
-The SSC reviewed a draft of this report in March 2018, and requested a clearer definition of “Mid Atlantic” be included in the report (such as a map--*included in this revision*).  Further, some important ecosystem dynamics happen at larger scales than the Mid Atlantic, so the SSC requested more rationale for the scale of indicators, and that indicators specific to the Mid-Atlantic region be clearly delineated from indicators representing a larger region. *Indicator scale has been included in section headings in this revision.* The SSC noted that some work had been done between the US and Canada to assemble survey information on species throughout the continental shelf across the international border and suggested that this information be examined and included if available and relevant. *This will be taken up as possible over the coming year.*
+The SSC reviewed a draft of this report in March 2018, and requested a clearer definition of "Mid Atlantic" be included in the report (such as a map--*included in this revision*).  Further, some important ecosystem dynamics happen at larger scales than the Mid Atlantic, so the SSC requested more rationale for the scale of indicators, and that indicators specific to the Mid-Atlantic region be clearly delineated from indicators representing a larger region. *Indicator scale has been included in section headings in this revision.* The SSC noted that some work had been done between the US and Canada to assemble survey information on species throughout the continental shelf across the international border and suggested that this information be examined and included if available and relevant. *This will be taken up as possible over the coming year.*
 
 The SSC commented that the indicators presented in the report generally align with the overall objectives, that the objectives are the right ones to look at, and that this is a good starting point; however, there may be better indicators than the ones presented.  For example, gross revenue is just a proxy for economic performance, which could be refined.  Similarly, recreational participation is driven by both management and other influences well outside MAFMC management, such as availability of leisure time and competing recreational opportunities.  As such, the SSC encourages more in-depth analysis of the social and economic indicators in the report. *This will be taken up as possible over the coming year.*
 
