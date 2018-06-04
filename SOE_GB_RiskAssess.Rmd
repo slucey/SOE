@@ -34,12 +34,12 @@ bibliography: My_Library.bib
 #data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
 #image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
 #gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
-#data.dir  <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAdata'
-#image.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAimages'
-#gis.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAusa_shape_files'
-data.dir  <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAdata'
-image.dir <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAimages'
-gis.dir <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAusa_shape_files'
+data.dir  <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAdata'
+image.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAimages'
+gis.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAusa_shape_files'
+#data.dir  <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAdata'
+#image.dir <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAimages'
+#gis.dir <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAusa_shape_files'
 PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {  
@@ -222,7 +222,7 @@ In the following sections, we describe each risk element in more detail along wi
 At the end of the document, we summarize risk ranking results across elements in three tables.
 
 <!--[TABLE with general objectives and current status and or trend]--> 
-```{r riskel, tab.cap="Risk element names, definitions, and indicators. \\label{elements}", echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r riskel, tab.cap="Risk element names, definitions, and indicators selected by the MAFMC. \\label{elements}", echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Element         | Definition: Risk to what?                        |  Indicators used                                 |
 |:-------------------------------------|:-------------------------------------------------|:-------------------------------------------------|
@@ -293,9 +293,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Stocks with low risk due to assessment performance include sea scallops, Atlantic herring, GB haddock, American plaice (?), white hake (?)
 Stocks with low-moderate risk for this element include GB winter flounder (accepted assessment, troubling diagnostics), windowpane(?), Acadian redfish (accepted assessment, retrospective pattern), 
-Stocks with high risk due to assessment performance include those where OFL could not be determined: GB yellowtail flounder, witch flounder, and Atlantic halbut. High risk was also assigned to stocks using empirical methods (due to rejected assessments): GB cod, all 7 skate species, 
+Stocks with high risk due to assessment performance include those where OFL could not be determined: GB yellowtail flounder, witch flounder, and Atlantic halbut. High risk was also assigned to stocks using empirical methods (due to rejected assessments or lack of information to complete standard assessments): GB cod, all 7 skate species, monkfish. 
 
-##F status and B status *need to update from NE SOE*
+##F status and B status 
 These elements are applied at the species level. Fishing mortality (F) rates and biomass (B) levels relative to established reference points from assessments indicate the level of risk to achieving OY. Risk level definitions for F and B are below.
 
 ```{r riskF, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -322,9 +322,9 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Current assessment results for all NEFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for <!--surfclams, ocean quahogs, scup, black sea bass, and butterfish. Bluefish, golden tilefish, and spiny dogfish F status is in the low risk category, and B risk is in the low-moderate risk category. Summer flounder F status is in the high risk category and B status is in the low-moderate risk category. F and B status for northern and southern goosefish stocks were formerly in the low risk categories, but a recent assessment update was unable to determine status, so we provisionally rank them low-moderate risk (unknown but weight of evidence supports lower risk). Longfin squid B is above the established B threshold, and both squid stocks have unknown F status, but F is difficult to estimate because it is very low relative to natural mortality, so they are also ranked low-moderate risk. Blueline tilefish are high risk for F status and have unknown B status and little auxiliary information in the Mid-Atlantic region, and so rank moderate-high risk for B status. Finally, Atlantic mackerel has moderate-high risk for both F and B status due both to failed assessment/unknown status and indications from recent analyses. *Atlantic mackerel status will be updated after benchmark assessment results are finalized in early 2018.*-->
+Current assessment results for all NEFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for Atlantic herring, scallop, haddock, northern silver and red hakes, redfish, pollock, and southern windowpane. F and B status are also low risk for barndoor, clearnose, little, rosette, smooth, and winter skates according to the index based method. F is low risk but B is low-moderate risk for plaice, dogfish, white hake, southern silver hake, and GB winter flounder. F is low risk but B is high risk for thorny skates, wolffish, ocean pout, northern windowpane, and SNE winter flounder. F is moderate-high risk and B is high risk for GB cod, halibut, and witch flounder. F and B status are moderate-high risk for red crab, offshore hake, GOM winter flounder, and both goosefish stocks. Finally, Both F and B status rank high risk for GOM cod, southern red hake, and all yellowtail flounder stocks (assessment-based status for GB yellowtail flounder is unknown, but NMFS-determined stock status is overfished with overfishing ocurring). 
 
-```{r, fig.cap="Summary of single species status for MAFMC stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.8\\linewidth', echo = F, message = FALSE, warning = FALSE}
+```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", fig.height=8, fig.width=11, out.width='0.85\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
 
 dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
@@ -458,7 +458,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This information is gathered from the NEFSC food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008].  Scallops are not prey of other NEFMC managed species, so they rank low risk for this element. Similarly, skates, spiny dogfish, silver hake, cod, and flatfish do not show up individually as >10% of prey by weight in any NEFMC managed species diets, so they rank low risk. While some NEFMC managed species are prey of other managed species, none meet the defined risk threshold, so all are ranked low risk. Herring is a prey of spiny dogfish and cod (~19% and ~20% of diet respectively, with high interannual variability), and cod family is prey of silver hake (~25% of diet including cod and hake species). Viewed from a mortality standpoint, the GB EMAX food web model suggests that commercial pelagics (mainly herring) have about 29% of their total mortality caused by demersal piscivoves on Georges Bank.
+This information is gathered from the NEFSC food habits database and other sources [@smith_trophic_2010; @johnson_growth_2008].  Scallops are not major prey of other NEFMC managed species, so they rank low risk for this element. Similarly, skates, spiny dogfish, silver hake, cod, and flatfish do not show up individually as >10% of prey by weight in any NEFMC managed species diets, so they rank low risk. While some NEFMC managed species are prey of other managed species, none meet the defined risk threshold, so all are ranked low risk. Herring is a prey of spiny dogfish and cod (~19% and ~20% of diet respectively, with high interannual variability), and cod family is prey of silver hake (~25% of diet including cod and hake species). Viewed from a mortality standpoint, the GB EMAX food web model [@link_northeast_2008] suggests that commercial pelagics (mainly herring) have about 29% of their total mortality caused by demersal piscivoves on Georges Bank, with another 16% of total mortality caused by demersal omnivores and benthivores combined. These three categories represent all of the NEFMC managed fish combined, plus others, but still does not meet the threshold of 50% of mortality. Therefore, all species rank low risk for this element. 
 
 ##Food Web (Protected Species Prey) 
 This element is applied at the species level. This element ranks the risks of not achieving protected species objectives due to species interactions with MAFMC managed species. As above, a food web model and updated marine mammal diet information can be used to establish thresholds of "importance" for predators and prey. There are no MAFMC managed species that are important predators of protected species, so here we rank only risks where MAFMC managed species represent prey of protected species. An important prey of protected species is defined here as individually comprising >30% of the predator's diet by weight. "Dependent" predators and prey warranting a high risk ranking would have a majority (>50%) of diet or mortality caused by an individual protected species. 
@@ -475,11 +475,11 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgeon, all sea turtle species, and 5 baleen whales. MAFMC managed species are not important predators of protected species [@smith_trophic_2010], even though monkfish occasionally ingest seabirds [@perry_predation_2013]. Atlantic salmon, both species of sturgeon, and sea turtles are not major predators of MAFMC managed species, as reviewed in the MAFMC Forage Fish white paper [@savoy_prey_2007; @johnson_food_1997; @burke_diet_1993; @burke_diet_1994; @mcclellan_complexity_2007; @seney_historical_2007; @shoop_seasonal_1992]. Information sources for marine mammal diets in the Northeast US [@smith_consumption_2015], and seabird diets [@powers_pelagic_1983; @powers_energy_1987; @powers_seabirds_1987; @schneider_state_1996; @barrett_diet_2007; @bowser_puffins_2013] were reviewed. 
+Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgeon, all sea turtle species, and 5 baleen whales. NEFMC managed species are not important predators of protected species [@smith_trophic_2010], even though monkfish occasionally ingest seabirds [@perry_predation_2013]. Atlantic salmon, both species of sturgeon, and sea turtles are not major predators of NEFMC managed species, as reviewed in the MAFMC Forage Fish white paper [@savoy_prey_2007; @johnson_food_1997; @burke_diet_1993; @burke_diet_1994; @mcclellan_complexity_2007; @seney_historical_2007; @shoop_seasonal_1992]. Information sources for marine mammal diets in the Northeast US [@smith_consumption_2015], and seabird diets [@powers_pelagic_1983; @powers_energy_1987; @powers_seabirds_1987; @schneider_state_1996; @barrett_diet_2007; @bowser_puffins_2013] were reviewed. 
 
-Diet information for protected species tends to be more uncertain than for fished species, so we consider diet at the family level for these rankings because diet compositions are not reported to the species level. Longfin squids are estimated to comprise >30% of diet for one protectes species, pilot whale, in the Northeast US [@smith_consumption_2015; @gannon_stomach_1997], therefore we rank this species low-moderate risk for this element. Shortfin squid were identified as important prey for two pelagic seabirds in the Northeast US [@powers_energy_1987], and therefore ranked low-moderate risk. Unmanaged forage fish such as sand lance and saury were identified as important prey for >3 seabird species in the Northeast US [@powers_energy_1987], as well as grey seals [@smith_consumption_2015]. MAFMC has enacted measures to restrict fishing on these species, such that they rank low-moderate risk for this element. Other MAFMC managed species do not meet the threshold of important prey of protected species based on available information, so they rank low risk for this element.
+Diet information for protected species tends to be more uncertain than for fished species, so we consider diet at the family level for these rankings because diet compositions are not reported to the species level. Clupeids (which include Atlantic herring) comprise 30% of minke whale diet in the Northeast US [@smith_consumption_2015]. Small gadids (all hakes) comprise 32% of harbor porpoise diets [@smith_consumption_2015]. Therefore we rank herring and hake species low-moderate risk for this element. <!--Shortfin squid were identified as important prey for two pelagic seabirds in the Northeast US [@powers_energy_1987], and therefore ranked low-moderate risk.-->
 
-##Ecosystem Productivity *need to update from NE SOE*
+##Ecosystem Productivity
 This element is applied at the ecosystem level. This element ranks the risk of not achieving OY due to changes in ecosystem productivity at the base of the food web. Four indicators are used together to assess risk of changing ecosystem productivity. We examine trends in total primary production, zooplankton abundance for a key Mid-Atlantic species, and two aggregate fish productivity measures: condition factor (weight divided by length of individual fish) and a survey based "recruitment" (small fish to large fish) index. Because many MAFMC managed species rely on benthic crustaceans as forage, a benthic production indicator is also desirable, *but not yet available.*
 
 ```{r riskecop, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -494,7 +494,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-For primary production and fish productivity, the spatial scale of analysis is the Mid-Atlantic Ecosystem Production Unit, as indicated in Figure \ref{EPUmap}. 
+For primary production and fish productivity, the spatial scale of analysis is the Georges Bank Ecosystem Production Unit, as indicated in Figure \ref{EPUmap}. 
 
 ```{r, fig.cap="Northeast US Ecosystem Production units. \\label{EPUmap}", echo = F, out.width='0.9\\linewidth'}
 image_read(file.path(image.dir,"NEshelfEcoRegionsALL.png")) %>%
@@ -525,9 +525,9 @@ knitr::include_graphics(file.path(image.dir, 'PPbloomtiming.png'))
 ###Zooplankton  
 <!--Zooplankton provide a critical link between phytoplankton at the base of the food web, and higher trophic organisms such as fish, mammals, and birds. Changes in the species compostion and biomass of the zooplankton community have a great potential to affect recruitment success and fisheries productivity, and climate change may be the most important pathway for these changes to manifest. Therefore these indices are relevant to both productivity and trophic structure objectives.-->  
 
-Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume suggest that overall zooplankton production has not changed over time. However, the zooplankton *Calanus finmarchicus* shows no spring trends, but a long-term decline in the fall on Georges Bank as well as a short term decline in both regions over the past decade. Adult *Calanus* are the principal prey of North Atlantic right whales; reductions in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web..
+Zooplankton surveys have been conducted since the 1970s and have been most consistently executed in the spring and fall seasons coinciding with the NEFSC bottom trawl survey. The time series of zooplankton biovolume suggest that overall zooplankton production has not changed over time. However, the zooplankton *Calanus finmarchicus* shows no spring trends, but a short-term decline in the fall on Georges Bank over the past decade. Adult *Calanus* are the principal prey of North Atlantic right whales; reductions in *Calanus* populations potentially impact the most vulnerable protected species in our region as well as key forage fish that feed on them, with implications throughout the food web..
 
-```{r , fig.cap="A: Centropages typicus spring, B: Centropages typicus fall \\label{Ctyp}", echo = F, fig.height=3}
+```{r , fig.cap="A: GB Calanus finmarchicus spring, B: GB Calanus finmarchicus fall \\label{Cfin}", echo = F, fig.height=3}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 soe.plot(SOE.data, 'Time', 'GB Calanus finmarchicus spring', stacked = 'A', tol = 0.03,
          rel.y.num = 0.9, scale.axis = 10^3)
@@ -540,7 +540,7 @@ soe.stacked.axis('Year', expression('thousands per 100 m' ^ 3), rel.y.text = 1.1
 ```
 
 ###Fish condition 
-Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while black sea bass remain thinner for their length on average.  
+Fish condition is measured as the weight per length--a measure of "fatness". This information is from NEFSC bottom trawl surveys and shows a change in condition across all species at around 2000. Around 2010-2013 many species started to have better condition, while GB yellowtail flounder remain thinner for their length on average.  
 ```{r, fig.cap="Fish Condition (weight/length) \\label{cond}", echo = F, out.width='0.7\\linewidth'}
 #I will get the actual code here eventually but just don't have time right now
 knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition.jpg'))
@@ -548,7 +548,7 @@ knitr::include_graphics(file.path(image.dir, 'NEFMC_Fish_Condition.jpg'))
 ```
 
 ###Fish productivity 
-The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a general decrease in this indicator when aggregated across managed and unmanaged species in the Mid-Atlantic. The plot includes black sea bass, butterfish, clearnose skate, fourspot flounder, little skate, scup, spiny dogfish, summer flounder, thorny skate, windowpane, winter flounder, and winter skate.
+The number of small fish relative to the biomass of larger fish of the same species from the NEFSC survey is a simple measure of productivity, intended to complement model-based stock assessment estimates of recruitment for commercial species. There is a no clear trend in this indicator when aggregated across managed and unmanaged species on Georges Bank. 
 
 ```{r, fig.cap="Fish productivity: Anomalies of recruit abundance per spawner biomass for species in the MAB. Annual anomalies shown are the average of spring and fall anomalies. \\label{fishprodsurvey}", echo = F, fig.align='center', out.width='0.7\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'GBprod.pdf'))
@@ -556,7 +556,7 @@ knitr::include_graphics(file.path(image.dir, 'GBprod.pdf'))
 
 ```
 
-To summarize, primary production shows no trend (although the seasonal timing of primary production may be changing). Similarly, there are no trends in overall zooplankton abundance, but a dominant Mid-Atlantic species shows different trends by season, possibly also indicating a shift in timing. Fish condition showed a drop across all species in the early 2000s, but most species appear to have recovered. There is a decreasing trend in aggregate numbers of small fish per large fish. This one clear trend, along with changes in timing at lower trophic levels, suggest a low-moderate risk of changing ecosystem productivity in the Mid-Atlantic region. 
+To summarize, primary production shows no trend. Similarly, there are no trends in overall zooplankton abundance, but an important New England species shows a recent decline during fall. Fish condition showed a drop across all species in the early 2000s, but most species appear to have recovered. There is no trend in aggregate numbers of small fish per large fish. The one clear trend in Calanus biovolume (combined with poor condition for GB yellowtail) suggests a low-moderate risk of changing ecosystem productivity in the Georges Bank region. 
 
 <!--
 ##Population diversity
@@ -617,16 +617,16 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Mid-Atlantic species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here (Fig. \ref{NEVAvul}). 
+New England species were all either highly or very highly exposed to climate risk in this region, and ranged from low to very high sensitivity to expected climate change in the Northeast US. The combination of exposure and sensitivity results in the overall vulnerability ranking. We applied those climate vulnerability rankings directly here (Fig. \ref{NEVAvul}). 
 
 ```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species \\label{NEVAvul}", out.width='\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'NEVAvulNE.png'))
 
 ```
 
-While this risk assessment focuses on overall vulnerability to impacts of climate, not all impacts will be negative. Some MAFMC managed species may benefit from projected future climate conditions, including black sea bass, bluefish, butterfish, longfin squid, and shortfin squid [@hare_vulnerability_2016]. 
+While this risk assessment focuses on overall vulnerability to impacts of climate, not all impacts will be negative. Some MAFMC managed species may benefit from projected future climate conditions, including black sea bass, bluefish, butterfish, longfin squid, and shortfin squid [@hare_vulnerability_2016]. However, all NEFMC managed species were expected to have either neutral or negative directional effects from expected climate change [@hare_vulnerability_2016].
 
-##Distribution Shifts *need to update with NE species--Hare presentation?*
+##Distribution Shifts 
 This element is applied at the species level. Species distribution shifts can increase risks of ineffective spatial catch allocation; if catch distribution is greatly mismatched with species distribution OY may not be achieved. Risks of species distribution shifts due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly here. In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
 
 ```{r riskdist, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -641,7 +641,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-All Mid-Atlantic species with the exception of golden tilefish had either high or very high risk of distribution shifts in the Northeast US. 
+Most New England species had either high or very high risk of distribution shifts in the Northeast US. Sea scallops, ocean pout, Atlantic salmon, and smooth skate were predicted to have moderate risk of distribution change [@hare_vulnerability_2016].
 
 ```{r, fig.cap="Results of Northeast Climate Vulnerability Analysis (Hare et al. 2016) for Mid-Atlantic species distribution shift risk \\label{NEVAshift}", out.width='0.8\\linewidth'}
 knitr::include_graphics(file.path(image.dir, 'NEVAshiftNE.png'))
@@ -649,7 +649,7 @@ knitr::include_graphics(file.path(image.dir, 'NEVAshiftNE.png'))
 ```
 
 ###Historical vs. Current Distribution Maps 
-Spatial distribution has changed over time for some species more than for others. Black sea bass distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, longfin squid distributions in the Mid-Atlantic have remained relatively stable. 
+Spatial distribution has changed over time for some species more than for others. Yellowtail flounder distributions measured by NEFSC surveys have shifted northward relative to historical distributions. In contrast, redfish distributions have remained relatively stable. 
 
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
 knitr::include_graphics(file.path(image.dir, 'acadian-redfish-kd.png'))
@@ -666,7 +666,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
 ###Changes in Along Shelf Position
-Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several NEFMC species by year is shown below; most are consistent with the predictions of NEVA and show a northeastward change in distribution.  Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
+Species distribution on the NE Shelf can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360, which relates to positions along the axis from the origin in the southwest to the northeast in kilometer units. The mean along shelf distance for several NEFMC species by year is shown below; many are consistent with the predictions of NEVA and show a significant northeastward change in distribution.  Mean depth has also changed for some of these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html. 
 
 ```{r, fig.cap="Shifts in species distribution over time; A: Yellowtail flounder, B: Winter flounder, C: Cod, D: Haddock, E: Atlantic herring, F: Acadian redfish \\label{shifts}", fig.height=8, fig.show='hold', out.width='.49\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
@@ -709,8 +709,8 @@ soe.stacked.axis('Year', expression('Mean depth, m'), rel.y.text = 1.5)
 
 ```
 
-##Estuarine and Coastal Habitat *update with NE lit and EPA report*
-This element is applied at the species level. Risk of not achieving OY due to threats to estuarine and nearshore coastal habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Here, we include estuarine and nearshore coastal habitat in the term "estuarine" below. Water and habitat quality assessments produced for Chesapeake Bay, Delaware Bay, Long Island Sound and other coastal estuaries can be considered in the future.
+##Estuarine and Coastal Habitat
+This element is applied at the species level. Risk of not achieving OY due to threats to estuarine and nearshore coastal habitat/nursery grounds was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. Here, we include estuarine and nearshore coastal habitat in the term "estuarine" below. Water and habitat quality assessments produced for coastal estuaries within the Northeast region can be considered in the future.
 
 ```{r riskesthab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -724,7 +724,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and coastal condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters in the Mid-Atlantic region rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine and nearshore coastal habitat dependent species (summer flounder, scup, black sea bass, and bluefish, [@able_re-examination_2005]) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to lower dependence on this habitat type. 
+As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and coastal condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine and nearshore coastal habitat dependent species (winter flounder (obligate), pollock (obligate?), and white and red hake (facultative), [@able_re-examination_2005]) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to lower dependence on this habitat type. 
 
 ##Offshore Habitat *update for NE species*
 This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from experimental species-specific habitat modeling. *In addition, the number of threats from other human uses can be enumerated; at present this is addressed under "Other Ocean Uses" in the Management section below.*
