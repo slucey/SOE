@@ -47,6 +47,7 @@ for (p in PKG) {
     require(p,character.only = TRUE)}
 }
 load(file.path(data.dir, 'SOE_data.RData'))
+load(file.path(data.dir, 'SOE_data_2018.Rdata'))
 load(file.path(data.dir, 'Comm_Climate_Vul.RData'))
 load(file.path(data.dir, 'Fisheries_Eng_Rel.RData'))
 knitr::opts_chunk$set(echo = FALSE, fig.align='center')
@@ -322,7 +323,7 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Current assessment results for all NEFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for Atlantic herring, scallop, haddock, northern silver and red hakes, redfish, pollock, and southern windowpane. F and B status are also low risk for barndoor, clearnose, little, rosette, smooth, and winter skates according to the index based method. F is low risk but B is low-moderate risk for plaice, dogfish, white hake, southern silver hake, and GB winter flounder. F is low risk but B is high risk for thorny skates, wolffish, ocean pout, northern windowpane, and SNE winter flounder. F is moderate-high risk and B is high risk for GB cod, halibut, and witch flounder. F and B status are moderate-high risk for red crab, offshore hake, GOM winter flounder, and both goosefish stocks. Finally, Both F and B status rank high risk for GOM cod, southern red hake, and all yellowtail flounder stocks (assessment-based status for GB yellowtail flounder is unknown, but NMFS-determined stock status is overfished with overfishing ocurring). 
+Current assessment results for all NEFMC managed stocks are summarized below. Based on these results, F and B status are both in the low risk category for Atlantic herring, scallop, haddock, northern silver and red hakes, redfish, pollock, and southern windowpane. F and B status are also low risk for barndoor, clearnose, little, rosette, smooth, and winter skates according to the index based method. F is low risk but B is low-moderate risk for plaice, dogfish, white hake, southern silver hake, and GB winter flounder. F is low risk but B is high risk for thorny skates, wolffish, ocean pout, northern windowpane, and SNE winter flounder. F is moderate-high risk and B is high risk for GB cod, halibut, and witch flounder. F and B status are low-moderate risk for red crab, offshore hake, and both goosefish stocks, and moderate-high risk for GOM winter flounder. Finally, Both F and B status rank high risk for GOM cod, southern red hake, and all yellowtail flounder stocks (assessment-based status for GB yellowtail flounder is unknown, but NMFS-determined stock status is overfished with overfishing ocurring). 
 
 ```{r, fig.cap="Summary of single species status for NEFMC stocks \\label{KOBE}", fig.height=8, fig.width=11, out.width='0.85\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
@@ -726,7 +727,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 As a start, the US EPA National Coastal Condition Assessment for the Northeast US [@us_epa_national_2012] was used to evaluate estuarine and coastal condition. This report lists water, sediment, benthic, and coastal habitat quality as well as fish contamination. Northeast US coastal waters rated fair to poor for water quality, fair for sediment quality, poor for benthic quality, good to fair for coastal habitat, and fair to poor for fish contamination. These ratings were based on nearshore and estuarine summer sampling 2003-2006. The overall coastal condition was rated fair for the entire region, but this includes offshore conditions which we address in the next element. Therefore, estuarine and nearshore coastal habitat dependent species (winter flounder (obligate), pollock (obligate?), and white and red hake (facultative), [@able_re-examination_2005]) were ranked high risk based on overall poor estuarine condition for this element, and all others were ranked low risk due to lower dependence on this habitat type. 
 
-##Offshore Habitat *update for NE species*
+##Offshore Habitat *need access to model output for NE species if ranking*
 This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from experimental species-specific habitat modeling. *In addition, the number of threats from other human uses can be enumerated; at present this is addressed under "Other Ocean Uses" in the Management section below.*
 
 ```{r riskoffhab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -783,7 +784,7 @@ Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by t
 
 #Economic Elements
 
-##Commercial Revenue *update from NE SOE*
+##Commercial Revenue 
 This element is applied at the ecosystem level, and addresses the risk of not maximizing fishery value. Revenue serves as a proxy for commercial profits, which is the component of a fishery's value that this element is ultimately attempting to assess risk towards. 
 
 ```{r riskcomval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -798,23 +799,25 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This is aggregate commercial revenue for MAFMC managed species. There is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
+This is aggregate commercial revenue for NEFMC managed species. There is a long term significant decrease in revenue for GB, indicating moderate-high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
 
-```{r ComProfAgg, fig.cap="Aggregate Mid-Atlantic managed species revenue  \\label{comprofagg}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
-opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
+```{r ComProfAgg, fig.cap="Aggregate New England managed species revenue  \\label{comprofagg}", echo = F, fig.height=3.5, message = FALSE, warning = FALSE}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-aggrev <- SOE.data[Var %like% "MAFMC Revenue"]
-setkey(aggrev, Time)
-allrev <- aggrev[, sum(Value, na.rm = T), by = key(aggrev)]
-setnames(allrev, 'V1', 'Value')
-allrev[, Var := paste('MAFMC Revenue')]
-allrev[, Units := 'USD']
-allrev[, EPU := 'ALL']
-
-soe.plot(allrev, 'Time', 'MAFMC Revenue', x.label="Year", y.label="Commercial Revenue 2015 Adjusted USD", x.start = 1986, rel.y.num = 0.8, rel.y.text = 1)
+#soe.plot(SOE.data.2018, "Time", "Total Revenue GOM", stacked = "A", status = F,
+#         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007, x.start = 1964,
+#         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
+#         y.var2 =  "Total managed revenue GOM", cex.stacked = 1.5)
+#soe.plot(SOE.data.2018, "Time", "Total Revenue GB", stacked = "B",status = F,
+#         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^6,end.start = 2007, x.start = 1964,
+#         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
+#         y.var2 =  "Total managed revenue GB", cex.stacked = 1.5)
+soe.plot(SOE.data.2018, "Time",  "Total managed revenue GOM", stacked = "GOM", rel.y.num = 1.1,  scale.axis = 10^6, end.start = 2007, x.start = 1964)
+soe.plot(SOE.data.2018, "Time", "Total managed revenue GB", stacked = "GB", rel.y.num = 1.1, scale.axis = 10^6, end.start = 2007, x.start = 1964)
+soe.stacked.axis("Time",expression("Revenue, 10"^6*"USD"),  rel.y.text = 1.2)
 ```
 
-##Marine Recreational Angler Days/Trips *update from NE SOE*
+##Marine Recreational Angler Days/Trips 
 This element is applied at both the fleet level and at the ecosystem level where it would apply equally to all recreationally fished species. Angler days and trips are proxies for the welfare (value) generated from recreational fishing. Risk of not maximizing fishery value is evaluated using the number of marine recreational fishing angler-days and number of marine recreational trips, in aggregate.
 
 ```{r riskrecval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -829,13 +832,13 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation  in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
+Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Recreational fishing is important in the Northeast region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices. 
 
 ```{r Rec Participation, fig.cap="A: number of anglers, B: number of trips \\label{recreation}", echo = F, fig.height=3.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'Mid-Atlantic Rec participation', x.end = 2016,
+soe.plot(SOE.data, 'Time', 'North Atlantic Rec participation', x.end = 2016,
          scale.axis = 10^6, rel.y.num = 0.8, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'Mid-Atlantic angler trips', x.end = 2016,
+soe.plot(SOE.data, 'Time', 'North Atlantic angler trips', x.end = 2016,
          scale.axis = 10^6, rel.y.num = 0.8, stacked = 'B')
 
 soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
@@ -843,7 +846,7 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 
 ```
 
-These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). This is a national trend likely due to shifting demographics and general economic dynamics, among other issues.
+These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries. This is a national trend likely due to shifting demographics and general economic dynamics, among other issues.
 
 ##Commercial Fishery Resilience (Revenue Diversity)
 This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue at the permit level. 
@@ -926,7 +929,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 There is no current indicator available for this risk element. Ranking based on expert opinion should be explored.
 -->
 
-##Commercial Fishery Resilience (Shoreside Support) *update for NE*
+##Commercial Fishery Resilience (Shoreside Support) *need access to state data for New England if ranking*
 This element is applied at the ecosystem level. This element ranks the risk of reduced fishery business resilience due to shoreside support infrastructure by examining the number of shoreside support businesses. 
 
 ```{r riskfrel4, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -994,7 +997,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Picture of indicator, reference, or words describing rankings.
 -->
 
-##Commercial Employment *update for NE*
+##Commercial Employment *need state level data for NE if ranking*
 This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. A full description of the model generating employment estimates can be found here:  http://www.st.nmfs.noaa.gov/documents/commercial_seafood_impacts_2007-2009.pdf
 
 ```{r riskcemp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -1028,7 +1031,7 @@ soe.stacked.axis('Year', 'Number of Commercial Jobs',rel.y.text = 1)
 Based on this state-level information, most states show no trend in commercial fishery employment, but there is a significant recent decrease in employment in one state, Virginia. Therefore, this element ranks moderate-high risk. New York and New Jersey went from the hightest to lowest employment numbers within the most recent 2-4 years, suggesting increasing variability. 
 -->
 
-##Recreational Employment *update for NE*
+##Recreational Employment *need state level data for NE if ranking*
 This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. 
 
 ```{r riskremp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -1066,7 +1069,7 @@ Based on this state-level information, most states show no trend in recreational
 ##Fleet Diversity
 This element is applied at the ecosystem level. This element ranks the risk to maintaining equity in access to fishery resources. Two indicators of commercial fleet diversity, including the number of distinct fleets and diversity of revenue across fleets are used in combination to evaluate current fleet resilience throughout the New England region. 
 
-Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Below are diversity estimates for fleets landing MAFMC-managed species. This measure identifies the diversity in revenue generated by different fleet segments. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). 
+Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities, and can address objectives related to stability. Below are diversity estimates for fleets landing NEFMC-managed species. This measure identifies the diversity in revenue generated by different fleet segments. A fleet is defined here as the combination of gear code (Scallop Dredge, Other Dredge, Gillnet, Hand Gear, Longline, Bottom Trawl, Midwater Trawl, Pot, Purse Seine, or Clam Dredge) and vessel length category (Less than 30 ft, 30 to 50 ft, 50 to 75 feet, 75 ft and above). 
 
 ```{r riskfltdiv, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -1096,7 +1099,7 @@ soe.stacked.axis('Year', 'Commercial fleet diversity',rel.y.text = 1)
 
 There is a long term decrease in the fleet count metric. Therefore this element ranks moderate-high risk. <!--The number of fleets in New England seems to be negatively correlated to the revenue diversity metric in the most recent five years, which indicates that the latter results are being dominated by changes in the distribution of revenue across fleets, as opposed to the number of active fleets.-->
 
-##Community Vulnerability *update from NE SOE, change map borders*
+##Community Vulnerability 
 The NOAA Fisheries Community Social Vulnerability Indicators (CSVIs; @jepson_development_2013) are statistical measures of the vulnerability of communities to events such as regulatory changes to fisheries, wind farms, and other ocean-based businesses, as well as to natural hazards, disasters, and climate change. The CSVIs currently serve as indicators of social vulnerability, gentrification pressure vulnerability, commercial and recreational fishing dependence (with dependence being a function of both reliance and engagement), sea level rise risk, species vulnerability to climate change, and catch composition diversity. We use a combination of these five indicators for the most fishery dependent communities to evaluate overall social risk levels.
 
 ```{r risksoc, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -1118,7 +1121,7 @@ Below is a brief description for each category based on the NOAA social indicato
 *	**Social vulnerability** indices represent social factors that can shape either an individual or community’s ability to adapt to change. These factors exist within all communities regardless of the importance of fishing. 
 *	**Gentrification pressure** indices characterize those factors that, over time may indicate a threat to commercial or recreational working waterfront, including infrastructure. 
 
-Communities are ranked as high, medium high, moderate, or low relative to the respective indicator (Table \ref{reliance}). Community dependence on commercial and recreational fishing is mixed, with notably more communities in the Mid-Atlantic dependent on recreational fishing. While communities with high to medium high risk for social vulnerability are broadly distributed in suburban and rural areas of the Mid-Atlantic region, communities with high to medium high gentrification pressure are concentrated in beachfront communities near urban areas in New York and New Jersey. 
+Communities are ranked as high, medium high, moderate, or low relative to the respective indicator (Table \ref{reliance}). Community dependence on commercial and recreational fishing is mixed, with notably more communities in the Mid-Atlantic dependent on recreational fishing than in New England. <!--While communities with high to medium high risk for social vulnerability are broadly distributed in suburban and rural areas of the Mid-Atlantic region, communities with high to medium high gentrification pressure are concentrated in beachfront communities near urban areas in New York and New Jersey. -->
 
 
 ```{r reltab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -1166,15 +1169,17 @@ coast <- readOGR(gis.dir, 'NES_LME_coast')
 coast <- spTransform(coast, CRS('+init=epsg:4326'))
 ```
 
-```{r Community Risk, fig.cap="Risks from sea level rise (A), reliance on climate-vulnerable species (B), and catch diversity (C) \\label{commrisk}", echo = F, fig.height = 3.8, fig.width = 9}
-#knitr::include_graphics(file.path(image.dir, 'MidClimateRisk.png'))
+Assessment of the potential impacts of climate change on recreational and commercial fishermen and their communities has begun by linking social and economic indicators of community vulnerability and resilience to the climate vulnerability assessments of biological and ecological change expected to result from climate change and sea-level rise. Fishing communities in New England have generally moderate to low risks from sea level rise compared with communities in the Mid-Atlantic. However, there is moderate to high reliance on species vulnerable to climate in New England, and generally low catch diversity for communities in the Gulf of Maine, which may also increase risk. 
+
+```{r Community Risk NE, fig.cap="Risks from sea level rise (A), reliance on climate-vulnerable species (B), and catch diversity (C) \\label{commrisk}", echo = F, fig.height = 3.8, fig.width = 9}
+
 #Risk maps
 sea.col <- 'light blue'
 point.cex <- c(0.6, 1.0, 1.2, 1.4)
 opar<- par(mfrow = c(1, 3), mar = c(0, 0, 0, 0), oma = c(3, 4.2, 1, 1))
 
 #Sea Level Rise
-plot(0, 0, xlim = c(-77, -70), ylim = c(35, 42), xlab = '', ylab = '', axes = F,
+plot(0, 0, xlim = c(-74, -67), ylim = c(38, 45), xlab = '', ylab = '', axes = F,
      typ = 'n')
 
 #Add background
@@ -1214,7 +1219,7 @@ a <- legend('bottomright',
 
 #Species Risk
 point.cex <- c(0.0, 1.0, 1.5, 2.0)
-plot(0, 0, xlim = c(-77, -70), ylim = c(35, 42), xlab = '', ylab = '', axes = F,
+plot(0, 0, xlim = c(-74, -67), ylim = c(38, 45), xlab = '', ylab = '', axes = F,
      typ = 'n')
 
 #Add background
@@ -1242,17 +1247,20 @@ for(i in 2:4){
            pch = 21, bg = 'red', cex = point.cex[i])
 }
 
-a <- legend('bottomright', 
-            legend = c('High/Very High', 'Moderate', 'Low', 'Mixed', '', 
-                       '< $1M', '$1M - $10M', '> $10M'), bty = 'n',
-            pch = 21, pt.bg = c('red', 'blue', 'green', 'white', rep('white', 4)), 
-            pt.cex = c(rep(point.cex[3], 4), 0, point.cex[2:4]), cex = 1.5)
-
+ a <- legend('bottom', 
+             legend = c('','< $1M', '$1-$10M', '> $10M',
+               'High/Very High', 'Moderate', 'Low', 'Mixed'), bty = 'n',
+             pch = 21, pt.bg = c(rep('white', 4),'red', 'blue', 'green', 'white'), 
+             pt.cex = c(0, point.cex[2:4], rep(point.cex[3], 4)), cex = 1.5, ncol = 2)
+#a <- legend('bottomright', 
+#            legend = c('High/Very High', 'Moderate', 'Low', 'Mixed'), bty = 'n',
+#            pch = 21, pt.bg = c('red', 'blue', 'green', 'white'), 
+#            pt.cex = c(rep(point.cex[3], 4)), cex = 1.5)
 #Add Label
 text(u[1], u[4], labels = 'B', cex = 2, adj = c(-0.5, 1.5))
 
 #Catch Diversity
-plot(0, 0, xlim = c(-77, -70), ylim = c(35, 42), xlab = '', ylab = '', axes = F,
+plot(0, 0, xlim = c(-74, -67), ylim = c(38, 45), xlab = '', ylab = '', axes = F,
      typ = 'n')
 
 #Add background
@@ -1286,7 +1294,8 @@ a <- legend('bottomright',
 
 ```
 
-While the maps provides an overview of the social and climate indicator results for the Mid-Atlantic coastal communities, Table \ref{community} identifies Mid-Atlantic communities that are most highly dependent on both commercial and recreational fishing. The varying vulnerability level to social factors, gentrification pressure, and climate change in these communities provide a more comprehensive profile and should be taken into account in the decision making process for fishery management. 
+
+While the maps provides an overview of the social and climate indicator results for the New England coastal communities, Table \ref{community} identifies Mid-Atlantic communities that are most highly dependent on both commercial and recreational fishing. *This analysis would need to be redone for New England communities if the New England Council wishes to use this element.* The varying vulnerability level to social factors, gentrification pressure, and climate change in these communities provide a more comprehensive profile and should be taken into account in the decision making process for fishery management. 
 
 As a preliminary risk assessment, rankings from Table \ref{community} of MedHigh or High were tallied for social vulnerability and gentrification pressure, along with rankings of High risk from sea level rise, High/Very High species vulnerability, and rankings of Low catch composition diversity. Four of these communities (20%) have three or more of these high risk rankings, so we rank overall social-cultural risk as low-moderate for these Mid-Atlantic communities.
 
@@ -1309,7 +1318,7 @@ More information on Northeast coastal communities is available here: http://www.
 
 #Food Production Elements
 
-##Commercial Seafood Provision *update with NE SOE*
+##Commercial Seafood Provision
 This element is applied at the ecosystem level. This element describes the risk of not optimizing domestic seafood production from MAFMC managed species. Commercial seafood landings (as opposed to total landings which include bait and industrial uses) were used to assess seafood provision.
 
 ```{r riskcfood, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -1324,22 +1333,23 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
-This is commercial seafood landings from MAFMC managed species. Because this is total landings, years prior to 1977 do include foreign landings (in particular, of Atlantic mackerel, which account for much of the observed spike). Recent landings are all domestic fisheries. Looking across all regions, there is a significant recent decrease in seafood landings, indicating high risk to regional domestic seafood production. 
+Total commercial seafood landings from all species and from NEFMC managed species indicate total seafood production in the GOM and GB, which has declined over the long term. 
 
-```{r ComFoodAgg, fig.cap="Aggregate Mid-Atlantic managed species landings  \\label{comfoodagg}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
-opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
+```{r managed_landings_NE , fig.cap = "Total landings (black) and total landings managed by NEFMC (red) in Gulf of Maine (A) and Georges Bank (B).", echo=F, message=FALSE, warning=FALSE , fig.asp=.5, fig.align = 'center'}
+opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
 
-aggland <- SOE.data[Var %like% "MAFMC Landings"]
-setkey(aggland, Time)
-allland <- aggland[, sum(Value, na.rm = T), by = key(aggland)]
-setnames(allland, 'V1', 'Value')
-allland[, Var := paste('MAFMC Landings')]
-allland[, Units := 'Metric tons']
-allland[, EPU := 'ALL']
-
-soe.plot(allland, 'Time', 'MAFMC Landings', x.label="Year", y.label="Commercial Landings Metric Tons", rel.y.num = 1, rel.y.text = 0.8 )
+#soe.plot(SOE.data.2018, "Time", "Total Landings GOM", stacked = "A",status = F,
+#         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
+#         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
+#         y.var2 =  "Total managed landings GOM")
+#soe.plot(SOE.data.2018, "Time", "Total Landings GB", stacked = "B",status = F,
+#         endshade = T, rel.y.num = 1.1, full.trend = T, scale.axis = 10^3,end.start = 2007, x.start = 1964,
+#         ymin = FALSE, y.lower = 0 , extra = TRUE, x.var2 = "Time", 
+#         y.var2 =  "Total managed landings GB")
+soe.plot(SOE.data.2018, "Time", "Total managed landings GOM", stacked = "GOM", rel.y.num = 1.1,  scale.axis = 10^3, end.start = 2007, x.start = 1964)
+soe.plot(SOE.data.2018, "Time", "Total managed landings GB", stacked = "GB", rel.y.num = 1.1, scale.axis = 10^3,end.start = 2007, x.start = 1964)
+soe.stacked.axis("Time",expression("Landings, 10"^3*"metric tons"), rel.y.text = 1.2)
 ```
-
 
 ##Recreational/Subsistence Food
 This element is applied at the ecosystem level. This element describes the risk of not maintaining personal food production. Recreational seafood landings (as opposed to total landings which include catch and release that are captured under other risk elements/indicators) were used to assess food use of recreationally caught fish.
@@ -1387,7 +1397,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Picture of indicator, reference, or words describing rankings.
 -->
 
-#Management Elements--*ALL FROM MAFMC*
+#Management Elements--*ALL FROM MAFMC staff, here as example only*
 
 ##Fishing Mortality Control
 This element is applied at the species and sector level. This element addresses the level of management control in terms of catch estimation (measurement) and monitoring to prevent overfishing. Adequate management control indicates a low risk of overfishing, while poor management control indicates a higher risk of overfishing and hence not achieving OY.  Actual catch is compared with the specified ABC over the most recent five years of fishery history.
@@ -1507,18 +1517,18 @@ Each species and sector will be evaluated relative to risk based on whether or n
 
 # spplist     oc,  sc,  flk, scp, bsb, mack, but, lsq, ssq, gtile,  btile,  blu, dog, monk
 risk.species<-data.frame(
-  Species = c("Ocean Quahog", "Surfclam", "Summer flounder", "Scup", "Black sea bass", "Atl. mackerel", "Butterfish", "Longfin squid", "Shortfin squid", "Golden tilefish", "Blueline tilefish", "Bluefish", "Spiny dogfish", "Monkfish", "Unmanaged forage", "Deepsea corals"),
-  Assess  = c("l", "l", "l",  "l", "l", "h",  "l", "lm", "lm", "l", "h", "l", "lm", "h", "na", "na"),
-  Fstatus = c("l", "l", "h", "l", "l", "mh", "l", "lm", "lm", "l", "h", "l", "l", "lm", "na", "na"),
-  Bstatus = c("l", "l", "lm", "l", "l", "mh", "l", "lm", "lm", "lm", "mh", "lm", "lm", "lm", "na", "na"),
-  FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
-  FW1Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "lm", "l"),
-  FW2Prey = c("l", "l", "l", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l", "lm", "l"),
-#  EcoProd = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm", "lm", "lm"),
-  Climate = c("h", "mh", "lm", "lm", "mh", "lm", "l", "l", "l", "mh", "mh","l", "l", "l", "na", "na"),
-  DistShift = c("mh", "mh", "mh", "mh", "mh", "mh", "h", "mh", "h", "l", "l", "mh", "h", "mh", "na", "na"),
-  EstHabitat = c("l", "l", "h", "h", "h", "l", "l", "l", "l", "l", "l", "h", "l", "l", "na", "na")#,
-#  OffHabitat = c("na", "na", "l", "l", "l", "l", "l", "l", "h", "na", "na", "na", "l", "l", "na", "na")#,
+  Species = c("Scallop", "Herring", "GB Cod", "GB Yellowtail", "GB Winter", "N Windowpane", "GB Haddock", "S Silver Hake", "S Red Hake", "White hake", "Pollock", "Redfish", "Spiny dogfish", "Monkfish", "6 Skates", "Thorny skates", "Wolffish", "Ocean pout"),
+  Assess  = c("l", "l", "h", "h", "lm", "lm", "l", "na", "na", "l", "na", "lm", "lm", "h", "h", "h", "na", "na"),
+  Fstatus = c("l", "l", "na", "na", "l", "na", "na", "na", "na", "na", "l", "l", "l", "lm", "l", "na", "na", "na"),
+  Bstatus = c("l", "l", "na", "na", "lm", "na", "na", "na", "na", "na", "l", "l", "lm", "lm", "l", "na", "na", "na"),
+  FW1Pred = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "l", "l", "na", "na", "na", "na"),
+  FW1Prey = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "l", "l", "na", "na", "na", "na"),
+  FW2Prey = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "l", "l","na", "na", "na", "na"),
+#  EcoProd = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm"),
+  Climate = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "l", "l", "na", "na", "na", "na"),
+  DistShift = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "h", "mh", "na", "na", "na", "na"),
+  EstHabitat = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "l", "l", "na", "na", "na", "na")#,
+#  OffHabitat = c("na", "na", "l", "l", "l", "l", "l", "l", "h", "na", "na", "na", "l", "l", , "na", "na", "na", "na")#,
 #  CommProf = c(),
 #  RecVal = c(),
 #  FishRes1 = c(),
@@ -1592,7 +1602,7 @@ risk.species %>%
 ```
 -->
 
-##Species and Sector level
+##Species and Sector level *Mid Atlantic Rankings*
 ```{r, spsectable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 #
 risk.sppsector<-data.frame(
@@ -1644,18 +1654,18 @@ risk.state %>%
 ```{r, ecotable, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
   
 risk.eco<-data.frame(
-  System = c("Mid-Atlantic"),
+  System = c("New England"),
   EcoProd = c("lm"),
   CommProf = c("mh"),
   RecVal = c("h"),
   FishRes1 = c("l"),
-  FishRes4 = c("mh"),
-  #CommJobs = c("mh"),
-  #RecJobs = c("l"),
+  FishRes4 = c("na"),
+  #CommJobs = c("na"),
+  #RecJobs = c("na"),
   FleetDiv = c("mh"),
-  Social = c("lm"),
-  ComFood = c("h"),
-  RecFood = c("mh")
+  Social = c("na"),
+  ComFood = c("mh"),
+  RecFood = c("l")
 )
 
 #make table
