@@ -34,12 +34,12 @@ bibliography: My_Library.bib
 #data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
 #image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
 #gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
-data.dir  <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAdata'
-image.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAimages'
-gis.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAusa_shape_files'
-#data.dir  <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAdata'
-#image.dir <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAimages'
-#gis.dir <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAusa_shape_files'
+#data.dir  <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAdata'
+#image.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAimages'
+#gis.dir <- '/home/sgaichas/Data/Projects/EBFM_PDT/RAusa_shape_files'
+data.dir  <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAdata'
+image.dir <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAimages'
+gis.dir <- '/users/sgaichas/Documents/0_Data/EBFM_PDT/GBriskassess/RAusa_shape_files'
 PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {  
@@ -478,7 +478,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 Protected species include marine mammals (under the Marine Mammal Protection Act), Endangered and Threatened species (under the Endangered Species Act), and migratory birds (under the Migratory Bird Treaty Act). In the Northeast US, endangered/threatened species include Atlantic salmon, Atlantic and shortnose sturgeon, all sea turtle species, and 5 baleen whales. NEFMC managed species are not important predators of protected species [@smith_trophic_2010], even though monkfish occasionally ingest seabirds [@perry_predation_2013]. Atlantic salmon, both species of sturgeon, and sea turtles are not major predators of NEFMC managed species, as reviewed in the MAFMC Forage Fish white paper [@savoy_prey_2007; @johnson_food_1997; @burke_diet_1993; @burke_diet_1994; @mcclellan_complexity_2007; @seney_historical_2007; @shoop_seasonal_1992]. Information sources for marine mammal diets in the Northeast US [@smith_consumption_2015], and seabird diets [@powers_pelagic_1983; @powers_energy_1987; @powers_seabirds_1987; @schneider_state_1996; @barrett_diet_2007; @bowser_puffins_2013] were reviewed. 
 
-Diet information for protected species tends to be more uncertain than for fished species, so we consider diet at the family level for these rankings because diet compositions are not reported to the species level. Clupeids (which include Atlantic herring) comprise 30% of minke whale diet in the Northeast US [@smith_consumption_2015]. Small gadids (all hakes) comprise 32% of harbor porpoise diets [@smith_consumption_2015]. Therefore we rank herring and hake species low-moderate risk for this element. <!--Shortfin squid were identified as important prey for two pelagic seabirds in the Northeast US [@powers_energy_1987], and therefore ranked low-moderate risk.-->
+Diet information for protected species tends to be more uncertain than for fished species, so we consider diet at the family level for these rankings because diet compositions are not reported to the species level. Clupeids (which include Atlantic herring) comprise 30% of minke whale diet in the Northeast US [@smith_consumption_2015]. Small gadids (all hakes) comprise 32% of harbor porpoise diets [@smith_consumption_2015]. Therefore we rank herring and hake species low-moderate risk for this element. Fish were identified as important prey for pelagic seabirds in the Northeast US [@powers_energy_1987], but the primary species listed were sandlance and saury, with butterfish and silver hake also mentioned. Nesting common terns in the Gulf of Maine fed chicks juvenile herring and hakes in many colonies, reinforcing the low-moderate ranking for these species.
 
 ##Ecosystem Productivity
 This element is applied at the ecosystem level. This element ranks the risk of not achieving OY due to changes in ecosystem productivity at the base of the food web. Four indicators are used together to assess risk of changing ecosystem productivity. We examine trends in total primary production, zooplankton abundance for a key Mid-Atlantic species, and two aggregate fish productivity measures: condition factor (weight divided by length of individual fish) and a survey based "recruitment" (small fish to large fish) index. Because many MAFMC managed species rely on benthic crustaceans as forage, a benthic production indicator is also desirable, *but not yet available.*
@@ -1519,15 +1519,15 @@ Each species and sector will be evaluated relative to risk based on whether or n
 risk.species<-data.frame(
   Species = c("Scallop", "Herring", "GB Cod", "GB Yellowtail", "GB Winter", "N Windowpane", "GB Haddock", "S Silver Hake", "S Red Hake", "White hake", "Pollock", "Redfish", "Spiny dogfish", "Monkfish", "6 Skates", "Thorny skates", "Wolffish", "Ocean pout"),
   Assess  = c("l", "l", "h", "h", "lm", "lm", "l", "na", "na", "l", "na", "lm", "lm", "h", "h", "h", "na", "na"),
-  Fstatus = c("l", "l", "na", "na", "l", "na", "na", "na", "na", "na", "l", "l", "l", "lm", "l", "na", "na", "na"),
-  Bstatus = c("l", "l", "na", "na", "lm", "na", "na", "na", "na", "na", "l", "l", "lm", "lm", "l", "na", "na", "na"),
-  FW1Pred = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "l", "l", "na", "na", "na", "na"),
-  FW1Prey = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "l", "l", "na", "na", "na", "na"),
-  FW2Prey = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "l", "l","na", "na", "na", "na"),
+  Fstatus = c("l", "l", "mh", "h", "l", "l", "l", "l", "h", "l", "l", "l", "l", "lm", "l", "l", "l", "l"),
+  Bstatus = c("l", "l", "h", "h", "lm", "h", "l", "lm", "h", "lm", "l", "l", "lm", "lm", "l", "h", "h", "h"),
+  FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
+  FW1Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
+  FW2Prey = c("l", "lm", "l", "l", "l", "l", "l", "lm", "lm", "lm", "l", "l", "l", "l", "l", "l", "l", "l"),
 #  EcoProd = c("lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm","lm"),
-  Climate = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "l", "l", "na", "na", "na", "na"),
-  DistShift = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "h", "mh", "na", "na", "na", "na"),
-  EstHabitat = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "l", "l", "na", "na", "na", "na")#,
+  Climate = c("mh", "l", "lm", "l", "h", "l", "l", "l", "l", "lm", "lm", "lm", "l", "l", "lm", "mh", "l", "mh"),
+  DistShift = c("lm", "mh", "mh", "mh", "mh", "mh", "mh", "mh", "mh", "mh", "mh", "mh", "h", "mh", "mh", "mh", "mh", "lm"),
+  EstHabitat = c("l", "l", "l", "l", "h", "l", "l", "l", "h", "h", "h", "l", "l", "l", "l", "l", "l", "l")#,
 #  OffHabitat = c("na", "na", "l", "l", "l", "l", "l", "l", "h", "na", "na", "na", "l", "l", , "na", "na", "na", "na")#,
 #  CommProf = c(),
 #  RecVal = c(),
