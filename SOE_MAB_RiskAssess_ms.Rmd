@@ -522,7 +522,7 @@ knitr::include_graphics(file.path(image.dir, 'NEVAvulmid.png'))
 
 While this risk assessment focuses on overall vulnerability to impacts of climate, not all impacts will be negative. Some Council managed species, including black sea bass, bluefish, butterfish, longfin squid, and shortfin squid, may benefit from projected future climate conditions [@hare_vulnerability_2016]. 
 
-###Distribution Shifts
+###Distribution shifts
 This element is applied at the species level. Species distribution shifts can increase risks of ineffective spatial catch allocation; if catch allocation is greatly mismatched with species distribution OY may not be achieved. Risks of species distribution shifts due to projected climate change in the Northeast US were assessed in a comprehensive assessment [@hare_vulnerability_2016]. We applied those distribution shift risk rankings directly here, as explained above. In addition, changes in species distribution are monitored using fisheries independent bottom trawl surveys. Two distribution shift indicators are derived from these surveys: kernel density plots of recent distribution compared with 1970s distribution, and time series of the along shelf position of the center of distribution.
 <!--
 ```{r riskdist, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -546,7 +546,7 @@ knitr::include_graphics(file.path(image.dir, 'NEVAshiftmid.png'))
 ```
 -->
 
-####Historical vs. Current Distribution Maps
+####Historical vs. current distribution
 Spatial distribution has changed over time for some species more than for others. The distribution of black sea bass, as measured by NEFSC surveys, has shifted northward relative to historical distributions. In contrast, the distribution of longfin squid in the Mid-Atlantic has remained relatively stable. 
 <!--
 ```{r,  echo = F, fig.show='hold', fig.align='default', out.width='.49\\linewidth', message = FALSE, warning = FALSE}
@@ -563,10 +563,10 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 -->
 A full suite of these maps is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/kernel-density.html. 
 
-####Changes in Along Shelf Position
+####Changes in along shelf position
 The annual centroid of a species’ distribution can be characterized by the position in the ecosystem along an axis oriented from the southwest to the northeast, referred to as the along shelf distance, and by depth. Along shelf distances range from 0 to 1360 km, which relates to positions along the axis from the origin in the southwest to the northeast. The mean annual along shelf distance for several Council-managed species is shown below; most are consistent with theoretical predictions [@hare_vulnerability_2016] and, aside from squids, show a northeastward change in distribution (Fig. \ref{shifts}). Mean depth has not changed significantly for these species. Information for more species is available at http://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html.  
 
-###Estuarine and Coastal Habitat
+###Estuarine and coastal habitat
 This element is applied at the species level. Risk of not achieving OY due to threats to estuarine and nearshore coastal habitat/nursery grounds (estuarine) was determined by first evaluating the estuarine dependence of species, and then by enumerating threats to the estuarine habitat required by these species. An assessment of national coastal and estuarine condition was used in this assessment. Water and habitat quality assessments produced for Chesapeake Bay, Delaware Bay, Long Island Sound, and other coastal estuaries can be considered in the future. 
 
 <!--
@@ -589,10 +589,13 @@ The National Coastal Condition Assessment for the Northeast US [@us_epa_national
 ###Offshore habitat
 This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from experimental species-specific habitat modeling. Because this experimental habitat index was still being studied and improved, habitat risk rankings based on this were considered preliminary by the EOP, and were not included in the initial risk assessment. Please see the supplementary material for a full description. 
 
-##Economic Elements
+##Economic elements
 
-###Commercial Revenue
-This element is applied at the ecosystem level, and addresses the risk of not maximizing fishery value. Revenue serves as a proxy for commercial profits, which is the component of a fishery's value that this element is ultimately attempting to assess risk towards. 
+###Commercial revenue
+This element is applied at the ecosystem level, and addresses the risk of not maximizing fishery value. Revenue serves as a proxy for commercial profits, which is the component of a fishery's value that this element is ultimately attempting to assess risk towards. Lack of cost information across all fleet segments precludes the assessment of risk to profitability itself at the ecosystem level.
+
+Low risk was defined as no trend and low variability in revenue. Low-Moderate risk was increasing or overall high variability in revenue. Moderate-High risk was a significant long-term revenue decrease. High risk was a significant recent decrease in revenue.
+ 
 
 Risk ranking critiera for time series followed a similar pattern across ecological, economic, and social indicators if decreasing trends were considered risky. Low risk criteria were no trend and low variability in revenue. Low-Moderate risk criteria were increasing variability or overall high variability in revenue. Moderate-High risk criteria was a significant long term revenue decrease. High risk criteria was a significant recent decrease in revenue. 
 
@@ -610,7 +613,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 -->
 
-Aggregate commercial revenue for Council managed species was calculated (Fig. \ref{econinds}, Upper left). There is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. This trend is consistent with the trend first shown in the EAFM Interactions white paper and published in @gaichas_framework_2016 (Figs 2-3).
+Aggregate commercial revenue for Council-managed species was calculated (Fig. \ref{econinds}, Upper left). Consistent with other published work (@gaichas_framework_2016, Figs 2-3) there is a long term significant decrease in revenue, indicating moderate-high risk to commercial fishery profit. 
 <!--
 ```{r ComProfAgg, fig.cap="Aggregate Mid-Atlantic managed species revenue  \\label{comprofagg}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
 #opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 2))
@@ -627,8 +630,8 @@ Aggregate commercial revenue for Council managed species was calculated (Fig. \r
 ```
 -->
 
-###Marine Recreational Angler Days/Trips
-This element is applied at both the fleet level and at the ecosystem level where it would apply equally to all recreationally fished species. Angler days and trips are proxies for the welfare (value) generated from recreational fishing. Risk of not maximizing fishery value is evaluated using the number of marine recreational fishing angler-days and number of marine recreational trips, in aggregate.
+###Marine recreational angler days/trips
+This element is assessed at the ecosystem level where it applies equally to all recreationally fished species. Providing recreational opportunities is a stated goal of optimal fishery management under the legal definition of “benefits to the nation” . Recreational fishing is important in the Mid-Atlantic region with the economic and social aspects of many coastal communities being highly dependent on recreational fishing. 
 <!--
 ```{r riskrecval, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -642,9 +645,9 @@ tabl <- "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 -->
-Low risk criteria were no trend and low variability in angler days/trips. Low-Moderate risk criteria were increasing variability or overall high variability in angler days/trips. Moderate-High risk criteria were significant long term decreases in angler days/trips. High risk criteria were significant recent decreases in angler days/trips. 
+Angler days and trips are the proxy indicators for the value generated from recreational fishing. Low risk was defined as no trend and low variability in angler days/trips. Low-Moderate risk was increasing variability or overall high variability in angler days/trips. Moderate-High risk  was significant long-term decreases in angler days/trips. High risk  was significant recent decreases in angler days/trips. 
 
-Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of "benefits to the nation" under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence. Although there is an overall trend of increasing recreational fishery participation  in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices (Fig. \ref{econinds}, Lower left). 
+Although there is an overall long-term trend of increasing recreational fishery participation in terms of number of anglers, the most recent 10 years has shown a striking decline in both recreation indices (Fig. \ref{econinds}, Lower left). These significant recent decreases in number of anglers and number of trips indicate high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). 
 <!--
 ```{r RecParticipation, fig.cap="A: number of anglers, B: number of trips \\label{recreation}", echo = F, fig.height=3.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(2, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -659,10 +662,8 @@ soe.stacked.axis('Year', expression('Recreational participation, 10'^6*'n'),
 ```
 -->
 
-These significant recent decreases in numbers of anglers and numbers of trips alone suggest high risk to recreational value generated from the species with substantial recreational fisheries (summer flounder, scup, black sea bass, bluefish). This is a national trend likely due to shifting demographics and general economic dynamics, among other issues.
-
-###Commercial Fishery Resilience (Revenue Diversity)
-This element is applied at the ecosystem level. This element addresses the risk of reduced commercial fishery business resilience by evaluating species diversity of revenue at the permit level. 
+###Commercial fishery resilience (revenue diversity)
+This element is applied at the ecosystem level. This element addresses the potential risk of reduced commercial fishery business resilience by evaluating species diversity of revenue at the permit level. 
 <!--
 ```{r riskfrel1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
@@ -677,9 +678,9 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 -->
 
-Low risk criteria were no trend and low variability in the diversity measure. Low-Moderate risk criteria were increasing variability or overall high variability in the diversity measure. Moderate-High risk criteria was a significant long term decrease in the diversity measure. High risk criteria was a significant recent decrease in the diversity measure. 
+Low risk was defined as no trend and low variability in the diversity measure. Low-Moderate risk was increasing or overall high variability in the diversity measure. Moderate-High risk was a significant long term decrease in the diversity measure. High risk  was a significant recent decrease in the diversity measure.
 
-This diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of Council FMP species within a year (including both Monkfish and Spiny Dogfish). Although the exact value of the effective Shannon index is relatively uninformative, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
+This diversity index is the average effective Shannon index for species revenue at the permit level, for all permits landing any amount of Council-managed species within a year (including both monkfish and spiny dogfish). Although the exact value of the effective Shannon index is relatively uninformative in this context, the major change in diversity seems to have occurred in the late 1990’s, with much of the recent index relatively stable. 
 <!-- 
 ```{r, fig.cap="Diversity in species revenue \\label{fleetsppdiv}", echo = F, fig.height=2.5}
 
@@ -747,7 +748,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 There is no current indicator available for this risk element. Ranking based on expert opinion should be explored.
 -->
 
-###Commercial Fishery Resilience (Shoreside Support)
+###Commercial fishery resilience (shoreside support)
 This element is applied at the ecosystem level. This element ranks the risk of reduced fishery business resilience due to shoreside support infrastructure by examining the number of shoreside support businesses. 
 <!--
 ```{r riskfrel4, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -763,10 +764,10 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 -->
 
-Low risk criteria were no trend and low variability in the number of shoreside support businesses. Low-Moderate risk criteria were increasing variability or overall high variability in shoreside support businesses. Moderate-High risk criteria was a significant recent decrease in one measure of shoreside support businesses. High risk criteria was a significant recent decrease in multiple measures of shoreside support businesses. 
+Low risk was defined as no trend and low variability in the number of shoreside support businesses. Low-Moderate risk was increasing variability or overall high variability in shoreside support businesses. Moderate-High risk was a significant recent decrease in one measure of shoreside support businesses. High risk was a significant recent decrease in multiple measures of shoreside support businesses.
 
 The number of shoreside support businesses were tallied for all Mid-Atlantic states in two categories: number of companies (Quarterly Census of Employment and Wages. Obtained September 27, 2017. US Department of Labor, Bureau of Labor Statistics. https://www.bls.gov/cew/home.htm) and number of non-employer entities Nonemployer Statistics.” Obtained September 28, 2017. U.S. Census Bureau.
-https://www.census.gov/programs-surveys/nonemployer-statistics.html), which we consider separately. Nonemployer entities are businesses that have no paid employees (i.e. the owner is the workforce), while the shoreside support companies include all businesses with paid employees. Some state level data was not included due to confidentiality. 
+https://www.census.gov/programs-surveys/nonemployer-statistics.html), which we consider separately. Nonemployer entities are businesses that have no paid employees (i.e. entrepreneurs, or the owner is the workforce), while the shoreside support companies include all businesses with paid employees. Some state level data was not included due to confidentiality. 
 <!--
 ```{r Shoresupp1, fig.cap="Shoreside support businesses: Number of Companies  \\label{shoresupp1}", echo = F, fig.height=2.5, message = FALSE, warning = FALSE}
 opar <- par(mfrow = c(1, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
@@ -796,8 +797,7 @@ soe.plot(allent, 'Time', 'Mid-Atlantic Nonemployer Entities', rel.y.num = 0.8, x
 
 ```
 -->
-
-The number of shoreside support companies that include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states shows a significant long term and short term decrease, which on its own represents moderate-high risk to fishery resilience. However, the number of non-employer entities which include seafood preparation and packaging and seafood markets shows a long term increase (Fig. \ref{econinds}, Lower right). Trends in other shoreside fishery supporting businesses such as gear manufacturers and welding companies are not included here due to aggregation of the statistics.  
+The number of shoreside support companies include seafood merchant wholesalers, seafood product preparation and packaging, and seafood markets across all Mid-Atlantic states. The indicator shows a significant long-term and short-term decrease, which represents moderate-high risk to fishery resilience. The number of non-employer entities, including seafood preparation and packaging and seafood markets, shows a long-term increase (Fig. \ref{econinds}, Lower right). Data from other shoreside fishery supporting businesses, such as gear manufacturers and welding companies, are not included here due to aggregation of the statistics across non-fishing industries (e.g. net manufacturers combined with all other businesses).
 
 <!--
 ###Fishery Resilience (5)
@@ -819,7 +819,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Picture of indicator, reference, or words describing rankings.
 -->
 
-###Commercial Employment
+###Commercial employment
 This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. A full description of the model generating employment estimates can be found here:  http://www.st.nmfs.noaa.gov/documents/commercial_seafood_impacts_2007-2009.pdf
 <!--
 ```{r riskcemp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -855,7 +855,7 @@ soe.stacked.axis('Year', 'Number of Commercial Jobs',rel.y.text = 1)
 Based on this state-level information, most states show no trend in commercial fishery employment, but there is a significant recent decrease in employment in one state, Virginia. Therefore, this element ranks moderate-high risk. New York and New Jersey went from the hightest to lowest employment numbers within the most recent 2-4 years, suggesting increasing variability. 
 -->
 
-###Recreational Employment
+###Recreational employment
 This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. 
 <!--
 ```{r riskremp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -871,7 +871,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 -->
 
-The EOP Committee agreed to the same risk ranking criteria as for commerical fishery employment, but similarly lacked confidence in the available employment indicator data, so this element remains unranked at this time.
+The EOP Committee agreed to the same risk ranking criteria as for commercial fishery employment, but similarly lacked confidence in the available employment indicator data, so this element remains unranked at this time.
 <!--
 This is recreational employment by state.
 
@@ -889,7 +889,7 @@ soe.stacked.axis('Year', 'Number of Recreational Jobs',rel.y.text = 1)
 Based on this state-level information, most states show no trend in recreational fishery employment, but there is a significant recent increase in employment in one state, New Jersey. Therefore, this element ranks low risk. 
 -->
 
-##Social-Cultural Elements
+##Social-cultural elements
 
 ###Fleet Diversity
 This element is applied at the ecosystem level. This element ranks the risk to maintaining equity in access to fishery resources. Two indicators of commercial fleet diversity, including the number of distinct fleets and diversity of revenue across fleets are used in combination to evaluate current fleet resilience throughout the Mid-Atlantic region. 
@@ -1895,7 +1895,7 @@ risk.eco<-data.frame(
   System = c("Mid-Atlantic"),
   EcoProd = c("lm"),
   #EcoDiv = c("lm"),
-  CommProf = c("mh"),
+  CommRev = c("mh"),
   RecVal = c("h"),
   FishRes1 = c("l"),
   FishRes4 = c("mh"),
