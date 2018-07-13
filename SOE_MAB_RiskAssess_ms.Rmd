@@ -1,7 +1,7 @@
 ---
 title: "Implementing Ecosystem Approaches to Fishery Management: Risk Assessment in the US Mid-Atlantic"
 author:
-- name: Sarah K. Gaichas, Geret S. DePiper 
+- name: Sarah K. Gaichas*, Geret S. DePiper 
   affiliation: NOAA NMFS Northeast Fisheries Science Center, Woods Hole, MA, USA
 - name: Richard J. Seagraves, Brandon W. Muffley, Mary Sabo
   affiliation: Mid-Atlantic Fishery Management Council, Dover, DE, USA
@@ -28,6 +28,20 @@ geometry: margin=0.8in
 csl: frontiers.csl
 bibliography: My_Library.bib
 ---
+
+####Correspondence: Sarah K. Gaichas, <Sarah.Gaichas@noaa.gov> 
+
+####Word count: 11694, 8 Figures, 7 Tables
+<!--text+headers+captions (#headers/#floats/#inlines/#displayed)
+618+1+0 (1/0/0/0) Section: Introduction}\label{introduction
+1407+1+0 (1/0/0/0) Section: Methods}\label{methods
+129+1+0 (1/0/0/0) Section: Results}\label{results
+3505+49+0 (17/0/0/0) Subsection: Ecological elements}\label{ecological-elements
+1035+23+0 (7/0/0/0) Subsection: Economic elements}\label{economic-elements
+1157+6+0 (3/0/0/0) Subsection: Social-cultural elements}\label{social-cultural-elements
+305+10+0 (3/0/0/0) Subsection: Food production elements}\label{food-production-elements
+2094+16+0 (7/0/0/0) Subsection: Management elements}\label{management-elements
+1444+1+0 (1/0/0/0) Section: Discussion}\label{discussion-->
 
 ```{r Directory and Data Set-up, echo = F, message = F , warning = F}
 #data.dir  <- '/home/slucey/EcoAP/SOE2017/data'
