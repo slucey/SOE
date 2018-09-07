@@ -382,7 +382,7 @@ image_trim()
 ## Conceptual model step 1: split Black Sea Bass
 ```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
 
-image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_read(file.path(image.dir,"addbsb.png")) %>%
 image_trim()
 
 ```
@@ -390,7 +390,23 @@ image_trim()
 ## Conceptual model step 2: fishery components
 ```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
 
-image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_read(file.path(image.dir,"addfisheries.png")) %>%
+image_trim()
+
+```
+
+## Conceptual model step 2: fishery components
+```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"fisherylinkdemersals.png")) %>%
+image_trim()
+
+```
+
+## Conceptual model step 2: fishery components
+```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"commercialbsb.png")) %>%
 image_trim()
 
 ```
@@ -398,7 +414,7 @@ image_trim()
 ## Conceptual model step 3: food web components
 ```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
 
-image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_read(file.path(image.dir,"addfoodweb.png")) %>%
 image_trim()
 
 ```
@@ -406,7 +422,7 @@ image_trim()
 ## Conceptual model step 4: habitat components
 ```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
 
-image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_read(file.path(image.dir,"addhabitat.png")) %>%
 image_trim()
 
 ```
@@ -414,7 +430,31 @@ image_trim()
 ## Conceptual model step 5: management components
 ```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
 
-image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_read(file.path(image.dir,"addmgtctl.png")) %>%
+image_trim()
+
+```
+
+## Conceptual model step 5: management components
+```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"addregcomplex.png")) %>%
+image_trim()
+
+```
+
+## Conceptual model step 5: management components
+```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"addalloc1.png")) %>%
+image_trim()
+
+```
+
+## Conceptual model step 5: management components
+```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"addalloc2.png")) %>%
 image_trim()
 
 ```
