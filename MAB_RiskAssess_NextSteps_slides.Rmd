@@ -476,6 +476,24 @@ A (partial) conceptual model based on the second approach was recently developed
 
 Again, this is illustrative of an approach and not intended to be prescriptive. 
 
+## Conceptual model: squid habitat
+```{r,  fig.align='center', out.width="\\linewidth" , echo=F, message=F}
+
+image_read(file.path(image.dir,"wintersquid2qpress.png")) %>%
+image_trim() %>%
+  image_crop("1300x700+0")
+
+```
+
+## Conceptual model: squid economic
+```{r,  fig.align='center', out.width="\\linewidth" , echo=F, message=F}
+
+image_read(file.path(image.dir,"wintersquid2qpress.png")) %>%
+image_trim()%>%
+  image_crop("1300x700+1200")
+
+```
+
 ## Conceptual model: example 2
 ```{r, fig.cap="Example conceptual model for fishery risks: longfin squid. \\label{squidex}", fig.align='center', out.width="\\linewidth" , echo=F, message=F}
 
@@ -483,7 +501,6 @@ image_read(file.path(image.dir,"wintersquid2qpress.png")) %>%
 image_trim()
 
 ```
-
 
 ## Conceptual model --> Managment Strategy Evaluation
 - In the Council EAFM framework, specifying a conceptual model in turn provides the initial scoping for more in-depth management strategy evaluation (MSE)
