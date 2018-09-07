@@ -1,0 +1,427 @@
+---
+title: "Using the Mid-Atlantic EAFM Risk Assessment: Possible Next Steps"
+author: Sarah K. Gaichas, Geret S. DePiper, Brandon W. Muffley
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+header-includes:
+   - \usepackage{multirow}
+   - \usepackage{colortbl}
+output:
+  beamer_presentation:
+    slide_level: 2
+    keep_tex: true
+    latex_engine: xelatex
+  ioslides_presentation:
+    smaller: true
+csl: frontiers.csl
+bibliography: My_Library.bib
+---
+
+
+```{r Directory and Data Set-up, echo = F, message = F , warning = F}
+#data.dir  <- '/home/slucey/EcoAP/SOE2017/data'
+#image.dir <- '/home/slucey/EcoAP/SOE2017/images'
+#gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
+#data.dir <- 'Z:\\SOE2017\\data'
+#image.dir <- 'Z:\\SOE2017\\images'
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+#data.dir  <- './data'
+#image.dir <- './images'
+#gis.dir <- './usa_shape_files'
+#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {  
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
+load(file.path(data.dir, 'SOE_data.RData'))
+load(file.path(data.dir, 'Comm_Climate_Vul.RData'))
+load(file.path(data.dir, 'Fisheries_Eng_Rel.RData'))
+knitr::opts_chunk$set(echo = FALSE, fig.align='center',fig.path = './riskassessfigs/')
+
+#to get table captions and numbering
+# tn = local({
+#   i = 0
+#   function(x) {
+#     i <<- i + 1
+#     #paste('\n\n:Table ', i, ': ', x, sep = '')
+#     paste('\n\n:', x, sep = '')
+#     # The : before Table tells pandoc to wrap your caption in <caption></caption>
+#   }
+# })
+# knit_hooks$set(tab.cap = function(before, options, envir) {
+#   if(!before)
+#     tn(options$tab.cap)
+# })
+# default_output_hook = knit_hooks$get("output")
+# knit_hooks$set(output = function(x, options) {
+#   if (is.null(options$tab.cap) == F)  
+#     x
+#   else
+#     default_output_hook(x,options)
+# })
+
+```
+
+```{r Generic Plot Function, echo = F}
+#Plot figure new
+soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
+                     x.start = NA, x.end = NA, end.start = 2006, bg.col = background,
+                     end.col = recent, trend.neg = main.neg, trend.pos = main.pos,
+                     end.trend.neg = end.neg, end.trend.pos = end.pos,
+
+                     stacked = NA, x.line = 2.6, y.line = 3.5, scale.axis = 1,
+                     rel.y.num = 1.5, rel.y.text = 1.5){
+ 
+  #Select Data
+  x <- data[Var == y.var, ]
+  x <- x[order(x[, get(x.var)]), ]
+  setnames(x, x.var, 'X')
+ 
+  #Set common time step if necessary
+  if(is.na(x.start)) x.start <- min(x[, X])
+  if(is.na(x.end))   x.end   <- max(x[, X])
+  x <- x[X >= x.start, ]
+ 
+  #Set up plot parameters
+  y.max <- max(x[, Value], na.rm = T) + tol * max(x[, Value], na.rm = T)
+  y.min <- min(x[, Value], na.rm = T) - tol * abs(min(x[, Value], na.rm = T))
+  y.mean <- mean(x[, Value], na.rm = T)
+  y.sd <- sd(x[, Value], na.rm = T)
+ 
+  #Plot blank plot
+  plot(x[X >= x.start, list(X, Var)], xlim = c(x.start, x.end),
+       ylim = c(y.min,y.max), xlab = '', ylab = '', axes = F, ty = 'n')
+ 
+  #Add background
+  u <- par('usr')
+  rect(u[1], u[3], u[2], u[4], border = NA, col = bg.col)
+ 
+  #Add end period shading
+  rect(end.start - 0.5, u[3], u[2], u[4], border = NA, col = end.col)
+  abline(h = u[3], lwd=3)
+  abline(v = u[1], lwd=3)
+ 
+  #Add grides
+  abline(h = y.mean + y.sd, col = 'white', lwd = 3, lty = 2)
+  abline(h = y.mean - y.sd, col = 'white', lwd = 3, lty = 2)
+ 
+  #Add data points/lines
+  points(x[, list(X, Value)], pch = 16, cex = 1.5)
+  lines( x[, list(X, Value)], lwd = 2)
+ 
+  #Add axis
+  if(is.na(stacked)) axis(1, cex.axis = 1.5)
+  if(!is.na(stacked)){
+    if(stacked!= 'A') axis(3, cex.axis = 1.5, tck = 0.1, labels = F)
+  }
+  #Stacked axes with 0 overlap so need to remove
+  if(scale.axis != 1){
+        labels <- axTicks(2) / scale.axis
+        if(labels[1] == 0) labels[1] <- ''
+        axis(2, at = axTicks(2), labels = as.numeric(labels), cex.axis = rel.y.num,
+             las = T)
+    } else {axis(2, cex.axis = rel.y.num, las = T)}
+
+  #Identify significant trends
+  #Whole time series
+  mksts <- zyp.trend.vector(x[, Value])
+  mkstsp <- round(unlist(mksts[6]), 3)
+ 
+  if(mkstsp < 0.05){
+    lmod <- lm(x[, Value] ~ x[, X])
+    lmod_c <- unlist(lmod[1])
+    lmod_i <- lmod_c[1]
+    lmod_s <- lmod_c[2]
+    if(lmod_s > 0){
+      lines(x[, X], lmod_s * x[, X] + lmod_i,
+            col = trend.pos, lty = 1, lwd = 7)
+    }
+    if(lmod_s < 0){
+      lines(x[, X], lmod_s * x[, X] + lmod_i,
+            col = trend.neg, lty = 1, lwd = 7)
+    }
+  }
+ 
+  #Final portion of time series
+  mksld <- zyp.trend.vector(x[X > (end.start - 1), Value])
+  mksldp <- round(unlist(mksld[6]), 3)
+  if(mksldp < 0.05){
+    l10_x <- x[X > (end.start - 1), X]
+    l10_y <- x[X > (end.start - 1), Value]
+    lmod <- lm(l10_y ~ l10_x)
+    lmod_c <- unlist(lmod[1])
+    lmod_i <- lmod_c[1]
+    lmod_s <- lmod_c[2]
+    if(lmod_s > 0){
+      lines(l10_x, lmod_s * l10_x + lmod_i,
+            col = end.trend.pos, lwd=7)
+    }
+    if(lmod_s < 0){
+      lines(l10_x, lmod_s * l10_x + lmod_i,
+            col = end.trend.neg, lwd=7)
+    }
+  }
+ 
+  #Add axis labels
+  if(!is.na(stacked)) text(u[1], u[4], labels = stacked, cex = 2, adj = c(-0.5, 1.5))
+  if(is.na(stacked)){
+    mtext(1, text = x.label, line = x.line, cex = 1.5)
+    mtext(2, text = y.label, line = y.line, cex = rel.y.text)
+  }
+}
+
+#Add axis labels for stacked plots
+soe.stacked.axis <- function(x.label, y.label, x.line = 2.6,
+                             y.line = 3.5, rel.y.text = 1.5){
+  axis(1, cex.axis = 1.5)
+  mtext(1, text = x.label, line = x.line, cex = 1.5, outer = T)
+  mtext(2, text = y.label, line = y.line, cex = rel.y.text, outer = T)
+}
+
+```
+
+
+```{r Plot options, echo = F}
+#Background colors
+background   <- '#F4F7F2'
+recent       <- '#E6E6E6'
+#trend lines
+main.pos <- rgb(253/255, 184/255, 99/255,  alpha = 0.8)
+main.neg <- rgb(178/255, 171/255, 210/255, alpha = 0.8)
+end.pos  <- rgb(230/255, 97/255,  1/255,   alpha = 0.8)
+end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
+
+```
+
+## Purpose
+<!--The Council approved an EAFM Guidance Document in 2016 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management (http://www.mafmc.org/s/EAFM_Guidance-Doc_2017-02-07.pdf). The Council’s stated goal for EAFM is "to manage for ecologically sustainable utilization of living marine resources while maintaining ecosystem productivity, structure, and function." Ecologically sustainable utilization is further defined as "utilization that accommodates the needs of present and future generations, while maintaining the integrity, health, and diversity of the marine ecosystem." Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them [@gaichas_framework_2016]. Because there are so many possible ecosystem interactions to consider, a risk assessment was adopted as the first step to identify a subset of high priority interactions [@holsman_ecosystem-based_2017]. The risk elements included in the Council's initial assessment spanned biological, ecological, social and economic issues (Table \ref{riskel}) and risk criteria for the assessment were based on a range of indicators and expert knowledge (Table \ref{allcriteria}).-->
+
+- Outline potential next steps to follow up on the Mid-Atlantic Council’s initial EAFM risk assessment. 
+- The risk assessment was designed help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. 
+- Overall, the purpose of the EAFM risk assessment is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account. 
+
+## Background
+<!--Because this was the initial EAFM risk assessment for the Council in what is intended to be a continuing process rather than a static product, we were able to identify areas to improve in future years as the process is repeated. For example, the short timeframe for completing this risk assessment required that we postpone work on statistical methods for indicator selection [@otto_quantitative_2017; @van_oudenhoven_framework_2012]. However, many elements seleted by the Council had only one indicator time series available, such that selection methods were not required. Nevertheless, further testing of the indicators for consistency and reliability [@samhouri_quantitative_2009; @fay_testing_2013; @shin_specificity_2018] should be a high priority for use in future assessments. In addition, statistical analysis of time series requires further examination. We used pre-whitening to address potential autocorrelation in indicator time series that could result in unreliable statistical significance tests [@yue_influence_2002]. However, further simulation work is required to determine the reliability of significance tests for time series indicators with different degrees of autocorrelation and trend strength (see, e.g., @planque_principal_2018). Given the flexible nature of the risk assessment, any necessary updates can be incorporated in future iterations. Finally, we reiterate that for many of these elements (aside from biomass and fishing mortality status), there are no established risk thresholds, so the consensus of the Council and committee were used to establish risk levels. If clear thresholds become available for any element/indicator combination, in particular through further indicator analysis [@large_defining_2013; @fay_management_2015] they can be substituted into future assessments. -->
+
+- Risk assessment provides a starting point for prioritizing further, more detailed analysis. 
+<!--- An indicator-based risk assessment does not provide a mechanistic assessment of the system, which is only possible through a structural modeling approach, which could be focused specifically on fully assessing and mitigating identified risks.--> 
+- According to the Council's accepted framework within the EAFM policy guidance, risk assessment results will be used to prioritize and refine the key management questions and issues for further evaluation <!--[@gaichas_framework_2016]-->. 
+- The next step will be the development of example conceptual models which aim to showcase different approaches the Council could use to move from this initial risk assessment to specifying a more in-depth analysis of particular high prority questions. 
+
+## Council Famework
+```{r framework, out.width="\\linewidth"}
+image_read(file.path(image.dir,"Framework.png")) %>%
+image_trim()
+
+```
+
+
+## Prioritization
+- One potential prioritization approach focuses on the single species with the largest number of high risk rankings across all elements, which is black sea bass (8 high Risk Elements<!--, Tables \ref{sptable}-\ref{ecotable}-->). 
+- A second approach focuses on the fishery with the highest landings value (as a proxy for seafood production and economic benefits), which is the squid complex, with uncertainties in assessment and potential for distribution shifts along with high risks identified across multiple management elements <!--(Tables \ref{sptable}-\ref{spsectable})-->. 
+- A third approach focuses on the risk element with the most high risk categorizations across all categories, which is allocation (12 high risk species/sector combinations<!--; Table \ref{spsectable}-->). 
+- These prioritization approaches use only the risk elements that could be ranked; inclusion of additional risk elements of interest to the Council <!--(Table \ref{riskelpa})--> may not change the selected approach but could change the outcome.
+
+## Species Table
+```{r sptable,  echo=FALSE, message=FALSE, warnings=FALSE, out.width="\\linewidth"}
+
+#tab.cap="Species level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}",
+
+# spplist     oc,  sc,  flk, scp, bsb, mack, but, lsq, ssq, gtile,  btile,  blu, dog, monk
+risk.species<-data.frame(
+  Species = c("Ocean Quahog", "Surfclam", "Summer flounder", "Scup", "Black sea bass", "Atl. mackerel", "Butterfish", "Longfin squid", "Shortfin squid", "Golden tilefish", "Blueline tilefish", "Bluefish", "Spiny dogfish", "Monkfish", "Unmanaged forage", "Deepsea corals"),
+  Assess  = c("l", "l", "l",  "l", "l", "l",  "l", "lm", "lm", "l", "h", "l", "lm", "h", "na", "na"),
+  Fstatus = c("l", "l", "h", "l", "l", "h", "l", "lm", "lm", "l", "h", "l", "l", "lm", "na", "na"),
+  Bstatus = c("l", "l", "lm", "l", "l", "h", "l", "lm", "lm", "lm", "mh", "lm", "lm", "lm", "na", "na"),
+  FW1Pred = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l"),
+  FW1Prey = c("l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "l", "lm", "l"),
+  FW2Prey = c("l", "l", "l", "l", "l", "l", "l", "lm", "lm", "l", "l", "l", "l", "l", "lm", "l"),
+  Climate = c("h", "mh", "lm", "lm", "mh", "lm", "l", "l", "l", "mh", "mh","l", "l", "l", "na", "na"),
+  DistShift = c("mh", "mh", "mh", "mh", "mh", "mh", "h", "mh", "h", "l", "l", "mh", "h", "mh", "na", "na"),
+  EstHabitat = c("l", "l", "h", "h", "h", "l", "l", "l", "l", "l", "l", "h", "l", "l", "na", "na")#,
+#  OffHabitat = c("na", "na", "l", "l", "l", "l", "l", "l", "h", "na", "na", "na", "l", "l", "na", "na")#,
+)
+
+# these elements were removed by the council
+#  PopDiv = c("na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na", "na"),
+#  FoodSafe = c(),
+
+# one column test
+# risk.species %>%
+#   mutate(Fstatus = 
+#     cell_spec(Fstatus, format="latex", color = "black", align = "c", background =factor(Fstatus, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))) %>%
+#   kable(risk.species, format="latex", escape = F, booktabs = T, linesep = "")
+
+#generalize to all
+risk.species %>%
+  mutate_at(vars(-Species), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.species, format="latex", escape = F, booktabs = T, linesep = ""#, 
+        #caption="Species level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}"
+        ) %>%
+  kable_styling(latex_options = "scale_down")%>%
+  kable_as_image()
+
+
+```
+
+\newpage
+
+## Species-sector Table
+```{r spsectable,  echo=FALSE, message=FALSE, warnings=FALSE, out.width="\\linewidth"}
+#tab.cap="Species and sector level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}",
+
+risk.sppsector<-data.frame(
+  Species = c("Ocean Quahog-C", "Surfclam-C", "Summer flounder-R", "Summer flounder-C","Scup-R", "Scup-C","Black sea bass-R", "Black sea bass-C","Atl. mackerel-R", "Atl. mackerel-C","Butterfish-C", "Longfin squid-C", "Shortfin squid-C", "Golden tilefish-R", "Golden tilefish-C","Blueline tilefish-R","Blueline tilefish-C", "Bluefish-R", "Bluefish-C","Spiny dogfish-R", "Spiny dogfish-C", "Unmanaged forage", "Deepsea corals"),
+  MgtControl = c(1,1,3,2,1,1,4,2,1,1,1,1,1,9,1,1,1,2,1,1,1,9,9),
+  TecInteract = c(1,1,1,3,1,3,1,2,1,2,2,3,2,1,1,1,1,1,1,1,3,9,9),
+  OceanUse = c(2,2,2,2,2,2,3,4,1,3,3,4,2,1,1,1,1,1,2,1,3,9,3),
+  RegComplex = c(1,1,4,3,3,3,4,3,1,4,4,4,2,1,1,3,3,1,2,1,3,9,9),
+  Discards = c(1,1,4,2,3,3,3,2,1,2,3,4,1,1,1,1,1,3,2,1,2,9,9),
+  Allocation = c(1,1,4,4,1,1,4,4,4,4,1,4,1,1,1,4,4,4,4,1,4,9,9) 
+)
+
+#convert to text for consistency
+risk.sppsector <- risk.sppsector %>%
+     mutate_at(vars(-Species), function(x){
+       recode(x,'1'="l",'2'="lm",'3'="mh",'4'="h",'9'="na")}) %>%
+     as.data.frame()
+
+#make table
+risk.sppsector %>%
+  mutate_at(vars(-Species), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.sppsector, format="latex", escape = F, booktabs = T, linesep = ""#,
+        #caption="Species and sector level risk analysis results\\label{spsectable}"
+        ) %>%
+  kable_styling(latex_options = "scale_down") %>% #font_size =  9)
+  kable_as_image()
+
+```
+\newpage
+
+## Ecosystem Table
+```{r ecotable,  echo=FALSE, message=FALSE, warnings=FALSE, out.width="\\linewidth"}
+  
+#tab.cap="Ecosystem level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{sptable}",
+
+risk.eco<-data.frame(
+  System = c("Mid-Atlantic"),
+  EcoProd = c("lm"),
+  #EcoDiv = c("lm"),
+  CommRev = c("mh"),
+  RecVal = c("h"),
+  FishRes1 = c("l"),
+  FishRes4 = c("mh"),
+  #CommJobs = c("mh"),
+  #RecJobs = c("l"),
+  FleetDiv = c("mh"),
+  Social = c("lm"),
+  ComFood = c("h"),
+  RecFood = c("mh")
+)
+
+#make table
+risk.eco %>%
+  mutate_at(vars(-System), function(x){ 
+    cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
+  kable(risk.eco, format="latex", escape = F, booktabs = T, linesep = ""#,
+        #caption="Ecosystem level risk analysis results\\label{ecotable}"
+        ) %>%
+  kable_styling(latex_options = "scale_down")%>%
+  kable_as_image()
+
+```
+
+
+## Conceptual model: example 1
+An example conceptual model based on the first prioritization approach has been developed to illustrate the process (Fig. \ref{bsbex}). 
+
+- Developed by modifying the existing Mid-Atlantic conceptual model using the risk assessment results tables to ensure that all key factors affecting black sea bass and its fisheries were considered. 
+- Will now step through this process briefly during the EOP presentation to illustrate methods for building a model. 
+- While it looks complex, this need not be time consuming and the process can incorporate the knowledge of managers, fishery participants, and scientsts to ensure that key interactions and management priorities are considered and accounted for. 
+
+## Conceptual model: example 1
+```{r, fig.cap="Example conceptual model for a species determined to be high risk: black sea bass. \\label{bsbex}", fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_trim()
+
+```
+
+## Conceptual model step 1: split Black Sea Bass
+```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_trim()
+
+```
+
+## Conceptual model step 2: fishery components
+```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_trim()
+
+```
+
+## Conceptual model step 3: food web components
+```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_trim()
+
+```
+
+## Conceptual model step 4: habitat components
+```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_trim()
+
+```
+
+## Conceptual model step 5: managment components
+```{r,  fig.align='center', out.width="\\linewidth", echo=F, message=F}
+
+image_read(file.path(image.dir,"BSBcentric2.png")) %>%
+image_trim()
+
+```
+
+
+## Conceptual model: example 2
+A (partial) conceptual model based on the second approach was recently developed as well, which emphasizes habitat linkages affecting availability for longfin squid as well as economic and market factors affecting fishery effort (Fig. \ref{squidex}). Again, this is illustrative of an approach and not intended to be prescriptive. 
+
+## Conceptual model: example 2
+```{r, fig.cap="Example conceptual model for a fishery determined to be high risk: longfin squid. \\label{squidex}", fig.align='center', out.width="\\linewidth" , echo=F, message=F}
+
+image_read(file.path(image.dir,"wintersquid2qpress.png")) %>%
+image_trim()
+
+```
+
+
+## Conceptual model --> Managment Strategy Evaluation
+- In the Council EAFM framework, specifying a conceptual model in turn provides the initial scoping for more in-depth management strategy evaluation (MSE), where simulation modeling is used to test alternative methods for achieving specific management objectives under uncertainty <!--[@sainsbury_design_2000; @butterworth_why_2007; @punt_developing_2007; @punt_management_2016]-->. 
+- Any MSE undertaken by the Council will be a deliberative process and will include a variety of stakeholder and Council engagement/involvement. 
+- MSE is generally recognized as a core component of the ecosystem approach <!--[@smith_scientific_2007; @levin_integrated_2009; @levin_guidance_2014]-->, but because it necesessitates a high level of engagement, MSE can be a resource-intensive process when applied even to relatively simple single species harvest control rules <!--[e.g., @jones_stakeholder-centered_2016]-->. 
+- EAFM potentially expands the scope of interactions and uncertainties to consider in evaluating harvest control rules and other fishery management procedures. 
+
+## How can managers ensure that the most important MSE gets done first? 
+- Risk assessment provides a systematic framework to ensure that limited MSE resources address the highest priority ecosystem interactions and risks. 
+- A risk matrix, such as the one developed by the Council, can be used to quickly evaluate where further integrated analysis and MSE should be focused--which fishery management plans, which species, and which Risk Elements need to be included in the analysis. 
+- Further, because the risk assessment includes social and economic elements as well as the more standard ecological elements, the conceptual model and resulting MSE are designed to include the relevant linkages and therefore avoid unintended consequences of management actions <!--[@degnbol_unintended_2007]-->. 
+
+<!--
+## References
+<div id="refs"></div>
+
+\newpage
+
+-->
