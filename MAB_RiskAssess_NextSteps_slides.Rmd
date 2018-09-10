@@ -23,15 +23,15 @@ bibliography: My_Library.bib
 #gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
-gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+#gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- './data'
 #image.dir <- './images'
 #gis.dir <- './usa_shape_files'
-#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
-#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
-#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
 PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {  
@@ -345,7 +345,7 @@ risk.eco %>%
 ## Conceptual model: example 1
 An example conceptual model based on the first prioritization approach has been developed to illustrate the process (Fig. \ref{bsbex}). 
 
-- Modified existing Mid-Atlantic conceptual model using the risk assessment results to consider all key factors affecting black sea bass and its fisheries. 
+- Modified existing Mid-Atlantic conceptual model using the risk assessment results to consider key risk factors affecting black sea bass and its fisheries. 
 - Will step through this process to illustrate methods. 
 - Don't be intimidated!
     - Need not be time consuming 
@@ -354,6 +354,7 @@ An example conceptual model based on the first prioritization approach has been 
         - fishery participants 
         - scientsts
         - other stakeholders 
+- Goal is to specifically address high-risk factors. Links thoughout the system remain to account for feedbacks or unexpected side effects.
 
 ## Conceptual model: starting point
 ```{r, fig.align='center', out.width="\\linewidth", echo=F, message=F}
@@ -502,13 +503,14 @@ image_trim()
 
 ```
 
-## Conceptual model --> Managment Strategy Evaluation
+## Conceptual model &rarr; Managment Strategy Evaluation
 - In the Council EAFM framework, specifying a conceptual model in turn provides the initial scoping for more in-depth management strategy evaluation (MSE)
     - MSE simulation modeling is used to test alternative methods for achieving specific management objectives under uncertainty  
-    - MSE undertaken by the Council will be a deliberative process and will include stakeholder and Council engagement/involvement. 
-    - MSE can be a resource-intensive process when applied even to relatively simple single species harvest control rules. 
-
-- EAFM potentially expands the scope of interactions and uncertainties to consider in evaluating harvest control rules and other fishery management procedures. 
+    - The Council specifies questions to be addressed by MSE using risk assessment &rarr; conceptual model
+    - MSE undertaken by the Council will be a **deliberative process** and will include Council-organized stakeholder engagement and involvement 
+    
+<!--- MSE can be a resource-intensive process when applied even to relatively simple single species harvest control rules -->
+- EAFM allows the Council to consider the full relevant range of interactions and uncertainties to consider in evaluating harvest control rules and other fishery management procedures. 
 
 ## How can managers ensure that the most important MSE gets done first? 
 - Risk assessment provides a systematic framework to ensure that limited MSE resources address the highest priority ecosystem interactions and risks. 
@@ -530,6 +532,7 @@ Because the risk assessment includes ecological, social, and economic elements, 
     - Qualitative or quantitative prioritization?
     - Weighted or unweighted? (first priority risks plus tie breakers)
     - How to link to research priorities?
+    - If possible, recommend prioritization process and the species, fishery or element for further development.
 
 <!--If we get this all done
 
