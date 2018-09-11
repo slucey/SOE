@@ -23,15 +23,15 @@ bibliography: My_Library.bib
 #gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
-#gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- './data'
 #image.dir <- './images'
 #gis.dir <- './usa_shape_files'
-data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
-image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
-gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
 PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {  
@@ -203,7 +203,7 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 
 - Outline next steps to follow up on the Mid-Atlantic Council’s initial EAFM risk assessment. 
 
-- The risk assessment was designed help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. 
+- The risk assessment was designed to help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. 
 <!--- Overall, the purpose of the EAFM risk assessment is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account. 
 
 ## Background
