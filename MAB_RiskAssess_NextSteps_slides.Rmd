@@ -198,12 +198,17 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 
 ```
 
-## Purpose
+## Today's Goals
 <!--The Council approved an EAFM Guidance Document in 2016 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management (http://www.mafmc.org/s/EAFM_Guidance-Doc_2017-02-07.pdf). The Council’s stated goal for EAFM is "to manage for ecologically sustainable utilization of living marine resources while maintaining ecosystem productivity, structure, and function." Ecologically sustainable utilization is further defined as "utilization that accommodates the needs of present and future generations, while maintaining the integrity, health, and diversity of the marine ecosystem." Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them [@gaichas_framework_2016]. Because there are so many possible ecosystem interactions to consider, a risk assessment was adopted as the first step to identify a subset of high priority interactions [@holsman_ecosystem-based_2017]. The risk elements included in the Council's initial assessment spanned biological, ecological, social and economic issues (Table \ref{riskel}) and risk criteria for the assessment were based on a range of indicators and expert knowledge (Table \ref{allcriteria}).-->
 
-- Outline next steps to follow up on the Mid-Atlantic Council’s initial EAFM risk assessment. 
+- Outline potential next steps to follow up on the Mid-Atlantic Council’s initial EAFM risk assessment. 
+    - How to prioritize risk rankings?
+    - Two purposes: 
+        - EAFM analyses  
+        - research priorities
 
-- The risk assessment was designed to help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. 
+*The risk assessment was designed to help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities.* 
+
 <!--- Overall, the purpose of the EAFM risk assessment is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account. 
 
 ## Background
@@ -354,7 +359,7 @@ An example conceptual model based on the first prioritization approach has been 
         - fishery participants 
         - scientsts
         - other stakeholders 
-- Goal is to specifically address high-risk factors. Links thoughout the system remain to account for feedbacks or unexpected side effects.
+- Goal is specifically to address high-risk factors. Links thoughout the system remain to account for feedbacks or unexpected side effects.
 
 ## Conceptual model: starting point
 ```{r, fig.align='center', out.width="\\linewidth", echo=F, message=F}
@@ -521,31 +526,11 @@ image_trim()
 
 Because the risk assessment includes ecological, social, and economic elements, the conceptual model and resulting MSE are designed to include the relevant linkages and therefore avoid unintended consequences of management actions 
 
-## Today's Goals
-- Outline potential next steps to follow up on the Mid-Atlantic Council’s initial EAFM risk assessment. 
-    - How to prioritize risk rankings?
-    - Two purposes: 
-        - EAFM analyses  
-        - research priorities
+## Decision Points from Staff
 
-- Possible desision points
-    - Qualitative or quantitative prioritization?
-    - Weighted or unweighted? (first priority risks plus tie breakers)
-    - How to link to research priorities?
-    - If possible, recommend prioritization process and the species, fishery or element for further development.
-
-<!--If we get this all done
-
-- Do the conceptual model!
-- Do the MSE!
-- all by 4 pm!-->
-
-
-
-<!--
-## References
-<div id="refs"></div>
-
-\newpage
-
--->
+- Choose a prioritization process and the species, fishery, or element for further development
+&nbsp;    
+&nbsp;   
+&nbsp;   
+&nbsp;    
+- Provide a means of linking this process to research priorities
