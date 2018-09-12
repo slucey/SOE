@@ -528,9 +528,10 @@ Because the risk assessment includes ecological, social, and economic elements, 
 
 ## Decision Points from Staff
 
-- Choose a prioritization process and the species, fishery, or element for further development
+- Recommend a prioritization process 
 &nbsp;    
 &nbsp;   
+- Recommend the species, fishery or element for further development based on the prioritization process
 &nbsp;   
 &nbsp;    
-- Provide a means of linking this process to research priorities
+- Provide guidance and input on linking this process to Council research priorities
