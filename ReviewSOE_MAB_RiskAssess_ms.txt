@@ -1,0 +1,78 @@
+Reviewer comments to address
+
+Reviewer 1
+Good to document examples for application in other areas so others may avoid pitfalls and encourage the further implementation of EAFM/EBFM
+
+It is a long document and tends to be dry. I think the document could be reduced
+
+We generally agree that this is a long document, although the length corresponds to the scope of the analysis actually conducted within the management process. We have worked to make text more concise where possible throughout the document. 
+
+Another way to reduce the document is to put more text in the supplementary material. Right now the Results section contains the entire risk assessment as used by the Council, and the supplement contains sections that were presented to or discussed by the Council but were not included in the final document. We are hesitant to mix results used by the Council with those not used in a supplement, but if the editors would like to reduce the document further, perhaps there is a way to have two supplements to avoid confusion? 
+
+However, some further explanation of some terms/methods would be useful
+
+Figure 8 needs to be reviewed to make it clear. caption needs improving
+
+
+
+Some key references missing - e.g. Fletcher et al have published more recent papers that aren't cited.
+Line 48 - "watersin" needs to be "waters in"
+Line 108 - what is "risk vulnerability"? Is it (acceptable risk level)? Define.
+LIne 128 on - geive some exmaples of risk elements for each major topic to assist the reader.
+"Optimum Yield" (OY) is a US term that needs to be defined. Most jurisdictions will be more familiar with MSY, MEY or similar.
+Line 144 and throughout - does ecological include biological risk elements? Other jurisdictions consider biological (stock) and ecological (habitat, system, TEPs) separately, including the MSC.
+Line 164 - refer to the risk standard used (ISO).
+Line 217 - how can there be no assessment when the authors refer to a weight of evidence' (line 235) and expert opinion?
+Line 222 - can a reference by inserted to 'inaccurate ageing methods" ? Also, which direction were the estimates biased - up or down?
+Line 228 - what reference points? Are these in the MS Act? Define and add reference
+Line 468 - Change last sentence to, "(see supplementary material for details)"
+Line 486 - can the authors add some examples of what drives angler days - weather? seasonal fishing forecast/stock status? etc.
+Line 595 - how were the vulnerability ratings defined and determined? e.g. how was ">3" determined as high? Referring to source materials would assist.
+Line 606 - "Gentrification" needs to be defined in this context, or an alternative word used. This has different meanings in different contexts around the world. Also, what are some of the factors that 'characterise' gentrification pressure?
+Line 688 - define ABC for an international audience. Add reference.
+Line 753 - need to define degrees of overlap and add references as needed. e.g. what is a low-moderate overlap? 10%? 30%?
+Line 773 - give examples to support , "variety of activities"
+Line 817 - what makes a low level of discards or a low post release mortality? 10%? 30%? Define.
+Line 887 - define and explain 'pre-whitening"
+Line 905 - so the ultimate outcomes is a ranked risk assessment to allow the focus on the highest risk elements that have a high likelihood of being at least partially mitigated. This needs to be explained, and added /refined in the the abstract. Also, are there plans for an assessment of residual risk if the porpoised activities are undertaken to address the identified high risks? I note that some risks are unlikely to ever be fully mitigated (e.g. marine mammal interactions ) due to various legislation.
+Line 912 - figure 8 is barely referred to and is very complex (and difficult to read/interpret). The authors need to carefully consider this figure and what they are trying to say. When I reviewed it, my immediate thought was that the figure is complex and the issue it illustrates will be unlikely ever to be addressed, especially in a non-scientific forum.
+Line 973 - Authors, please address.
+Line 1148 - Figure 1. Needs a much more detailed cation. What assessments? what assessment years? need references to all stock assessment documents . This includes those of unknown status. What are MAFMC and Joint stocks?
+Figure 2 - add reference. What is a US ecosystem production unit? Define in caption.
+Figure 3 - review caption. reference to sub-figures is back the front (also prefer the text in parentheses at the end of each sentence, not the start. Italicise species names. What is MAB? Need to define colours in all figures (add scales)
+Figure 4 - What do the colours mean? define. What are the points? Centroids of distributions? If so, do they need an error structure/uncertainty around them? Are the shifts in a northern or southern direction? Are the data from fishery sources or fishery independent sources? Should scientific names be added (as in caption of figure 3)?
+Figure 5 - define colours. I prefer the text in parentheses at the end of each sentence, not the start. Maybe need to explain (in text and/or caption) what drives the inter-annual variability between adjacent years. Any uncertainty in these data?
+Figure 6 - define terms. For example, is 'fleet count' the number of different fishing fleets or the number of unique fishing vessels? Define 'average fleet diversity". If it is an average, then each point needs to include a measure of uncertainty.
+Figure 7 - define colours. These data need to have uncertainty (e.g. confidence intervals) added to each data point.
+Figure 8. Need to review this figure. Complex. need to define what a box means, an arrow, the thickness of arrows, the "+", "-" and "?" mean. Will any reader really understand more than, 'its complex'. Will this actually be used to address the issue?
+Table 4 - define what 'C: and "R" mean. Define colours here and in table 3. Hard to read some of the text in the table due to use of colours.
+Table 5 - ditto. How does this assist management? Mitigation strategies? Explain in text and caption.
+Table 6 - define abbreviations of states (like you did in table 7) for an international audience.
+Figure S1 - define colours. what does each point mean and does it need an uncertainty measure? Need to note that the y-axes vary among subfigures and do not start at the origin.Do you need at add scientific names? I note monkfish is part of this figure. yet in the text it said the stock was not assessed. sing a weight of evidence approach something could be determined in regard to stock status.
+Table S1 - define OY. You may need to include the mechanism for setting /defining OY
+
+We made the following changes:
+line 48: changed to "waters in"
+
+
+Reviewer 2
+One minor limitation is that it's lacking a detailed account of how the stakeholders were engaged, providing caveats and recommendations for the selection, facilitation and consensus-building approach that is most likely crucial to the successful implementation of this framework. We realize that adding too much detail would impair the readability of the manuscript, but a succinct paragraph and reference to other documentation, if available, would be important to add (see also Q5).
+
+Another minor issue is that, given that it's the result of a complex process spanning several years, captured in different publications and public documents, it can be hard to reconstruct the data sources and data analyses underlying the indicators discussed in the paper. Although this paper focuses on the approach and conceptual framework, so that the individual indicator analyses are out of scope, a summary of where individual indicator data and analyses can be found, in supplementary materials, would be incredibly useful.
+
+
+
+General comments:
+The paper generally reads well, is well-structured and clear, it is useful and innovative. I have very few, small edits to recommend. Please see the comments in Q2 about better describing the stakeholder engagement process and including clearer references to the underlying data and analyses.
+In addition, I have a few specific minor edits to recommend (see below).
+
+Detailed comments:
+line 45: 'quickly' is an ambiguous term, does it mean that the process is easy and thus it was possible to complete it rapidly, or that the process was conducted under tight time constraints and thus not conducted thoroughly? (I assume the former)
+line 74-75: it would help to highlight here, in the introduction, what were the high level objectives (eg OY, livelihoods, etc), as they are a bit buried if mentioned only in Methods.
+line 80: 'clarifying priorities': helpful here to explain if these are high level priorities (ie goals) or specific actions
+line 225: '(DLM) toolbox': what is this referring to? the DLMtool software? Another tool? Please clarify why this would necessarily mean it's high risk.
+line 875-878: could add a paragraph here explaining the caveats and lessons learned from planning and participating in this iterative consultative process. For example, considerations about how different stakeholders used information, how to set up consensus-building interactions, etc.
+line 973: The caption seems incomplete and ends with a question 'figures we couldn't fit?': please revise
+
+We made the following changes:
+line 45: changed to "rapidly"
