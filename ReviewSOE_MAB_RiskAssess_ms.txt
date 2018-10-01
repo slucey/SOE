@@ -52,6 +52,7 @@ Figure S1 - define colours. what does each point mean and does it need an uncert
 Table S1 - define OY. You may need to include the mechanism for setting /defining OY
 
 We made the following changes:
+Added updated citations on the application of risk assessment in ecosystem based fishery management: Fletcher et al. 2012, Fletcher 2015, Smith et al. 2017, Fletcher et al. 2016, and Newman et al. 2018
 line 48: changed to "waters in"
 
 
