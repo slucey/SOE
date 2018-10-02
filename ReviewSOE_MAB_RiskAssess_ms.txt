@@ -52,8 +52,13 @@ Figure S1 - define colours. what does each point mean and does it need an uncert
 Table S1 - define OY. You may need to include the mechanism for setting /defining OY
 
 We thank the reviewer for these detailed and useful suggestions. Based on these we have made the following changes (line numbers refer to the original document so that reviewers can see specific responses):
-Added updated citations on the application of risk assessment in ecosystem based fishery management: Fletcher et al. 2012, Fletcher 2015, Smith et al. 2017 in the introductory paragraph and in the dicussion, and Fletcher et al. 2016, Newman et al. 2018 in the discussion.
+Added updated citations on the application of risk assessment in ecosystem based fishery management: Fletcher et al. 2012, Fletcher 2015, Smith et al. 2017 in the introductory paragraph and in the dicussion, as well as Fletcher et al. 2016 and Newman et al. 2018 in the discussion.
 line 48: changed to "waters in"
+line 108: the original sentence was overly complicated; we revised to "the EOP requested that recreational and commercial fisheries be distinguished in the assessment to differentiate risks between sectors"
+line 128: we added "For example, achieving biological objectives for a stock could be at risk from excessive fishing mortality, from habitat degredation, from climate change, or from a combination of these elements." All risk elements are fully explained in Table 1, which we now reference in this section.
+line 136: we have defined US fishery management objectives in the introduction (second paragraph) at the request of reviewer 2, and have clarified how OY is related to MSY using the definition from the US Code of Law. Other management objectives are now introduced early on as well to provide context. 
+Line 144: we clarified our terminology in the text: "Ecological (including stock biology, habitat, and ecosystem interactions)". We note that there was discussion of separating biological and ecological elements exactly as the reviewer noted in early conversations with the Council. However, the Council's EOP committee preferred combining all elements into an integrated "ecologcal" category, so we retain that category here.
+Line 164: we clarified by adding: The intent was to provide a transparent and "structured process that identifies how objectives may be affected, and analyses the risk in term of consequences and their probabilities" [@iso_risk_2009].
 
 
 Reviewer 2
@@ -77,5 +82,8 @@ line 973: The caption seems incomplete and ends with a question 'figures we coul
 
 We thank the reviewer for these detailed and useful suggestions. Based on these we have made the following changes (line numbers refer to the original document so that reviewers can see specific responses):
 line 45: we agree; changed to "rapidly"
-
+line 74-75: we agree; and have placed the definition of US fishery management objectives even earlier in the introduction. We have clarified how OY is related to MSY using the definition from the US Code of Law, and outlined the other objectives listed in the National Standards. 
+line 80: we have clarified in the text that the risk assessment will be used to prioritize specific actions directed at high-risk components.
+line 225: 
+line 875-878:
 line 973: removed this section, which was left in the document in error; the actual supplement is after the figures and tables. 
