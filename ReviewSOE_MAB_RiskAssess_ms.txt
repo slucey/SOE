@@ -5,15 +5,15 @@ Good to document examples for application in other areas so others may avoid pit
 
 It is a long document and tends to be dry. I think the document could be reduced
 
-We generally agree that this is a long document, although the length corresponds to the scope of the analysis actually conducted within the management process. We have worked to make text more concise where possible throughout the document. 
+Thank you; we do hope this example encourages further implementation. We generally agree that this is a long document, although the length corresponds to the scope of the analysis actually conducted within the management process. We have worked to make text more concise where possible throughout the document. 
 
-Another way to reduce the document is to put more text in the supplementary material. Right now the Results section contains the entire risk assessment as used by the Council, and the supplement contains sections that were presented to or discussed by the Council but were not included in the final document. We are hesitant to mix results used by the Council with those not used in a supplement, but if the editors would like to reduce the document further, perhaps there is a way to have two supplements to avoid confusion? 
+We have also put more text in the supplementary material: Commercial and Recreational Employment elements, which were unrated by the Council. Therefore, the revised Results section contains the entire risk assessment as used by the Council, and the supplement contains sections that were presented to or discussed by the Council but were not included in the final risk assessment. 
 
 However, some further explanation of some terms/methods would be useful
 
 Figure 8 needs to be reviewed to make it clear. caption needs improving
 
-
+We have added definitions/clarification for terms as suggested in the detailed comments below and by the other reviewer. We revised Figure 8 as suggested in the detailed comments below, and improved the caption.
 
 Some key references missing - e.g. Fletcher et al have published more recent papers that aren't cited.
 Line 48 - "watersin" needs to be "waters in"
@@ -51,8 +51,8 @@ Table 6 - define abbreviations of states (like you did in table 7) for an intern
 Figure S1 - define colours. what does each point mean and does it need an uncertainty measure? Need to note that the y-axes vary among subfigures and do not start at the origin.Do you need at add scientific names? I note monkfish is part of this figure. yet in the text it said the stock was not assessed. sing a weight of evidence approach something could be determined in regard to stock status.
 Table S1 - define OY. You may need to include the mechanism for setting /defining OY
 
-We made the following changes:
-Added updated citations on the application of risk assessment in ecosystem based fishery management: Fletcher et al. 2012, Fletcher 2015, Smith et al. 2017, Fletcher et al. 2016, and Newman et al. 2018
+We thank the reviewer for these detailed and useful suggestions. Based on these we have made the following changes (line numbers refer to the original document so that reviewers can see specific responses):
+Added updated citations on the application of risk assessment in ecosystem based fishery management: Fletcher et al. 2012, Fletcher 2015, Smith et al. 2017 in the introductory paragraph and in the dicussion, and Fletcher et al. 2016, Newman et al. 2018 in the discussion.
 line 48: changed to "waters in"
 
 
@@ -61,7 +61,7 @@ One minor limitation is that it's lacking a detailed account of how the stakehol
 
 Another minor issue is that, given that it's the result of a complex process spanning several years, captured in different publications and public documents, it can be hard to reconstruct the data sources and data analyses underlying the indicators discussed in the paper. Although this paper focuses on the approach and conceptual framework, so that the individual indicator analyses are out of scope, a summary of where individual indicator data and analyses can be found, in supplementary materials, would be incredibly useful.
 
-
+We agree that it is important to list sources and analyses for the indicators, even though they are not the topic of this paper. Therefore, we have added a "Data Availability" section to the paper which links to online sources of ecosystem indicator data used in the risk assessment, and to the draft online documentation of technical methods used to produce each indicator. Another paper is in prep describing the State of the Ecosystem Reports which also draws upon these online data and technical methods. In addition, the 2017 Mid-Atlantic State of the Ecosystem Report, which was the source of many risk assessment indicators, is a Council document that is available online and linked at line 149 in the original manuscript. 
 
 General comments:
 The paper generally reads well, is well-structured and clear, it is useful and innovative. I have very few, small edits to recommend. Please see the comments in Q2 about better describing the stakeholder engagement process and including clearer references to the underlying data and analyses.
@@ -75,5 +75,7 @@ line 225: '(DLM) toolbox': what is this referring to? the DLMtool software? Anot
 line 875-878: could add a paragraph here explaining the caveats and lessons learned from planning and participating in this iterative consultative process. For example, considerations about how different stakeholders used information, how to set up consensus-building interactions, etc.
 line 973: The caption seems incomplete and ends with a question 'figures we couldn't fit?': please revise
 
-We made the following changes:
-line 45: changed to "rapidly"
+We thank the reviewer for these detailed and useful suggestions. Based on these we have made the following changes (line numbers refer to the original document so that reviewers can see specific responses):
+line 45: we agree; changed to "rapidly"
+
+line 973: removed this section, which was left in the document in error; the actual supplement is after the figures and tables. 

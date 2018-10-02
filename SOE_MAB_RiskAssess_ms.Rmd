@@ -31,7 +31,7 @@ bibliography: My_Library.bib
 
 ####Correspondence: Sarah K. Gaichas, <Sarah.Gaichas@noaa.gov> 
 
-####Word count: 11694, 8 Figures, 7 Tables
+####Word count: REDO, 8 Figures, 7 Tables
 <!--text+headers+captions (#headers/#floats/#inlines/#displayed)
 618+1+0 (1/0/0/0) Section: Introduction}\label{introduction
 1407+1+0 (1/0/0/0) Section: Methods}\label{methods
@@ -225,11 +225,11 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 ```
 
 #Introduction
-For more than a decade, an Ecosystem Approach to Fishery Management (EAFM) has been outlined as desirable policy worldwide to support ecological sustainability and human well-being [@garcia_ecosystem_2005; @sherman_global_2005]. While tactical applications of ecosystem approaches to date are few [@skern-mauritzen_ecosystem_2016], perceived barriers to adopting ecosystem approaches are diminishing [@patrick_myths_2015], and there are practical steps in progress towards EAFM implementation in many regions worldwide [e.g., @ramirez-monsalve_ecosystem_2016; @heenan_climate-informed_2015]. Here, we describe the initial EAFM step implemented by the U.S. Mid-Atlantic Fishery Management Council (Council), which was to develop an ecosystem-level risk assessment. This risk assessment, described below, was developed rapidly with existing information, and is intended to provide managers with valuable strategic advice as EAFM continues to develop. 
+For more than a decade, an Ecosystem Approach to Fishery Management (EAFM) has been outlined as desirable policy worldwide to support ecological sustainability and human well-being [@garcia_ecosystem_2005; @sherman_global_2005]. While tactical applications of ecosystem approaches to date are few [@skern-mauritzen_ecosystem_2016], perceived barriers to adopting ecosystem approaches are diminishing [@patrick_myths_2015], and there are practical steps in progress towards EAFM implementation in many regions worldwide [e.g., @kruse_using_2012; @heenan_climate-informed_2015; @ramirez-monsalve_ecosystem_2016;  @smith_implementing_2017]. Here, we describe the initial EAFM step implemented by the U.S. Mid-Atlantic Fishery Management Council (Council), which was to develop an ecosystem-level risk assessment. This risk assessment, described below, was developed rapidly with existing information, and is intended to provide managers with valuable strategic advice as EAFM continues to develop. 
 
 <!--This process developed within a particular governance structure, which we briefly describe.--> The Council is one of eight regional fishery management councils in the United States, and is responsible for conservation and management of fishery resources within U.S. federal  waters in the mid-Atlantic region. The Council is a co-management body with stakeholders integrated into decision processes indirectly through representation by  federal and state fisheries management agencies, and private-sector stakeholders (commercial and recreational fisheries and conservation organizations) and directly through participation on advisory committees and during public comment periods at Council meetings. Council meetings are held every other  month throughout each year. In the Mid-Atlantic, the Council  further incorporated stakeholder feedback on its management through a “visioning” process (2011-2013) which shaped the Council’s strategic planning (http://www.mafmc.org/strategic-plan/). The visioning process identified implementation of EAFM as a high priority across all stakeholder groups. The Council therefore had a series of workshops and developed several white papers between 2014 and 2016 regarding forage fish, climate, habitat, and species interactions (see http://www.mafmc.org/eafm/ for details). At the same time, a national policy on ecosystem based fishery management was developed and released by the National Oceanic and Atmospheric Administration (NOAA Fisheries; https://www.fisheries.noaa.gov/resource/document/ecosystem-based-fisheries-management-policy), establishing ecosystem approaches to fishery management as a national priority.
 
-The Council approved an EAFM Guidance Document in 2016   which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management (http://www.mafmc.org/s/EAFM_Guidance-Doc_2017-02-07.pdf). The Council’s stated goal for EAFM is "to manage for ecologically sustainable utilization of living marine resources while maintaining ecosystem productivity, structure, and function." Ecologically sustainable utilization is further defined as "utilization that accommodates the needs of present and future generations, while maintaining the integrity, health, and diversity of the marine ecosystem." Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them [@gaichas_framework_2016]. Because there are so many possible ecosystem interactions to consider, a risk assessment was adopted as the first step to identify a subset of high priority interactions [@holsman_ecosystem-based_2017].
+The Council approved an EAFM Guidance Document in 2016 which outlined a path forward to more fully incorporate ecosystem considerations into marine fisheries management (http://www.mafmc.org/s/EAFM_Guidance-Doc_2017-02-07.pdf). The Council’s stated goal for EAFM is "to manage for ecologically sustainable utilization of living marine resources while maintaining ecosystem productivity, structure, and function." Ecologically sustainable utilization is further defined as "utilization that accommodates the needs of present and future generations, while maintaining the integrity, health, and diversity of the marine ecosystem." Of particular interest to the Council was the development of tools to incorporate the effects of species, fleet, habitat and climate interactions into its management and science programs. To accomplish this, the Council agreed to adopt a structured framework to first prioritize ecosystem interactions, second to specify key questions regarding high priority interactions and third tailor appropriate analyses to address them [@gaichas_framework_2016]. Because there are so many possible ecosystem interactions to consider, a risk assessment was adopted as the first step to identify a subset of high priority interactions [@fletcher_review_2015; @holsman_ecosystem-based_2017].
 
 This paper describes the process, methods, and ecosystem indicators used to develop the Mid-Atlantic Council’s initial EAFM risk assessment. This risk assessment will help the Council decide where to focus limited resources to address ecosystem considerations by first clarifying priorities. Overall, the purpose of the EAFM risk assessment is to provide the Council with a proactive strategic planning tool for the sustainable management of marine resources under its jurisdiction, while taking interactions within the ecosystem into account. We provide this example to illustrate that ecosystem-level risk assessment is a transparent and accessible tool that can be adapted to a wide range of resource management systems and available information, and is therefore a promising way forward in the implementation of EAFM.  
 
@@ -833,76 +833,6 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Picture of indicator, reference, or words describing rankings.
 -->
 
-###Commercial employment
-This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. A full description of the model generating employment estimates can be found here:  http://www.st.nmfs.noaa.gov/documents/commercial_seafood_impacts_2007-2009.pdf
-<!--
-```{r riskcemp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-tabl <- "
-| Risk Level         | Definition                                                          |  
-|:-------------------|:--------------------------------------------------------------------|
-| Low  | No trend in employment |
-| Low-Moderate | Increasing or high variability in employment |
-| Moderate-High | Significant recent decrease in employment for one state |
-| High | Significant recent decrease in employment for multiple states |
-"
-cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
-```
--->
-Low risk criteria were no trends in employment. Low-Moderate risk criteria were increasing or high variability in employment. Moderate-High risk criteria was a  significant recent decrease in employment for one state. High risk criteria were significant recent decreases in employment for multiple states. 
-
-The EOP Committee lacked confidence in the available employment indicator data, so this element remains unranked at this time.
-
-<!--
-This is commercial employment by state.
-
-```{r CommJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{commjobs}", echo = F, fig.height=5.5}
-opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'New_York Commercial Jobs', rel.y.num = 0.8, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'New Jersey Commercial Jobs', rel.y.num = 0.8, stacked = 'B')
-soe.plot(SOE.data, 'Time', 'Delaware Commercial Jobs', rel.y.num = 0.8, stacked = 'C')
-soe.plot(SOE.data, 'Time', 'Maryland Commercial Jobs', rel.y.num = 0.8, stacked = 'D')
-soe.plot(SOE.data, 'Time', 'Virginia Commercial Jobs', rel.y.num = 0.8, stacked = 'E')
-
-soe.stacked.axis('Year', 'Number of Commercial Jobs',rel.y.text = 1)
-```
-
-Based on this state-level information, most states show no trend in commercial fishery employment, but there is a significant recent decrease in employment in one state, Virginia. Therefore, this element ranks moderate-high risk. New York and New Jersey went from the hightest to lowest employment numbers within the most recent 2-4 years, suggesting increasing variability. 
--->
-
-###Recreational employment
-This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. 
-<!--
-```{r riskremp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-tabl <- "
-| Risk Level         | Definition                                                          |  
-|:-------------------|:--------------------------------------------------------------------|
-| Low  | No trend in employment |
-| Low-Moderate | Increasing or high variability in employment |
-| Moderate-High | Significant recent decrease in employment for one state |
-| High | Significant recent decrease in employment for multiple states |
-"
-cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
-```
--->
-
-The EOP Committee agreed to the same risk ranking criteria as for commercial fishery employment, but similarly lacked confidence in the available employment indicator data, so this element remains unranked at this time.
-<!--
-This is recreational employment by state.
-
-```{r RecJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{recjobs}", echo = F, fig.height=5.5}
-opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-soe.plot(SOE.data, 'Time', 'New_York Recreational Jobs', rel.y.num = 0.8, stacked = 'A')
-soe.plot(SOE.data, 'Time', 'New Jersey Recreational Jobs', rel.y.num = 0.8, stacked = 'B')
-soe.plot(SOE.data, 'Time', 'Delaware Recreational Jobs', rel.y.num = 0.8, stacked = 'C')
-soe.plot(SOE.data, 'Time', 'Maryland Recreational Jobs', rel.y.num = 0.8, stacked = 'D')
-soe.plot(SOE.data, 'Time', 'Virginia Recreational Jobs', rel.y.num = 0.8, stacked = 'E')
-
-soe.stacked.axis('Year', 'Number of Recreational Jobs',rel.y.text = 1)
-```
-
-Based on this state-level information, most states show no trend in recreational fishery employment, but there is a significant recent increase in employment in one state, New Jersey. Therefore, this element ranks low risk. 
--->
-
 ##Social-cultural elements
 
 ###Fleet diversity
@@ -1218,10 +1148,10 @@ In the Council EAFM framework, specifying a conceptual model in turn provides th
 
 Similar to many other regions worldwide, natural resource management challenges are mounting in the Mid-Atlantic, from climate change to increasing needs for food and recreational opportunities to increasing uses of ocean areas (e.g. wind farm development). The process described here was completed within the current management system without displacing other processes, and adds value now and for future planning. This EAFM risk assessment highlights certain species and certain management issues as posing higher cumulative risks to meeting Council-derived management objectives when considering a broad range of ecological, social, and economic factors. The risk assessment result summaries will be used by the Council to prioritize further EAFM analyses as well as develop research plans and Council planning priorities over the coming five years. As ecosystem reporting and operational EAFM continue to evolve in future years, the Council foresees refining the process so that ecosystem indicators monitor risks to achieving ecological, social, and economic fishery objectives, which can then be mitigated through management action. Overall, ecosystem indicator-based risk assessment is a method that can be adapted to a wide range of resource management systems and available information, and therefore a promising way forward in the implementation of EAFM.
 
-<!--
+
 #Data Availability Statement
-Data sources are listed within the manuscript as references if published or with URL links if online. State of the Ecosystem indicator data used by the Northeast Fisheries Science Center will be available at the IEA website via an ERDDAP server startin in August 2018.
--->
+Data sources are listed within the manuscript as references if published, or with URL links if online. State of the Ecosystem indicator data used by the Northeast Fisheries Science Center is available at the NOAA IEA website https://www.integratedecosystemassessment.noaa.gov/regions/northeast/Indicator-data#MidAtlanticIndicators, and technical methods are documented at https://noaa-edab.github.io/tech-memo/.
+
 
 #Author Contributions
 SKG, GSD, and RJS planned and executed the overall project, led the ecological, economic, food production, and management analyses, edited the full paper, and wrote individual sections. BM and MS coordinated and recorded meetings to reach decisions, facilitated communication with the Council committee and advisors, and contributed to management analyses. BM wrote the detailed management results. LLC led the social analysis and contributed to writing that section. AJL placed the project in context during Council meetings and contributed to the introducton and discussion sections.
@@ -1231,9 +1161,6 @@ This work was prepared by employees of the Mid-Atlantic Fishery Management Counc
 
 #Acknowledgements
 We gratefully acknowledge the members of the Mid Atlantic Fishery Management Council, in particular the members of the Ecosystem and Ocean Planning Committee, and the Advisors to the Ecosystem and Ocean Planning Committee. As chair of the Ecosystem and Ocean Planning Committee, Warren Elliott was instrumental in moving this project forward to achieve the results reported here. *name all committee members and advisors who participated* Mid Atlantic Council Staff members *name everyone* contributed rankings of the management elements by species and sector. Northeast Fisheries Science Center staff contributed to development and presentation of the ecosystem indicators used in this analysis: Kevin Friedland, Sean Hardison, Kimberly Hyde, Sean Lucey, Ryan Morse, Charles Perretti, Vincent Saba, and Laurel Smith. *add others* This work benefitted from interactions with the International Council for the Exploration of the Seas Working Group on the Northweast Atlantic Regional Sea (ICES WGNARS), a scientific expert group developing methods and best practices for integrated ecosystem assessment. 
-
-#Supplementary Material
-*Table with rationale for management element rankings, figures we couldn't fit?*
 
 #References
 <div id="refs"></div>
@@ -1982,7 +1909,7 @@ kable(commdat, format = 'latex', booktabs = T, caption = "Selected Mid-Atlantic 
 \newpage
 \beginsupplement
 
-## Supplemental information
+## Supplemental Information: Unranked Risk Elements
 
 ###Offshore habitat element-in-progress
 This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from experimental species-specific habitat modeling. *In addition, the number of threats from other human uses can be enumerated; at present this is addressed under "Other Ocean Uses" in the Management section.*
@@ -2009,6 +1936,78 @@ Overall, black sea bass, summer flounder, and scup have long term increasing tre
 Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by the bottom trawl survey and were not included in this analysis, similar to unmanaged forage and deepsea corals. Sessile species in particular may be highly vulnerable to habitat changes, so assessments of their habitat are particularly important to develop.
 
 *This experimental habitat index is still being studied and improved, so the habitat risk rankings based on this are considered preliminary by the EOP, and are not included in the final risk assessment.* 
+
+
+###Commercial employment
+This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. A full description of the model generating employment estimates can be found here:  http://www.st.nmfs.noaa.gov/documents/commercial_seafood_impacts_2007-2009.pdf
+<!--
+```{r riskcemp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No trend in employment |
+| Low-Moderate | Increasing or high variability in employment |
+| Moderate-High | Significant recent decrease in employment for one state |
+| High | Significant recent decrease in employment for multiple states |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+-->
+Low risk criteria were no trends in employment. Low-Moderate risk criteria were increasing or high variability in employment. Moderate-High risk criteria was a  significant recent decrease in employment for one state. High risk criteria were significant recent decreases in employment for multiple states. 
+
+The EOP Committee lacked confidence in the available employment indicator data, so this element remains unranked at this time.
+
+<!--
+This is commercial employment by state.
+
+```{r CommJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{commjobs}", echo = F, fig.height=5.5}
+opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'New_York Commercial Jobs', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'New Jersey Commercial Jobs', rel.y.num = 0.8, stacked = 'B')
+soe.plot(SOE.data, 'Time', 'Delaware Commercial Jobs', rel.y.num = 0.8, stacked = 'C')
+soe.plot(SOE.data, 'Time', 'Maryland Commercial Jobs', rel.y.num = 0.8, stacked = 'D')
+soe.plot(SOE.data, 'Time', 'Virginia Commercial Jobs', rel.y.num = 0.8, stacked = 'E')
+
+soe.stacked.axis('Year', 'Number of Commercial Jobs',rel.y.text = 1)
+```
+
+Based on this state-level information, most states show no trend in commercial fishery employment, but there is a significant recent decrease in employment in one state, Virginia. Therefore, this element ranks moderate-high risk. New York and New Jersey went from the hightest to lowest employment numbers within the most recent 2-4 years, suggesting increasing variability. 
+-->
+
+###Recreational employment
+This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. 
+<!--
+```{r riskremp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No trend in employment |
+| Low-Moderate | Increasing or high variability in employment |
+| Moderate-High | Significant recent decrease in employment for one state |
+| High | Significant recent decrease in employment for multiple states |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+-->
+
+The EOP Committee agreed to the same risk ranking criteria as for commercial fishery employment, but similarly lacked confidence in the available employment indicator data, so this element remains unranked at this time.
+<!--
+This is recreational employment by state.
+
+```{r RecJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{recjobs}", echo = F, fig.height=5.5}
+opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'New_York Recreational Jobs', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'New Jersey Recreational Jobs', rel.y.num = 0.8, stacked = 'B')
+soe.plot(SOE.data, 'Time', 'Delaware Recreational Jobs', rel.y.num = 0.8, stacked = 'C')
+soe.plot(SOE.data, 'Time', 'Maryland Recreational Jobs', rel.y.num = 0.8, stacked = 'D')
+soe.plot(SOE.data, 'Time', 'Virginia Recreational Jobs', rel.y.num = 0.8, stacked = 'E')
+
+soe.stacked.axis('Year', 'Number of Recreational Jobs',rel.y.text = 1)
+```
+
+Based on this state-level information, most states show no trend in recreational fishery employment, but there is a significant recent increase in employment in one state, New Jersey. Therefore, this element ranks low risk. 
+-->
+
 
 ##Supplement Figures 
 ```{r, fig.cap="Shifts in modeled species fall habitat area over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid, H: Dogfish, I: Monkfish  \\label{shifts}", fig.height=9, echo = F, message = FALSE, warning = FALSE}
