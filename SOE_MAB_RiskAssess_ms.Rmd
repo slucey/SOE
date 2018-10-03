@@ -49,15 +49,15 @@ bibliography: My_Library.bib
 #gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
-gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+#gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- './data'
 #image.dir <- './images'
 #gis.dir <- './usa_shape_files'
-#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
-#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
-#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
 PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {  
@@ -225,7 +225,7 @@ end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
 ```
 
 #Introduction
-For more than a decade, an Ecosystem Approach to Fishery Management (EAFM) has been outlined as desirable policy worldwide to support ecological sustainability and human well-being [@garcia_ecosystem_2005; @sherman_global_2005]. While tactical applications of ecosystem approaches to date are few [@skern-mauritzen_ecosystem_2016], perceived barriers to adopting ecosystem approaches are diminishing [@patrick_myths_2015], and there are practical steps in progress towards EAFM implementation in many regions worldwide [e.g., @kruse_using_2012; @heenan_climate-informed_2015; @ramirez-monsalve_ecosystem_2016;  @smith_implementing_2017]. Here, we describe the initial EAFM step implemented by the U.S. Mid-Atlantic Fishery Management Council (Council), which was to develop an ecosystem-level risk assessment. This risk assessment, described below, was developed rapidly with existing information, and is intended to provide managers with valuable strategic advice as EAFM continues to develop. 
+For more than a decade, an Ecosystem Approach to Fishery Management (EAFM) has been outlined as desirable policy worldwide to support ecological sustainability and human well-being [@garcia_ecosystem_2005; @sherman_global_2005]. While tactical applications of ecosystem approaches to date are few [@skern-mauritzen_ecosystem_2016], perceived barriers to adopting ecosystem approaches are diminishing [@patrick_myths_2015], and there are practical steps in progress towards EAFM implementation in many regions worldwide [e.g., @kruse_using_2012; @heenan_climate-informed_2015; @ramirez-monsalve_ecosystem_2016;  @smith_implementing_2017]. Here, we describe the initial EAFM step implemented by the U.S. Mid-Atlantic Fishery Management Council (Council), which was to develop an ecosystem-level risk assessment. This risk assessment was developed rapidly with existing information, and is intended to provide managers with valuable strategic advice as EAFM continues to advance. 
 
 <!--This process developed within a particular governance structure, which we briefly describe.--> The Council is one of eight regional fishery management councils in the United States, and is responsible for conservation and management of fishery resources within U.S. federal waters in the mid-Atlantic region. U.S. law defines the overarching objective of fishery management as achieving and maintaining optimum yield (OY; U.S. Code, Title 16, Chapter 38, Subchapter I § 1802):
 
@@ -234,7 +234,7 @@ For more than a decade, an Ecosystem Approach to Fishery Management (EAFM) has b
 >(B) is prescribed as such on the basis of the maximum sustainable yield from the fishery, as reduced by any relevant economic, social, or ecological factor; and
 >(C) in the case of an overfished fishery, provides for rebuilding to a level consistent with producing the maximum sustainable yield in such fishery.
 
-Further U.S. fishery management objectives are specified in the National Standard Guidelines for developing fishery management plans, including basing measures on the best scientific information available, fair and equitable allocation, economic efficiency, safety at sea, and consideration of social and economic impacts to human communities [U.S. Code, Title 16, Chapter 38, Subchapter IV § 1851, and see @depiper_operationalizing_2017]. Balancing these multiple objectives is the charge of each Council, and any ecosystem approach must be compatible with these objectives.
+Further U.S. fishery management objectives are specified in the National Standard Guidelines for developing fishery management plans, including basing measures on the best scientific information available, fair and equitable allocation, economic efficiency, safety at sea, and consideration of social and economic impacts to human communities [U.S. Code, Title 16, Chapter 38, Subchapter IV § 1851, and see @depiper_operationalizing_2017]. Balancing these multiple objectives is the charge of each Council; an ecosystem approach offers a way to evaluate these objectives comprehensively.
 
 The Council is a co-management body with stakeholders integrated into decision processes indirectly through representation by federal and state fisheries management agencies, and private-sector stakeholders (commercial and recreational fisheries and conservation organizations) and directly through participation on advisory committees and during public comment periods at Council meetings. Council meetings are held every other  month throughout each year. In the Mid-Atlantic, the Council further incorporated stakeholder feedback on its management through a “visioning” process (2011-2013) which shaped the Council’s strategic planning (http://www.mafmc.org/strategic-plan/). The visioning process identified implementation of EAFM as a high priority across all stakeholder groups. The Council therefore had a series of workshops and developed several white papers between 2014 and 2016 regarding forage fish, climate, habitat, and species interactions (see http://www.mafmc.org/eafm/ for details). At the same time, a national policy on ecosystem based fishery management was developed and released by the National Oceanic and Atmospheric Administration (NOAA Fisheries; https://www.fisheries.noaa.gov/resource/document/ecosystem-based-fisheries-management-policy), establishing ecosystem approaches to fishery management as a national priority.
 
@@ -299,7 +299,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 Stocks with low risk due to assessment performance include ocean quahog, surf clam, summer flounder, scup, black sea bass, Atlantic mackerel, butterfish, golden tilefish, and bluefish. Squids and dogfish are assessed with index-based assessment methods which rank low-moderate risk due to incomplete survey coverage in some years, and reference points for squids are lacking. The monkfish 2016 operational assessment was unable to model growth or population status due to innaccurate ageing methods [@richards_2016_2016], so both northern and southern stocks rank high risk for this element. At present, blueline tilefish ranks as high risk for assessment type because it is assessed with the data limited methods (DLM) toolbox. <!--*Atlantic mackerel had been assessed with the DLM toolbox and is ranked highest risk, but an age-structured benchmark assessment was peer-reviewed in November 2017 which may change this ranking.*-->
 
 ###F status and B status
-These elements are applied at the species level. Fishing mortality (F) rates and biomass (B) levels relative to established reference points from assessments indicate the level of risk to achieving OY respectively from either overfishing or stock depletion.
+These elements are applied at the species level. Fishing mortality (F) rates and biomass (B) levels relative to established reference points [@gabriel_review_1999] from assessments indicate the level of risk to achieving OY respectively from either overfishing or stock depletion.
 
 We applied low and high risk criteria for these elements as defined in U.S. law. Low risk criteria are F < Fmsy and B > Bmsy for an individual stock. High risk criteria are F > Fmsy and B < 0.5 Bmsy for an individual stock. The Council established the intermediate risk categories to address stocks with unknown status. Moderate-high risk was defined as unknown status in the absence of other information for both F and B. Low-moderate risk was defined as unknown status, but with a weight of evidence indicating low overfishing risk for F. Similarly, low-moderate risk for B was either 0.5 Bmsy < B < Bmsy or unknown status, but with a weight of evidence indicating low risk that the population is depleted.
 
