@@ -53,16 +53,20 @@ Table S1 - define OY. You may need to include the mechanism for setting /definin
 
 We thank the reviewer for these detailed and useful suggestions. Based on these we have made the following changes (line numbers refer to the original document so that reviewers can see specific responses):
 Added updated citations on the application of risk assessment in ecosystem based fishery management: Fletcher et al. 2012, Fletcher 2015, Smith et al. 2017 in the introductory paragraph and in the dicussion, as well as Fletcher et al. 2016 and Newman et al. 2018 in the discussion.
-line 48: changed to "waters in"
-line 108: the original sentence was overly complicated; we revised to "the EOP requested that recreational and commercial fisheries be distinguished in the assessment to differentiate risks between sectors"
-line 128: we added "For example, achieving biological objectives for a stock could be at risk from excessive fishing mortality, from habitat degredation, from climate change, or from a combination of these elements." All risk elements are fully explained in Table 1, which we now reference in this section.
-line 136: we have defined US fishery management objectives in the introduction (second paragraph) at the request of reviewer 2, and have clarified how OY is related to MSY using the definition from the US Code of Law. Other management objectives are now introduced early on as well to provide context. 
+Line 48: changed to "waters in"
+Line 108: the original sentence was overly complicated; we revised to "the EOP requested that recreational and commercial fisheries be distinguished in the assessment to differentiate risks between sectors"
+Line 128: we added "For example, achieving biological objectives for a stock could be at risk from excessive fishing mortality, from habitat degredation, from climate change, or from a combination of these elements." All risk elements are fully explained in Table 1, which we now reference in this section.
+Line 136: we have defined US fishery management objectives in the introduction (second paragraph) at the request of reviewer 2, and have clarified how OY is related to MSY using the definition from the US Code of Law. Other management objectives are now introduced early on as well to provide context. 
 Line 144: we clarified our terminology in the text: "Ecological (including stock biology, habitat, and ecosystem interactions)". We note that there was discussion of separating biological and ecological elements exactly as the reviewer noted in early conversations with the Council. However, the Council's EOP committee preferred combining all elements into an integrated "ecologcal" category, so we retain that category here.
-Line 164: we clarified by adding: The intent was to provide a transparent and "structured process that identifies how objectives may be affected, and analyses the risk in term of consequences and their probabilities" (ISO 2009a).
+Line 164: we clarified by adding: The intent was to provide a transparent and "structured process that identifies how objectives may be affected, and analyses the risk in terms of consequences and their probabilities" (ISO 2009a).
 Line 217: it is true that there is no Mid-Atlantic stock where there is "no assessment", so we removed that phrase.
 Line 222: we now reference Richards 2016, the operational assessment explaining inaccurate ageing; while we do not include this detail in the main document to avoid adding further length, the reference explains that it was both small (<40cm) and large (>75cm) sizes that had inaccurate ages based on vertebrae. It does not report the direction of bias, but ages were considered sufficiently inaccurate to discontinue the model-based assessment. This clearly meets the criteria for high risk for assessment performance.
 Line 228: we now clarify that standard U.S. reference points are Fmsy and Bmsy; in many cases proxies are estimated specific to each assessment; we have added the reference Gabriel and Mace 1999 which explains the derivation of reference points and proxies that are permitted under U.S. law. 
-
+Line 468: revised as suggested
+Line 486: 
+Line 595: To clarify the sources of community vulnerability, we moved the ratings summary paragraph (lines 594 to 598 in the original) down after the sections that explain all the source material (599-647 in the original). We also corrected the ratings paragraph to say "3 or more" rather than > 3; that was a mistake. We added text to further clarify that 3 or more was determined as high risk because with only 5 indicators, this means that a majority (60-100%) of the individual indicators were high risk, which can reasonably be summarized as high risk overall across multiple indicators.
+Line 606: We have added the following text: Here, we define gentrification in fishing communities as described by Colburn and Jepson 2012, where coastal population growth combined with an influx of higher-income people seeking waterfront property can increase property values and displace working-class residents engaged in resource-dependent activities. "Three common elements of gentrification are reuse of waterfront structures, construction of new housing, and growth within the services sector (Colburn and Jepson 2012)."
+Line 688: 
 
 Reviewer 2
 One minor limitation is that it's lacking a detailed account of how the stakeholders were engaged, providing caveats and recommendations for the selection, facilitation and consensus-building approach that is most likely crucial to the successful implementation of this framework. We realize that adding too much detail would impair the readability of the manuscript, but a succinct paragraph and reference to other documentation, if available, would be important to add (see also Q5).
@@ -87,6 +91,6 @@ We thank the reviewer for these detailed and useful suggestions. Based on these 
 line 45: we agree; changed to "rapidly"
 line 74-75: we agree; and have placed the definition of US fishery management objectives even earlier in the introduction. We have clarified how OY is related to MSY using the definition from the US Code of Law, and outlined the other objectives listed in the National Standards. 
 line 80: we have clarified in the text that the risk assessment will be used to prioritize specific actions directed at high-risk components.
-line 225: 
-line 875-878:
+line 225: we clarified that considerable data shortcomings require the use of the data-limited toolkit, which equates with high risk for assessment performance, and supplied references for the DLMtool software.
+line 875-878: 
 line 973: removed this section, which was left in the document in error; the actual supplement is after the figures and tables. 
