@@ -1181,7 +1181,7 @@ We gratefully acknowledge the members of the Mid Atlantic Fishery Management Cou
 \newpage
 #Figures
 
-```{r, fig.cap="Summary of single species status for Mid-Atlantic Fishery Management Council (MAFMC) stocks \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.9\\linewidth', echo = F, message = FALSE, warning = FALSE}
+```{r, fig.cap="Summary of single species status for Mid-Atlantic Fishery Management Council (MAFMC) and jointly managed (Joint) stocks, based on the most recent stock assessment or assessment update for each stock (2017 unless otherwise noted): Mackerel [@nefsc_64th_2018], 2016 Fluke (summer flounder,http://www.mafmc.org/s/Summer_flounder_2015_Assess_Update.pdf), Dogfish (http://www.mafmc.org/s/2017-Status-Report-for-spiny-dogfish.pdf), Tilefish (http://www.mafmc.org/s/Golden_Tile_Assessment_Update2017-POPDY.pdf), 2015 Bluefish [@nefsc_60th_2015], Butterfish (http://www.mafmc.org/s/Butterfish-2017-Stock-Assessment-Update.pdf), Ocean quahog [@nefsc_63rd_2017], Scup (http://www.mafmc.org/s/5Scup_2017_Assesssment_Update.pdf), Black sea bass [@nefsc_62nd_2017], Surfclam [@nefsc_61st_2017], Longfin squid (http://www.mafmc.org/s/Doryteuthis_update_April_2017.pdf), Illex squid (http://www.mafmc.org/s/Illex-illecebrosus_data_update_report_for_2017_MAFMC_SSC_ABC.pdf), Northern and Southern Monkfish [@richards_2016_2016]. \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.9\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
 
 dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
