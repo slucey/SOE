@@ -1806,7 +1806,7 @@ risk.sppsector %>%
   mutate_at(vars(-Species), function(x){ 
     cell_spec(x, format="latex", color = "gray", align = "c", background =factor(x, c("na", "l", "lm", "mh", "h"),c("white", "green", "yellow", "orange", "red")))}) %>%
   kable(risk.sppsector, format="latex", escape = F, booktabs = T, linesep = "",
-        caption="Species and sector level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{spsectable}") %>%
+        caption="Species and sector (C=commerical, R=recreational) level risk analysis results; l=low risk (green), lm= low-moderate risk (yellow), mh=moderate to high risk (orange), h=high risk (red)\\label{spsectable}") %>%
   kable_styling(font_size =  9)
 
 ```
@@ -1887,7 +1887,7 @@ library(knitr, quietly = T)
 t1 <- kable(creltab, format = 'latex', booktabs = T)
 t2 <- kable(rreltab, format = 'latex', booktabs = T)
 cat(c("\\begin{table}[h] \\centering ", 
-      "\\caption{Number of communities at each level of commercial (left) and recreational (right) reliance\\label{reliance}}",
+      "\\caption{Number of communities at each level of commercial (left) and recreational (right) reliance. ME=Maine, NH=New Hampshire, MA=Massachusetts, RI=Rhode Island, CT=Connecticut, NY=New York, NJ=New Jersey, PA=Pennsylvania, DE=Delaware, MD=Maryland, VA=Virginia, and NC=North Carolina.\\label{reliance}}",
       t1,
       "\\hspace{1cm} \\centering ",
       t2,
@@ -1906,7 +1906,7 @@ names(commdat) <- gsub(x = names(commdat),
                         pattern = "\\.",
                         replacement = " ")
 
-kable(commdat, format = 'latex', booktabs = T, caption = "Selected Mid-Atlantic Fishing Communities with Medium High to High Dependence on both Commercial and Recreational Fishing \\label{community}") %>%
+kable(commdat, format = 'latex', booktabs = T, caption = "Selected Mid-Atlantic Fishing Communities with Medium High to High Dependence on both Commercial and Recreational Fishing. ME=Maine, NH=New Hampshire, MA=Massachusetts, RI=Rhode Island, CT=Connecticut, NY=New York, NJ=New Jersey, PA=Pennsylvania, DE=Delaware, MD=Maryland, VA=Virginia, and NC=North Carolina. \\label{community}") %>%
   kable_styling(font_size=8) %>%  #, latex_options = "scale_down"
   column_spec(2:8, width = "2.5cm") %>%
   landscape()
@@ -2015,42 +2015,9 @@ soe.stacked.axis('Year', 'Number of Recreational Jobs',rel.y.text = 1)
 Based on this state-level information, most states show no trend in recreational fishery employment, but there is a significant recent increase in employment in one state, New Jersey. Therefore, this element ranks low risk. 
 -->
 
-
-##Supplement Figures 
-```{r, fig.cap="Shifts in modeled species fall habitat area over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid, H: Dogfish, I: Monkfish  \\label{shifts}", fig.height=9, echo = F, message = FALSE, warning = FALSE}
-#knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
-#out.width='\\linewidth'
-
-#SOE.data[Var %like% "ASDIST"]
-opar <- par(mfrow = c(9, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
-
-soe.plot(SOE.data, 'Time', 'BLACK SEA BASS Max Habitat Index Fall',    stacked = 'A', scale.axis = 100, 
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SUMMER FLOUNDER Max Habitat Index Fall',   stacked = 'B', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SCUP Max Habitat Index Fall',              stacked = 'C', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'BUTTERFISH Max Habitat Index Fall',        stacked = 'D', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'ATLANTIC MACKEREL Max Habitat Index Fall', stacked = 'E', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'LONGFIN SQUID Max Habitat Index Fall',     stacked = 'F', scale.axis = 100,
-         rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'NORTHERN SHORTFIN SQUID Max Habitat Index Fall', stacked = 'G', 
-         scale.axis = 100, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'SPINY DOGFISH Max Habitat Index Fall', stacked = 'H', 
-         scale.axis = 100, rel.y.num = 0.9)
-soe.plot(SOE.data, 'Time', 'GOOSEFISH Max Habitat Index Fall', stacked = 'I', 
-         scale.axis = 100, rel.y.num = 0.9)
-
-soe.stacked.axis('Year', expression('Habitat Model Area, 10'^2*' km'), rel.y.text = 1.5)
-
-```
-
-
 \newpage
 ##Supplement Tables 
-```{r suppriskel, tab.cap="Risk Elements, Definitions, and Indicators put aside for future evaluation\\label{riskelpa}", echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r suppriskel, tab.cap="Risk Elements, Definitions, and Indicators put aside for future evaluation. OY=Optimum Yield; please see main text for definition. \\label{riskelpa}", echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Risk Element         | Definition: Risk to what?                        |  Indicators used                                 |
 |:-------------------------------------|:-------------------------------------------------|:-------------------------------------------------|

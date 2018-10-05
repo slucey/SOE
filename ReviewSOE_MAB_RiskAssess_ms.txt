@@ -80,11 +80,12 @@ Figure 5: defined meaning of trendline colors, moved parenthetical text to end, 
 Figure 6: explained colors, and edited to clarify definitions: Fleet diversity measures A: fleet count (the number of distinct fleets, see text for fleet definitions), B: diversity of revenue across fleets (Top). Similar to above, uncertainty can be calculated but the Council reviewed the indicators as presented, so we are hesitant to change the presentation at this time.
 Figure 7: defined meaning of trendline colors. We want to emphasize that we agree with the reviewer that showing the indicators with appropriate uncertainty measures is ideal. We are working toward this in our updated ecosystem reporting. However, the Council reviewed the indicators as presented here (from the 2017 report) and we are hesitant to make changes to the presentation at this time.
 Figure 8: based on the reviewer's comments, we agree that the figure is overly complex and sends the wrong message; we have removed this figure.
-Table 4:
-Table 5:
-Table 6:
-Figure S1:
-Table S1:
+Table 4: defined colors and C=commercial sector, R=recreational sector in caption, **ToDo: try different text colors**
+Table 5: defined colors in caption. several options for how these tables can be used by managers are discussed in the text and further clarified based on reviewer comments.  Since the initial draft the managers have selected one of the methods and embarked on a new analysis as noted in the Discussion. We think this may be too much to add to the table captions so hope the issue is covered sufficiently in the revised Discussion.
+Tables 6&7: added state definitions to captions
+Figure S1: we have removed this figure because the methods have changed as the index has been developed; however, we kept the text in because the Council did review it and does want to include an index like this in future analyses. Because the Council did not review an updated analysis (but will in the coming months), we thought it better to leave this figure out for now.
+Table S1: defined OY; the main body of the text now explains OY and linkages to stock assessments sufficiently for this table to be interpretable.
+
  
 
 Reviewer 2
