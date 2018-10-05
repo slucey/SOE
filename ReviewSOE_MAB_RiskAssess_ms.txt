@@ -73,13 +73,13 @@ Line 905: we agree, and have parapgrased the reviewer's summary here and in the 
 Line 912: Thank you for this feedback; we agree that the figure is complex and not directly pertinent to the present paper, and likely counterproductive given the reviewer's impression. We have removed it. Instead, we have substituted text regarding the Council's recent (Oct 2 2018) decision to move forward with developing an EAFM conceptual model focused on summer flounder. 
 Line 973: removed this section, which was left in the document in error; the actual supplement is after the figures and tables. 
 Line 1148 - Figure 1: we have added assessment years and assessment references to the caption, and noted the difference between MAFMC and Joint stocks
-Figure 2: 
-Figure 3:
-Figure 4:
-Figure 5:
-Figure 6:
-Figure 7:
-Figure 8:
+Figure 2: reworded caption for clarity, and reference to extensive online documentation added
+Figure 3: species names italicized in caption, moved parenthetical text to end, spelled out MAB=Mid-Atlantic Bight, defined meaning of trendline colours **Still todo: Need to add scales to fish production**
+Figure 4: defined meaning of trendline colors, points, data source, and orientation of the along-shelf axis, and added a reference to the website where this indicator is updated. While measures of error could be calculated for this indicator, there is ongoing work to determine what they should be; the Council reviewed the indicator as presented here and we are hesitant to change the presentation at this time. We are happy to defer to the journal editors on whether common names for fishery species are sufficient or if we should add scientific names in figure captions; we have no strong opinion either way. Given the length of the caption already, we have left them out for now. There is no common name for the major zooplankton species in Fig 3 so that is why we used the scientific name.
+Figure 5: defined meaning of trendline colors, moved parenthetical text to end, and text has been added in the economics section describing what drives the inter-annual variability between adjacent years for the recreational indicators, which have the most interannual variability. Some of these indicators may have estimable undertainty, and work is ongoing to investigate appropriate methods. However, the Council reviewed the indicator as presented here and we are hesitant to change the presentation at this time. 
+Figure 6: explained colors, and edited to clarify definitions: Fleet diversity measures A: fleet count (the number of distinct fleets, see text for fleet definitions), B: diversity of revenue across fleets (Top). Similar to above, uncertainty can be calculated but the Council reviewed the indicators as presented, so we are hesitant to change the presentation at this time.
+Figure 7: defined meaning of trendline colors. We want to emphasize that we agree with the reviewer that showing the indicators with appropriate uncertainty measures is ideal. We are working toward this in our updated ecosystem reporting. However, the Council reviewed the indicators as presented here (from the 2017 report) and we are hesitant to make changes to the presentation at this time.
+Figure 8: based on the reviewer's comments, we agree that the figure is overly complex and sends the wrong message; we have removed this figure.
 Table 4:
 Table 5:
 Table 6:

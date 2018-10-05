@@ -51,15 +51,15 @@ bibliography: My_Library.bib
 #gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
 #data.dir <- 'Z:\\SOE2017\\data'
 #image.dir <- 'Z:\\SOE2017\\images'
-#data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
-#image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
-#gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
 #data.dir  <- './data'
 #image.dir <- './images'
 #gis.dir <- './usa_shape_files'
-data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
-image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
-gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
 PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {  
@@ -1181,7 +1181,9 @@ We gratefully acknowledge the members of the Mid Atlantic Fishery Management Cou
 \newpage
 #Figures
 
-```{r, fig.cap="Summary of single species status for Mid-Atlantic Fishery Management Council (MAFMC) and jointly managed (Joint) stocks, based on the most recent stock assessment or assessment update for each stock (2017 unless otherwise noted): Mackerel [@nefsc_64th_2018], 2016 Fluke (summer flounder,http://www.mafmc.org/s/Summer_flounder_2015_Assess_Update.pdf), Dogfish (http://www.mafmc.org/s/2017-Status-Report-for-spiny-dogfish.pdf), Tilefish (http://www.mafmc.org/s/Golden_Tile_Assessment_Update2017-POPDY.pdf), 2015 Bluefish [@nefsc_60th_2015], Butterfish (http://www.mafmc.org/s/Butterfish-2017-Stock-Assessment-Update.pdf), Ocean quahog [@nefsc_63rd_2017], Scup (http://www.mafmc.org/s/5Scup_2017_Assesssment_Update.pdf), Black sea bass [@nefsc_62nd_2017], Surfclam [@nefsc_61st_2017], Longfin squid (http://www.mafmc.org/s/Doryteuthis_update_April_2017.pdf), Illex squid (http://www.mafmc.org/s/Illex-illecebrosus_data_update_report_for_2017_MAFMC_SSC_ABC.pdf), Northern and Southern Monkfish [@richards_2016_2016]. \\label{KOBE}", fig.height=7, fig.width=7, out.width='0.9\\linewidth', echo = F, message = FALSE, warning = FALSE}
+(ref:KOBEcaption) Summary of single species status for Mid-Atlantic Fishery Management Council (MAFMC) and jointly managed (Joint) stocks, based on the most recent stock assessment or assessment update for each stock (2017 unless otherwise noted): Mackerel [@nefsc_64th_2018], 2016 Fluke (summer flounder,http://www.mafmc.org/s/Summer_flounder_2015_Assess_Update.pdf), Dogfish (http://www.mafmc.org/s/2017-Status-Report-for-spiny-dogfish.pdf), Tilefish (http://www.mafmc.org/s/Golden_Tile_Assessment_Update2017-POPDY.pdf), 2015 Bluefish [@nefsc_60th_2015], Butterfish (http://www.mafmc.org/s/Butterfish-2017-Stock-Assessment-Update.pdf), Ocean quahog [@nefsc_63rd_2017], Scup (http://www.mafmc.org/s/5Scup_2017_Assesssment_Update.pdf), Black sea bass [@nefsc_62nd_2017], Surfclam [@nefsc_61st_2017], Longfin squid (http://www.mafmc.org/s/Doryteuthis_update_April_2017.pdf), Illex squid (http://www.mafmc.org/s/Illex-illecebrosus_data_update_report_for_2017_MAFMC_SSC_ABC.pdf), Northern and Southern Monkfish [@richards_2016_2016].
+
+```{r KOBE, fig.cap="(ref:KOBEcaption)", fig.height=7, fig.width=7, out.width='0.9\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'MAFMC_joint_stocks_2017.pdf'))
 
 dat <- read.csv(file.path(data.dir,"2017assess.csv")) 
@@ -1281,7 +1283,7 @@ plot(MABO$Brat,MABO$Frat,xlim=x.r,ylim=y.r,xlab="B/Bmsy",ylab="F/Fmsy",pch=16,co
 \newpage
 
 
-```{r, fig.cap="Northeast US Ecosystem Production units. \\label{EPUmap}", echo = F, out.width='0.9\\linewidth'}
+```{r, fig.cap="Ecosystem Production Units defined for the Northeast US shelf (see https://noaa-edab.github.io/tech-memo/epu.html). \\label{EPUmap}", echo = F, out.width='0.9\\linewidth'}
 image_read(file.path(image.dir,"NEshelfEcoRegionsALL.png")) %>%
 image_trim()
 
@@ -1321,7 +1323,7 @@ knitr::include_graphics(file.path(image.dir, c('MAFMC_Fish_Condition.jpg', 'Fish
 
 ```
 
-```{r, fig.cap="(Top right) Primary production in the Mid Atlantic Bight; (Top left) A: Centropages typicus spring, B: Centropages the time series is detrended, the lag-1 serial autocorrelation coefficient of the detrended time series is computed and then removed from the detrended time series, then the trend and residuals remaining after removal of autocorrelation are summed and the Mann-Kendal test for trend is then applied to this time series with autocorrelation removedtypicus fall; (Bottom right) Fish condition, weight/length; (Bottom left) Fish productivity: Anomalies of recruit abundance per spawner biomass for species in the MAB. Annual anomalies shown are the average of spring and fall anomalies. \\label{ecoprod}",, fig.height=0.05}
+```{r, fig.cap="Primary production in the Mid Atlantic Bight (Top right);  A: \\textit{Centropages typicus} spring, B: \\textit{Centropages typicus} fall, where light orange trendlines indicate significant long term increases and light purple trendlines indicate significant long term decreases (Top left); Fish condition, proportional weight/length anomaly from that predicted by growth curves, where  (Bottom right); Fish productivity: Anomalies of recruit abundance per spawner biomass for species in the Mid-Atlantic Bight. Annual anomalies shown are the average of spring and fall anomalies (Bottom left). \\label{ecoprod}",, fig.height=0.05}
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
@@ -1330,7 +1332,7 @@ plot(0,0,typ='n',axes=F,xlab='',ylab='')
 \newpage
 
 
-```{r, fig.cap="Shifts in species distribution over time; A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, out.width='0.8\\linewidth', echo = F, message = FALSE, warning = FALSE}
+```{r, fig.cap="Shifts in species distribution over time, where light orange trendlines indicate significant long term increases, and dark orange trendlines indicate significant recent (10 year) increases. Points are derived from fishery-independent bottom trawl survey data collected by the Northeast Fisheries Science Center,and correspond to mean distance in km of the population centroid from the southwest origin of the along-shelf axis at 0 km. The along-shelf axis begins at 76.53 degrees W 34.60 degrees N and terminates at 65.71 W 43.49 N. (see https://www.nefsc.noaa.gov/ecosys/current-conditions/species-dist.html); A: Black sea bass, B: Summer flounder, C: Scup, D: Butterfish, E: Atlantic mackerel, F: Longfin squid, G: Shortfin squid \\label{shifts}", fig.height=8, out.width='0.8\\linewidth', echo = F, message = FALSE, warning = FALSE}
 #knitr::include_graphics(file.path(image.dir, 'dist-trend_all.png'))
 #out.width='\\linewidth'
 
@@ -1434,7 +1436,7 @@ soe.plot(allent, 'Time', 'Mid-Atlantic Nonemployer Entities', rel.y.num = 0.8, x
 
 ```
 
-```{r, fig.cap="(Top left) Aggregate Mid-Atlantic managed species revenue; (Top right) Diversity in species revenue; (Bottom left) Recreational participation: A: number of anglers, B: number of trips; (Bottom right) Shoreside support businesses: Number of Companies (upper) and Number of Nonemployer entities (lower) \\label{econinds}", fig.height=0.05}
+```{r, fig.cap="Economic indicators: light purple trendlines indicate significant long term decreases, and dark purple trendlines indicate significant recent (10 year) decreases, and light orange trendlines indicate significant long term increases. Aggregate Mid-Atlantic managed species revenue (Top left); Diversity in species revenue (Top right); Recreational participation: A: number of anglers, B: number of trips (Bottom left); Shoreside support businesses: Number of Companies (upper, bottom right) and Number of Nonemployer entities (lower, bottom right) \\label{econinds}", fig.height=0.05}
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
@@ -1579,7 +1581,7 @@ a <- legend('bottomright',
 
 ```
 
-```{r, fig.cap="Fishing community resilience: (Top) Fleet diversity--A: fleet count, B: average fleet diversity; (Bottom) Risks from sea level rise (A), reliance on climate-vulnerable species (B), and catch diversity (C) \\label{commrisk}", fig.height=0.05}
+```{r, fig.cap="Fishing community resilience: light purple trendlines indicate significant long term decreases. Fleet diversity measures A: fleet count (the number of distinct fleets, see text for fleet definitions), B: diversity of revenue across fleets (Top); Risks from sea level rise (A), reliance on climate-vulnerable species (B), and catch diversity (C) (Bottom) \\label{commrisk}", fig.height=0.05}
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
@@ -1612,7 +1614,7 @@ soe.stacked.axis('Year', 'N Recreationally Harvested Fish',rel.y.text = 1)
 ```
 
 
-```{r, fig.cap="Seafood production: (Left) Aggregate Mid-Atlantic managed species commercial landings; (Right) A: Total recreational harvest, B: Harvest per angler \\label{seafood}", fig.height=0.05}
+```{r, fig.cap="Seafood production indicators: light purple trendlines indicate significant long term decreases, and dark purple trendlines indicate significant recent (10 year) decreases. Aggregate Mid-Atlantic managed species commercial landings (Left) ; A: Total recreational harvest, B: Harvest per angler (Right)  \\label{seafood}", fig.height=0.05}
 opar<-par(mar=c(0,0,0,0))
 plot(0,0,typ='n',axes=F,xlab='',ylab='')
 
