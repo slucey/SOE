@@ -1,0 +1,336 @@
+---
+title: "Supplemental Information for Implementing Ecosystem Approaches to Fishery Management: Risk Assessment in the US Mid-Atlantic"
+author:
+- name: Sarah K. Gaichas*, Geret S. DePiper 
+  affiliation: NOAA NMFS Northeast Fisheries Science Center, Woods Hole, MA, USA
+- name: Richard J. Seagraves, Brandon W. Muffley, Mary Sabo
+  affiliation: Mid-Atlantic Fishery Management Council, Dover, DE, USA
+- name: Lisa L. Colburn
+  affiliation: NOAA NMFS Northeast Fisheries Science Center, Narragansset, RI, USA
+- name: Andrew J. Loftus
+  affiliation: Fisheries Consultant, Annapolis, MD, USA
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  pdf_document:
+    includes:
+      in_header: riskassess-preamble-latex.tex
+    keep_tex: yes
+    toc: no
+    template: svm-latex-ms.tex
+  html_document:
+    toc: yes
+  word_document:
+    toc: no
+fontsize: 11pt
+geometry: margin=0.8in
+csl: frontiers.csl
+bibliography: My_Library.bib
+---
+
+####Correspondence: Sarah K. Gaichas, <Sarah.Gaichas@noaa.gov> 
+
+
+```{r Directory and Data Set-up, echo = F, message = F , warning = F}
+#data.dir  <- '/home/slucey/EcoAP/SOE2017/data'
+#image.dir <- '/home/slucey/EcoAP/SOE2017/images'
+#gis.dir   <- '/home/slucey/EcoAP/SOE2017/GIS'
+#data.dir <- 'Z:\\SOE2017\\data'
+#image.dir <- 'Z:\\SOE2017\\images'
+data.dir  <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/data'
+image.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/images'
+gis.dir <- '/users/sgaichas/Documents/0_Data/ESR/SOE2017/GIS'
+#data.dir  <- './data'
+#image.dir <- './images'
+#gis.dir <- './usa_shape_files'
+#data.dir  <- '/home/sgaichas/Data/Projects/ESR/SOE2017/data'
+#image.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/images'
+#gis.dir <- '/home/sgaichas/Data/Projects/ESR/SOE2017/GIS'
+PKG <- c("data.table","Kendall","rgdal","tidyverse","nlme", 'magick',"knitr",'kableExtra','zyp')
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {  
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
+load(file.path(data.dir, 'SOE_data.RData'))
+load(file.path(data.dir, 'Comm_Climate_Vul.RData'))
+load(file.path(data.dir, 'Fisheries_Eng_Rel.RData'))
+knitr::opts_chunk$set(echo = FALSE, fig.align='center',fig.path = './riskassessfigs/')
+
+#to get table captions and numbering
+tn = local({
+  i = 0
+  function(x) {
+    i <<- i + 1
+    #paste('\n\n:Table ', i, ': ', x, sep = '')
+    paste('\n\n:', x, sep = '')
+    # The : before Table tells pandoc to wrap your caption in <caption></caption>
+  }
+})
+knit_hooks$set(tab.cap = function(before, options, envir) {
+  if(!before)
+    tn(options$tab.cap)
+})
+default_output_hook = knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  if (is.null(options$tab.cap) == F)  
+    x
+  else
+    default_output_hook(x,options)
+})
+
+```
+
+```{r Generic Plot Function, echo = F}
+#Plot figure new
+soe.plot <- function(data, x.var, y.var, x.label = '', y.label = '', tol = 0.1,
+                     x.start = NA, x.end = NA, end.start = 2006, bg.col = background,
+                     end.col = recent, trend.neg = main.neg, trend.pos = main.pos,
+                     end.trend.neg = end.neg, end.trend.pos = end.pos,
+
+                     stacked = NA, x.line = 2.6, y.line = 3.5, scale.axis = 1,
+                     rel.y.num = 1.5, rel.y.text = 1.5){
+ 
+  #Select Data
+  x <- data[Var == y.var, ]
+  x <- x[order(x[, get(x.var)]), ]
+  setnames(x, x.var, 'X')
+ 
+  #Set common time step if necessary
+  if(is.na(x.start)) x.start <- min(x[, X])
+  if(is.na(x.end))   x.end   <- max(x[, X])
+  x <- x[X >= x.start, ]
+ 
+  #Set up plot parameters
+  y.max <- max(x[, Value], na.rm = T) + tol * max(x[, Value], na.rm = T)
+  y.min <- min(x[, Value], na.rm = T) - tol * abs(min(x[, Value], na.rm = T))
+  y.mean <- mean(x[, Value], na.rm = T)
+  y.sd <- sd(x[, Value], na.rm = T)
+ 
+  #Plot blank plot
+  plot(x[X >= x.start, list(X, Var)], xlim = c(x.start, x.end),
+       ylim = c(y.min,y.max), xlab = '', ylab = '', axes = F, ty = 'n')
+ 
+  #Add background
+  u <- par('usr')
+  rect(u[1], u[3], u[2], u[4], border = NA, col = bg.col)
+ 
+  #Add end period shading
+  rect(end.start - 0.5, u[3], u[2], u[4], border = NA, col = end.col)
+  abline(h = u[3], lwd=3)
+  abline(v = u[1], lwd=3)
+ 
+  #Add grides
+  abline(h = y.mean + y.sd, col = 'white', lwd = 3, lty = 2)
+  abline(h = y.mean - y.sd, col = 'white', lwd = 3, lty = 2)
+ 
+  #Add data points/lines
+  points(x[, list(X, Value)], pch = 16, cex = 1.5)
+  lines( x[, list(X, Value)], lwd = 2)
+ 
+  #Add axis
+  if(is.na(stacked)) axis(1, cex.axis = 1.5)
+  if(!is.na(stacked)){
+    if(stacked!= 'A') axis(3, cex.axis = 1.5, tck = 0.1, labels = F)
+  }
+  #Stacked axes with 0 overlap so need to remove
+  if(scale.axis != 1){
+        labels <- axTicks(2) / scale.axis
+        if(labels[1] == 0) labels[1] <- ''
+        axis(2, at = axTicks(2), labels = as.numeric(labels), cex.axis = rel.y.num,
+             las = T)
+    } else {axis(2, cex.axis = rel.y.num, las = T)}
+
+  #Identify significant trends
+  #Whole time series
+  mksts <- zyp.trend.vector(x[, Value])
+  mkstsp <- round(unlist(mksts[6]), 3)
+ 
+  if(mkstsp < 0.05){
+    lmod <- lm(x[, Value] ~ x[, X])
+    lmod_c <- unlist(lmod[1])
+    lmod_i <- lmod_c[1]
+    lmod_s <- lmod_c[2]
+    if(lmod_s > 0){
+      lines(x[, X], lmod_s * x[, X] + lmod_i,
+            col = trend.pos, lty = 1, lwd = 7)
+    }
+    if(lmod_s < 0){
+      lines(x[, X], lmod_s * x[, X] + lmod_i,
+            col = trend.neg, lty = 1, lwd = 7)
+    }
+  }
+ 
+  #Final portion of time series
+  mksld <- zyp.trend.vector(x[X > (end.start - 1), Value])
+  mksldp <- round(unlist(mksld[6]), 3)
+  if(mksldp < 0.05){
+    l10_x <- x[X > (end.start - 1), X]
+    l10_y <- x[X > (end.start - 1), Value]
+    lmod <- lm(l10_y ~ l10_x)
+    lmod_c <- unlist(lmod[1])
+    lmod_i <- lmod_c[1]
+    lmod_s <- lmod_c[2]
+    if(lmod_s > 0){
+      lines(l10_x, lmod_s * l10_x + lmod_i,
+            col = end.trend.pos, lwd=7)
+    }
+    if(lmod_s < 0){
+      lines(l10_x, lmod_s * l10_x + lmod_i,
+            col = end.trend.neg, lwd=7)
+    }
+  }
+ 
+  #Add axis labels
+  if(!is.na(stacked)) text(u[1], u[4], labels = stacked, cex = 2, adj = c(-0.5, 1.5))
+  if(is.na(stacked)){
+    mtext(1, text = x.label, line = x.line, cex = 1.5)
+    mtext(2, text = y.label, line = y.line, cex = rel.y.text)
+  }
+}
+
+#Add axis labels for stacked plots
+soe.stacked.axis <- function(x.label, y.label, x.line = 2.6,
+                             y.line = 3.5, rel.y.text = 1.5){
+  axis(1, cex.axis = 1.5)
+  mtext(1, text = x.label, line = x.line, cex = 1.5, outer = T)
+  mtext(2, text = y.label, line = y.line, cex = rel.y.text, outer = T)
+}
+
+```
+
+
+```{r Plot options, echo = F}
+#Background colors
+background   <- '#F4F7F2'
+recent       <- '#E6E6E6'
+#trend lines
+main.pos <- rgb(253/255, 184/255, 99/255,  alpha = 0.8)
+main.neg <- rgb(178/255, 171/255, 210/255, alpha = 0.8)
+end.pos  <- rgb(230/255, 97/255,  1/255,   alpha = 0.8)
+end.neg  <- rgb(94/255,  60/255,  153/255, alpha = 0.8)
+
+```
+
+# Supplement Text
+
+## Unranked Risk Elements
+
+###Offshore habitat element-in-progress
+This element is applied at the species level. The risk of achieving OY due to changes in offshore habitat quality and quantity can be assessed using trends derived from experimental species-specific habitat modeling. *In addition, the number of threats from other human uses can be enumerated; at present this is addressed under "Other Ocean Uses" in the Management section.*
+<!--
+```{r riskoffhab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No change in offshore habitat quality or quantity |
+| Low-Moderate | Increasing variability in habitat quality or quantity |
+| Moderate-High | Significant long term decrease in habitat quality or quantity |
+| High | Significant recent decrease in habitat quality or quantity |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+-->
+Low risk was defined as no change in offshore habitat quality or quantity. Low-Moderate risk was increasing variability in habitat quality or quantity. Moderate-High risk was a significant long-term decrease in habitat quality or quantity. High risk was a significant recent decrease in habitat quality or quantity.
+
+Habitat models using both static and dynamics variables have been developed for many of the resource species on the Northeast Shelf. These models estimate spring and fall habitat for the time series 1992 to 2016 reflecting the use of the ecosystem based on the NEFSC bottom trawl survey. The variables evaluated for use in these models included station salinity, station temperature, benthic complexity, satellite derived chlorophyll concentration and sea surface temperature, the gradient magnitude (front structure) of the satellite data, and zooplankton bio-volume and taxa abundance with station depth included in all models. The random forest approach differentiates variables with strong predictive power and was used to reduce the variable set to 11 variables for each species. The models were used to estimate fall habitat scores over the entire shelf over the time series.
+
+<!--Spring and fall habitat trends for Northeast Shelf species over the time period 1992 to 2016 were evaluated using the number square km in a single habitat interval from habitat modeling.  Fall indices for Council species are below, with spring on the following page. *mapping linear model slope estimates for grid locations constrained to the segment of the shelf used by each species. These segments were estimated as a 99% kernel density shapes based on occurrence of each species during the study period.* -->
+Overall, black sea bass, summer flounder, and scup have long term increasing trends in fall offshore habitat, and dogfish, butterfish, Atlantic mackerel and longfin squid have short term increasing trends. monkfish has no significant trend in fall offshore habitat. Therefore, these species rank low risk for this element. However, shortfin squid has a long term and a short term decreasing trend in offshore habitat. Therefore, shortfin squid ranks high risk for this element. 
+
+Ocean quahogs, surfclams, tilefish, and bluefish are not adequately sampled by the bottom trawl survey and were not included in this analysis, similar to unmanaged forage and deepsea corals. Sessile species in particular may be highly vulnerable to habitat changes, so assessments of their habitat are particularly important to develop.
+
+*This experimental habitat index is still being studied and improved, so the habitat risk rankings based on this are considered preliminary by the EOP, and are not included in the final risk assessment.* 
+
+
+###Commercial employment
+This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the commercial sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. A full description of the model generating employment estimates can be found here:  http://www.st.nmfs.noaa.gov/documents/commercial_seafood_impacts_2007-2009.pdf
+<!--
+```{r riskcemp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No trend in employment |
+| Low-Moderate | Increasing or high variability in employment |
+| Moderate-High | Significant recent decrease in employment for one state |
+| High | Significant recent decrease in employment for multiple states |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+-->
+Low risk criteria were no trends in employment. Low-Moderate risk criteria were increasing or high variability in employment. Moderate-High risk criteria was a  significant recent decrease in employment for one state. High risk criteria were significant recent decreases in employment for multiple states. 
+
+The EOP Committee lacked confidence in the available employment indicator data, so this element remains unranked at this time.
+
+<!--
+This is commercial employment by state.
+
+```{r CommJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{commjobs}", echo = F, fig.height=5.5}
+opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'New_York Commercial Jobs', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'New Jersey Commercial Jobs', rel.y.num = 0.8, stacked = 'B')
+soe.plot(SOE.data, 'Time', 'Delaware Commercial Jobs', rel.y.num = 0.8, stacked = 'C')
+soe.plot(SOE.data, 'Time', 'Maryland Commercial Jobs', rel.y.num = 0.8, stacked = 'D')
+soe.plot(SOE.data, 'Time', 'Virginia Commercial Jobs', rel.y.num = 0.8, stacked = 'E')
+
+soe.stacked.axis('Year', 'Number of Commercial Jobs',rel.y.text = 1)
+```
+
+Based on this state-level information, most states show no trend in commercial fishery employment, but there is a significant recent decrease in employment in one state, Virginia. Therefore, this element ranks moderate-high risk. New York and New Jersey went from the hightest to lowest employment numbers within the most recent 2-4 years, suggesting increasing variability. 
+-->
+
+###Recreational employment
+This element is applied at the state level. This element ranks the risk of not optimizing employment opportunities in the recreational sector. Risks were assessed by examining time series of employment information from Fisheries Economics of the U.S. [@nmfs_fisheries_2017]. 
+<!--
+```{r riskremp, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Level         | Definition                                                          |  
+|:-------------------|:--------------------------------------------------------------------|
+| Low  | No trend in employment |
+| Low-Moderate | Increasing or high variability in employment |
+| Moderate-High | Significant recent decrease in employment for one state |
+| High | Significant recent decrease in employment for multiple states |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+-->
+
+The EOP Committee agreed to the same risk ranking criteria as for commercial fishery employment, but similarly lacked confidence in the available employment indicator data, so this element remains unranked at this time.
+<!--
+This is recreational employment by state.
+
+```{r RecJobs, fig.cap="A: New York, B: New Jersey, C: Delaware, D: Maryland, E: Virginia  \\label{recjobs}", echo = F, fig.height=5.5}
+opar <- par(mfrow = c(5, 1), mar = c(0, 0, 0, 0), oma = c(4, 6, 2, 6))
+soe.plot(SOE.data, 'Time', 'New_York Recreational Jobs', rel.y.num = 0.8, stacked = 'A')
+soe.plot(SOE.data, 'Time', 'New Jersey Recreational Jobs', rel.y.num = 0.8, stacked = 'B')
+soe.plot(SOE.data, 'Time', 'Delaware Recreational Jobs', rel.y.num = 0.8, stacked = 'C')
+soe.plot(SOE.data, 'Time', 'Maryland Recreational Jobs', rel.y.num = 0.8, stacked = 'D')
+soe.plot(SOE.data, 'Time', 'Virginia Recreational Jobs', rel.y.num = 0.8, stacked = 'E')
+
+soe.stacked.axis('Year', 'Number of Recreational Jobs',rel.y.text = 1)
+```
+
+Based on this state-level information, most states show no trend in recreational fishery employment, but there is a significant recent increase in employment in one state, New Jersey. Therefore, this element ranks low risk. 
+-->
+
+# References
+<div id="refs"></div>
+
+\newpage
+#Supplement Table 
+```{r suppriskel, tab.cap="Risk Elements, Definitions, and Indicators put aside for future evaluation. OY=Optimum Yield; please see main text for definition. \\label{riskelpa}", echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Risk Element         | Definition: Risk to what?                        |  Indicators used                                 |
+|:-------------------------------------|:-------------------------------------------------|:-------------------------------------------------|
+| **Put Aside** |  |
+| Population diversity  | Risk of not achieving OY due to reduced diversity   | Size composition, sex ratio, genetic diversity |
+| Ecological diveristy  | Risk of not achieving OY due to reduced diversity   | Fishery independent species diversity |
+| Fishery Resilience (2)  | Risk of reduced fishery business resilience due to access to capital |  No current indicator avilable |         
+| Fishery Resilience (3)  | Risk of reduced fishery business resilience due to insurance availabilty  |  No current indicator available |
+| Fishery Resilience (5)  | Risk of reduced fishery business resilience due to access to emerging markets/opportunities  | Needs clarification  |
+| Commercial Employment   | Risk of not optimizing employment opportunities | EOP Committee unconfident in Fisheries of US employment inicator |
+| Recreational Employment | Risk of not optimizing employment opportunities | EOP Committee unconfident in Fisheries of US employment indicator |
+| Seafood safety   | Risk of not maintaining market access, human health    | Number of public advisories by species |
+
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
